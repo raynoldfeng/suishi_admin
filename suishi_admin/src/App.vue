@@ -4,7 +4,7 @@
           <el-header class="blues">Header</el-header>
           <el-container>
               <el-aside width="200px">
-                  <el-menu :default-openeds="['1', '3']">
+                  <el-menu >
                       <el-submenu index="1">
                           <template slot="title">全局</template>
                               <el-menu-item index="1-1" @click="jumpEvent('jurisdiction')">管理权限</el-menu-item>
@@ -12,11 +12,11 @@
                       </el-submenu>
                       <el-submenu index="2">
                           <template slot="title">题库</template>
-                          <el-menu-item-group>
-                              <el-menu-item index="2-1">专业列表</el-menu-item>
+
+                              <el-menu-item index="2-1"  @click="jumpEvent('majorList')">专业列表</el-menu-item>
                               <el-menu-item index="2-2" @click="jumpEvent('coursewareList')">课件列表</el-menu-item>
                               <el-menu-item index="2-3" @click="jumpEvent('testList')">测试列表</el-menu-item>
-                          </el-menu-item-group>
+
                       </el-submenu>
                       <el-submenu index="3">
                           <template slot="title">实战组队</template>
@@ -42,6 +42,7 @@
                           <template slot="title">用户管理</template>
                           <el-menu-item-group>
                               <el-menu-item index="6-1">用户管理</el-menu-item>
+                              <el-menu-item index="6-2">运营账户管理</el-menu-item>
                           </el-menu-item-group>
                       </el-submenu>
                   </el-menu>
@@ -74,6 +75,9 @@ export default {
     body{
     margin:0;
 
+    }
+    ul li{
+    list-style: none;
     }
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;

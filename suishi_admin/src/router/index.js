@@ -8,6 +8,9 @@ import addCourseware from '@/components/addCourseware'
 import testList from '@/components/testList'
 import labelAdmin from '@/components/labelAdmin'
 import circleList from '@/components/circleList'
+import addGame from '@/components/addGame'
+import majorList from '@/components/majorList'
+import addMajor from '@/components/addMajor'
 Vue.use(Router)
 
 export default new Router({
@@ -51,6 +54,21 @@ export default new Router({
           path: '/circleList',
           name: 'circleList',
           component: circleList
+      },
+      {
+          path: '/addGame',
+          name: 'addGame',
+          component: addGame
+      },
+      {
+          path: '/majorList',
+          name: 'majorList',
+          component: majorList
+      },
+      {
+          path: '/addMajor',
+          name: 'addMajor',
+          component: addMajor
       }
   ]
 })

@@ -55,6 +55,7 @@
             :type="tag.type">
   {{tag.name}}
             </el-tag>
+            <el-button @click="LabelDialog(true)">添加</el-button>
         </div>
         <div class="view_main">
             <p>封面图</p>
@@ -91,6 +92,10 @@
             <div class="view_main">
                 <el-button>提交</el-button>
             </div>
+            <el-dialog title="收货地址" :visible.sync="dialogTableVisible">
+                <div>sadasd</div>
+                <el-button @click="LabelDialog(false)">保存并关闭</el-button>
+            </el-dialog>
     </div>
 </template>
         <script>
@@ -135,7 +140,8 @@
                             { name: '标签四', type: 'warning' },
                             { name: '标签五', type: 'danger' }
                         ],
-                         imageUrl: ''
+                         imageUrl: '',
+            dialogTableVisible: false,
                     }
                 },
                 methods:{
@@ -153,6 +159,9 @@
             this.$message.error('上传头像图片大小不能超过 2MB!');
             }
             return isJPG && isLt2M;
+            },
+            LabelDialog(boolean){
+            this.dialogTableVisible = boolean;
             }
             }
             }

@@ -29,20 +29,20 @@
                           <template slot="title">圈子</template>
                           <el-menu-item-group>
                               <el-menu-item index="4-1" @click="jumpEvent('circleList')">圈子列表</el-menu-item>
-                              <el-menu-item index="4-2">圈子类型管理</el-menu-item>
+                              <el-menu-item index="4-2" @click="jumpEvent('circleType')">圈子类型管理</el-menu-item>
                           </el-menu-item-group>
                       </el-submenu>
                       <el-submenu index="5">
                           <template slot="title">帖子</template>
                           <el-menu-item-group>
-                              <el-menu-item index="5-1">帖子列表</el-menu-item>
+                              <el-menu-item index="5-1"  @click="jumpEvent('postList')">帖子列表</el-menu-item>
                           </el-menu-item-group>
                       </el-submenu>
                       <el-submenu index="6">
                           <template slot="title">用户管理</template>
                           <el-menu-item-group>
-                              <el-menu-item index="6-1">用户管理</el-menu-item>
-                              <el-menu-item index="6-2">运营账户管理</el-menu-item>
+                              <el-menu-item index="6-1" @click="jumpEvent('userAdministration')">用户管理</el-menu-item>
+                              <el-menu-item index="6-2" @click="jumpEvent('operateAdministration')">运营账户管理</el-menu-item>
                           </el-menu-item-group>
                       </el-submenu>
                   </el-menu>

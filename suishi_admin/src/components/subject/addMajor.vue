@@ -36,6 +36,17 @@
             </el-select>
         </div>
         <div class="view_main">
+            <span>标签</span>
+            <el-tag
+            v-for="tag in tags"
+            :key="tag.name"
+            closable
+            :type="tag.type">
+  {{tag.name}}
+            </el-tag>
+            <el-button @click="LabelDialog(true)">添加</el-button>
+        </div>
+        <div class="view_main">
             <span class="type_title">封绘图</span>
             <el-upload
             class="avatar-uploader "
@@ -50,40 +61,56 @@
             <div class="view_main">
                 <el-button>提交</el-button>
             </div>
+            <el-dialog title="收货地址" :visible.sync="dialogTableVisible">
+               <div>sadasd</div>
+                <el-button @click="LabelDialog(false)">保存并关闭</el-button>
+            </el-dialog>
         </div>
     </template>
     <script>
     export default{
-        data(){
-        return{
-        isUseMenu: [
-        {value: "true",
-        label: "是"},
-        {value: "false",
-        label: "否"}
-        ],
-        isUse: "false",
-        textarea:"",
-        imageUrl: ''
-        }
-        },
-        methods: {
-        handleAvatarSuccess(res, file) {
-        this.imageUrl = URL.createObjectURL(file.raw);
-        },
-        beforeAvatarUpload(file) {
-        const isJPG = file.type === 'image/jpeg';
-        const isLt2M = file.size / 1024 / 1024 < 2;
+            data(){
+                return{
+                    isUseMenu: [
+                        {value: "true",
+                        label: "是"},
+                        {value: "false",
+                        label: "否"}
+                    ],
+                    isUse: "false",
+                    textarea:"",
+                    imageUrl: '',
+                    tags: [
+                        { name: '标签一', type: '' },
+                        { name: '标签二', type: 'success' },
+                        { name: '标签三', type: 'info' },
+                        { name: '标签四', type: 'warning' },
+                        { name: '标签五', type: 'danger' }
+                    ],
+                dialogTableVisible: false,
+                }
+            },
+            methods: {
+                handleAvatarSuccess(res, file) {
+                    this.imageUrl = URL.createObjectURL(file.raw);
+                },
+                beforeAvatarUpload(file) {
+                    const isJPG = file.type === 'image/jpeg';
+                    const isLt2M = file.size / 1024 / 1024 < 2;
 
-        if (!isJPG) {
-        this.$message.error('上传头像图片只能是 JPG 格式!');
-        }
-        if (!isLt2M) {
-        this.$message.error('上传头像图片大小不能超过 2MB!');
-        }
-        return isJPG && isLt2M;
-        }
-        }
+                    if (!isJPG) {
+                    this.$message.error('上传头像图片只能是 JPG 格式!');
+                    }
+                    if (!isLt2M) {
+                    this.$message.error('上传头像图片大小不能超过 2MB!');
+                    }
+                    return isJPG && isLt2M;
+                },
+                LabelDialog(boolean){
+                    this.dialogTableVisible = boolean;
+                }
+
+                }
         }
     </script>
     <style>

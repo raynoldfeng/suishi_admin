@@ -33,7 +33,7 @@
             <el-button>搜索</el-button>
             <el-button>还原</el-button>
         </div>
-<div class="view_main"><el-button class="add_btn">新增</el-button></div>
+<div class="view_main"><el-button class="add_btn" @click="addEvent">新增</el-button></div>
 <template>
 <el-table
 :data="tableData"
@@ -139,6 +139,11 @@ export default
                 address: '上海市普陀区金沙江路 1518 弄',
                 zip: 200333
             }]
+        }
+    },
+    methods:{
+        addEvent(){
+            this.$router.push("/addTest");
         }
     }
 

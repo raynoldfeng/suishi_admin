@@ -77,6 +77,16 @@ export default new Router({
           component: addMajor
       },
       {
+          path: '/editMajor',
+          name: 'editMajor',
+          component: addMajor
+      },
+      {
+          path: '/seeMajor',
+          name: 'seeMajor',
+          component: addMajor
+      },
+      {
           path: '/circleType',
           name: 'circleType',
           component: circleType

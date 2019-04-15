@@ -17,6 +17,14 @@
                 :value="item.value">
                 </el-option>
             </el-select>
+            <el-select v-model="dateVaule" placeholder="时间范围">
+                <el-option
+                v-for="item in dateMenu"
+                :key="item.value"
+                :label="item.label"
+                :value="item.value">
+                </el-option>
+            </el-select>
             <el-input
             placeholder="输入关键字"
             class="search_input"
@@ -136,7 +144,18 @@
                     city: '普陀区',
                     address: '上海市普陀区金沙江路 1518 弄',
                     zip: 200333
-                }]
+                }],
+                dateMenu:[
+                    {value: "1",
+                        label: "一天"},
+                    {value: "7",
+                        label: "一周"},
+                    {value: "30",
+                        label: "一个月"},
+                    {value: "90",
+                        label: "半年"}
+                ],
+                dateVaule:''
             }
     },
     methods:{

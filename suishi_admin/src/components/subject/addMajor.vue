@@ -108,9 +108,14 @@
                 },
                 LabelDialog(boolean){
                     this.dialogTableVisible = boolean;
+                },
+                urlEvent(){
+                    console.log(this.$route.name)
                 }
-
-                }
+                },
+            mounted:function(){
+                this.urlEvent();
+            }
         }
     </script>
     <style>

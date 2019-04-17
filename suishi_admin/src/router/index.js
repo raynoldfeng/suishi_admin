@@ -37,6 +37,16 @@ export default new Router({
           component: addJurisdiction
       },
       {
+          path: '/seeJurisdiction',
+          name: 'seeJurisdiction',
+          component: addJurisdiction
+      },
+      {
+          path: '/editJurisdiction',
+          name: 'editJurisdiction',
+          component: addJurisdiction
+      },
+      {
           path: '/coursewareList',
           name: 'coursewareList',
           component: coursewareList
@@ -44,6 +54,16 @@ export default new Router({
       {
           path: '/addCourseware',
           name: 'addCourseware',
+          component: addCourseware
+      },
+      {
+          path: '/seeCourseware',
+          name: 'seeCourseware',
+          component: addCourseware
+      },
+      {
+          path: '/editCourseware',
+          name: 'editCourseware',
           component: addCourseware
       },
       {
@@ -64,6 +84,16 @@ export default new Router({
       {
           path: '/addGame',
           name: 'addGame',
+          component: addGame
+      },
+      {
+          path: '/seeGame',
+          name: 'seeGame',
+          component: addGame
+      },
+      {
+          path: '/editGame',
+          name: 'editGame',
           component: addGame
       },
       {
@@ -102,6 +132,16 @@ export default new Router({
           component: addPost
       },
       {
+          path: '/seePost',
+          name: 'seePost',
+          component: addPost
+      },
+      {
+          path: '/editPost',
+          name: 'editPost',
+          component: addPost
+      },
+      {
           path: '/operateAdministration',
           name: 'operateAdministration',
           component: operateAdministration
@@ -114,6 +154,15 @@ export default new Router({
       {
           path: '/addTest',
           name: 'addTest',
+          component: addTest
+      },
+      {
+          path: '/seeTest',
+          name: 'seeTest',
+          component: addTest
+      }, {
+          path: '/editTest',
+          name: 'editTest',
           component: addTest
       }
   ]

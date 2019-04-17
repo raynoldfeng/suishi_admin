@@ -1,7 +1,7 @@
 <template>
     <div id="jurisdiction">
-        <el-button @click="addEvent">新建</el-button>
-
+        <el-button @click="userEvent">新建用户</el-button>
+        <el-button @click="addEvent">职能权限</el-button>
         <template>
             <el-table
             :data="tableData"
@@ -72,6 +72,9 @@ export default {
         },
         addEvent(){
             this.$router.push("/addJurisdiction");
+        },
+        userEvent(){
+
         }
     }
 }

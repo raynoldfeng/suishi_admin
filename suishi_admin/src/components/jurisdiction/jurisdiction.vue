@@ -1,6 +1,6 @@
 <template>
     <div id="jurisdiction">
-        <el-button @click="userEvent">新建用户</el-button>
+        <el-button @click="userDialog(true)">新建用户</el-button>
         <el-button @click="addEvent">职能权限</el-button>
         <template>
             <el-table
@@ -27,7 +27,32 @@
                 </el-table-column>
             </el-table>
         </template>
-
+        <el-dialog title="新建" :visible.sync="dialogVisible">
+            <div class="view_main">
+                <span>账户</span>
+                <el-input class="input_type"></el-input>
+            </div>
+            <div class="view_main">
+                <span>姓名</span>
+                <el-input class="input_type"></el-input>
+            </div>
+            <div class="view_main">
+                <span>密码</span>
+                <el-input class="input_type"></el-input>
+            </div>
+            <div class="view_main">
+                <span>职位</span>
+                <el-select v-model="isUse" placeholder="是否推荐">
+                    <el-option
+                    v-for="item in isUseMenu"
+                    :key="item.value"
+                    :label="item.label"
+                    :value="item.value">
+                    </el-option>
+                </el-select>
+            </div>
+            <el-button @click="userDialog(false)">新建</el-button>
+        </el-dialog>
     </div>
 </template>
 
@@ -63,7 +88,15 @@ export default {
                 city: '普陀区',
                 address: '上海市普陀区金沙江路 1516 弄',
                 zip: 200333
-            }]
+            }],
+            isUseMenu: [
+                {value: "true",
+                    label: "是"},
+                {value: "false",
+                    label: "否"}
+            ],
+            isUse: "false",
+            dialogVisible:false
         }
     },
     methods:{
@@ -75,6 +108,9 @@ export default {
         },
         userEvent(){
 
+        },
+        userDialog(boolean){
+            this.dialogVisible = boolean;
         }
     }
 }
@@ -83,5 +119,12 @@ export default {
 <style>
     #jurisdiction{
         text-align:left;
+    }
+.view_main{
+    text-align: center;
+    margin-top:10px
+    }
+.input_type{
+    width: 200px;
     }
 </style>

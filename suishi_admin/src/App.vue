@@ -24,8 +24,8 @@
                       <el-submenu index="3">
                           <template slot="title">实战组队</template>
                           <el-menu-item-group>
-                              <el-menu-item index="3-1">队伍列表</el-menu-item>
-                              <el-menu-item index="3-2">队伍属性</el-menu-item>
+                              <el-menu-item index="/teamList"  @click="jumpEvent('teamList')">队伍列表</el-menu-item>
+                              <el-menu-item index="/teamAttribute" @click="jumpEvent('teamAttribute')">队伍属性</el-menu-item>
                           </el-menu-item-group>
                       </el-submenu>
                       <el-submenu index="4">

@@ -17,6 +17,9 @@ import postList from '@/components/post/postList'
 import addPost from '@/components/post/addPost'
 import operateAdministration from '@/components/administration/operateAdministration'
 import userAdministration from '@/components/administration/userAdministration'
+import teamList from '@/components/team/teamList'
+import addTeam from '@/components/team/addTeam'
+import teamAttribute from '@/components/team/teamAttribute'
 Vue.use(Router)
 
 export default new Router({
@@ -164,6 +167,21 @@ export default new Router({
           path: '/editTest',
           name: 'editTest',
           component: addTest
+      },
+      {
+          path: '/teamList',
+          name: 'teamList',
+          component: teamList
+      },
+      {
+          path: '/addTeam',
+          name: 'addTeam',
+          component: addTeam
+      },
+      {
+          path: '/teamAttribute',
+          name: 'teamAttribute',
+          component: teamAttribute
       }
   ]
 })

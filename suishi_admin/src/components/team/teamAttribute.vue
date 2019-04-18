@@ -1,8 +1,13 @@
 <template>
-    <div id="circleType">
-        <p class="title_main">圈子类型管理</p>
+    <div id="teamAttribute">
+        <p class="title_main">新增游戏</p>
         <div class="view_main">
-            <el-button @click="LabelDialog(true)">新增</el-button>
+            <el-input
+            placeholder="输入名称"
+            class="search_input"
+            >
+            </el-input>
+            <el-button>新增</el-button>
         </div>
         <div class="view_main">
             <template>
@@ -11,7 +16,6 @@
                 border
                 style="width: 100%">
                     <el-table-column
-                    fixed
                     prop="id"
                     label="ID"
                     >
@@ -21,59 +25,46 @@
                     label="名称"
                     >
                     </el-table-column>
+
                     </el-table-column>
                     <el-table-column
                     label="操作"
                     >
                         <template slot-scope="scope">
-                            <el-button type="text" size="small">编辑</el-button>
-                            <el-button type="text" size="small">删除</el-button>
+                            <el-button @click="handleClick(scope.row)" type="text" size="small">删除</el-button>
+
                         </template>
                     </el-table-column>
                 </el-table>
-            </template>
+                </template>
         </div>
-    <el-dialog title="收货地址" :visible.sync="dialogTableVisible" width="30%">
-        <div class="view_main">
-            <span>类型</span>
-            <el-input class="input_type"></el-input>
-        </div>
-        <el-button @click="LabelDialog(false)">添加</el-button>
-    </el-dialog>
     </div>
 </template>
-<script>
-    export default{
-        data(){
-            return{
-                tableData: [{
+    <script>
+        export default{
+            data(){
+                return{
+                    tableData: [{
                     id: '2016-05-03',
                     name: '王小虎',
                     province: '上海',
                     city: '普陀区',
                     address: '上海市普陀区金沙江路 1518 弄',
                     zip: 200333
-                }],
-                dialogTableVisible:false
+                    }]
+                }
             }
-    },
-    methods:{
-        LabelDialog(boolean){
-             this.dialogTableVisible = boolean;
         }
-    }
-}
-</script>
+    </script>
 <style>
 .title_main{
     padding:20px 0;
     border-bottom: 1px solid #999;
     }
 .view_main{
-    overflow:hidden;
     margin-top:10px
     }
-.input_type{
-    width: 200px;
+.search_input{
+    width: 300px;
     }
 </style>

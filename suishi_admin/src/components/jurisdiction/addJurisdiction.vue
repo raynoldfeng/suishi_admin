@@ -1,21 +1,21 @@
 <template>
     <div id="addJurisdiction">
         <p class="title_main">新增授权</p>
-        <div class="view_main">
+  <!--      <div class="view_main">
             <span>公司邮箱</span>
             <el-input class="input_type1"  placeholder="公司邮箱"></el-input>
             <span>姓名</span>
             <el-input class="input_type1"  placeholder="姓名"></el-input>
-        </div>
+        </div>-->
         <div  class="view_main">
             <span>职能</span>
-            <template>
-                <el-select v-model="value" placeholder="请选择">
+            <template v-if="rolesList.length>0">
+                <el-select v-model="rolesValue" placeholder="请选择">
                     <el-option
-                    v-for="item in options"
-                    :key="item.value"
-                    :label="item.label"
-                    :value="item.value">
+                    v-for="item in rolesList"
+                    :key="item.id"
+                    :label="item.name"
+                    :value="item.id">
                     </el-option>
                 </el-select>
             </template>
@@ -33,7 +33,13 @@
                 </div>
             </div>
         </div>
-        <el-button class="view_main">保存</el-button>
+        <div class="view_main">
+            <el-button v-if="dealType == 0" @click="addJurisdictions()">新增</el-button>
+            <el-button v-if="dealType == 1" @click="editJurisdictions()">编辑</el-button>
+            <el-button v-if="dealType == 2" @click="saveJurisdictions()">保存</el-button>
+            <el-button v-if="dealType == 2" @click="cancelEvnet()">取消</el-button>
+        </div>
+
     </div>
 </template>
 
@@ -42,6 +48,7 @@
 export default {
     data(){
         return{
+            dealType:"",
             dataMenu:[
                 {checkAll: false,
                     typeName:"全局",
@@ -86,26 +93,22 @@ export default {
                     isIndeterminate: true
                 }
             ],
-            options: [{
-                value: '选项1',
-                label: '黄金糕'
-            }, {
-                value: '选项2',
-                label: '双皮奶'
-            }, {
-                value: '选项3',
-                label: '蚵仔煎'
-            }, {
-                value: '选项4',
-                label: '龙须面'
-            }, {
-                value: '选项5',
-                label: '北京烤鸭'
-            }],
-            value: ''
+            rolesList: [],
+            rolesValue: ''
         }
     },
     methods: {
+        dealEvent(){
+            var path = this.$route.name;
+            console.log(path);
+            if(path == "seeJurisdiction"){
+                this.dealType = 1;
+            }else if(path == "editJurisdiction"){
+                this.dealType = 2;
+            }else{
+                this.dealType = 0;
+            }
+        },
         handleCheckAllChange(val,index) {
             this.dataMenu[index].checkedCities = val ? this.dataMenu[index].cityOptions : [];
             this.dataMenu[index].isIndeterminate = !this.dataMenu[index].isIndeterminate;
@@ -114,7 +117,78 @@ export default {
             let checkedCount = value.length;
             this.dataMenu[index].checkAll = checkedCount === this.dataMenu[index].cities.length;
             this.dataMenu[index].isIndeterminate = checkedCount > 0 && checkedCount < this.dataMenu[index].cities.length;
+        },
+        //http://admin.suishi.com/admin/admin_user/roles
+        rolesListEvent(){
+            this.rolesList =  [
+                {
+                    "id": 2,
+                    "name": "管理员",
+                    "slug": " ",
+                    "created_at": null,
+                    "updated_at": null
+                },
+                {
+                    "id": 3,
+                    "name": "运营",
+                    "slug": " ",
+                    "created_at": null,
+                    "updated_at": null
+                },
+                {
+                    "id": 4,
+                    "name": "开发",
+                    "slug": " ",
+                    "created_at": null,
+                    "updated_at": null
+                },
+                {
+                    "id": 5,
+                    "name": "产品",
+                    "slug": " ",
+                    "created_at": null,
+                    "updated_at": null
+                },
+                {
+                    "id": 6,
+                    "name": "市场",
+                    "slug": " ",
+                    "created_at": null,
+                    "updated_at": null
+                },
+                {
+                    "id": 7,
+                    "name": "测试",
+                    "slug": " ",
+                    "created_at": null,
+                    "updated_at": null
+                },
+                {
+                    "id": 8,
+                    "name": "实习生",
+                    "slug": " ",
+                    "created_at": null,
+                    "updated_at": null
+                }
+            ]
+        },
+        addJurisdictions(){
+
+        },
+        saveJurisdictions(){
+
+        },
+        editJurisdictions(){
+            this.$router.push("/editJurisdiction");
+            this.dealType = 2;
+        },
+        cancelEvnet(){
+            this.$router.push("/jurisdiction");
         }
+    },
+    mounted:function(){
+        this.rolesListEvent();
+        this.dealEvent();
     }
 }
 </script>

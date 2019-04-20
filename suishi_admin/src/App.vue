@@ -62,7 +62,8 @@
 export default {
     data(){
         return{
-            openeds:[]
+            openeds:[],
+            menuList:[]
         }
     },
     methods:{
@@ -74,6 +75,10 @@ export default {
         },
         handleClose(key, keyPath){
             console.log(key, keyPath);
+        },
+        menusEvent(){
+            //http://admin.suishi.com/admin/admin_user/menus
+            this.menuList=[]
         }
     },
     mounted:function(){

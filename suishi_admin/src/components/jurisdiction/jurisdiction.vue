@@ -2,9 +2,9 @@
     <div id="jurisdiction">
         <el-button @click="userDialog(true)">新建用户</el-button>
         <el-button @click="addEvent">职能权限</el-button>
-        <template>
+        <template v-if="adminUserList.length>0">
             <el-table
-            :data="tableData"
+            :data="adminUserList"
             border
             style="width: 100%">
                 <el-table-column
@@ -13,16 +13,21 @@
                 >
                 </el-table-column>
                 <el-table-column
-                prop="name"
+                prop="username"
                 label="姓名"
                >
+                </el-table-column>
+                <el-table-column
+                prop="name"
+                label="职能"
+                >
                 </el-table-column>
                 <el-table-column
                 label="操作"
               >
                     <template slot-scope="scope">
-                        <el-button @click="handleClick(scope.row)" type="text" size="small">查看</el-button>
-                        <el-button type="text" size="small">编辑</el-button>
+                        <el-button @click="handleClick(scope.row)" type="text" size="small">编辑</el-button>
+                        <el-button type="text" size="small">删除</el-button>
                     </template>
                 </el-table-column>
             </el-table>
@@ -30,28 +35,28 @@
         <el-dialog title="新建" :visible.sync="dialogVisible">
             <div class="view_main">
                 <span>账户</span>
-                <el-input class="input_type"></el-input>
+                <el-input v-model="username" class="input_type"></el-input>
             </div>
             <div class="view_main">
                 <span>姓名</span>
-                <el-input class="input_type"></el-input>
+                <el-input v-model="nickname" class="input_type"></el-input>
             </div>
             <div class="view_main">
                 <span>密码</span>
-                <el-input class="input_type"></el-input>
+                <el-input v-model="password" class="input_type"></el-input>
             </div>
             <div class="view_main">
                 <span>职位</span>
-                <el-select v-model="isUse" placeholder="是否推荐">
+                <el-select v-model="role_id" placeholder="职位">
                     <el-option
-                    v-for="item in isUseMenu"
-                    :key="item.value"
-                    :label="item.label"
-                    :value="item.value">
+                    v-for="item in rolesList"
+                    :key="item.id"
+                    :label="item.name"
+                    :value="item.id">
                     </el-option>
                 </el-select>
             </div>
-            <el-button @click="userDialog(false)">新建</el-button>
+            <el-button @click="addUser(false)">新建</el-button>
         </el-dialog>
     </div>
 </template>
@@ -60,48 +65,19 @@
 export default {
     data(){
         return {
-            tableData: [{
-                id: '2016-05-02',
-                name: '王小虎',
-                province: '上海',
-                city: '普陀区',
-                address: '上海市普陀区金沙江路 1518 弄',
-                zip: 200333
-            }, {
-                id: '2016-05-04',
-                name: '王小虎',
-                province: '上海',
-                city: '普陀区',
-                address: '上海市普陀区金沙江路 1517 弄',
-                zip: 200333
-            }, {
-                id: '2016-05-01',
-                name: '王小虎',
-                province: '上海',
-                city: '普陀区',
-                address: '上海市普陀区金沙江路 1519 弄',
-                zip: 200333
-            }, {
-                id: '2016-05-03',
-                name: '王小虎',
-                province: '上海',
-                city: '普陀区',
-                address: '上海市普陀区金沙江路 1516 弄',
-                zip: 200333
-            }],
-            isUseMenu: [
-                {value: "true",
-                    label: "是"},
-                {value: "false",
-                    label: "否"}
-            ],
-            isUse: "false",
-            dialogVisible:false
+            adminUserList: [],
+            rolesList: [],
+            role_id: "",
+            dialogVisible:false,
+            username:"",
+            password:"",
+            nickname:"",
         }
     },
     methods:{
         handleClick(row) {
             console.log(row);
+            this.$router.push("/seeJurisdiction")
         },
         addEvent(){
             this.$router.push("/addJurisdiction");
@@ -111,7 +87,93 @@ export default {
         },
         userDialog(boolean){
             this.dialogVisible = boolean;
+        },
+        addUser(){
+            //http://admin.suishi.com/admin/admin_user
+            this.dialogVisible = false;
+
+        },
+        //http://admin.suishi.com/admin/admin_user
+        adminUserEvent(){
+            this.adminUserList=[
+                {
+                    "id": 2,
+                    "username": "admin",
+                    "name": "测试2",
+                    "avatar": null,
+                    "created_at": null,
+                    "updated_at": "2019-04-17 21:06:32",
+                    "role_id": "2"
+                },
+                {
+                    "id": 3,
+                    "username": "test2",
+                    "name": "测试2",
+                    "avatar": null,
+                    "created_at": "2019-04-17 20:39:17",
+                    "updated_at": "2019-04-17 20:39:17",
+                    "role_id": "2"
+                }
+            ];
+        },
+        //http://admin.suishi.com/admin/admin_user/roles
+        rolesListEvent(){
+            this.rolesList =  [
+                {
+                    "id": 2,
+                    "name": "管理员",
+                    "slug": " ",
+                    "created_at": null,
+                    "updated_at": null
+                },
+                {
+                    "id": 3,
+                    "name": "运营",
+                    "slug": " ",
+                    "created_at": null,
+                    "updated_at": null
+                },
+                {
+                    "id": 4,
+                    "name": "开发",
+                    "slug": " ",
+                    "created_at": null,
+                    "updated_at": null
+                },
+                {
+                    "id": 5,
+                    "name": "产品",
+                    "slug": " ",
+                    "created_at": null,
+                    "updated_at": null
+                },
+                {
+                    "id": 6,
+                    "name": "市场",
+                    "slug": " ",
+                    "created_at": null,
+                    "updated_at": null
+                },
+                {
+                    "id": 7,
+                    "name": "测试",
+                    "slug": " ",
+                    "created_at": null,
+                    "updated_at": null
+                },
+                {
+                    "id": 8,
+                    "name": "实习生",
+                    "slug": " ",
+                    "created_at": null,
+                    "updated_at": null
+                }
+            ]
         }
+    },
+    mounted:function(){
+        this.adminUserEvent();
+        this.rolesListEvent();
     }
 }
 </script>
@@ -121,7 +183,7 @@ export default {
         text-align:left;
     }
 .view_main{
-    text-align: center;
+
     margin-top:10px
     }
 .input_type{

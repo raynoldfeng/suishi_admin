@@ -20,14 +20,15 @@ import userAdministration from '@/components/administration/userAdministration'
 import teamList from '@/components/team/teamList'
 import addTeam from '@/components/team/addTeam'
 import teamAttribute from '@/components/team/teamAttribute'
+import login from '@/components/login/login'
 Vue.use(Router)
 
 export default new Router({
   routes: [
     {
       path: '/',
-      name: 'HelloWorld',
-      component: HelloWorld
+      name: 'login',
+      component: login
     },
 {
     path: '/jurisdiction',
@@ -182,6 +183,11 @@ export default new Router({
           path: '/teamAttribute',
           name: 'teamAttribute',
           component: teamAttribute
+      },
+      {
+          path: '/login',
+          name: 'login',
+          component: login
       }
   ]
 })

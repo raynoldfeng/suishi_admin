@@ -45,9 +45,9 @@
                 <span>密码</span>
                 <el-input v-model="password" class="input_type"></el-input>
             </div>
-            <div class="view_main">
+            <div class="view_main" if="rolesList.length > 0">
                 <span>职位</span>
-                <el-select v-model="role_id" placeholder="职位">
+                <el-select  v-model="role_id" placeholder="职位">
                     <el-option
                     v-for="item in rolesList"
                     :key="item.id"
@@ -72,6 +72,7 @@ export default {
             username:"",
             password:"",
             nickname:"",
+            userinfo:""
         }
     },
     methods:{
@@ -93,87 +94,26 @@ export default {
             this.dialogVisible = false;
 
         },
-        //http://admin.suishi.com/admin/admin_user
         adminUserEvent(){
-            this.adminUserList=[
-                {
-                    "id": 2,
-                    "username": "admin",
-                    "name": "测试2",
-                    "avatar": null,
-                    "created_at": null,
-                    "updated_at": "2019-04-17 21:06:32",
-                    "role_id": "2"
-                },
-                {
-                    "id": 3,
-                    "username": "test2",
-                    "name": "测试2",
-                    "avatar": null,
-                    "created_at": "2019-04-17 20:39:17",
-                    "updated_at": "2019-04-17 20:39:17",
-                    "role_id": "2"
-                }
-            ];
+            var self = this;
+            this.common.getEventToken(this.api.host+this.api.adminUser,{},this.userinfo,function(data){
+                self.adminUserList = data;
+            });
         },
-        //http://admin.suishi.com/admin/admin_user/roles
         rolesListEvent(){
-            this.rolesList =  [
-                {
-                    "id": 2,
-                    "name": "管理员",
-                    "slug": " ",
-                    "created_at": null,
-                    "updated_at": null
-                },
-                {
-                    "id": 3,
-                    "name": "运营",
-                    "slug": " ",
-                    "created_at": null,
-                    "updated_at": null
-                },
-                {
-                    "id": 4,
-                    "name": "开发",
-                    "slug": " ",
-                    "created_at": null,
-                    "updated_at": null
-                },
-                {
-                    "id": 5,
-                    "name": "产品",
-                    "slug": " ",
-                    "created_at": null,
-                    "updated_at": null
-                },
-                {
-                    "id": 6,
-                    "name": "市场",
-                    "slug": " ",
-                    "created_at": null,
-                    "updated_at": null
-                },
-                {
-                    "id": 7,
-                    "name": "测试",
-                    "slug": " ",
-                    "created_at": null,
-                    "updated_at": null
-                },
-                {
-                    "id": 8,
-                    "name": "实习生",
-                    "slug": " ",
-                    "created_at": null,
-                    "updated_at": null
-                }
-            ]
+            var self = this;
+            this.common.getEventToken(this.api.host+this.api.roles,{},this.userinfo,function(data){
+                self.rolesList = data;
+            });
         }
+
+
     },
     mounted:function(){
+        this.userinfo = {"token":this.common.cookie.get("token"),"user_id":this.common.cookie.get("user_id")};
         this.adminUserEvent();
         this.rolesListEvent();
+
     }
 }
 </script>

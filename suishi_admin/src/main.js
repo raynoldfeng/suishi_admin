@@ -5,8 +5,13 @@ import App from './App'
 import router from './router'
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
+import './style.css'
 
-Vue.config.productionTip = false
+const common=require("./common/common.js");
+const api = require("./common/api.js");
+Vue.prototype.common = common.common;
+Vue.prototype.api = api.api;
+Vue.config.productionTip = false;
 Vue.use(ElementUI);
 /* eslint-disable no-new */
 new Vue({

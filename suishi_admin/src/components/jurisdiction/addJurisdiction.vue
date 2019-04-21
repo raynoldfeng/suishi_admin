@@ -10,7 +10,7 @@
         <div  class="view_main">
             <span>职能</span>
             <template v-if="rolesList.length>0">
-                <el-select v-model="rolesValue" placeholder="请选择">
+                <el-select @change="authGet"   v-model="rolesValue" placeholder="请选择">
                     <el-option
                     v-for="item in rolesList"
                     :key="item.id"
@@ -24,10 +24,10 @@
             <p>权限勾选</p>
             <div style="overflow:hidden">
                 <div class="checkbox_menu"  v-for="(data,index) in dataMenu">
-                    <el-checkbox :indeterminate="data.isIndeterminate" v-model="data.checkAll" @change="handleCheckAllChange(data.isIndeterminate,index)">{{data.typeName}}</el-checkbox>
+                    <el-checkbox :indeterminate="data.isIndeterminate" v-model="data.checkAll" @change="handleCheckAllChange(data.isIndeterminate,index)">{{data.title}}</el-checkbox>
                     <div style="margin: 15px 0;">
                         <el-checkbox-group  v-model="data.checkedCities" @change="handleCheckedCitiesChange(data.checkedCities,index)">
-                            <el-checkbox class="sub_checkbox" v-for="city in data.cities" :label="city" :key="city">{{city}}</el-checkbox>
+                            <el-checkbox class="sub_checkbox" v-for="city in data.children" :label="city.id" :key="city.id">{{city.title}}</el-checkbox>
                         </el-checkbox-group>
                     </div>
                 </div>
@@ -49,6 +49,7 @@ export default {
     data(){
         return{
             dealType:"",
+            checked: true,
             dataMenu:[
                 {checkAll: false,
                     typeName:"全局",
@@ -94,7 +95,10 @@ export default {
                 }
             ],
             rolesList: [],
-            rolesValue: ''
+            rolesValue: '',
+            rolesId:"",
+            userinfo:[],
+            alllist:[]
         }
     },
     methods: {
@@ -110,70 +114,38 @@ export default {
             }
         },
         handleCheckAllChange(val,index) {
+            console.log(this.dataMenu[index].cityOptions);
+            console.log(this.dataMenu[index].checkedCities);
             this.dataMenu[index].checkedCities = val ? this.dataMenu[index].cityOptions : [];
             this.dataMenu[index].isIndeterminate = !this.dataMenu[index].isIndeterminate;
         },
         handleCheckedCitiesChange(value,index) {
+           console.log(value)
             let checkedCount = value.length;
-            this.dataMenu[index].checkAll = checkedCount === this.dataMenu[index].cities.length;
-            this.dataMenu[index].isIndeterminate = checkedCount > 0 && checkedCount < this.dataMenu[index].cities.length;
+            this.dataMenu[index].checkAll = checkedCount === this.dataMenu[index].children.length;
+            this.dataMenu[index].isIndeterminate = checkedCount > 0 && checkedCount < this.dataMenu[index].children.length;
         },
-        //http://admin.suishi.com/admin/admin_user/roles
         rolesListEvent(){
-            this.rolesList =  [
-                {
-                    "id": 2,
-                    "name": "管理员",
-                    "slug": " ",
-                    "created_at": null,
-                    "updated_at": null
-                },
-                {
-                    "id": 3,
-                    "name": "运营",
-                    "slug": " ",
-                    "created_at": null,
-                    "updated_at": null
-                },
-                {
-                    "id": 4,
-                    "name": "开发",
-                    "slug": " ",
-                    "created_at": null,
-                    "updated_at": null
-                },
-                {
-                    "id": 5,
-                    "name": "产品",
-                    "slug": " ",
-                    "created_at": null,
-                    "updated_at": null
-                },
-                {
-                    "id": 6,
-                    "name": "市场",
-                    "slug": " ",
-                    "created_at": null,
-                    "updated_at": null
-                },
-                {
-                    "id": 7,
-                    "name": "测试",
-                    "slug": " ",
-                    "created_at": null,
-                    "updated_at": null
-                },
-                {
-                    "id": 8,
-                    "name": "实习生",
-                    "slug": " ",
-                    "created_at": null,
-                    "updated_at": null
-                }
-            ]
+            var self = this;
+            this.common.getEventToken(this.api.host+this.api.roles,{},this.userinfo,function(data){
+                self.rolesList = data;
+                self.rolesValue = data[0].name;
+                self.authGet();
+            });
         },
+        //添加权限
         addJurisdictions(){
-
+            var self = this;
+            var menu_ids = [];
+            for(let i = 0; i<self.dataMenu.length;i++){
+                for(let a = 0; a < self.dataMenu[i].checkedCities.length;a++){
+                    menu_ids.push(self.dataMenu[i].checkedCities[a]);
+                }
+            }
+            this.common.postEventToken(this.api.host+this.api.addAuth,{menu_ids:menu_ids,role_id:this.rolesId},this.userinfo,function(data){
+                console.log(data)
+                alert("ok")
+            });
         },
         saveJurisdictions(){
 
@@ -184,9 +156,50 @@ export default {
         },
         cancelEvnet(){
             this.$router.push("/jurisdiction");
+        },
+        //权限列表渲染
+        jurisdictionMenu(datalist){
+            var self = this;
+            this.common.getEventToken(this.api.host+this.api.menus,{},this.userinfo,function(data){
+                console.log(data);
+                var dataMenus = data;
+                for(let i = 0 ;i<dataMenus.length;i++){
+                    dataMenus[i].checkedCities = new Array();
+                    dataMenus[i].cityOptions = new Array();
+                    for(let a = 0;a<dataMenus[i].children.length;a++){
+                        dataMenus[i].cityOptions.push(dataMenus[i].children[a].id);
+                        if(datalist.indexOf(dataMenus[i].children[a].id) != (-1)){
+                            dataMenus[i].checkedCities.push(dataMenus[i].children[a].id);
+                        }
+                    }
+                    dataMenus[i].isIndeterminate = true;
+                    dataMenus[i].checkAll = false;
+                }
+                self.dataMenu = dataMenus;
+
+            });
+
+        },
+        //获取职能权限
+        authGet(){
+            var self = this;
+            this.rolesId = "";
+            for(let i= 0; i<self.rolesList.length;i++){
+                if(self.rolesValue == self.rolesList[i].name){
+                    self.rolesId = self.rolesList[i].id;
+                }
+            }
+            this.common.getEventToken(this.api.host+this.api.auth+"?role_id="+this.rolesId,{role_id:this.rolesId},this.userinfo,function(data){
+                console.log(data);
+
+                self.jurisdictionMenu(data);
+            });
+            console.log(this.rolesId);
+
         }
     },
     mounted:function(){
+        this.userinfo = {"token":this.common.cookie.get("token"),"user_id":this.common.cookie.get("user_id")};
         this.rolesListEvent();
         this.dealEvent();
     }
@@ -203,9 +216,7 @@ export default {
         .input_type1{
             width:200px;
         }
-        .view_main{
-            margin-top:10px
-        }
+
         .checkbox_main{
             padding:10px;
             background:#efefef;

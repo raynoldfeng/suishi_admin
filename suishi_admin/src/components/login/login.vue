@@ -9,7 +9,7 @@
             <el-input type="password" v-model="password" placeholder="输入密码" class="input_type"></el-input>
           </div>
         <div  class="view_main">
-            <el-button>登录</el-button>
+            <el-button @click="loginEvent">登录</el-button>
         </div>
     </div>
 </template>
@@ -17,14 +17,25 @@
     export default {
         data() {
         return {
-            username: '',
-            password:""
+            username: 'admin',
+            password:"suishi@2019"
         }
+        },
+    methods:{
+        loginEvent(){
+            var self = this;
+           this.common.postEvent(this.api.host+this.api.login,{username:this.username,password:this.password},function(data){
+               console.log(data);
+               self.common.cookie.set("nickname",data.nickname);
+               self.common.cookie.set("token",data.token);
+               self.common.cookie.set("user_id",data.user_id);
+               self.$router.push("/jurisdiction");
+           });
+
         }
+    }
         }
     </script>
 <style>
-.input_type{
-    width:200px;
-    }
+
 </style>

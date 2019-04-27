@@ -10,5 +10,7 @@ export const api={
     "auth":"admin/admin_user/auth",
     "addAuth":"admin/admin_user/auth",
     "apiToken":"api/account/v1/qcloudApiToken",
-    "cosToken":"admin/tool/qcloud_cos_token"
+    "cosToken":"admin/tool/qcloud_cos_token",
+    "tagsType":"admin/tags/type",
+    "tagsData":"admin/tags"
 }

@@ -7,25 +7,33 @@
                     <el-input
                     placeholder="输入名称"
                     class="name_input"
+                    v-model="typeValue"
                     ></el-input>
-                    <el-button>新建母标签</el-button>
+                    <el-button @click="addType">新建母标签</el-button>
                 </div>
                 <el-table class="table_main"
-                :data="tableData"
+                    v-if="typeData.length > 0"
+                :data="typeData"
                 style="width: 90%">
                     <el-table-column
-                    prop="date"
+                    prop="id"
                     label="id"
                    >
+                        <template slot-scope="scope">
+                            <div slot="reference" class="name-wrapper" @click="tagsData( scope.row.id)">
+                               <p class="cursor_css" :class="{ nowType: (nowType == scope.row.id)}"> {{ scope.row.id }}</p>
+                            </div>
+                        </template>
                     </el-table-column>
                     <el-table-column
                     prop="name"
                     label="名称"
                    >
-                    </el-table-column>
-                    <el-table-column
-                    prop="address"
-                    label="顺序">
+                        <template slot-scope="scope">
+                            <div slot="reference" class="name-wrapper" @click="tagsData( scope.row.id)">
+                                <p  class="cursor_css" :class="{ nowType: (nowType == scope.row.id)}"> {{ scope.row.name }}</p>
+                            </div>
+                        </template>
                     </el-table-column>
                     <el-table-column
                     label="操作"
@@ -41,14 +49,16 @@
                     <el-input
                     placeholder="输入名称"
                     class="name_input"
+                      v-model="tagValue"
                     ></el-input>
-                    <el-button>新建子标签</el-button>
+                    <el-button @click="addTags">新建子标签</el-button>
                 </div>
                 <el-table class="table_main"
-                :data="tableData"
+                    v-if="tagData.length > 0"
+                :data="tagData"
                 style="width: 90%">
                     <el-table-column
-                    prop="date"
+                    prop="id"
                     label="id"
                     >
                     </el-table-column>
@@ -56,10 +66,6 @@
                     prop="name"
                     label="名称"
                     >
-                    </el-table-column>
-                    <el-table-column
-                    prop="address"
-                    label="顺序">
                     </el-table-column>
                     <el-table-column
                     label="操作"
@@ -78,24 +84,62 @@
     export default{
     data(){
         return{
-            tableData: [{
-                date: '2016-05-02',
-                name: '王小虎',
-                address: '上海'
-            }, {
-                date: '2016-05-04',
-                name: '王小虎',
-                address: '上海'
-            }, {
-                date: '2016-05-01',
-                name: '王小虎',
-                address: '上海'
-            }, {
-                date: '2016-05-03',
-                name: '王小虎',
-                address: '上海'
-            }]
+            userinfo:"",
+            typeValue:"",
+            typeId:"",
+            tagValue:"",
+            nowType:0,
+            typeData: [],
+            tagData: []
+
         }
+    },
+    methods:{
+        tagsType(){
+            var self = this;
+            this.common.getEventToken(this.api.host+this.api.tagsType,{},this.userinfo,function(data){
+                if(data.length >0){
+                    self.typeData = data;
+                    self.nowType = data[0].id;
+                    self.tagsData(self.nowType);
+                }
+
+            });
+        },
+        addType(){
+            var self = this;
+            this.common.postEventToken(this.api.host+this.api.tagsType,{"name":this.typeValue},this.userinfo,function(data){
+                self.typeValue = "";
+                self.tagsType();
+            });
+        },
+        tagsData(id){
+            var self = this;
+            this.nowType = id;
+            this.common.getEventToken(this.api.host+this.api.tagsData+"?tag_type="+id,{},this.userinfo,function(data){
+                console.log(data);
+                if(data.length >0){
+                    self.tagData = data;
+                }else{
+                    self.tagData = [];
+                }
+
+            });
+        },
+        addTags(){
+            var self = this;
+            this.common.postEventToken(this.api.host+this.api.tagsData,{"tag_type":this.nowType,"name":this.tagValue},this.userinfo,function(data){
+                self.tagValue = "";
+                self.tagsData(self.nowType);
+            });
+        }
+
+
+
+    },
+    mounted:function(){
+        this.userinfo = {"token":this.common.cookie.get("token"),"user_id":this.common.cookie.get("user_id")};
+        this.tagsType();
     }
 }
 </script>
@@ -125,5 +169,13 @@
     }
     .table_main{
         margin: 10px auto 0;
+    }
+    .nowType{
+        color:#409EFF;
+        text-decoration: underline;
+
+    }
+    .cursor_css{
+        cursor: pointer;
     }
 </style>

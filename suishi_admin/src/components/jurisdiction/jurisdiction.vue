@@ -110,6 +110,10 @@ export default {
                 console.log(data);
                 self.dialogVisible = false;
                 self.adminUserEvent();
+                self.username = "";
+                self.password = "";
+                self.nickname = "";
+                self.role_id = "";
             })
 
 

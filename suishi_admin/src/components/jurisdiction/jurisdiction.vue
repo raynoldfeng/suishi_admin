@@ -90,8 +90,28 @@ export default {
             this.dialogVisible = boolean;
         },
         addUser(){
+            var self = this;
             //http://admin.suishi.com/admin/admin_user
-            this.dialogVisible = false;
+            if(this.username == ""){
+                alert("输入帐号");
+                return false;
+            }else if(this.password == ""){
+                alert("输入密码");
+                return false;
+            }else if(this.nickname == ""){
+                alert("输入名称");
+                return false;
+            }else if(this.role_id == ""){
+                alert("输入职能");
+                return false;
+            }
+            var userinfo = {"username":this.username, "password":this.password, "nickname":this.nickname,"role_id":this.role_id};
+            this.common.postEventToken(this.api.host+this.api.adminUser,userinfo,this.userinfo,function(data){
+                console.log(data);
+                self.dialogVisible = false;
+                self.adminUserEvent();
+            })
+
 
         },
         adminUserEvent(){

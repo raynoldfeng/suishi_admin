@@ -8,5 +8,7 @@ export const api={
     "adminUser":"admin/admin_user",
     "menus":"admin/admin_user/menus",
     "auth":"admin/admin_user/auth",
-    "addAuth":"admin/admin_user/auth"
+    "addAuth":"admin/admin_user/auth",
+    "apiToken":"api/account/v1/qcloudApiToken",
+    "cosToken":"admin/tool/qcloud_cos_token"
 }

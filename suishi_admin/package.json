@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "axios": "^0.18.0",
+    "cos-js-sdk-v5": "^0.5.13",
     "element-ui": "^2.7.2",
     "vue": "^2.5.2",
     "vue-axios": "^2.1.4",

@@ -48,10 +48,13 @@
         </div>
         <div class="view_main">
             <span class="type_title">封绘图</span>
+            <input id="file-selector" type="file">
             <el-upload
             class="avatar-uploader "
-            action="https://jsonplaceholder.typicode.com/posts/"
+            action=""
+            :on-change="uploadImg"
             :show-file-list="false"
+            :auto-upload="false"
             :on-success="handleAvatarSuccess"
             :before-upload="beforeAvatarUpload">
                 <img v-if="imageUrl" :src="imageUrl" class="avatar">
@@ -88,13 +91,20 @@
                         { name: '标签五', type: 'danger' }
                     ],
                 dialogTableVisible: false,
+                userinfo:"",
+                SecretId:"",
+                SecretKey:"",
+                XCosSecurityToken:"",
+        expiredTime:""
                 }
             },
             methods: {
                 handleAvatarSuccess(res, file) {
                     this.imageUrl = URL.createObjectURL(file.raw);
+                    console.log(1)
                 },
                 beforeAvatarUpload(file) {
+                    console.log(2)
                     const isJPG = file.type === 'image/jpeg';
                     const isLt2M = file.size / 1024 / 1024 < 2;
 
@@ -111,10 +121,46 @@
                 },
                 urlEvent(){
                     console.log(this.$route.name)
-                }
                 },
+                getUpLoadKey(){
+                    var self =this;
+                    this.common.getEventToken(this.api.host+this.api.cosToken,{},this.userinfo,function(data){
+                        console.log(data);
+                        self.SecretId = data.credentials.tmpSecretId;
+                        self.SecretKey = data.credentials.tmpSecretKey;
+                        self.XCosSecurityToken = data.credentials.sessionToken;
+                        self.expiredTime = data.expiredTime;
+                    })
+
+                },
+                uploadImg(file){
+                    var files = file;
+        console.log(files)
+//                    if(this.SecretId != "" && this.SecretKey !="" ){
+//                        if(file){
+//                             this.cosjs(this.SecretId,this.SecretKey,file);
+//                        }
+//                    }
+
+                }
+            },
             mounted:function(){
+        var self =this;
+                this.userinfo = {"token":this.common.cookie.get("token"),"user_id":this.common.cookie.get("user_id")};
                 this.urlEvent();
+                this.getUpLoadKey();
+                document.getElementById('file-selector').onchange = function () {
+                var file = this.files[0];
+                if (!file) return;
+//                console.log(file.name);
+//                console.log(file)
+                if(self.SecretId != "" && self.SecretKey !="" ){
+                    if(file){
+                        self.cosjs(self.SecretId,self.SecretKey,file,self.XCosSecurityToken,self.expiredTime);
+                    }
+                }
+
+                };
             }
         }
     </script>

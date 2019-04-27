@@ -114,13 +114,13 @@ export default {
             }
         },
         handleCheckAllChange(val,index) {
-            console.log(this.dataMenu[index].cityOptions);
-            console.log(this.dataMenu[index].checkedCities);
+      //      console.log(this.dataMenu[index].cityOptions);
+       //     console.log(this.dataMenu[index].checkedCities);
             this.dataMenu[index].checkedCities = val ? this.dataMenu[index].cityOptions : [];
             this.dataMenu[index].isIndeterminate = !this.dataMenu[index].isIndeterminate;
         },
         handleCheckedCitiesChange(value,index) {
-           console.log(value)
+  //         console.log(value)
             let checkedCount = value.length;
             this.dataMenu[index].checkAll = checkedCount === this.dataMenu[index].children.length;
             this.dataMenu[index].isIndeterminate = checkedCount > 0 && checkedCount < this.dataMenu[index].children.length;
@@ -129,7 +129,7 @@ export default {
             var self = this;
             this.common.getEventToken(this.api.host+this.api.roles,{},this.userinfo,function(data){
                 self.rolesList = data;
-                self.rolesValue = data[0].name;
+                self.rolesValue = data[0].id;
                 self.authGet();
             });
         },
@@ -142,8 +142,10 @@ export default {
                     menu_ids.push(self.dataMenu[i].checkedCities[a]);
                 }
             }
+            console.log(this.rolesId);
+            console.log(menu_ids);
             this.common.postEventToken(this.api.host+this.api.addAuth,{menu_ids:menu_ids,role_id:this.rolesId},this.userinfo,function(data){
-                console.log(data)
+           //     console.log(data)
                 alert("ok")
             });
         },
@@ -161,7 +163,7 @@ export default {
         jurisdictionMenu(datalist){
             var self = this;
             this.common.getEventToken(this.api.host+this.api.menus,{},this.userinfo,function(data){
-                console.log(data);
+             //   console.log(data);
                 var dataMenus = data;
                 for(let i = 0 ;i<dataMenus.length;i++){
                     dataMenus[i].checkedCities = new Array();
@@ -185,17 +187,14 @@ export default {
             var self = this;
             this.rolesId = "";
             for(let i= 0; i<self.rolesList.length;i++){
-                if(self.rolesValue == self.rolesList[i].name){
+                if(self.rolesValue == self.rolesList[i].id){
                     self.rolesId = self.rolesList[i].id;
                 }
             }
             this.common.getEventToken(this.api.host+this.api.auth+"?role_id="+this.rolesId,{role_id:this.rolesId},this.userinfo,function(data){
                 console.log(data);
-
                 self.jurisdictionMenu(data);
             });
-            console.log(this.rolesId);
-
         }
     },
     mounted:function(){

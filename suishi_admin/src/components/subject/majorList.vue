@@ -25,7 +25,7 @@
         <div class="view_main">
             <template>
                 <el-table
-                :data="tableData"
+                :data="majorData"
                 border
                 style="width: 100%">
                     <el-table-column
@@ -40,12 +40,7 @@
                     >
                     </el-table-column>
                     <el-table-column
-                    prop="city"
-                    label="创建时间"
-                    >
-                    </el-table-column>
-                    <el-table-column
-                    prop="address"
+                    prop="status"
                     label="是否启用"
                     >
                     </el-table-column>
@@ -53,7 +48,7 @@
                     label="操作"
                     >
                         <template slot-scope="scope">
-                            <el-button @click="handleClick(scope.row)" type="text" size="small">查看</el-button>
+                            <el-button @click="editEvent(scope.row.id)" type="text" size="small">查看</el-button>
                             <el-button type="text" size="small">删除</el-button>
                         </template>
                     </el-table-column>
@@ -75,20 +70,30 @@
                                 label: "否"}
                         ],
                         isUse: "false",
-                        tableData: [{
-                            id: '2016-05-03',
-                            name: '王小虎',
-                            province: '上海',
-                            city: '普陀区',
-                            address: '上海市普陀区金沙江路 1518 弄',
-                            zip: 200333
-                        }]
+                        majorData: [],
+                        userinfo:""
                     }
                 },
                 methods: {
                     addEvent(){
                         this.$router.push("/addMajor");
+                    },
+                    professionList(){
+                        var self = this;
+                        this.common.getEventToken(this.api.host+this.api.profession,{},this.userinfo,function(data){
+                            console.log(data);
+                            self.majorData = data;
+                        })
+                    },
+                    editEvent(id){
+                        console.log(id)
+                        this.$router.push({path: "/editMajor", query: {id: id}});
+                      //  this.$router.push("/editMajor",{params:id});
                     }
+                },
+                mounted:function(){
+                    this.userinfo = {"token":this.common.cookie.get("token"),"user_id":this.common.cookie.get("user_id")};
+                    this.professionList();
                 }
             }
         </script>

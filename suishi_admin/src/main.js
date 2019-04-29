@@ -10,7 +10,7 @@ import './style.css'
 const common=require("./common/common.js");
 const api = require("./common/api.js");
 require("./common/cos-js-sdk-v5.js");
-var cosjs = function newCos(SecretId,SecretKey,file,XCosSecurityToken,expiredTime ){
+var cosjs = function newCos(SecretId,SecretKey,file,XCosSecurityToken,expiredTime,callback ){
 //    console.log(2545454);
 //    console.log(SecretId);
 //    console.log(SecretKey);
@@ -42,6 +42,7 @@ var cosjs = function newCos(SecretId,SecretKey,file,XCosSecurityToken,expiredTim
         Sign: false
     }, function (err, data) {
         console.log(err || data.Url);
+        callback(data.Url);
     });
 
 };

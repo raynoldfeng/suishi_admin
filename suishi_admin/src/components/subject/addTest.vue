@@ -2,7 +2,7 @@
     <div id="addTest">
         <p class="title_main">新增帖子</p>
         <div class="view_main">
-            <span>所属专业</span>
+           <!-- <span>所属专业</span>
             <el-select v-model="majorValue" placeholder="所属专业">
                 <el-option
                 v-for="item in majorData"
@@ -10,14 +10,14 @@
                 :label="item.name"
                 :value="item.id">
                 </el-option>
-            </el-select>
+            </el-select>-->
             <span>所属课件</span>
-            <el-select v-model="isUse" placeholder="是否推荐">
+            <el-select v-model="coursewareName" placeholder="所属课件">
                 <el-option
-                v-for="item in isUseMenu"
-                :key="item.value"
-                :label="item.label"
-                :value="item.value">
+                v-for="item in coursewareData"
+                :key="item.id"
+                :label="item.name"
+                :value="item.id">
                 </el-option>
             </el-select>
             <span>是否启用</span>
@@ -120,12 +120,14 @@
                 note:"",
                 courseid:"",
                 answerMenu:[""],
-                answerOptions:[],
+                answerOptions:[{value:0}],
                 answer:"",
     SecretId:"",
     SecretKey:"",
     XCosSecurityToken:"",
     expiredTime:"",
+    coursewareData: [],
+    coursewareName:""
             }
         },
         methods:{
@@ -142,19 +144,18 @@
                 return this.$confirm(`确定移除 ${ file.name }？`);
             },
             addTestEvent(){
-                var info = {"name":this.testName,"img_url":this.imgUrl,"video_url":this.videoUrl,"status":this.isUse,"note":this.note,"options":this.answerMenu,"answer":this.answer,"course_id":this.courseid};
-    console.log(info);
+                var self = this;
+                var info = {"name":this.testName,"img_url":this.imgUrl,"video_url":this.videoUrl,"status":this.isUse,"note":this.note,"options":this.answerMenu,"answer":this.answer,"course_id":this.coursewareName};
                 this.common.postEventToken(this.api.host+this.api.test,info,this.userinfo,function(data){
                     console.log(data);
-                    self.majorData = data;
-
+                    self.$router.push("/testList");
                 })
             },
             addAnswer(){
                 this.answerOptions = [];
                 this.answerMenu.push("");
                 for(let i = 0; i<this.answerMenu.length;i++){
-                    this.answerOptions.push({value:(i+1)});
+                    this.answerOptions.push({value:(i)});
                 }
 
             },
@@ -162,7 +163,7 @@
                 this.answerMenu.splice(index,1);
                 this.answerOptions = [];
                 for(let i = 0; i<this.answerMenu.length;i++){
-                    this.answerOptions.push({value:(i+1)});
+                    this.answerOptions.push({value:(i)});
                 }
             },
             professionList(){
@@ -173,7 +174,7 @@
 
                 })
             },
-                getUpLoadKey(){
+            getUpLoadKey(){
                 var self =this;
                 this.common.getEventToken(this.api.host+this.api.cosToken,{},this.userinfo,function(data){
                 console.log(data);
@@ -183,12 +184,20 @@
                 self.expiredTime = data.expiredTime;
                 })
 
-                },
+            },
+            courseList(){
+                var self = this;
+                this.common.getEventToken(this.api.host+this.api.course,{},this.userinfo,function(data){
+                    self.coursewareData = data;
+                    console.log(data)
+                });
+            }
         },
         mounted:function(){
             var self = this;
             this.userinfo = {"token":this.common.cookie.get("token"),"user_id":this.common.cookie.get("user_id")};
             this.professionList();
+            this.courseList();
             this.getUpLoadKey();
                 document.getElementById('file-selector').onchange = function () {
                 var file = this.files[0];

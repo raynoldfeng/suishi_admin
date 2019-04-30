@@ -36,7 +36,7 @@
 <div class="view_main"><el-button class="add_btn" @click="addEvent">新增</el-button></div>
 <template>
 <el-table
-:data="tableData"
+:data="testListData"
 border
 style="width: 100%">
 <el-table-column
@@ -51,22 +51,13 @@ style="width: 100%">
         >
 </el-table-column>
 <el-table-column
-        prop="province"
-        label="所属专业"
-        >
-</el-table-column>
-<el-table-column
-        prop="zip"
+        prop="course_id"
         label="类型"
         >
 </el-table-column>
+
 <el-table-column
-        prop="city"
-        label="创建时间"
-        >
-</el-table-column>
-<el-table-column
-        prop="address"
+        prop="status"
         label="是否启用"
         >
 </el-table-column>
@@ -131,7 +122,7 @@ export default
             ],
             isUse: "false",
             searchText:"",
-            tableData: [{
+            testListData: [{
                 id: '2016-05-03',
                 name: '王小虎',
                 province: '上海',
@@ -144,7 +135,21 @@ export default
     methods:{
         addEvent(){
             this.$router.push("/addTest");
+        },
+        testData(){
+            var self = this;
+            this.common.getEventToken(this.api.host+this.api.test,{},this.userinfo,function(data){
+                console.log(data);
+                self.testListData = data;
+
+            })
         }
+
+    },
+    mounted:function(){
+    var self = this;
+    this.userinfo = {"token":this.common.cookie.get("token"),"user_id":this.common.cookie.get("user_id")};
+    this.testData();
     }
 
 }

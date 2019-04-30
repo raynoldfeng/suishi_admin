@@ -49,17 +49,10 @@
         <div class="view_main">
             <span class="type_title">封绘图</span>
             <input id="file-selector" type="file">
-            <el-upload
-            class="avatar-uploader "
-            action=""
-            :on-change="uploadImg"
-            :show-file-list="false"
-            :auto-upload="false"
-            :on-success="handleAvatarSuccess"
-            :before-upload="beforeAvatarUpload">
-                <img v-if="imageUrl" :src="imageUrl" class="avatar">
-                    <i v-else class="el-icon-plus avatar-uploader-icon"></i>
-                </el-upload>
+                <div class="avatar-uploader">
+                    <img v-if="coverImg" :src="coverImg" class="avatar">
+                        <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+                </div>
             </div>
             <div class="view_main">
                 <el-button @click="addMajor">提交</el-button>
@@ -128,23 +121,8 @@
                     this.checkAll = tagDataMenu === this.tagDataList.length;
                     this.isIndeterminate = tagDataMenu > 0 && tagDataMenu < this.tagDataList.length;
                 },
-                handleAvatarSuccess(res, file) {
-                    this.imageUrl = URL.createObjectURL(file.raw);
-                    console.log(1)
-                },
-                beforeAvatarUpload(file) {
-                    console.log(2)
-                    const isJPG = file.type === 'image/jpeg';
-                    const isLt2M = file.size / 1024 / 1024 < 2;
 
-                    if (!isJPG) {
-                    this.$message.error('上传头像图片只能是 JPG 格式!');
-                    }
-                    if (!isLt2M) {
-                    this.$message.error('上传头像图片大小不能超过 2MB!');
-                    }
-                    return isJPG && isLt2M;
-                },
+
                 LabelDialog(boolean){
                     this.dialogTableVisible = boolean;
                     console.log(this.tagDataMenu);
@@ -186,16 +164,6 @@
                         self.XCosSecurityToken = data.credentials.sessionToken;
                         self.expiredTime = data.expiredTime;
                     })
-
-                },
-                uploadImg(file){
-                    var files = file;
-        console.log(files)
-//                    if(this.SecretId != "" && this.SecretKey !="" ){
-//                        if(file){
-//                             this.cosjs(this.SecretId,this.SecretKey,file);
-//                        }
-//                    }
 
                 },
                 addMajor(){

@@ -28,7 +28,7 @@
         <el-button class="add_btn" @click="addEvent">新增</el-button>
 <template>
 <el-table
-:data="tableData"
+:data="coursewareData"
 border
 style="width: 100%">
 <el-table-column
@@ -43,22 +43,18 @@ style="width: 100%">
         >
 </el-table-column>
 <el-table-column
-        prop="province"
+        prop="profession_id"
         label="所属专业"
        >
 </el-table-column>
-<el-table-column
-        prop="zip"
-        label="课件数"
-        >
+<el-table-column label="课件数">
+    <template slot-scope="scope">
+       <p v-if="scope.row.url" v-text="scope.row.url.length"></p>
+        <p v-else>0</p>
+    </template>
 </el-table-column>
 <el-table-column
-        prop="city"
-        label="创建时间"
-      >
-</el-table-column>
-<el-table-column
-        prop="address"
+        prop="status"
         label="是否启用"
     >
 </el-table-column>
@@ -66,8 +62,8 @@ style="width: 100%">
 label="操作"
 >
 <template slot-scope="scope">
-    <el-button @click="handleClick(scope.row)" type="text" size="small">查看</el-button>
-<el-button type="text" size="small">编辑</el-button>
+    <el-button @click="editEvent(scope.row.id)" type="text" size="small">查看</el-button>
+<el-button type="text" size="small">删除</el-button>
 </template>
         </el-table-column>
         </el-table>
@@ -123,20 +119,28 @@ export default
             ],
             isUse: "false",
             searchText:"",
-            tableData: [{
-                id: '2016-05-03',
-                name: '王小虎',
-                province: '上海',
-                city: '普陀区',
-                address: '上海市普陀区金沙江路 1518 弄',
-                zip: 200333
-            }]
+    coursewareData: [],
+            userinfo:""
         }
     },
     methods:{
         addEvent(){
             this.$router.push("/addCourseware");
+        },
+        courseList(){
+            var self = this;
+            this.common.getEventToken(this.api.host+this.api.course,{},this.userinfo,function(data){
+                self.coursewareData = data;
+    console.log(data)
+            });
+        },
+        editEvent(id){
+            this.$router.push({path:"/editCourseware",query:{id:id}});
         }
+    },
+    mounted:function(){
+        this.userinfo = {"token":this.common.cookie.get("token"),"user_id":this.common.cookie.get("user_id")};
+        this.courseList();
     }
 
 }

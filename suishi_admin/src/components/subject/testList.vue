@@ -65,7 +65,7 @@ style="width: 100%">
         label="操作"
         >
 <template slot-scope="scope">
-    <el-button @click="handleClick(scope.row)" type="text" size="small">查看</el-button>
+    <el-button @click="editEvent(scope.row.id)" type="text" size="small">查看</el-button>
 <el-button type="text" size="small">编辑</el-button>
 </template>
         </el-table-column>
@@ -136,6 +136,9 @@ export default
         addEvent(){
             this.$router.push("/addTest");
         },
+        editEvent(id){
+            this.$router.push({path: "/editTest", query: {id: id}});
+        },
         testData(){
             var self = this;
             this.common.getEventToken(this.api.host+this.api.test,{},this.userinfo,function(data){
@@ -143,8 +146,14 @@ export default
                 self.testListData = data;
 
             })
-        }
-
+        },
+        isedits(){
+            if(this.$route.name == "editTest"){
+                return true;
+            }else{
+                return false;
+            }
+        },
     },
     mounted:function(){
     var self = this;

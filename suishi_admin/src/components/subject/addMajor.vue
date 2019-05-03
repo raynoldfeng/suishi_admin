@@ -108,8 +108,7 @@
                 nowType:"",
                 tagData:[],
                 tagDataList:[],
-                tagDataMenu:[],
-                isedit:false
+                tagDataMenu:[]
                 }
             },
             methods: {
@@ -133,11 +132,11 @@
                             }
                     }
                 },
+        //获取单个专业信息
                 urlEvent(){
                     console.log(this.$route.name);
                     var self = this;
-                    if(this.$route.name == "editMajor"){
-                        this.isedit = true;
+                    if(self.isedits()){
                         this.common.getEventToken(this.api.host+this.api.profession+"/"+this.$route.query.id,{},this.userinfo,function(data){
                             console.log(data);
      //   var datas = {"name":this.majorName, "desc":this.descText,"cover":this.coverImg, "order":this.orderValue, "status":this.isUse,"tag_ids":this.tagsArr,is_study:this.isStudy};
@@ -147,12 +146,11 @@
                             self.orderValue = data.order;
                             self.isUse = data.status;
                             self.isStudy = data.is_study;
-                            self.tagsArr = data.tag_ids;
-        console.log(8888)
-        console.log(data.tag_ids)
+                            for(var index in data.tag_ids){
+                                console.log(data.tag_ids)
+                                self.tagsArr.push(data.tag_ids[index])
+                            }
                         })
-                    }else{
-                        this.isedit = false;
                     }
                 },
                 getUpLoadKey(){
@@ -188,16 +186,25 @@
                     }else{
                         this.tagsArr = [];
                         for(let i = 0 ;i <this.tags.length; i++){
-        console.log(i)
                             this.tagsArr.push(this.tags[i].id);
                         }
                     }
                     console.log(this.tagsArr)
-                    var datas = {"name":this.majorName, "desc":this.descText,"cover":this.coverImg, "order":this.orderValue, "status":this.isUse,"tag_ids":this.tagsArr,is_study:this.isStudy};
-                    this.common.postEventToken(this.api.host+this.api.profession,datas,this.userinfo,function(data){
-                        console.log(data);
-                        self.$router.push("/majorList");
-                    })
+
+                    if(this.isedits()){
+                        var datas = {"name":this.majorName, "desc":this.descText,"cover":this.coverImg, "order":this.orderValue, "status":this.isUse,"tag_ids":this.tagsArr,is_study:this.isStudy,id:this.$route.query.id};
+                        this.common.putEventToken(this.api.host+this.api.profession,datas,this.userinfo,function(data){
+                            console.log(data);
+                            self.$router.push("/majorList");
+                        })
+                    }else{
+                        var datas = {"name":this.majorName, "desc":this.descText,"cover":this.coverImg, "order":this.orderValue, "status":this.isUse,"tag_ids":this.tagsArr,is_study:this.isStudy};
+                        this.common.postEventToken(this.api.host+this.api.profession,datas,this.userinfo,function(data){
+                            console.log(data);
+                            self.$router.push("/majorList");
+                        })
+                    }
+
                 },
                 tagsType(){
                     var self = this;
@@ -206,7 +213,7 @@
                             self.typeData = data;
                             self.nowType = data[0].id;
                             self.tagsData(self.nowType);
-                            if(self.isedit){
+                            if(self.isedits()){
                                 self.showTag();
                             }
                         }
@@ -232,17 +239,23 @@
 
                     });
                 },
+                isedits(){
+                    if(this.$route.name == "editMajor"){
+                        return true;
+                    }else{
+                        return false;
+                    }
+                },
                 showTag(){
                      var self = this;
                     for(let i = 0 ; i<self.typeData.length;i++){
                         this.common.getEventToken(this.api.host+this.api.tagsData+"?tag_type="+self.typeData[i].id,{},this.userinfo,function(data){
                             for(let a = 0;a<data.length;a++){
-        console.log(155)
-        console.log(self.tagsArr)
+                                console.log(self.tagsArr)
                                 if(self.tagsArr.indexOf(data[a].id)!=(-1)){
                                     self.tags.push({ name: data[a].name, id: data[a].id });
-        console.log(155)
-                                    console.log(self.tags)
+//        console.log(155)
+//                                    console.log(self.tags)
                                 }else{
                                     return;
                                 }

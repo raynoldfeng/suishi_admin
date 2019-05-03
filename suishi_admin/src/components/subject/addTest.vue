@@ -35,7 +35,9 @@
             <el-input class="input_test" v-model="testName" placeholder="输入问题"></el-input>
         </div>
         <div class="view_main">
-           <div> <span>图片</span>
+           <div>
+               <span>图片</span>
+               <input id="img-selector" type="file">
             <el-upload
             class="upload-demo"
             action="https://jsonplaceholder.typicode.com/posts/"
@@ -49,8 +51,10 @@
                 <el-button size="small" type="primary">点击上传</el-button>
               <!-- <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>-->
             </el-upload>
-            <input id="file-selector" type="file"></div>
-            <div><span>视频</span>
+           </div>
+            <div>
+                <span>视频</span>
+                <input id="video-selector" type="file">
             <el-upload
             class="upload-demo"
             action="https://jsonplaceholder.typicode.com/posts/"
@@ -127,10 +131,38 @@
     XCosSecurityToken:"",
     expiredTime:"",
     coursewareData: [],
-    coursewareName:""
+    coursewareName:"",
+    coursewares:{coursewareNameId:"",coursewareName:""}
             }
         },
         methods:{
+            urlEvent(){
+                console.log(this.$route.name);
+                var self = this;
+                if(self.isedits()){
+                    this.common.getEventToken(this.api.host+this.api.test+"/"+this.$route.query.id,{},this.userinfo,function(data){
+                    console.log(data);
+                    self.testName = data.name;
+                    self.isUse = data.status;
+                    self.note = data.note;
+                    self.vedioUrl = data.video_url;
+                    self.imgUrl = data.img_url;
+                    self.answerMenu = JSON.parse(data.options);
+                    self.answerOptions = [];
+                    for(let i = 0; i < self.answerMenu.length;i++){
+                        self.answerOptions.push({value:i});
+                    }
+                    self.answer = data.answer;
+                        for(var i = 0 ;i < self.coursewareData.length; i++){
+                            if(data.course_id == self.coursewareData[i].id){
+                                 self.coursewareName = self.coursewareData[i].name;
+                                 self.coursewares.coursewareName = self.coursewareData[i].name;
+                                 self.coursewares.coursewareNameId = data.course_id;
+                            }
+                        }
+                    });
+                }
+            },
             handleRemove(file, fileList) {
                 console.log(file, fileList);
             },
@@ -145,11 +177,23 @@
             },
             addTestEvent(){
                 var self = this;
-                var info = {"name":this.testName,"img_url":this.imgUrl,"video_url":this.videoUrl,"status":this.isUse,"note":this.note,"options":this.answerMenu,"answer":this.answer,"course_id":this.coursewareName};
-                this.common.postEventToken(this.api.host+this.api.test,info,this.userinfo,function(data){
-                    console.log(data);
-                    self.$router.push("/testList");
-                })
+                if(this.isedits()){
+                    var info = {"name":this.testName,"img_url":this.imgUrl,"video_url":this.videoUrl,"status":this.isUse,"note":this.note,"options":this.answerMenu,"answer":this.answer,"course_id":this.coursewareName,id:this.$route.query.id};
+                    if(self.coursewareName == this.coursewares.coursewareName){
+                         info.course_id=this.coursewares.coursewareNameId;
+                    }
+                    this.common.putEventToken(this.api.host+this.api.test,info,this.userinfo,function(data){
+                        console.log(data);
+                        self.$router.push("/testList");
+                    })
+                }else{
+                    var info = {"name":this.testName,"img_url":this.imgUrl,"video_url":this.videoUrl,"status":this.isUse,"note":this.note,"options":this.answerMenu,"answer":this.answer,"course_id":this.coursewareName};
+                    this.common.postEventToken(this.api.host+this.api.test,info,this.userinfo,function(data){
+                        console.log(data);
+                        self.$router.push("/testList");
+                    })
+                }
+
             },
             addAnswer(){
                 this.answerOptions = [];
@@ -191,6 +235,18 @@
                     self.coursewareData = data;
                     console.log(data)
                 });
+            },
+            isedits(){
+                if(this.$route.name == "editTest"){
+                    return true;
+                }else{
+                    return false;
+                }
+            }
+        },
+        watch:{
+            coursewareData(){
+                 this.urlEvent();
             }
         },
         mounted:function(){
@@ -199,7 +255,8 @@
             this.professionList();
             this.courseList();
             this.getUpLoadKey();
-                document.getElementById('file-selector').onchange = function () {
+            this.urlEvent();
+                document.getElementById('video-selector').onchange = function () {
                 var file = this.files[0];
                 if (!file) return;
             //                console.log(file.name);
@@ -211,6 +268,20 @@
                         });
                     }
                 }
+
+                };
+                document.getElementById('img-selector').onchange = function () {
+                    var file = this.files[0];
+                    if (!file) return;
+                    //                console.log(file.name);
+                    //                console.log(file)
+                    if(self.SecretId != "" && self.SecretKey !="" ){
+                    if(file){
+                    self.cosjs(self.SecretId,self.SecretKey,file,self.XCosSecurityToken,self.expiredTime,function(img){
+                    self.imgUrl = img;
+                    });
+                    }
+                    }
 
                 };
         }

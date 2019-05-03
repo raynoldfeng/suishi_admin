@@ -127,6 +127,31 @@ export const common={
     }).catch((err)=>{
         console.log(err);
     })
-    }
+    },
+    putEventToken(url,data,userinfo,callback){
+        var token = userinfo.token;
+        var userid = userinfo.user_id;
+        axios({
+            method:'put',
+            url:url,
+            headers: { 'content-type': 'application/json','token':token,'userid':userid },
+            withCredentials: false,
+            data: data ? data:{}
+        }).then((res)=>{
+            if(res.status===200){
+            var code = res.data.code;
+            var data = "";
+            if (code == 0) {
+                data = res.data.data;
+            } else {
+                alert(res.data.msg);
+                return;
+            }
+            callback(data);
+        }
+    }).catch((err)=>{
+        console.log(err);
+    })
+    },
 
 }

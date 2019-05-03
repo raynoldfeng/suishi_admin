@@ -39,10 +39,12 @@
         </div>
         <div class="view_main">
             <span>课题内容</span>
-            <el-input class="input_type" />
-            <el-button>上传</el-button>
-            <el-button>删除</el-button>
-            <input id="file-selector" type="file">
+            <div v-for="(data,index) in pptUrl">
+                <el-input v-model = "pptUrl[index]" class="input_type" />
+                <el-button @click="deleteEvent(index)">删除</el-button>
+            </div>
+
+            <input id="file-selector" multiple="multiple" type="file">
         </div>
         <div class="view_main">
             <el-button @click="addEvent">提交</el-button>
@@ -72,28 +74,36 @@
                         label: '否'
                     }],
                     preposition:"0",
-            majorValue:"",
+                    majorValue:"",
                     majorData: [],
                     SecretId:"",
                     SecretKey:"",
                     XCosSecurityToken:"",
                     expiredTime:"",
-                    pptUrl:[]
+                    pptUrl:[],
+                    major:{majorNameId:"",majorName:""}
                 }
             },
             methods:{
                 urlEvent(){
                     console.log(this.$route.name);
                     var self = this;
-                    if(this.$route.name == "editCourseware"){
+                    if(this.isedits()){
                         this.common.getEventToken(this.api.host+this.api.course+"/"+this.$route.query.id,{},this.userinfo,function(data){
-            console.log(1212)
                             console.log(data);
                             self.coursewarename = data.name;
-                            self.majorValue = data.profession_id;
+
                             self.isUse = data.status;
                             self.sort = data.sort;
-
+                            self.pptUrl = data.url;
+                            self.preposition = data.preposition;
+                            for(var i = 0 ;i < self.majorData.length; i++){
+                                if(data.profession_id == self.majorData[i].id){
+                                    self.majorValue = self.majorData[i].name;
+                                    self.major.majorNameId = self.majorData[i].id;
+                                    self.major.majorName = self.majorData[i].name;
+                                }
+                            }
                         });
                     }else{
 
@@ -114,10 +124,17 @@
                         alert("选择课件");
                         return;
                     }
-                    var info = {"name":this.coursewarename, "sort":this.sort, "status":this.isUse,"preposition":this.preposition,"url":this.pptUrl, "profession_id":this.majorValue};
-                    if(this.$route.name == "editCourseware"){
-
+                    if(this.isedits()){
+                        var info = {"name":this.coursewarename, "sort":this.sort, "status":this.isUse,"preposition":this.preposition,"url":this.pptUrl, "profession_id":this.majorValue,id:this.$route.query.id};
+                        if(self.majorValue == this.major.majorName){
+                            info.profession_id=this.major.majorNameId;
+                        }
+                        this.common.putEventToken(this.api.host+this.api.course,info,this.userinfo,function(data){
+                            console.log(data);
+                            self.$router.push("/coursewareList")
+                        });
                     }else{
+                        var info = {"name":this.coursewarename, "sort":this.sort, "status":this.isUse,"preposition":this.preposition,"url":this.pptUrl, "profession_id":this.majorValue};
                         this.common.postEventToken(this.api.host+this.api.course,info,this.userinfo,function(data){
                             console.log(data);
                             self.$router.push("/coursewareList")
@@ -150,25 +167,45 @@
 
                         })
                     },
+                    deleteEvent(index){
+                        this.pptUrl.splice(index,1);
+                    },
+                    isedits(){
+                        if(this.$route.name == "editCourseware"){
+                            return true;
+                        }else{
+                            return false;
+                        }
+                    }
+            },
+            watch:{
+                majorData(){
+                    this.urlEvent();
+                }
             },
             mounted:function(){
                 var self = this;
                 this.userinfo = {"token":this.common.cookie.get("token"),"user_id":this.common.cookie.get("user_id")};
-                this.urlEvent();
                 this.getUpLoadKey();
                 this.professionList();
 
+
                 document.getElementById('file-selector').onchange = function () {
-                    var file = this.files[0];
-                    if (!file) return;
+                    var files = this.files;
 //                console.log(file.name);
 //                console.log(file)
+                    if(files.length>0){
+                         self.pptUrl = [];
+                    }
                     if(self.SecretId != "" && self.SecretKey !="" ){
-                        if(file){
-                            self.cosjs(self.SecretId,self.SecretKey,file,self.XCosSecurityToken,self.expiredTime,function(url){
-                                self.pptUrl = [];
-                                self.pptUrl.push(url);
-                            });
+                        for(let i = 0 ;i<files.length;i++){
+                            var file = files[i];
+                            if (!file) return;
+                            if(file){
+                                self.cosjs(self.SecretId,self.SecretKey,file,self.XCosSecurityToken,self.expiredTime,function(url){
+                                    self.pptUrl.push(url);
+                                });
+                            }
                         }
                     }
 

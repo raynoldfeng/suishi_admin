@@ -34,9 +34,9 @@
             <el-button>还原</el-button>
         </div>
         <div class="view_main"><el-button class="add_btn" @click="addEvent">新增</el-button></div>
-        <template>
+        <template v-if="circleListData.length>0">
             <el-table
-            :data="tableData"
+            :data="circleListData"
             border
             style="width: 100%">
                 <el-table-column
@@ -50,38 +50,33 @@
                 >
                 </el-table-column>
                 <el-table-column
-                prop="name"
+                prop="type"
                 label="类型"
                 >
                 </el-table-column>
                 <el-table-column
-                prop="name"
+                prop="follow"
                 label="人数"
                 >
                 </el-table-column>
                 <el-table-column
-                prop="name"
-                label="姓名"
-                >
-                </el-table-column>
-                <el-table-column
-                prop="name"
+                prop="comment"
                 label="帖子数"
                 >
                 </el-table-column>
                 <el-table-column
-                prop="name"
+                prop="sort"
                 label="排序"
                 >
                 </el-table-column>
                 <el-table-column
-                prop="name"
+                prop="is_recommend"
                 label="是否推荐"
                 >
                 </el-table-column>
                 <el-table-column
-                prop="name"
-                label="是否启用"
+                prop="status"
+                label="是否禁用"
                 >
                 </el-table-column>
                 <el-table-column
@@ -134,49 +129,26 @@ export default
             ],
             isUse: "false",
             searchText:"",
-            tableData: [{
-                id: '2016-05-03',
-                name: '王小虎',
-                province: '上海',
-                city: '普陀区',
-                address: '上海市普陀区金沙江路 1518 弄',
-                zip: 200333
-            }],
-            tableData: [{
-                id: '2016-05-02',
-                name: '王小虎',
-                province: '上海',
-                city: '普陀区',
-                address: '上海市普陀区金沙江路 1518 弄',
-                zip: 200333
-            }, {
-                id: '2016-05-04',
-                name: '王小虎',
-                province: '上海',
-                city: '普陀区',
-                address: '上海市普陀区金沙江路 1517 弄',
-                zip: 200333
-            }, {
-                id: '2016-05-01',
-                name: '王小虎',
-                province: '上海',
-                city: '普陀区',
-                address: '上海市普陀区金沙江路 1519 弄',
-                zip: 200333
-            }, {
-                id: '2016-05-03',
-                name: '王小虎',
-                province: '上海',
-                city: '普陀区',
-                address: '上海市普陀区金沙江路 1516 弄',
-                zip: 200333
-            }]
+            userinfo:"",
+            circleListData:[]
         }
     },
     methods:{
         addEvent(){
             this.$router.push("/addGame")
+        },
+        getCircleList(){
+            var self =this;
+
+            this.common.getEventToken(this.api.host+this.api.category,{},this.userinfo,function(data){
+                console.log(data);
+                self.circleListData = data;
+            })
         }
+    },
+    mounted:function(){
+        this.userinfo = {"token":this.common.cookie.get("token"),"user_id":this.common.cookie.get("user_id")};
+        this.getCircleList();
     }
 
 }

@@ -15,5 +15,7 @@ export const api={
     "tagsData":"admin/tags",
     "profession":"admin/profession",
     "test":"admin/test",
-    "course":"admin/course"
+    "course":"admin/course",
+    "categoryType":"admin/category_type",
+    "category":"admin/category"
 }

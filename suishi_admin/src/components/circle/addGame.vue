@@ -3,11 +3,11 @@
         <p class="title_main">新增游戏</p>
         <div class="view_main">
             <span>圈子名称</span>
-            <el-input class="input_type"></el-input>
+            <el-input v-model="name" class="input_type"></el-input>
             <span>排序</span>
-            <el-input class="input_type"></el-input>
+            <el-input v-model="sort" class="input_type"></el-input>
             <span>是否推荐</span>
-            <el-select v-model="isUse" placeholder="是否推荐">
+            <el-select v-model="is_recommend" placeholder="是否推荐">
                 <el-option
                         v-for="item in isUseMenu"
                 :key="item.value"
@@ -15,7 +15,7 @@
                 :value="item.value">
             </el-option>
         </el-select>
-            <span>是否启用</span>
+            <span>是否禁用</span>
             <el-select v-model="isUse" placeholder="是否使用">
                 <el-option
                         v-for="item in isUseMenu"
@@ -32,33 +32,34 @@
                     type="textarea"
             :autosize="{ minRows: 2, maxRows: 4}"
             placeholder="请输入内容"
-            v-model="textarea">
+            v-model="description">
         </el-input>
         </div>
         <div  class="view_main">
-            <span>类型</span>
-            <el-select v-model="typeValue1" placeholder="专业">
+            <span>圈子类型</span>
+            <el-select v-model="circleTypeId" placeholder="专业">
                 <el-option
-                v-for="item in optionsType"
-                :key="item.value"
-                :label="item.label"
-                :value="item.value">
+                v-for="item in circleData"
+                :key="item.id"
+                :label="item.name"
+                :value="item.id">
                 </el-option>
             </el-select>
         </div>
-        <div  class="view_main">
+        <div class="view_main">
             <span>标签</span>
-            <el-tag
+            <el-tag  v-if="tags.length > 0"
             v-for="tag in tags"
             :key="tag.name"
             closable
-            :type="tag.type">
-  {{tag.name}}
+            :id="tag.id" @close="handleClose(tag)">
+                {{tag.name}}
             </el-tag>
             <el-button @click="LabelDialog(true)">添加</el-button>
         </div>
         <div class="view_main">
             <p>封面图</p>
+            <input id="file-selector" type="file">
             <el-upload
             class="avatar-uploader"
             action="https://jsonplaceholder.typicode.com/posts/"
@@ -69,31 +70,26 @@
                     <i v-else class="el-icon-plus avatar-uploader-icon"></i>
                 </el-upload>
         </div>
+
             <div class="view_main">
-                <ul class="game_info">
-                    <li>
-                    <p class="padd_type">关注人数</p>
-                        <p>0</p>
-                        </li>
-                    <li>
-                        <p class="padd_type">帖子数</p>
-                        <p>0</p>
-                    </li>
-                    <li>
-                        <p class="padd_type">每日预览</p>
-                        <p>0</p>
-                    </li>
-                    <li>
-                        <p class="padd_type">每日点赞</p>
-                        <p>0</p>
-                    </li>
-                </ul>
+                <el-button @click="addCircle">提交</el-button>
             </div>
-            <div class="view_main">
-                <el-button>提交</el-button>
-            </div>
-            <el-dialog title="收货地址" :visible.sync="dialogTableVisible">
-                <div>sadasd</div>
+            <el-dialog title="选择标签" :visible.sync="dialogTableVisible">
+                <div class="dialog_menu">
+                    <div class="type_menu_css">
+                        <p v-for="data in typeData" v-text="data.name" @click="tagsData(data.id)"></p>
+                    </div>
+                    <div class="type_menu_css">
+                        <template>
+                            <el-checkbox-group v-model="tagDataMenu" @change="handleCheckedCitiesChange">
+                                <div  v-for="data in tagData">
+                                    <el-checkbox  :label="data.id" :key="data.id">{{data.name}}</el-checkbox>
+                                </div>
+
+                            </el-checkbox-group>
+                        </template>
+                    </div>
+                </div>
                 <el-button @click="LabelDialog(false)">保存并关闭</el-button>
             </el-dialog>
     </div>
@@ -102,14 +98,6 @@
             export default{
                 data(){
                     return{
-                        isUseMenu: [
-                            {value: "true",
-                                label: "是"},
-                            {value: "false",
-                                label: "否"}
-                        ],
-                        isUse: "false",
-                        textarea:"",
                         optionsType: [
                             {
                                 value: '选项1',
@@ -141,29 +129,188 @@
                             { name: '标签五', type: 'danger' }
                         ],
                          imageUrl: '',
-            dialogTableVisible: false,
+                        dialogTableVisible: false,
+
+            userinfo:"",
+                        name:"",
+                        sort:"",
+                        isUseMenu: [
+                        {value: "1",
+                        label: "是"},
+                        {value: "0",
+                        label: "否"}
+                        ],
+                        isUse: "0",
+                        is_recommend:"0",
+                        description:"",
+                        circleData:[],
+                        circleTypeId:"",
+            coverImg:"",
+            SecretId:"",
+            SecretKey:"",
+            XCosSecurityToken:"",
+            expiredTime:"",
+
+                        typeData:[],
+                        nowType:"",
+                        tagData:[],
+                        tagDataList:[],
+                        tagDataMenu:[],
+                        tags: [],
+                        tagsArr:[]
                     }
                 },
                 methods:{
-            handleAvatarSuccess(res, file) {
-            this.imageUrl = URL.createObjectURL(file.raw);
+                    handleClose(tag) {
+                        this.tags.splice(this.tags.indexOf(tag), 1);
+                    },
+            handleCheckedCitiesChange(value) {
+            let tagDataMenu = value.length;
+            this.checkAll = tagDataMenu === this.tagDataList.length;
+            this.isIndeterminate = tagDataMenu > 0 && tagDataMenu < this.tagDataList.length;
             },
-            beforeAvatarUpload(file) {
-            const isJPG = file.type === 'image/jpeg';
-            const isLt2M = file.size / 1024 / 1024 < 2;
 
-            if (!isJPG) {
-            this.$message.error('上传头像图片只能是 JPG 格式!');
-            }
-            if (!isLt2M) {
-            this.$message.error('上传头像图片大小不能超过 2MB!');
-            }
-            return isJPG && isLt2M;
-            },
-            LabelDialog(boolean){
-            this.dialogTableVisible = boolean;
-            }
-            }
+                    handleAvatarSuccess(res, file) {
+                        this.imageUrl = URL.createObjectURL(file.raw);
+                    },
+                    beforeAvatarUpload(file) {
+                        const isJPG = file.type === 'image/jpeg';
+                        const isLt2M = file.size / 1024 / 1024 < 2;
+
+                        if (!isJPG) {
+                            this.$message.error('上传头像图片只能是 JPG 格式!');
+                        }
+                        if (!isLt2M) {
+                            this.$message.error('上传头像图片大小不能超过 2MB!');
+                        }
+                        return isJPG && isLt2M;
+                    },
+                    LabelDialog(boolean){
+                        this.dialogTableVisible = boolean;
+                        console.log(this.tagDataMenu);
+                        this.tags = [];
+                        for(let a = 0; a < this.tagData.length;a++){
+                            if(this.tagDataMenu.indexOf(this.tagData[a].id) != (-1)){
+                                this.tags.push({ name: this.tagData[a].name, id: this.tagData[a].id });
+                            }
+                        }
+                    },
+                    circleType:function(){
+                        var self = this;
+                        this.common.getEventToken(this.api.host+this.api.categoryType,{},this.userinfo,function(data){
+                            self.circleData = data;
+                            console.log(data)
+                        });
+                    },
+                    tagsType(){
+                        var self = this;
+                        this.common.getEventToken(this.api.host+this.api.tagsType,{},this.userinfo,function(data){
+                            if(data.length >0){
+                                self.typeData = data;
+                                self.nowType = data[0].id;
+                                self.tagsData(self.nowType);
+                                if(self.isedits()){
+                                    self.showTag();
+                                }
+                            }
+                        });
+                    },
+                    tagsData(id){
+                        var self = this;
+                        this.nowType = id;
+                        this.common.getEventToken(this.api.host+this.api.tagsData+"?tag_type="+id,{},this.userinfo,function(data){
+                            console.log(data);
+                            if(data.length >0){
+                                self.tagData = data;
+                                self.tagDataList = [];
+                                self.tagDataMenu = [];
+                                for(let i = 0 ;i<data.length;i++){
+                                    self.tagDataList.push(data[i].id);
+                                }
+
+                            }else{
+                                self.tagData = [];
+                                self.tagDataList = [];
+                            }
+
+                        });
+                    },
+                    showTag(){
+                        var self = this;
+                        for(let i = 0 ; i<self.typeData.length;i++){
+                            this.common.getEventToken(this.api.host+this.api.tagsData+"?tag_type="+self.typeData[i].id,{},this.userinfo,function(data){
+                                for(let a = 0;a<data.length;a++){
+                                console.log(self.tagsArr)
+                                    if(self.tagsArr.indexOf(data[a].id)!=(-1)){
+                                        self.tags.push({ name: data[a].name, id: data[a].id });
+                        //        console.log(155)
+                        //                                    console.log(self.tags)
+                                    }else{
+                                        return;
+                                    }
+                                }
+                            })
+                        }
+                    },
+                    getUpLoadKey(){
+                        var self =this;
+                        this.common.getEventToken(this.api.host+this.api.cosToken,{},this.userinfo,function(data){
+                            console.log(data);
+                            self.SecretId = data.credentials.tmpSecretId;
+                            self.SecretKey = data.credentials.tmpSecretKey;
+                            self.XCosSecurityToken = data.credentials.sessionToken;
+                            self.expiredTime = data.expiredTime;
+                        })
+
+                    },
+                    addCircle(){
+                        var self = this;
+                        if(this.name == ""){
+                            alert("输入圈子名称");
+                            return;
+                        }else if(this.sort == ""){
+                            alert("输入排序");
+                            return;
+                        }else if(this.description == ""){
+                            alert("输入简介");
+                            return;
+                        }else if(this.circleTypeId == ""){
+                            alert("选择圈子类型");
+                            return;
+                        }else{
+                            this.tagsArr = [];
+                            for(let i = 0 ;i <this.tags.length; i++){
+                                this.tagsArr.push(this.tags[i].id);
+                            }
+                        }
+
+                        var info = {"name":this.name,"descroption":this.description,"status":this.isUse,"sort":this.sort,"is_recommend":this.is_recommend,"img":this.coverImg,"type":this.circleTypeId,"tag_ids":this.tagsArr}
+                        this.common.postEventToken(this.api.host+this.api.category,info,this.userinfo,function(data){
+                            self.$router.push("/circleList");
+                        })
+                    }
+                },
+                mounted:function(){
+                    var self = this;
+                    this.userinfo = {"token":this.common.cookie.get("token"),"user_id":this.common.cookie.get("user_id")};
+                    this.getUpLoadKey();
+                    this.circleType();
+                    this.tagsType();
+                    document.getElementById('file-selector').onchange = function () {
+                        var file = this.files[0];
+                        if (!file) return;
+            //                console.log(file.name);
+            //                console.log(file)
+                        if(self.SecretId != "" && self.SecretKey !="" ){
+                            if(file){
+                                self.cosjs(self.SecretId,self.SecretKey,file,self.XCosSecurityToken,self.expiredTime,function(img){
+                                    self.coverImg = img;
+                                });
+                            }
+                        }
+
+                    };
+                }
             }
         </script>
         <style>
@@ -219,5 +366,15 @@
             }
             .padd_type{
             padding-top:30px;
+            }
+        .type_menu_css{
+            display:inline-block;
+            width:40%;
+            height:500px;
+            overflow:auto;
+            background:#efefef;
+            }
+        .type_menu_css p{
+            padding-left:10px;
             }
         </style>

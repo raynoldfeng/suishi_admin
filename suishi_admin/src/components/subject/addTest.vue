@@ -37,7 +37,7 @@
         <div class="view_main">
            <div>
                <span>图片</span>
-               <input id="img-selector" type="file">
+               <input id="img-selector" type="file" accept = "image/*">
             <el-upload
             class="upload-demo"
             action="https://jsonplaceholder.typicode.com/posts/"
@@ -54,7 +54,7 @@
            </div>
             <div>
                 <span>视频</span>
-                <input id="video-selector" type="file">
+                <input id="video-selector" type="file" accept = "video/*">
             <el-upload
             class="upload-demo"
             action="https://jsonplaceholder.typicode.com/posts/"
@@ -255,7 +255,6 @@
             this.professionList();
             this.courseList();
             this.getUpLoadKey();
-            this.urlEvent();
                 document.getElementById('video-selector').onchange = function () {
                 var file = this.files[0];
                 if (!file) return;
@@ -263,8 +262,8 @@
             //                console.log(file)
                 if(self.SecretId != "" && self.SecretKey !="" ){
                     if(file){
-                        self.cosjs(self.SecretId,self.SecretKey,file,self.XCosSecurityToken,self.expiredTime,function(img){
-                            self.imgUrl = img;
+                        self.cosjs(self.SecretId,self.SecretKey,file,self.XCosSecurityToken,self.expiredTime,function(video){
+                            self.videoUrl = video;
                         });
                     }
                 }

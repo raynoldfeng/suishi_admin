@@ -4,10 +4,10 @@
         <div class="view_main">
             <el-button @click="LabelDialog(true)">新增</el-button>
         </div>
-        <div class="view_main">
+        <div class="view_main" v-if="circleData.length>0">
             <template>
                 <el-table
-                :data="tableData"
+                :data="circleData"
                 border
                 style="width: 100%">
                     <el-table-column
@@ -33,12 +33,16 @@
                 </el-table>
             </template>
         </div>
-    <el-dialog title="收货地址" :visible.sync="dialogTableVisible" width="30%">
+    <el-dialog title="新增圈子类型" :visible.sync="dialogTableVisible" width="30%">
         <div class="view_main">
             <span>类型</span>
-            <el-input class="input_type"></el-input>
+            <el-input v-model="circleName" class="input_type"></el-input>
         </div>
-        <el-button @click="LabelDialog(false)">添加</el-button>
+        <div class="view_main">
+            <span>简介</span>
+            <el-input v-model="description" class="input_type"></el-input>
+        </div>
+        <el-button @click="addCircle">添加</el-button>
     </el-dialog>
     </div>
 </template>
@@ -54,13 +58,41 @@
                     address: '上海市普陀区金沙江路 1518 弄',
                     zip: 200333
                 }],
-                dialogTableVisible:false
+                userinfo:"",
+                dialogTableVisible:false,
+                circleName:"",
+                circleType:"",
+                circleData:"",
+                description:""
             }
     },
     methods:{
         LabelDialog(boolean){
              this.dialogTableVisible = boolean;
-        }
+        },
+            addCircle(){
+                var self = this;
+                if(this.circleName == ""){
+                    alert("请输入类型");
+                    return ;
+                }
+                this.common.postEventToken(this.api.host+this.api.categoryType,{"name":this.circleName,"description":this.description},this.userinfo,function(data){
+                    self.dialogTableVisible = false;
+                    self.circleName = "";
+                    self.description = "";
+                    self.circleList();
+                });
+            },
+            circleList(){
+                 var self = this;
+                this.common.getEventToken(this.api.host+this.api.categoryType,{},this.userinfo,function(data){
+                    self.circleData = data;
+                });
+            }
+    },
+    mounted:function(){
+    this.userinfo = {"token":this.common.cookie.get("token"),"user_id":this.common.cookie.get("user_id")};
+    this.circleList();
     }
 }
 </script>

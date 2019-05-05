@@ -91,10 +91,6 @@
                     isStudy:"0",
                     descText:"",
                     imageUrl: '',
-                    tags: [
-
-                    ],
-                    tagsArr:[],
                 dialogTableVisible: false,
                 userinfo:"",
                 SecretId:"",
@@ -104,11 +100,16 @@
                 majorName:"",
                 orderValue:"",
                 coverImg:"",
+
+
+
                 typeData:[],
                 nowType:"",
                 tagData:[],
                 tagDataList:[],
-                tagDataMenu:[]
+                tagDataMenu:[],
+                tags: [],
+                tagsArr:[]
                 }
             },
             methods: {

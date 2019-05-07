@@ -17,5 +17,6 @@ export const api={
     "test":"admin/test",
     "course":"admin/course",
     "categoryType":"admin/category_type",
-    "category":"admin/category"
+    "category":"admin/category",
+    "postList":"admin/post"
 }

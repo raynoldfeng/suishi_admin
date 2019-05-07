@@ -44,7 +44,7 @@
         <div class="view_main">
             <template>
                 <el-table
-                :data="tableData"
+                :data="postList"
                 border
                 style="width: 100%">
                     <el-table-column
@@ -59,27 +59,32 @@
                     >
                     </el-table-column>
                     <el-table-column
-                    prop="province"
+                    prop="category"
                     label="所属圈子"
                     >
                     </el-table-column>
                     <el-table-column
-                    prop="zip"
+                    prop="content"
                     label="内容"
                     >
                     </el-table-column>
                     <el-table-column
-                    prop="zip"
                     label="是否有图"
                     >
+                        <template slot-scope="scope">
+                            <p v-if="scope.row.imgs">有</p>
+                            <p v-else>无</p>
+                          <!--  <el-button @click="handleClick(scope.row)" type="text" size="small">查看</el-button>
+                            <el-button type="text" size="small">删除</el-button>-->
+                        </template>
                     </el-table-column>
                     <el-table-column
-                    prop="city"
+                    prop="like"
                     label="点赞数"
                     >
                     </el-table-column>
                     <el-table-column
-                    prop="address"
+                    prop="reply"
                     label="评论数"
                     >
                     </el-table-column>
@@ -155,13 +160,26 @@
                     {value: "90",
                         label: "半年"}
                 ],
-                dateVaule:''
+                dateVaule:'',
+                userinfo:"",
+                postList:[]
             }
     },
     methods:{
         addEvent(){
             this.$router.push("/addPost");
+        },
+        postDatas(){
+            var self = this;
+            this.common.getEventToken(this.api.host+this.api.postList,{},this.userinfo,function(data){
+                console.log(data);
+                self.postList = data;
+            })
         }
+    },
+    mounted:function(){
+        this.userinfo = {"token":this.common.cookie.get("token"),"user_id":this.common.cookie.get("user_id")};
+        this.postDatas();
     }
     }
 </script>

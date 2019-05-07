@@ -49,7 +49,7 @@
         <div class="view_main">
             <span class="type_title">封绘图</span>
             <input id="file-selector" type="file">
-                <div class="avatar-uploader">
+                <div class="avatar-uploader" @click="uploadImg">
                     <img v-if="coverImg" :src="coverImg" class="avatar">
                         <i v-else class="el-icon-plus avatar-uploader-icon"></i>
                 </div>
@@ -263,6 +263,9 @@
                             }
                         })
                      }
+                },
+                uploadImg(){
+                    document.getElementById('file-selector').click();
                 }
             },
             mounted:function(){

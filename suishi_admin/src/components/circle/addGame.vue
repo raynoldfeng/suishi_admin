@@ -284,10 +284,17 @@
                             }
                         }
 
-                        var info = {"name":this.name,"descroption":this.description,"status":this.isUse,"sort":this.sort,"is_recommend":this.is_recommend,"img":this.coverImg,"type":this.circleTypeId,"tag_ids":this.tagsArr}
+                        var info = {"name":this.name,"description":this.description,"status":this.isUse,"sort":this.sort,"is_recommend":this.is_recommend,"img":this.coverImg,"type":this.circleTypeId,"tag_ids":this.tagsArr}
                         this.common.postEventToken(this.api.host+this.api.category,info,this.userinfo,function(data){
                             self.$router.push("/circleList");
                         })
+                    },
+                    isedits(){
+                        if(this.$route.name == "editGame"){
+                            return true;
+                        }else{
+                            return false;
+                        }
                     }
                 },
                 mounted:function(){

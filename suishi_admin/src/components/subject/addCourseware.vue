@@ -14,7 +14,7 @@
             </el-option>
         </el-select>
 
-        <span>是否启用</span>
+        <span>是否禁用</span>
         <el-select v-model="isUse" placeholder="请选择">
             <el-option
                v-for="item in statusOptions"

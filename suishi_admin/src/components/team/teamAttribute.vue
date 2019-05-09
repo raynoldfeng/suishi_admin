@@ -4,15 +4,16 @@
         <div class="view_main">
             <el-input
             placeholder="输入名称"
+                v-model="typeName"
             class="search_input"
             >
             </el-input>
-            <el-button>新增</el-button>
+            <el-button @click="teamTypeEvent">新增</el-button>
         </div>
         <div class="view_main">
             <template>
                 <el-table
-                :data="tableData"
+                :data="teamTypeData"
                 border
                 style="width: 100%">
                     <el-table-column
@@ -22,7 +23,7 @@
                     </el-table-column>
                     <el-table-column
                     prop="name"
-                    label="名称"
+                    label="类型"
                     >
                     </el-table-column>
 
@@ -31,28 +32,64 @@
                     label="操作"
                     >
                         <template slot-scope="scope">
+                            <el-button @click="editType(scope.row)" type="text" size="small">编辑</el-button>
                             <el-button @click="handleClick(scope.row)" type="text" size="small">删除</el-button>
-
                         </template>
                     </el-table-column>
                 </el-table>
                 </template>
         </div>
+    <el-dialog title="编辑类型" :visible.sync="dialogTableVisible">
+        <div class="dialog_menu">
+           <el-input v-model="typeNames" />
+        </div>
+        <el-button @click="saveType">保存并关闭</el-button>
+    </el-dialog>
     </div>
 </template>
     <script>
         export default{
             data(){
                 return{
-                    tableData: [{
-                    id: '2016-05-03',
-                    name: '王小虎',
-                    province: '上海',
-                    city: '普陀区',
-                    address: '上海市普陀区金沙江路 1518 弄',
-                    zip: 200333
-                    }]
+                    userinfo:"",
+                    typeName:"",
+                    teamTypeData:[],
+                    typeNames:"",
+                    typeId:"",
+                    dialogTableVisible:false
                 }
+            },
+            methods:{
+                teamTypeEvent(){
+                    var self = this;
+                    if(this.typeName == ""){
+                        alert("输入类型");
+                        return
+                    }
+                    this.common.postEventToken(this.api.host+this.api.teamType,{"name":this.typeName},this.userinfo,function(data){
+                        console.log(data);
+                        self.teamTypeList();
+                    })
+                },
+                teamTypeList(){
+                    var self = this;
+                    this.common.getEventToken(this.api.host+this.api.teamType,{},this.userinfo,function(data){
+                        console.log(data);
+                        self.teamTypeData = data;
+                    })
+                },
+                saveType(){
+                    this.dialogTableVisible = false;
+                },
+                editType(info){
+                    this.dialogTableVisible = true;
+                    this.typeId = info.id;
+                    this.typeNames = info.name;
+                }
+            },
+            mounted:function(){
+                this.userinfo = {"token":this.common.cookie.get("token"),"user_id":this.common.cookie.get("user_id")};
+                this.teamTypeList();
             }
         }
     </script>

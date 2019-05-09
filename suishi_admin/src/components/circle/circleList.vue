@@ -17,7 +17,7 @@
                 :value="item.value">
                 </el-option>
             </el-select>
-            <el-select v-model="isUse" placeholder="是否启用">
+            <el-select v-model="isUse" placeholder="是否禁用">
                 <el-option
                 v-for="item in isUseMenu"
                 :key="item.value"
@@ -83,8 +83,8 @@
                 label="操作"
                 >
                     <template slot-scope="scope">
-                        <el-button @click="handleClick(scope.row)" type="text" size="small">查看</el-button>
-                        <el-button type="text" size="small">编辑</el-button>
+                        <el-button @click="editEvent(scope.row.id)" type="text" size="small">编辑</el-button>
+                        <el-button type="text" size="small">删除</el-button>
                     </template>
                 </el-table-column>
             </el-table>
@@ -144,6 +144,9 @@ export default
                 console.log(data);
                 self.circleListData = data;
             })
+        },
+        editEvent(id){
+            this.$router.push({path:"/editGame",query:{id:id}})
         }
     },
     mounted:function(){

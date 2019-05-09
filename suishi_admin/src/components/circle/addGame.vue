@@ -16,7 +16,7 @@
             </el-option>
         </el-select>
             <span>是否禁用</span>
-            <el-select v-model="isUse" placeholder="是否使用">
+            <el-select v-model="isUse" placeholder="是否禁用">
                 <el-option
                         v-for="item in isUseMenu"
                 :key="item.value"
@@ -60,15 +60,10 @@
         <div class="view_main">
             <p>封面图</p>
             <input id="file-selector" type="file">
-            <el-upload
-            class="avatar-uploader"
-            action="https://jsonplaceholder.typicode.com/posts/"
-            :show-file-list="false"
-            :on-success="handleAvatarSuccess"
-            :before-upload="beforeAvatarUpload">
-                <img v-if="imageUrl" :src="imageUrl" class="avatar">
-                    <i v-else class="el-icon-plus avatar-uploader-icon"></i>
-                </el-upload>
+                <div class="avatar-uploader" @click="uploadImg">
+                    <img v-if="coverImg" :src="coverImg" class="avatar">
+                        <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+                    </div>
         </div>
 
             <div class="view_main">
@@ -161,6 +156,26 @@
                     }
                 },
                 methods:{
+                    urlEvent(){
+                        var self = this;
+                        if(this.isedits()){
+                            this.common.getEventToken(this.api.host+this.api.category+"/"+this.$route.query.id,{},this.userinfo,function(data){
+                                console.log(data);
+                                self.name = data.name;
+                                self.sort = data.sort;
+                                self.is_recommend = data.is_recommend;
+                                self.isUse = data.status;
+                                self.description = data.description;
+                                self.coverImg = data.img;
+                                for(var index in data.tag_ids){
+                                    console.log(data.tag_ids)
+                                    self.tagsArr.push(data.tag_ids[index])
+                                }
+                            });
+                        }else{
+
+                        }
+                    },
                     handleClose(tag) {
                         this.tags.splice(this.tags.indexOf(tag), 1);
                     },
@@ -169,22 +184,6 @@
             this.checkAll = tagDataMenu === this.tagDataList.length;
             this.isIndeterminate = tagDataMenu > 0 && tagDataMenu < this.tagDataList.length;
             },
-
-                    handleAvatarSuccess(res, file) {
-                        this.imageUrl = URL.createObjectURL(file.raw);
-                    },
-                    beforeAvatarUpload(file) {
-                        const isJPG = file.type === 'image/jpeg';
-                        const isLt2M = file.size / 1024 / 1024 < 2;
-
-                        if (!isJPG) {
-                            this.$message.error('上传头像图片只能是 JPG 格式!');
-                        }
-                        if (!isLt2M) {
-                            this.$message.error('上传头像图片大小不能超过 2MB!');
-                        }
-                        return isJPG && isLt2M;
-                    },
                     LabelDialog(boolean){
                         this.dialogTableVisible = boolean;
                         console.log(this.tagDataMenu);
@@ -271,23 +270,28 @@
                         }else if(this.sort == ""){
                             alert("输入排序");
                             return;
-                        }else if(this.description == ""){
-                            alert("输入简介");
-                            return;
                         }else if(this.circleTypeId == ""){
                             alert("选择圈子类型");
                             return;
-                        }else{
+                        }
+
                             this.tagsArr = [];
                             for(let i = 0 ;i <this.tags.length; i++){
                                 this.tagsArr.push(this.tags[i].id);
                             }
+
+                        if(this.isedits()){
+                            var info = {"id":this.$route.query.id,"name":this.name,"description":this.description,"status":this.isUse,"sort":this.sort,"is_recommend":this.is_recommend,"img":this.coverImg,"type":this.circleTypeId,"tag_ids":this.tagsArr}
+                            this.common.putEventToken(this.api.host+this.api.category,info,this.userinfo,function(data){
+                                self.$router.push("/circleList");
+                            })
+                        }else{
+                            var info = {"name":this.name,"description":this.description,"status":this.isUse,"sort":this.sort,"is_recommend":this.is_recommend,"img":this.coverImg,"type":this.circleTypeId,"tag_ids":this.tagsArr}
+                            this.common.postEventToken(this.api.host+this.api.category,info,this.userinfo,function(data){
+                                self.$router.push("/circleList");
+                            })
                         }
 
-                        var info = {"name":this.name,"description":this.description,"status":this.isUse,"sort":this.sort,"is_recommend":this.is_recommend,"img":this.coverImg,"type":this.circleTypeId,"tag_ids":this.tagsArr}
-                        this.common.postEventToken(this.api.host+this.api.category,info,this.userinfo,function(data){
-                            self.$router.push("/circleList");
-                        })
                     },
                     isedits(){
                         if(this.$route.name == "editGame"){
@@ -295,6 +299,15 @@
                         }else{
                             return false;
                         }
+                    },
+                    uploadImg(){
+                        document.getElementById('file-selector').click();
+                    }
+
+                },
+                watch:{
+                    circleData(){
+                        this.urlEvent();
                     }
                 },
                 mounted:function(){
@@ -332,7 +345,8 @@
             border-bottom: 1px solid #999;
             }
         .view_main{
-            margin-top:10px
+            margin-top:10px;
+            overflow:hidden;
             }
         .avatar-uploader .el-upload {
             border: 1px dashed #d9d9d9;

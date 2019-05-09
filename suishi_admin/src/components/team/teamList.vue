@@ -3,7 +3,7 @@
         <div class="type_menu">
             <el-select v-model="typeValue" placeholder="所属圈子">
                 <el-option
-                v-for="item in optionsType"
+                v-for="item in isUseMenu"
                 :key="item.value"
                 :label="item.label"
                 :value="item.value">
@@ -11,13 +11,13 @@
             </el-select>
             <el-select v-model="typeValue1" placeholder="是否推荐">
                 <el-option
-                v-for="item in optionsType"
+                v-for="item in isUseMenu"
                 :key="item.value"
                 :label="item.label"
                 :value="item.value">
                 </el-option>
             </el-select>
-            <el-select v-model="isUse" placeholder="是否启用">
+            <el-select v-model="isUse" placeholder="是否禁用">
                 <el-option
                 v-for="item in isUseMenu"
                 :key="item.value"
@@ -33,10 +33,10 @@
             <el-button>搜索</el-button>
             <el-button>还原</el-button>
         </div>
-        <div class="view_main"><el-button class="add_btn" @click="addEvent">新增</el-button></div>
+        <div class="view_main"><el-button class="add_btn" @click="LabelDialog(true)">新增</el-button></div>
         <template>
             <el-table
-            :data="tableData"
+            :data="teamList"
             border
             style="width: 100%">
                 <el-table-column
@@ -50,40 +50,72 @@
                 >
                 </el-table-column>
                 <el-table-column
-                prop="name"
+                prop="team_type_id"
                 label="类型"
                 >
+                    <template slot-scope="scope">
+                        <p v-html="teamTypeObj[scope.row.team_type_id]"></p>
+                    </template>
                 </el-table-column>
                 <el-table-column
-                prop="name"
+                prop="number"
                 label="人数"
                 >
                 </el-table-column>
-                <el-table-column
+              <!--  <el-table-column
                 prop="name"
                 label="创建时间"
                 >
-                </el-table-column>
+                </el-table-column>-->
                 <el-table-column
-                prop="name"
+                prop="total_score"
                 label="得分"
                 >
                 </el-table-column>
                 <el-table-column
-                prop="name"
-                label="是否启用"
+                prop="status"
+                label="是否禁用"
                 >
                 </el-table-column>
                 <el-table-column
                 label="操作"
                 >
                     <template slot-scope="scope">
-                        <el-button @click="handleClick(scope.row)" type="text" size="small">查看</el-button>
+                        <el-button @click="editEvent(scope.row.id)" type="text" size="small">查看</el-button>
                         <el-button type="text" size="small">编辑</el-button>
                     </template>
                 </el-table-column>
             </el-table>
         </template>
+        <el-dialog title="新增队伍" :visible.sync="dialogTableVisible" width="30%">
+            <div class="view_main">
+                <span>队伍名称</span>
+                <el-input v-model="teamName" class="input_type"></el-input>
+            </div>
+            <div class="view_main">
+                <span>队伍类型</span>
+                <el-select v-model="teamTypeValue" placeholder="队伍类型">
+                    <el-option
+                    v-for="item in teamTypeData"
+                    :key="item.id"
+                    :label="item.name"
+                    :value="item.id">
+                    </el-option>
+                </el-select>
+            </div>
+            <div class="view_main">
+                <span>是否禁用</span>
+                <el-select v-model="isStatus" placeholder="是否禁用">
+                    <el-option
+                    v-for="item in isUseMenu"
+                    :key="item.value"
+                    :label="item.label"
+                    :value="item.value">
+                    </el-option>
+                </el-select>
+            </div>
+            <el-button @click="addTeamEvent">添加</el-button>
+        </el-dialog>
     </div>
 </template>
 <script>
@@ -92,37 +124,16 @@ export default
     data()
     {
         return{
-            optionsType: [
-                {
-                    value: '选项1',
-                    label: '黄金糕'
-                },
-                {
-                    value: '选项2',
-                    label: '双皮奶'
-                },
-                {
-                    value: '选项3',
-                    label: '蚵仔煎'
-                },
-                {
-                    value: '选项4',
-                    label: '龙须面'
-                },
-                {
-                    value: '选项5',
-                    label: '北京烤鸭'
-                }
-            ],
             typeValue: '',
             typeValue1: '',
             isUseMenu: [
-                {value: "true",
+                {value: "1",
                     label: "是"},
-                {value: "false",
+                {value: "0",
                     label: "否"}
             ],
-            isUse: "false",
+            isUse: "0",
+            isStatus:"0",
             searchText:"",
             tableData: [{
                 id: '2016-05-03',
@@ -131,14 +142,62 @@ export default
                 city: '普陀区',
                 address: '上海市普陀区金沙江路 1518 弄',
                 zip: 200333
-            }]
+            }],
+            userinfo:"",
+            teamTypeObj:{},
+            teamTypeData:[],
+            teamTypeValue:"",
+            teamName:"",
+            dialogTableVisible:false,
+            teamList:[]
 
         }
     },
     methods:{
-        addEvent(){
-            this.$router.push("/addTeam")
+        LabelDialog(boolean){
+            this.dialogTableVisible = boolean;
+        },
+        editEvent(id){
+            this.$router.push({path:"/editTeam",query:{id:id}})
+        },
+        teamTypeList(){
+            var self = this;
+            this.common.getEventToken(this.api.host+this.api.teamType,{},this.userinfo,function(data){
+                console.log(data);
+                self.teamTypeData = data;
+                for(var index in data){
+                    self.teamTypeObj[data[index].id] = data[index].name;
+                }
+            })
+        },
+        getTeamList(){
+            var self = this;
+            this.common.getEventToken(this.api.host+this.api.addTeams,{},this.userinfo,function(data){
+                console.log(data);
+                self.teamList = data;
+            })
+        },
+        addTeamEvent(){
+            var self = this;
+            if(this.teamName == ""){
+                alert("输入队伍名称");
+                return;
+            }else if(this.teamTypeValue == ""){
+                alert("请选择队伍类型");
+                return;
+            }
+            this.common.postEventToken(this.api.host+this.api.addTeams,{"name":this.teamName, "team_type_id":this.teamTypeValue, "status":this.isStatus},this.userinfo,function(data){
+                console.log(data);
+                self.dialogTableVisible = false;
+                self.getTeamList()
+            })
         }
+
+    },
+    mounted:function(){
+        this.userinfo = {"token":this.common.cookie.get("token"),"user_id":this.common.cookie.get("user_id")};
+        this.teamTypeList();
+        this.getTeamList();
     }
 
 }

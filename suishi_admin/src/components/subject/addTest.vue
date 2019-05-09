@@ -20,8 +20,8 @@
                 :value="item.id">
                 </el-option>
             </el-select>
-            <span>是否启用</span>
-            <el-select v-model="isUse" placeholder="是否推荐">
+            <span>是否禁用</span>
+            <el-select v-model="isUse" placeholder="是否禁用">
                 <el-option
                 v-for="item in isUseMenu"
                 :key="item.value"
@@ -35,40 +35,21 @@
             <el-input class="input_test" v-model="testName" placeholder="输入问题"></el-input>
         </div>
         <div class="view_main">
-           <div>
-               <span>图片</span>
-               <input id="img-selector" type="file" accept = "image/*">
-            <el-upload
-            class="upload-demo"
-            action="https://jsonplaceholder.typicode.com/posts/"
-            :on-preview="handlePreview"
-            :on-remove="handleRemove"
-            :before-remove="beforeRemove"
-            multiple
-            :limit="3"
-            :on-exceed="handleExceed"
-            :file-list="fileList">
-                <el-button size="small" type="primary">点击上传</el-button>
-              <!-- <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>-->
-            </el-upload>
+               <div>
+                   <span>图片</span>
+                   <input id="img-selector" type="file" accept = "image/*">
+                       <el-button size="small" type="primary" @click="uploadEvent('img')">点击上传</el-button>
+                       <p v-text="imgUrl"></p>
+               </div>
            </div>
+            <div class="view_main">
             <div>
                 <span>视频</span>
                 <input id="video-selector" type="file" accept = "video/*">
-            <el-upload
-            class="upload-demo"
-            action="https://jsonplaceholder.typicode.com/posts/"
-            :on-preview="handlePreview"
-            :on-remove="handleRemove"
-            :before-remove="beforeRemove"
-            multiple
-            :limit="3"
-            :on-exceed="handleExceed"
-            :file-list="fileList">
-                <el-button size="small" type="primary">点击上传</el-button>
-                <!-- <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>-->
-            </el-upload>
+                    <el-button size="small" type="primary" @click="uploadEvent('video')">点击上传</el-button>
+                    <p v-text="videoUrl"></p>
                 </div>
+
         </div>
         <div  class="view_main">
             <el-button @click="addAnswer">新增选项</el-button>
@@ -242,6 +223,14 @@
                 }else{
                     return false;
                 }
+            },
+            uploadEvent(type){
+                if(type == 'img'){
+                    document.getElementById('img-selector').click();
+                }else if(type =='video'){
+                    document.getElementById('video-selector').click();
+                }
+
             }
         },
         watch:{
@@ -278,6 +267,7 @@
                     if(file){
                     self.cosjs(self.SecretId,self.SecretKey,file,self.XCosSecurityToken,self.expiredTime,function(img){
                     self.imgUrl = img;
+    alert(1)
                     });
                     }
                     }

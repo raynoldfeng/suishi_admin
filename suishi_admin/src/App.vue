@@ -1,9 +1,9 @@
 <template>
   <div id="app">
       <el-container>
-          <el-header class="blues">随拾运营管理后台</el-header>
+          <el-header class="blues head-title">随拾运营管理后台</el-header>
           <el-container>
-              <el-aside width="200px">
+              <el-aside width="200px" v-show="isloginPage">
                   <el-menu  @open="handleOpen"
                   :default-active="$route.path"
                   :default-openeds="openeds"
@@ -63,7 +63,8 @@ export default {
     data(){
         return{
             openeds:[],
-            menuList:[]
+            menuList:[],
+            isloginPage:false
         }
     },
     methods:{
@@ -81,8 +82,23 @@ export default {
             this.menuList=[]
         }
     },
+    watch:{
+        $route(to,from){
+            var self = this;
+            if(to.name == "login"){
+                self.isloginPage = false;
+            }else{
+                self.isloginPage = true;
+            }
+        }
+    },
     mounted:function(){
-
+        var self = this;
+        if(this.$route.name == "login"){
+            self.isloginPage = false;
+        }else{
+            self.isloginPage = true;
+        }
     }
 }
 </script>
@@ -103,5 +119,11 @@ export default {
 }
     .blues{
         background:skyblue;
+    }
+    .head-title{
+    line-height: 300%;
+    color: #fff;
+    font-size: 20px;
+    font-weight: bold;
     }
 </style>

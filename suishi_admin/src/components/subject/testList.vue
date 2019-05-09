@@ -17,7 +17,7 @@
             :value="item.value">
         </el-option>
     </el-select>
-    <el-select v-model="isUse" placeholder="是否使用">
+    <el-select v-model="isUse" placeholder="是否禁用">
         <el-option
                 v-for="item in isUseMenu"
         :key="item.value"
@@ -58,7 +58,7 @@ style="width: 100%">
 
 <el-table-column
         prop="status"
-        label="是否启用"
+        label="是否禁用"
         >
 </el-table-column>
 <el-table-column
@@ -71,6 +71,7 @@ style="width: 100%">
         </el-table-column>
         </el-table>
         </template>
+
         </div>
         </template>
 <style>
@@ -129,10 +130,12 @@ export default
                 city: '普陀区',
                 address: '上海市普陀区金沙江路 1518 弄',
                 zip: 200333
-            }]
+            }],
+
         }
     },
     methods:{
+
         addEvent(){
             this.$router.push("/addTest");
         },

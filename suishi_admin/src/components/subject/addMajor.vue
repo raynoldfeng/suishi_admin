@@ -6,8 +6,8 @@
             <el-input v-model="majorName" class="input_type"></el-input>
             <span>排序</span>
             <el-input v-model="orderValue" class="input_type"></el-input>
-            <span>是否启用</span>
-            <el-select v-model="isUse" placeholder="是否使用">
+            <span>是否禁用</span>
+            <el-select v-model="isUse" placeholder="是否禁用">
                 <el-option
                 v-for="item in isUseMenu"
                 :key="item.value"
@@ -26,7 +26,7 @@
             v-model="descText">
             </el-input>
             <span>是否学习</span>
-            <el-select v-model="isStudy" placeholder="是否使用">
+            <el-select v-model="isStudy" placeholder="是否学习">
                 <el-option
                 v-for="item in isUseMenu"
                 :key="item.value"
@@ -48,7 +48,7 @@
         </div>
         <div class="view_main">
             <span class="type_title">封绘图</span>
-            <input id="file-selector" type="file">
+            <input id="file-selector" type="file" >
                 <div class="avatar-uploader" @click="uploadImg">
                     <img v-if="coverImg" :src="coverImg" class="avatar">
                         <i v-else class="el-icon-plus avatar-uploader-icon"></i>
@@ -173,23 +173,14 @@
                     }else if(this.orderValue == ""){
                         alert("输入顺序");
                         return ;
-                    }else if(self.descText == ""){
-                        alert("输入简介");
-                        return;
-                    }else if(this.coverImg == ""){
-                        alert("选择封绘图");
-                        return ;
                     }
 
-                    if(this.tags.length <= 0){
-                        alert("请选择标签");
-                        return ;
-                    }else{
+
                         this.tagsArr = [];
                         for(let i = 0 ;i <this.tags.length; i++){
                             this.tagsArr.push(this.tags[i].id);
                         }
-                    }
+
                     console.log(this.tagsArr)
 
                     if(this.isedits()){
@@ -310,28 +301,7 @@
     .type_title{
         float: left;
         }
-    .avatar-uploader{
-        float: left;
-        }
 
-    .avatar-uploader .el-upload {
-        border: 1px dashed #d9d9d9;
-        border-radius: 6px;
-        cursor: pointer;
-        position: relative;
-        overflow: hidden;
-        }
-    .avatar-uploader .el-upload:hover {
-        border-color: #409EFF;
-        }
-    .avatar-uploader-icon {
-        font-size: 28px;
-        color: #8c939d;
-        width: 178px;
-        height: 178px;
-        line-height: 178px;
-        text-align: center;
-        }
     .avatar {
         width: 178px;
         height: 178px;

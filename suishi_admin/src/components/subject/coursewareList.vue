@@ -9,7 +9,7 @@
                 :value="item.value">
             </el-option>
         </el-select>
-        <el-select v-model="isUse" placeholder="是否使用">
+        <el-select v-model="isUse" placeholder="是否禁用">
             <el-option
                     v-for="item in isUseMenu"
             :key="item.value"
@@ -55,7 +55,7 @@ style="width: 100%">
 </el-table-column>
 <el-table-column
         prop="status"
-        label="是否启用"
+        label="是否禁用"
     >
 </el-table-column>
 <el-table-column

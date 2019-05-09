@@ -18,5 +18,9 @@ export const api={
     "course":"admin/course",
     "categoryType":"admin/category_type",
     "category":"admin/category",
-    "postList":"admin/post"
+    "postList":"admin/post",
+    "addTeams":"admin/teams",
+    "teamType":"admin/team/type",
+    "account":"admin/team/account",
+    "taskList":"admin/task/list/"
 }

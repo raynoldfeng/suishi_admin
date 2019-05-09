@@ -90,7 +90,8 @@ export const common={
                 withCredentials: false,
                 data: data ? data:{}
             }).then((res)=>{
-                if(res.status===200){
+                console.log(res)
+                if(res.status===200 || res.status===201){
                         var code = res.data.code;
                         var data = "";
                         if (code == 0) {
@@ -99,6 +100,7 @@ export const common={
                             alert(res.data.msg);
                             return;
                         }
+
                         callback(data);
                     }
         }).catch((err)=>{

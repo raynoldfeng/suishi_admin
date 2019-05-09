@@ -180,6 +180,11 @@ export default new Router({
           component: addTeam
       },
       {
+          path: '/editTeam',
+          name: 'editTeam',
+          component: addTeam
+      },
+      {
           path: '/teamAttribute',
           name: 'teamAttribute',
           component: teamAttribute

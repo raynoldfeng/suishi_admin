@@ -2,8 +2,8 @@
     <div id="majorList">
         <p class="title_main">专业列表</p>
         <div class="view_main">
-            <span>是否启用</span>
-            <el-select v-model="isUse" placeholder="是否使用">
+            <span>是否禁用</span>
+            <el-select v-model="isUse" placeholder="是否禁用">
                 <el-option
                         v-for="item in isUseMenu"
                 :key="item.value"
@@ -41,7 +41,7 @@
                     </el-table-column>
                     <el-table-column
                     prop="status"
-                    label="是否启用"
+                    label="是否禁用"
                     >
                     </el-table-column>
                     <el-table-column

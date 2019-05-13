@@ -45,6 +45,14 @@
         </div>
         <el-button @click="saveType">保存并关闭</el-button>
     </el-dialog>
+    <div class="view_main page_main">
+        <el-pagination
+        background
+        layout="prev, pager, next"
+        :current-page.sync="nowPage"
+        :total="allPage">
+        </el-pagination>
+    </div>
     </div>
 </template>
     <script>
@@ -56,7 +64,9 @@
                     teamTypeData:[],
                     typeNames:"",
                     typeId:"",
-                    dialogTableVisible:false
+                    dialogTableVisible:false,
+                    nowPage:1,
+                    allPage:0
                 }
             },
             methods:{
@@ -73,9 +83,10 @@
                 },
                 teamTypeList(){
                     var self = this;
-                    this.common.getEventToken(this.api.host+this.api.teamType,{},this.userinfo,function(data){
+                    this.common.getEventToken(this.api.host+this.api.teamType+"?page="+this.nowPage+"&per_page=10",{},this.userinfo,function(data){
                         console.log(data);
-                        self.teamTypeData = data;
+                        self.teamTypeData = data.data;
+                        self.allPage = data.last_page * 10;
                     })
                 },
                 saveType(){
@@ -85,6 +96,11 @@
                     this.dialogTableVisible = true;
                     this.typeId = info.id;
                     this.typeNames = info.name;
+                }
+            },
+            watch:{
+                nowPage(){
+                    this.teamTypeList();
                 }
             },
             mounted:function(){

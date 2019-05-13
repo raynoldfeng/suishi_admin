@@ -13,7 +13,7 @@ export const api={
     "cosToken":"admin/tool/qcloud_cos_token",
     "tagsType":"admin/tags/type",
     "tagsData":"admin/tags",
-    "profession":"admin/profession",
+    "lesson":"admin/lesson",
     "test":"admin/test",
     "course":"admin/course",
     "categoryType":"admin/category_type",
@@ -22,5 +22,7 @@ export const api={
     "addTeams":"admin/teams",
     "teamType":"admin/team/type",
     "account":"admin/team/account",
-    "taskList":"admin/task/list/"
+    "taskList":"admin/task/list/",
+    "addTask":"admin/task",
+    "user":"admin/user"
 }

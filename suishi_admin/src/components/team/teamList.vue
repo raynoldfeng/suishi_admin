@@ -116,6 +116,14 @@
             </div>
             <el-button @click="addTeamEvent">添加</el-button>
         </el-dialog>
+        <div class="view_main page_main">
+            <el-pagination
+            background
+            layout="prev, pager, next"
+            :current-page.sync="nowPage"
+            :total="allPage">
+            </el-pagination>
+        </div>
     </div>
 </template>
 <script>
@@ -149,7 +157,9 @@ export default
             teamTypeValue:"",
             teamName:"",
             dialogTableVisible:false,
-            teamList:[]
+            teamList:[],
+            nowPage:1,
+            allPage:0
 
         }
     },
@@ -164,7 +174,7 @@ export default
             var self = this;
             this.common.getEventToken(this.api.host+this.api.teamType,{},this.userinfo,function(data){
                 console.log(data);
-                self.teamTypeData = data;
+                self.teamTypeData = data.data;
                 for(var index in data){
                     self.teamTypeObj[data[index].id] = data[index].name;
                 }
@@ -172,9 +182,10 @@ export default
         },
         getTeamList(){
             var self = this;
-            this.common.getEventToken(this.api.host+this.api.addTeams,{},this.userinfo,function(data){
+            this.common.getEventToken(this.api.host+this.api.addTeams+"?page="+this.nowPage+"&per_page=10",{},this.userinfo,function(data){
                 console.log(data);
-                self.teamList = data;
+                self.teamList = data.data;
+                self.allPage = data.last_page * 10;
             })
         },
         addTeamEvent(){
@@ -193,6 +204,11 @@ export default
             })
         }
 
+    },
+    watch:{
+        nowPage(){
+            this.getTeamList();
+        }
     },
     mounted:function(){
         this.userinfo = {"token":this.common.cookie.get("token"),"user_id":this.common.cookie.get("user_id")};

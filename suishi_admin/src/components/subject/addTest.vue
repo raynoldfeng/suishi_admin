@@ -193,7 +193,7 @@
             },
             professionList(){
                 var self = this;
-                this.common.getEventToken(this.api.host+this.api.profession,{},this.userinfo,function(data){
+                this.common.getEventToken(this.api.host+this.api.course,{},this.userinfo,function(data){
                     console.log(data);
                     self.majorData = data;
 
@@ -212,8 +212,8 @@
             },
             courseList(){
                 var self = this;
-                this.common.getEventToken(this.api.host+this.api.course,{},this.userinfo,function(data){
-                    self.coursewareData = data;
+                this.common.getEventToken(this.api.host+this.api.lesson,{},this.userinfo,function(data){
+                    self.coursewareData = data.data;
                     console.log(data)
                 });
             },
@@ -267,7 +267,6 @@
                     if(file){
                     self.cosjs(self.SecretId,self.SecretKey,file,self.XCosSecurityToken,self.expiredTime,function(img){
                     self.imgUrl = img;
-    alert(1)
                     });
                     }
                     }

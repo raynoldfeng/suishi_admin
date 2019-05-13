@@ -71,7 +71,14 @@ style="width: 100%">
         </el-table-column>
         </el-table>
         </template>
-
+        <div class="view_main page_main">
+            <el-pagination
+            background
+            layout="prev, pager, next"
+            :current-page.sync="nowPage"
+            :total="allPage">
+            </el-pagination>
+        </div>
         </div>
         </template>
 <style>
@@ -91,28 +98,7 @@ export default
     data()
     {
         return{
-            optionsType: [
-                {
-                    value: '选项1',
-                    label: '黄金糕'
-                },
-                {
-                    value: '选项2',
-                    label: '双皮奶'
-                },
-                {
-                    value: '选项3',
-                    label: '蚵仔煎'
-                },
-                {
-                    value: '选项4',
-                    label: '龙须面'
-                },
-                {
-                    value: '选项5',
-                    label: '北京烤鸭'
-                }
-            ],
+            optionsType: [],
             typeValue: '',
             typeValue1: '',
             isUseMenu: [
@@ -131,7 +117,8 @@ export default
                 address: '上海市普陀区金沙江路 1518 弄',
                 zip: 200333
             }],
-
+            nowPage:1,
+            allPage:0
         }
     },
     methods:{
@@ -144,10 +131,10 @@ export default
         },
         testData(){
             var self = this;
-            this.common.getEventToken(this.api.host+this.api.test,{},this.userinfo,function(data){
+            this.common.getEventToken(this.api.host+this.api.test+"?page="+this.nowPage+"&per_page=10",{},this.userinfo,function(data){
                 console.log(data);
-                self.testListData = data;
-
+                self.testListData = data.data;
+                self.allPage = data.last_page * 10;
             })
         },
         isedits(){
@@ -157,6 +144,11 @@ export default
                 return false;
             }
         },
+    },
+    watch:{
+        nowPage(){
+            this.testData();
+        }
     },
     mounted:function(){
     var self = this;

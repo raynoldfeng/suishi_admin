@@ -54,7 +54,7 @@
                     >
                     </el-table-column>
                     <el-table-column
-                    prop="name"
+                    prop="accountNick"
                     label="发布用户"
                     >
                     </el-table-column>
@@ -103,7 +103,8 @@
             <el-pagination
             background
             layout="prev, pager, next"
-            :total="1000">
+            :current-page.sync="nowPage"
+            :total="allPage">
             </el-pagination>
         </div>
     </div>
@@ -162,7 +163,9 @@
                 ],
                 dateVaule:'',
                 userinfo:"",
-                postList:[]
+                postList:[],
+                nowPage:1,
+                allPage:0
             }
     },
     methods:{
@@ -171,13 +174,19 @@
         },
         postDatas(){
             var self = this;
-            this.common.getEventToken(this.api.host+this.api.postList,{},this.userinfo,function(data){
+            this.common.getEventToken(this.api.host+this.api.postList+"?page="+this.nowPage+"&per_page=10",{},this.userinfo,function(data){
                 console.log(data);
-                self.postList = data;
+                self.postList = data.data;
+                self.allPage = data.last_page * 10;
             })
         },
         seeEvent(id){
-            this.$router.push({path:"/addPost",query:{id:id}});
+            this.$router.push({path:"/editPost",query:{id:id}});
+        }
+    },
+    watch:{
+        nowPage(){
+            this.postDatas();
         }
     },
     mounted:function(){

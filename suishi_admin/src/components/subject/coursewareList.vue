@@ -68,6 +68,14 @@ label="操作"
         </el-table-column>
         </el-table>
         </template>
+        <div class="view_main page_main">
+            <el-pagination
+            background
+            layout="prev, pager, next"
+            :current-page.sync="nowPage"
+            :total="allPage">
+            </el-pagination>
+        </div>
         </div>
         </template>
 <style>
@@ -88,26 +96,7 @@ export default
     {
         return{
             optionsType: [
-                {
-                    value: '选项1',
-                    label: '黄金糕'
-                },
-                {
-                    value: '选项2',
-                    label: '双皮奶'
-                },
-                {
-                    value: '选项3',
-                    label: '蚵仔煎'
-                },
-                {
-                    value: '选项4',
-                    label: '龙须面'
-                },
-                {
-                    value: '选项5',
-                    label: '北京烤鸭'
-                }
+
             ],
             typeValue: '',
             typeValue1: '',
@@ -119,8 +108,10 @@ export default
             ],
             isUse: "false",
             searchText:"",
-    coursewareData: [],
-            userinfo:""
+            coursewareData: [],
+            userinfo:"",
+            nowPage:1,
+            allPage:0
         }
     },
     methods:{
@@ -129,13 +120,19 @@ export default
         },
         courseList(){
             var self = this;
-            this.common.getEventToken(this.api.host+this.api.course,{},this.userinfo,function(data){
-                self.coursewareData = data;
-    console.log(data)
+            this.common.getEventToken(this.api.host+this.api.lesson+"?page="+this.nowPage+"&per_page=10",{},this.userinfo,function(data){
+                self.coursewareData = data.data;
+                self.allPage = data.last_page * 10;
+
             });
         },
         editEvent(id){
             this.$router.push({path:"/editCourseware",query:{id:id}});
+        }
+    },
+    watch:{
+        nowPage(){
+            this.courseList();
         }
     },
     mounted:function(){

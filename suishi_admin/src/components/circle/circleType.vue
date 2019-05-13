@@ -26,7 +26,7 @@
                     label="操作"
                     >
                         <template slot-scope="scope">
-                            <el-button type="text" size="small">编辑</el-button>
+                            <el-button type="text" @click="editEvent(scope.row.id)" size="small">编辑</el-button>
                             <el-button type="text" size="small">删除</el-button>
                         </template>
                     </el-table-column>
@@ -44,26 +44,43 @@
         </div>
         <el-button @click="addCircle">添加</el-button>
     </el-dialog>
+    <el-dialog title="编辑圈子类型" :visible.sync="editDialogTableVisible" width="30%">
+        <div class="view_main">
+            <span>类型</span>
+            <el-input v-model="eCircleName" class="input_type"></el-input>
+        </div>
+        <div class="view_main">
+            <span>简介</span>
+            <el-input v-model="eDescription" class="input_type"></el-input>
+        </div>
+        <el-button @click="editCircle">修改</el-button>
+    </el-dialog>
+    <div class="view_main page_main">
+        <el-pagination
+        background
+        layout="prev, pager, next"
+        :current-page.sync="nowPage"
+        :total="allPage">
+        </el-pagination>
+    </div>
     </div>
 </template>
 <script>
     export default{
         data(){
             return{
-                tableData: [{
-                    id: '2016-05-03',
-                    name: '王小虎',
-                    province: '上海',
-                    city: '普陀区',
-                    address: '上海市普陀区金沙江路 1518 弄',
-                    zip: 200333
-                }],
                 userinfo:"",
                 dialogTableVisible:false,
+    editDialogTableVisible:false,
                 circleName:"",
                 circleType:"",
-                circleData:"",
-                description:""
+                circleData:[],
+                description:"",
+                eCircleName:"",
+                eCircleId:"",
+                eDescription:"",
+                nowPage:1,
+                allPage:0
             }
     },
     methods:{
@@ -85,10 +102,41 @@
             },
             circleList(){
                  var self = this;
-                this.common.getEventToken(this.api.host+this.api.categoryType,{},this.userinfo,function(data){
-                    self.circleData = data;
+                this.common.getEventToken(this.api.host+this.api.categoryType+"?page="+this.nowPage+"&per_page=10",{},this.userinfo,function(data){
+                    self.circleData = data.data;
+                    self.allPage = data.last_page * 10;
+                });
+            },
+            editEvent(id){
+                var self = this;
+                this.editDialogTableVisible = true;
+                    this.common.getEventToken(this.api.host+this.api.categoryType+"/"+id,{},this.userinfo,function(data){
+                        // self.circleData = data;
+                         console.log(data)
+                        self.eCircleName = data.name;
+                        self.eDescription = data.description;
+                        self.eCircleId = data.id;
+                     });
+            },
+            editCircle(){
+                var self = this;
+                if(this.eCircleName == ""){
+                    alert("请输入类型");
+                    return ;
+                }else if(this.eDescription == ""){
+                    alert("请输入简介");
+                    return ;
+                }
+                this.common.putEventToken(this.api.host+this.api.categoryType+"/"+self.eCircleId,{"name":this.eCircleName,"description":this.eDescription},this.userinfo,function(data){
+                    self.editDialogTableVisible = false;
+                    self.circleList();
                 });
             }
+    },
+    watch:{
+        nowPage(){
+            this.circleList();
+        }
     },
     mounted:function(){
     this.userinfo = {"token":this.common.cookie.get("token"),"user_id":this.common.cookie.get("user_id")};

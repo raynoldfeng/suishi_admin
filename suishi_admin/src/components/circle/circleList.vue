@@ -89,6 +89,14 @@
                 </el-table-column>
             </el-table>
         </template>
+        <div class="view_main page_main">
+            <el-pagination
+            background
+            layout="prev, pager, next"
+            :current-page.sync="nowPage"
+            :total="allPage">
+            </el-pagination>
+        </div>
     </div>
 </template>
 <script>
@@ -130,7 +138,9 @@ export default
             isUse: "false",
             searchText:"",
             userinfo:"",
-            circleListData:[]
+            circleListData:[],
+            nowPage:1,
+            allPage:0
         }
     },
     methods:{
@@ -139,14 +149,19 @@ export default
         },
         getCircleList(){
             var self =this;
-
-            this.common.getEventToken(this.api.host+this.api.category,{},this.userinfo,function(data){
+            this.common.getEventToken(this.api.host+this.api.category+"?page="+this.nowPage+"&per_page=10",{},this.userinfo,function(data){
                 console.log(data);
-                self.circleListData = data;
+                self.circleListData = data.data;
+                self.allPage = data.last_page * 10;
             })
         },
         editEvent(id){
             this.$router.push({path:"/editGame",query:{id:id}})
+        }
+    },
+    watch:{
+        nowPage(){
+            this.getCircleList();
         }
     },
     mounted:function(){
@@ -162,5 +177,8 @@ export default
     }
 .view_main{
     margin-top:10px
+    }
+.page_main{
+    text-align:center;
     }
 </style>

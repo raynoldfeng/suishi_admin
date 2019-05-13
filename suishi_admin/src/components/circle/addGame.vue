@@ -167,6 +167,7 @@
                                 self.isUse = data.status;
                                 self.description = data.description;
                                 self.coverImg = data.img;
+                                self.circleTypeId = parseInt(data.type);
                                 for(var index in data.tag_ids){
                                     console.log(data.tag_ids)
                                     self.tagsArr.push(data.tag_ids[index])
@@ -197,7 +198,7 @@
                     circleType:function(){
                         var self = this;
                         this.common.getEventToken(this.api.host+this.api.categoryType,{},this.userinfo,function(data){
-                            self.circleData = data;
+                            self.circleData = data.data;
                             console.log(data)
                         });
                     },
@@ -219,12 +220,12 @@
                         this.nowType = id;
                         this.common.getEventToken(this.api.host+this.api.tagsData+"?tag_type="+id,{},this.userinfo,function(data){
                             console.log(data);
-                            if(data.length >0){
-                                self.tagData = data;
+                            if(data.data.length >0){
+                                self.tagData = data.data;
                                 self.tagDataList = [];
                                 self.tagDataMenu = [];
-                                for(let i = 0 ;i<data.length;i++){
-                                    self.tagDataList.push(data[i].id);
+                                for(let i = 0 ;i<self.tagData.length;i++){
+                                    self.tagDataList.push(self.tagData[i].id);
                                 }
 
                             }else{
@@ -238,11 +239,10 @@
                         var self = this;
                         for(let i = 0 ; i<self.typeData.length;i++){
                             this.common.getEventToken(this.api.host+this.api.tagsData+"?tag_type="+self.typeData[i].id,{},this.userinfo,function(data){
-                                for(let a = 0;a<data.length;a++){
-                                console.log(self.tagsArr)
-                                    if(self.tagsArr.indexOf(data[a].id)!=(-1)){
-                                        self.tags.push({ name: data[a].name, id: data[a].id });
-                        //        console.log(155)
+                                for(let a = 0;a<data.data.length;a++){
+                                    if(self.tagsArr.indexOf(data.data[a].id)!=(-1)){
+                                        self.tags.push({ name: data.data[a].name, id: data.data[a].id });
+
                         //                                    console.log(self.tags)
                                     }else{
                                         return;

@@ -54,9 +54,15 @@
                     </el-table-column>
                 </el-table>
             </template>
-
         </div>
-
+        <div class="view_main page_main">
+            <el-pagination
+            background
+            layout="prev, pager, next"
+            :current-page.sync="nowPage"
+            :total="allPage">
+            </el-pagination>
+        </div>
     </div>
 </template>
         <script>
@@ -71,7 +77,9 @@
                         ],
                         isUse: "false",
                         majorData: [],
-                        userinfo:""
+                        userinfo:"",
+                        nowPage:1,
+                        allPage:0
                     }
                 },
                 methods: {
@@ -80,15 +88,21 @@
                     },
                     professionList(){
                         var self = this;
-                        this.common.getEventToken(this.api.host+this.api.profession,{},this.userinfo,function(data){
+                        this.common.getEventToken(this.api.host+this.api.course+"?page="+this.nowPage+"&per_page=10",{},this.userinfo,function(data){
                             console.log(data);
-                            self.majorData = data;
+                            self.majorData = data.data;
+                            self.allPage = data.last_page * 10;
                         })
                     },
                     editEvent(id){
                         console.log(id)
                         this.$router.push({path: "/editMajor", query: {id: id}});
                       //  this.$router.push("/editMajor",{params:id});
+                    }
+                },
+                watch:{
+                    nowPage(){
+                        this.professionList();
                     }
                 },
                 mounted:function(){

@@ -138,7 +138,7 @@
                     console.log(this.$route.name);
                     var self = this;
                     if(self.isedits()){
-                        this.common.getEventToken(this.api.host+this.api.profession+"/"+this.$route.query.id,{},this.userinfo,function(data){
+                        this.common.getEventToken(this.api.host+this.api.course+"/"+this.$route.query.id,{},this.userinfo,function(data){
                             console.log(data);
      //   var datas = {"name":this.majorName, "desc":this.descText,"cover":this.coverImg, "order":this.orderValue, "status":this.isUse,"tag_ids":this.tagsArr,is_study:this.isStudy};
                             self.majorName = data.name;
@@ -182,16 +182,15 @@
                         }
 
                     console.log(this.tagsArr)
-
                     if(this.isedits()){
-                        var datas = {"name":this.majorName, "desc":this.descText,"cover":this.coverImg, "order":this.orderValue, "status":this.isUse,"tag_ids":this.tagsArr,is_study:this.isStudy,id:this.$route.query.id};
-                        this.common.putEventToken(this.api.host+this.api.profession,datas,this.userinfo,function(data){
+                        var datas = {"name":this.majorName, "desc":this.descText,"cover":this.coverImg, "order":this.orderValue, "status":this.isUse,"tag_ids":this.tagsArr,is_study:this.isStudy};
+                        this.common.putEventToken(this.api.host+this.api.course+"/"+this.$route.query.id,datas,this.userinfo,function(data){
                             console.log(data);
                             self.$router.push("/majorList");
                         })
                     }else{
                         var datas = {"name":this.majorName, "desc":this.descText,"cover":this.coverImg, "order":this.orderValue, "status":this.isUse,"tag_ids":this.tagsArr,is_study:this.isStudy};
-                        this.common.postEventToken(this.api.host+this.api.profession,datas,this.userinfo,function(data){
+                        this.common.postEventToken(this.api.host+this.api.course,datas,this.userinfo,function(data){
                             console.log(data);
                             self.$router.push("/majorList");
                         })
@@ -215,7 +214,7 @@
                     var self = this;
                     this.nowType = id;
                     this.common.getEventToken(this.api.host+this.api.tagsData+"?tag_type="+id,{},this.userinfo,function(data){
-                    console.log(data);
+                 //   console.log(data);
                     if(data.length >0){
                         self.tagData = data;
                         self.tagDataList = [];
@@ -242,14 +241,12 @@
                      var self = this;
                     for(let i = 0 ; i<self.typeData.length;i++){
                         this.common.getEventToken(this.api.host+this.api.tagsData+"?tag_type="+self.typeData[i].id,{},this.userinfo,function(data){
-                            for(let a = 0;a<data.length;a++){
-                                console.log(self.tagsArr)
-                                if(self.tagsArr.indexOf(data[a].id)!=(-1)){
-                                    self.tags.push({ name: data[a].name, id: data[a].id });
-//        console.log(155)
+                            for(let a = 0;a<data.data.length;a++){
+
+                                if(self.tagsArr.indexOf(data.data[a].id.toString())!=(-1)){
+                                    self.tags.push({ name: data.data[a].name, id: data.data[a].id });
+
 //                                    console.log(self.tags)
-                                }else{
-                                    return;
                                 }
                             }
                         })

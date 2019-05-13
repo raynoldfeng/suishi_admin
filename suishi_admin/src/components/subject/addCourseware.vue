@@ -4,7 +4,7 @@
         <div class="view_main">
             <span>课件名称</span>
             <el-input v-model="coursewarename" class="input_type" />
-            <span>所属专业</span>
+            <span>所属课程</span>
             <el-select v-model="majorValue" placeholder="请选择">
                 <el-option
                 v-for="item in majorData"
@@ -25,6 +25,16 @@
         </el-select>
         </div>
         <div class="view_main">
+            <span>简介</span>
+            <el-input
+            class="textarea_type"
+            type="textarea"
+            :autosize="{ minRows: 2, maxRows: 4}"
+            placeholder="请输入内容"
+            v-model="descText">
+            </el-input>
+        </div>
+        <div class="view_main">
             <span>排序</span>
             <el-input v-model="sort" class="input_type" />
             <span>关联前置</span>
@@ -43,7 +53,7 @@
                 <el-input v-model = "pptUrl[index]" class="input_type" />
                 <el-button @click="deleteEvent(index)">删除</el-button>
             </div>
-
+            <el-button @click="uploadFile">上传课件</el-button>
             <input id="file-selector" multiple="multiple" type="file">
         </div>
         <div class="view_main">
@@ -81,7 +91,8 @@
                     XCosSecurityToken:"",
                     expiredTime:"",
                     pptUrl:[],
-                    major:{majorNameId:"",majorName:""}
+                    major:{majorNameId:"",majorName:""},
+            descText:""
                 }
             },
             methods:{
@@ -89,16 +100,16 @@
                     console.log(this.$route.name);
                     var self = this;
                     if(this.isedits()){
-                        this.common.getEventToken(this.api.host+this.api.course+"/"+this.$route.query.id,{},this.userinfo,function(data){
+                        this.common.getEventToken(this.api.host+this.api.lesson+"/"+this.$route.query.id,{},this.userinfo,function(data){
                             console.log(data);
                             self.coursewarename = data.name;
-
+                            self.descText = data.desc;
                             self.isUse = data.status;
                             self.sort = data.sort;
                             self.pptUrl = data.url;
                             self.preposition = data.preposition;
                             for(var i = 0 ;i < self.majorData.length; i++){
-                                if(data.profession_id == self.majorData[i].id){
+                                if(data.course_id == self.majorData[i].id){
                                     self.majorValue = self.majorData[i].name;
                                     self.major.majorNameId = self.majorData[i].id;
                                     self.major.majorName = self.majorData[i].name;
@@ -125,29 +136,29 @@
                         return;
                     }
                     if(this.isedits()){
-                        var info = {"name":this.coursewarename, "sort":this.sort, "status":this.isUse,"preposition":this.preposition,"url":this.pptUrl, "profession_id":this.majorValue,id:this.$route.query.id};
+                        var info = {"name":this.coursewarename, "sort":this.sort, "status":this.isUse,"preposition":this.preposition,"url":this.pptUrl, "course_id":this.majorValue,desc:this.descText};
                         if(self.majorValue == this.major.majorName){
                             info.profession_id=this.major.majorNameId;
                         }
-                        this.common.putEventToken(this.api.host+this.api.course,info,this.userinfo,function(data){
+                        this.common.putEventToken(this.api.host+this.api.lesson+"/"+this.$route.query.id,info,this.userinfo,function(data){
                             console.log(data);
                             self.$router.push("/coursewareList")
                         });
                     }else{
-                        var info = {"name":this.coursewarename, "sort":this.sort, "status":this.isUse,"preposition":this.preposition,"url":this.pptUrl, "profession_id":this.majorValue};
-                        this.common.postEventToken(this.api.host+this.api.course,info,this.userinfo,function(data){
+                        var info = {"name":this.coursewarename, "sort":this.sort, "status":this.isUse,"preposition":this.preposition,"url":this.pptUrl, "course_id":this.majorValue,desc:this.descText};
+                        this.common.postEventToken(this.api.host+this.api.lesson,info,this.userinfo,function(data){
                             console.log(data);
                             self.$router.push("/coursewareList")
                         });
                     }
 
                 },
-                getProfession(){
-                    var self = this;
-                    this.common.getEventToken(this.api.host+this.api.profession,{},this.userinfo,function(data){
-                        self.professionOptions = data;
-                    });
-                },
+//                getProfession(){
+//                    var self = this;
+//                    this.common.getEventToken(this.api.host+this.api.course,{},this.userinfo,function(data){
+//                        self.professionOptions = data;
+//                    });
+//                },
                 getUpLoadKey(){
                     var self =this;
                     this.common.getEventToken(this.api.host+this.api.cosToken,{},this.userinfo,function(data){
@@ -161,9 +172,9 @@
                 },
                     professionList(){
                          var self = this;
-                         this.common.getEventToken(this.api.host+this.api.profession,{},this.userinfo,function(data){
+                         this.common.getEventToken(this.api.host+this.api.course,{},this.userinfo,function(data){
                             console.log(data);
-                            self.majorData = data;
+                            self.majorData = data.data;
 
                         })
                     },
@@ -176,6 +187,9 @@
                         }else{
                             return false;
                         }
+                    },
+                    uploadFile(){
+                        document.getElementById('file-selector').click();
                     }
             },
             watch:{
@@ -226,5 +240,8 @@
             }
         .view_main{
             margin-top:10px
+            }
+        .textarea_type{
+            width: 500px;
             }
         </style>

@@ -16,7 +16,7 @@
                       <el-submenu index="2">
                           <template slot="title">题库</template>
 
-                              <el-menu-item index="/majorList"  @click="jumpEvent('majorList')">专业列表</el-menu-item>
+                              <el-menu-item index="/majorList"  @click="jumpEvent('majorList')">课程列表</el-menu-item>
                               <el-menu-item index="/coursewareList" @click="jumpEvent('coursewareList')">课件列表</el-menu-item>
                               <el-menu-item index="/testList" @click="jumpEvent('testList')">测试列表</el-menu-item>
 

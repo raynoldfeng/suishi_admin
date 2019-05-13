@@ -1,9 +1,9 @@
 <template>
     <div id="addPost">
-        <p class="title_main">新增帖子</p>
+        <p class="title_main">查看帖子</p>
         <div class="view_main">
             <span>圈子名称</span>
-            <el-input v-model="category" class="input_type"/>
+            <el-input v-model="category" readonly class="input_type"/>
            <!-- <el-select v-model="isUse" placeholder="是否推荐">
                 <el-option
                 v-for="item in isUseMenu"
@@ -13,20 +13,13 @@
                 </el-option>
                 </el-select>-->
             <span>发布用户</span>
-            <el-select v-model="isUse" placeholder="是否推荐">
-                <el-option
-                v-for="item in isUseMenu"
-                :key="item.value"
-                :label="item.label"
-                :value="item.value">
-                </el-option>
-            </el-select>
+            <el-input v-model="nickName" readonly class="input_type"/>
         </div>
         <div class="view_main">
             <span>帖子文本</span>
             <el-input
             class="textarea_type"
-            type="textarea"
+            type="textarea" readonly
             :autosize="{ minRows: 2, maxRows: 4}"
             placeholder="请输入内容"
             v-model="content">
@@ -38,7 +31,7 @@
         </div>
             <div class="view_main">
                 <span>发布时间</span>
-                <el-input v-model="lastUpdateTime" class="input_type"/>
+                <el-input v-model="lastUpdateTime" readonly class="input_type"/>
                 <!--<el-date-picker
                 v-model="datevalue"
                 type="date"
@@ -68,7 +61,8 @@
         content:"",
         category:"",
         imgs:"",
-        lastUpdateTime:""
+        lastUpdateTime:"",
+        nickName:""
         }
     },
         methods:{
@@ -87,13 +81,14 @@
                 }
             },
             getPostData(){
-        var self = this;
+                 var self = this;
                 this.common.getEventToken(this.api.host+this.api.postList+'/'+this.$route.query.id,{},this.userinfo,function(data){
                     console.log(data);
                     self.content = data.content;
                     self.category = data.category;
                     self.imgs = data.imgs;
                     self.lastUpdateTime = data.lastUpdateTime;
+                    self.nickName = data.accountNick;
                 })
             }
         },

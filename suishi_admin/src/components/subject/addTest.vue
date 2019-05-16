@@ -1,7 +1,7 @@
 <template>
-    <div id="addTest">
-        <p class="title_main">新增帖子</p>
-        <div class="view_main">
+    <div id="addTest" @click="displayChange(false)">
+        <p class="title_main">测试详情</p>
+        <div class="view_main2">
            <!-- <span>所属专业</span>
             <el-select v-model="majorValue" placeholder="所属专业">
                 <el-option
@@ -11,15 +11,22 @@
                 :value="item.id">
                 </el-option>
             </el-select>-->
-            <span>所属课件</span>
-            <el-select v-model="coursewareName" placeholder="所属课件">
+            <!--<span>所属课件</span>
+            <el-select v-model="coursewareName"   filterable  placeholder="所属课件">
                 <el-option
                 v-for="item in coursewareData"
                 :key="item.id"
                 :label="item.name"
                 :value="item.id">
                 </el-option>
-            </el-select>
+            </el-select>-->
+            <span>所属课件</span>
+            <div class="select-main"  @click.stop>
+                <el-input v-model="coursewaresSelect" placeholder="所属课件" @focus="displayChange(true)" @blur="blurEvent"  @keyup.native="searchEvent" class="input_type" />
+                <ul class="select-menu" v-show="mIsShow" >
+                    <li v-for="item in coursewareData" v-text="item.name" @click="changeEvent(item.id,item.name)"></li>
+                </ul>
+            </div>
             <span>是否禁用</span>
             <el-select v-model="isUse" placeholder="是否禁用">
                 <el-option
@@ -32,7 +39,7 @@
         </div>
         <div class="view_main">
             <span>测试问题</span>
-            <el-input class="input_test" v-model="testName" placeholder="输入问题"></el-input>
+            <el-input class="input_test"  v-model="testName" placeholder="输入问题"></el-input>
         </div>
         <div class="view_main">
                <div>
@@ -113,7 +120,10 @@
     expiredTime:"",
     coursewareData: [],
     coursewareName:"",
-    coursewares:{coursewareNameId:"",coursewareName:""}
+//    coursewares:{coursewareNameId:"",coursewareName:""},
+    coursewaresSelect:"",
+    saveCoursewaresSelect:"",
+    mIsShow:false
             }
         },
         methods:{
@@ -128,21 +138,31 @@
                     self.note = data.note;
                     self.vedioUrl = data.video_url;
                     self.imgUrl = data.img_url;
-                    self.answerMenu = JSON.parse(data.options);
+                    self.answerMenu = data.options;
                     self.answerOptions = [];
                     for(let i = 0; i < self.answerMenu.length;i++){
                         self.answerOptions.push({value:i});
                     }
                     self.answer = data.answer;
-                        for(var i = 0 ;i < self.coursewareData.length; i++){
-                            if(data.course_id == self.coursewareData[i].id){
-                                 self.coursewareName = self.coursewareData[i].name;
-                                 self.coursewares.coursewareName = self.coursewareData[i].name;
-                                 self.coursewares.coursewareNameId = data.course_id;
-                            }
-                        }
+                    self.coursewareName = data.course_id;
+                    self.getCourseId(data.course_id);
+//                        for(var i = 0 ;i < self.coursewareData.length; i++){
+//                            if(data.course_id == self.coursewareData[i].id){
+//                                 self.coursewareName = self.coursewareData[i].id;
+//                                 self.coursewaresSelect = self.coursewareData[i].name
+////                                 self.coursewares.coursewareName = self.coursewareData[i].name;
+////                                 self.coursewares.coursewareNameId = data.course_id;
+//                            }
+//                        }
                     });
                 }
+            },
+           getCourseId(id){
+                var self = this;
+                this.common.getEventToken(this.api.host+this.api.lesson+"/"+id,{},this.userinfo,function(data){
+                    self.coursewaresSelect = data.name;
+                    self.saveCoursewaresSelect = data.name;
+                });
             },
             handleRemove(file, fileList) {
                 console.log(file, fileList);
@@ -160,10 +180,10 @@
                 var self = this;
                 if(this.isedits()){
                     var info = {"name":this.testName,"img_url":this.imgUrl,"video_url":this.videoUrl,"status":this.isUse,"note":this.note,"options":this.answerMenu,"answer":this.answer,"course_id":this.coursewareName,id:this.$route.query.id};
-                    if(self.coursewareName == this.coursewares.coursewareName){
-                         info.course_id=this.coursewares.coursewareNameId;
-                    }
-                    this.common.putEventToken(this.api.host+this.api.test,info,this.userinfo,function(data){
+//                    if(self.coursewareName == this.coursewares.coursewareName){
+//                         info.course_id=this.coursewares.coursewareNameId;
+//                    }
+                    this.common.putEventToken(this.api.host+this.api.test+"/"+this.$route.query.id,info,this.userinfo,function(data){
                         console.log(data);
                         self.$router.push("/testList");
                     })
@@ -176,6 +196,21 @@
                 }
 
             },
+        changeEvent(id,name){
+            this.coursewareName = id;
+            this.coursewaresSelect = name;
+            this.saveCoursewaresSelect = name;
+            this.displayChange(false);
+        },
+        blurEvent(){
+            this.coursewaresSelect = this.saveCoursewaresSelect;
+        },
+        searchEvent(){
+            this.courseList(this.coursewaresSelect);
+        },
+        displayChange(boolean){
+            this.mIsShow = boolean;
+        },
             addAnswer(){
                 this.answerOptions = [];
                 this.answerMenu.push("");
@@ -210,9 +245,9 @@
                 })
 
             },
-            courseList(){
+            courseList(name){
                 var self = this;
-                this.common.getEventToken(this.api.host+this.api.lesson,{},this.userinfo,function(data){
+                this.common.getEventToken(this.api.host+this.api.lesson+"?name="+name,{},this.userinfo,function(data){
                     self.coursewareData = data.data;
                     console.log(data)
                 });
@@ -234,13 +269,12 @@
             }
         },
         watch:{
-            coursewareData(){
-                 this.urlEvent();
-            }
+
         },
         mounted:function(){
             var self = this;
             this.userinfo = {"token":this.common.cookie.get("token"),"user_id":this.common.cookie.get("user_id")};
+            this.urlEvent();
             this.professionList();
             this.courseList();
             this.getUpLoadKey();
@@ -280,10 +314,8 @@
     padding:20px 0;
     border-bottom: 1px solid #999;
     }
-.view_main{
-    overflow:hidden;
-    margin-top:10px
-    }
+
+
 .input_test{
     width: 500px;
     }
@@ -292,5 +324,30 @@
     }
     .answerMenus li{
         padding-top:10px;
+    }
+    .select-main{
+        width: 200px;
+    display:inline-block;
+        position: relative;
+    }
+    .select-menu{
+        width:198px;
+        position: absolute;
+        top: 45px;
+        background:#fff;
+        z-index:100;
+        border: 1px solid #E4E7ED;
+        box-shadow: 0 2px 12px 0 rgba(0,0,0,.1);
+    }
+    .select-menu li{
+        height:40px;
+        line-height:40px;
+        padding-left:20px;
+        cursor: pointer;
+        color:#606266;
+        font-size: 14px;
+    }
+.select-menu li:hover{
+    background:#f5f7fa
     }
 </style>

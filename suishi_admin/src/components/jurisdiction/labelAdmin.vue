@@ -118,8 +118,8 @@
             this.nowType = id;
             this.common.getEventToken(this.api.host+this.api.tagsData+"?tag_type="+id,{},this.userinfo,function(data){
                 console.log(data);
-                if(data.length >0){
-                    self.tagData = data;
+                if(data.data.length >0){
+                    self.tagData = data.data;
                 }else{
                     self.tagData = [];
                 }

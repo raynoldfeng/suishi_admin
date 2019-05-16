@@ -22,47 +22,97 @@
         <div  class="view_main">
             <el-button @click="addEvent">新增</el-button>
         </div>
-        <div class="view_main">
-            <template>
-                <el-table
-                :data="majorData"
-                border
-                style="width: 100%">
-                    <el-table-column
-                    fixed
-                    prop="id"
-                    label="ID"
-                    >
-                    </el-table-column>
-                    <el-table-column
-                    prop="name"
-                    label="专业名称"
-                    >
-                    </el-table-column>
-                    <el-table-column
-                    prop="status"
-                    label="是否禁用"
-                    >
-                    </el-table-column>
-                    <el-table-column
-                    label="操作"
-                    >
-                        <template slot-scope="scope">
-                            <el-button @click="editEvent(scope.row.id)" type="text" size="small">查看</el-button>
-                            <el-button type="text" size="small">删除</el-button>
-                        </template>
-                    </el-table-column>
-                </el-table>
-            </template>
-        </div>
-        <div class="view_main page_main">
-            <el-pagination
-            background
-            layout="prev, pager, next"
-            :current-page.sync="nowPage"
-            :total="allPage">
-            </el-pagination>
-        </div>
+
+        <el-tabs v-model="majorType" type="card" >
+            <el-tab-pane label="公开课" name="first">
+                <div class="view_main">
+                    <template>
+                        <el-table
+                        :data="openMajorData"
+                        border
+                        style="width: 100%">
+                            <el-table-column
+                            fixed
+                            prop="id"
+                            label="ID"
+                            >
+                            </el-table-column>
+                            <el-table-column
+                            prop="name"
+                            label="专业名称"
+                            >
+                            </el-table-column>
+                            <el-table-column
+                            prop="status"
+                            label="是否禁用"
+                            >
+                            </el-table-column>
+                            <el-table-column
+                            label="操作"
+                            >
+                                <template slot-scope="scope">
+                                    <el-button @click="editEvent(scope.row.id)" type="text" size="small">查看</el-button>
+                                    <el-button type="text" size="small">删除</el-button>
+                                </template>
+                            </el-table-column>
+                        </el-table>
+                    </template>
+                </div>
+                <div class="view_main page_main">
+                    <el-pagination
+                    background
+                    layout="prev, pager, next"
+                    :current-page.sync="openNowPage"
+                    :total="openAllPage">
+                    </el-pagination>
+                </div>
+            </el-tab-pane>
+            <el-tab-pane label="专业课" name="second">
+                <div class="view_main">
+                    <template>
+                        <el-table
+                        :data="majorData"
+                        border
+                        style="width: 100%">
+                            <el-table-column
+                            fixed
+                            prop="id"
+                            label="ID"
+                            >
+                            </el-table-column>
+                            <el-table-column
+                            prop="name"
+                            label="专业名称"
+                            >
+                            </el-table-column>
+                            <el-table-column
+                            prop="status"
+                            label="是否禁用"
+                            >
+                            </el-table-column>
+                            <el-table-column
+                            label="操作"
+                            >
+                                <template slot-scope="scope">
+                                    <el-button @click="editEvent(scope.row.id)" type="text" size="small">查看</el-button>
+                                    <el-button type="text" size="small">删除</el-button>
+                                </template>
+                            </el-table-column>
+                        </el-table>
+                    </template>
+                </div>
+                <div class="view_main page_main">
+                    <el-pagination
+                    background
+                    layout="prev, pager, next"
+                    :current-page.sync="nowPage"
+                    :total="allPage">
+                    </el-pagination>
+                </div>
+            </el-tab-pane>
+        </el-tabs>
+
+
     </div>
 </template>
         <script>
@@ -77,21 +127,31 @@
                         ],
                         isUse: "false",
                         majorData: [],
+                        openMajorData: [],
                         userinfo:"",
                         nowPage:1,
-                        allPage:0
+                        allPage:0,
+                        openNowPage:1,
+                        openAllPage:0,
+                        majorType: 'first'
                     }
                 },
                 methods: {
                     addEvent(){
                         this.$router.push("/addMajor");
                     },
-                    professionList(){
+                    professionList(type){
                         var self = this;
-                        this.common.getEventToken(this.api.host+this.api.course+"?page="+this.nowPage+"&per_page=10",{},this.userinfo,function(data){
+                        this.common.getEventToken(this.api.host+this.api.course+"?page="+this.nowPage+"&per_page=10&type="+type,{},this.userinfo,function(data){
                             console.log(data);
-                            self.majorData = data.data;
-                            self.allPage = data.last_page * 10;
+                            if(type == 0){
+                                self.openMajorData = data.data;
+                                self.openAllPage = data.last_page * 10;
+                            }else{
+                                self.majorData = data.data;
+                                self.allPage = data.last_page * 10;
+                            }
+
                         })
                     },
                     editEvent(id){
@@ -107,7 +167,8 @@
                 },
                 mounted:function(){
                     this.userinfo = {"token":this.common.cookie.get("token"),"user_id":this.common.cookie.get("user_id")};
-                    this.professionList();
+                    this.professionList(0);
+                    this.professionList(1);
                 }
             }
         </script>

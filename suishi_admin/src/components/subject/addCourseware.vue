@@ -1,18 +1,31 @@
 <template>
-    <div id="addCourseware">
+    <div id="addCourseware" @click="displayChange(false)">
         <p class="title_main">课件编辑</p>
-        <div class="view_main">
+        <div class="view_main view_main2">
             <span>课件名称</span>
             <el-input v-model="coursewarename" class="input_type" />
-            <span>所属课程</span>
-            <el-select v-model="majorValue" placeholder="请选择">
+            <!--<span>所属课程</span>
+            <el-select v-model="majorValue" filterable placeholder="请选择">
                 <el-option
                 v-for="item in majorData"
                 :key="item.id"
                 :label="item.name"
                 :value="item.id">
             </el-option>
-        </el-select>
+        </el-select>-->
+
+            <span>所属课程</span>
+            <div class="select-main"  @click.stop>
+                <el-input v-model="majorValueSelect" placeholder="请选择" @focus="displayChange(true)" @blur="blurEvent"  @keyup.native="searchEvent" class="input_type" />
+                <ul class="select-menu self-select-menu" v-show="mIsShow" >
+                    <li v-for="item in majorData"  @click="changeEvent(item.id,item.name)">
+                        <p v-text="item.name"></p>
+                        <span v-if="item.type == 1">专业课</span>
+                        <span v-else-if="item.type == 0">公开课</span>
+                        <span v-else>未定义</span>
+                    </li>
+                </ul>
+            </div>
 
         <span>是否禁用</span>
         <el-select v-model="isUse" placeholder="请选择">
@@ -91,8 +104,12 @@
                     XCosSecurityToken:"",
                     expiredTime:"",
                     pptUrl:[],
-                    major:{majorNameId:"",majorName:""},
-            descText:""
+                  //  major:{majorNameId:"",majorName:""},
+            descText:"",
+
+            majorValueSelect:"",
+            saveMajorValueSelect:"",
+            mIsShow:false
                 }
             },
             methods:{
@@ -108,17 +125,24 @@
                             self.sort = data.sort;
                             self.pptUrl = data.url;
                             self.preposition = data.preposition;
-                            for(var i = 0 ;i < self.majorData.length; i++){
-                                if(data.course_id == self.majorData[i].id){
-                                    self.majorValue = self.majorData[i].name;
-                                    self.major.majorNameId = self.majorData[i].id;
-                                    self.major.majorName = self.majorData[i].name;
-                                }
-                            }
+                            self.majorValue = data.course_id
+                            self.getMajorId(self.majorValue)
+//                            for(var i = 0 ;i < self.majorData.length; i++){
+//                                if(data.course_id == self.majorData[i].id){
+//                                    self.majorValue = self.majorData[i].name;
+//                                    self.major.majorNameId = self.majorData[i].id;
+//                                    self.major.majorName = self.majorData[i].name;
+//                                }
+//                            }
                         });
-                    }else{
-
                     }
+                },
+                getMajorId(id){
+                    var self = this;
+                    this.common.getEventToken(this.api.host+this.api.course+"/"+id,{},this.userinfo,function(data){
+                        self.majorValueSelect = data.name;
+                        self.saveMajorValueSelect = data.name;
+                    });
                 },
                 addEvent(){
                     var self = this;
@@ -137,9 +161,9 @@
                     }
                     if(this.isedits()){
                         var info = {"name":this.coursewarename, "sort":this.sort, "status":this.isUse,"preposition":this.preposition,"url":this.pptUrl, "course_id":this.majorValue,desc:this.descText};
-                        if(self.majorValue == this.major.majorName){
-                            info.profession_id=this.major.majorNameId;
-                        }
+//                        if(self.majorValue == this.major.majorName){
+//                            info.profession_id=this.major.majorNameId;
+//                        }
                         this.common.putEventToken(this.api.host+this.api.lesson+"/"+this.$route.query.id,info,this.userinfo,function(data){
                             console.log(data);
                             self.$router.push("/coursewareList")
@@ -170,9 +194,9 @@
                     })
 
                 },
-                    professionList(){
+                    professionList(name){
                          var self = this;
-                         this.common.getEventToken(this.api.host+this.api.course,{},this.userinfo,function(data){
+                         this.common.getEventToken(this.api.host+this.api.course+"?name="+name,{},this.userinfo,function(data){
                             console.log(data);
                             self.majorData = data.data;
 
@@ -190,19 +214,36 @@
                     },
                     uploadFile(){
                         document.getElementById('file-selector').click();
-                    }
+                    },
+
+
+                    changeEvent(id,name){
+                        this.majorValue = id;
+                        this.majorValueSelect = name;
+                        this.saveMajorValueSelect = name;
+                        this.displayChange(false);
+                    },
+                    blurEvent(){
+                        this.majorValueSelect = this.saveMajorValueSelect;
+                    },
+                    searchEvent(){
+                        this.professionList(this.majorValueSelect);
+                    },
+                    displayChange(boolean){
+                        this.mIsShow = boolean;
+                    },
             },
             watch:{
                 majorData(){
-                    this.urlEvent();
+
                 }
             },
             mounted:function(){
                 var self = this;
                 this.userinfo = {"token":this.common.cookie.get("token"),"user_id":this.common.cookie.get("user_id")};
                 this.getUpLoadKey();
-                this.professionList();
-
+                this.professionList("");
+            this.urlEvent();
 
                 document.getElementById('file-selector').onchange = function () {
                     var files = this.files;
@@ -240,6 +281,9 @@
             }
         .view_main{
             margin-top:10px
+            }
+        .view_main2{
+            overflow:inherit;
             }
         .textarea_type{
             width: 500px;

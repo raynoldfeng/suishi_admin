@@ -1,8 +1,19 @@
 <template>
     <div id="addMajor">
-        <p class="title_main">专业编辑</p>
+        <p class="title_main">课程编辑</p>
         <div class="view_main">
-            <span>专业名称</span>
+            <span>课程类型</span>
+            <el-select v-model="majorType" placeholder="课程类型">
+                <el-option
+                v-for="item in majorTypeMenu"
+                :key="item.value"
+                :label="item.label"
+                :value="item.value">
+                </el-option>
+            </el-select>
+        </div>
+        <div class="view_main">
+            <span>课程名称</span>
             <el-input v-model="majorName" class="input_type"></el-input>
             <span>排序</span>
             <el-input v-model="orderValue" class="input_type"></el-input>
@@ -100,7 +111,13 @@
                 majorName:"",
                 orderValue:"",
                 coverImg:"",
-
+                majorTypeMenu:[
+                    {value: 1,
+                    label: "专业课"},
+                    {value: 0,
+                    label: "公开课"}
+                ],
+                majorType:"",
 
 
                 typeData:[],
@@ -147,6 +164,7 @@
                             self.orderValue = data.order;
                             self.isUse = data.status;
                             self.isStudy = data.is_study;
+                            self.majorType = data.type;
                             for(var index in data.tag_ids){
                                 console.log(data.tag_ids)
                                 self.tagsArr.push(data.tag_ids[index])
@@ -173,6 +191,9 @@
                     }else if(this.orderValue == ""){
                         alert("输入顺序");
                         return ;
+                    }else if(""+this.majorType == ""){
+                        alert("请选择课程类型");
+                        return ;
                     }
 
 
@@ -183,13 +204,13 @@
 
                     console.log(this.tagsArr)
                     if(this.isedits()){
-                        var datas = {"name":this.majorName, "desc":this.descText,"cover":this.coverImg, "order":this.orderValue, "status":this.isUse,"tag_ids":this.tagsArr,is_study:this.isStudy};
+                        var datas = {type:this.majorType,"name":this.majorName, "desc":this.descText,"cover":this.coverImg, "order":this.orderValue, "status":this.isUse,"tag_ids":this.tagsArr,is_study:this.isStudy};
                         this.common.putEventToken(this.api.host+this.api.course+"/"+this.$route.query.id,datas,this.userinfo,function(data){
                             console.log(data);
                             self.$router.push("/majorList");
                         })
                     }else{
-                        var datas = {"name":this.majorName, "desc":this.descText,"cover":this.coverImg, "order":this.orderValue, "status":this.isUse,"tag_ids":this.tagsArr,is_study:this.isStudy};
+                        var datas = {type:this.majorType, "name":this.majorName, "desc":this.descText,"cover":this.coverImg, "order":this.orderValue, "status":this.isUse,"tag_ids":this.tagsArr,is_study:this.isStudy};
                         this.common.postEventToken(this.api.host+this.api.course,datas,this.userinfo,function(data){
                             console.log(data);
                             self.$router.push("/majorList");
@@ -215,12 +236,12 @@
                     this.nowType = id;
                     this.common.getEventToken(this.api.host+this.api.tagsData+"?tag_type="+id,{},this.userinfo,function(data){
                  //   console.log(data);
-                    if(data.length >0){
-                        self.tagData = data;
+                    if(data.data.length >0){
+                        self.tagData = data.data;
                         self.tagDataList = [];
                         self.tagDataMenu = [];
-                        for(let i = 0 ;i<data.length;i++){
-                            self.tagDataList.push(data[i].id);
+                        for(let i = 0 ;i<self.tagData.length;i++){
+                            self.tagDataList.push(self.tagData[i].id);
                         }
 
                     }else{

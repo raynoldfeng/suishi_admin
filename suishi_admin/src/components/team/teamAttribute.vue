@@ -41,7 +41,7 @@
         </div>
     <el-dialog title="编辑类型" :visible.sync="dialogTableVisible">
         <div class="dialog_menu">
-           <el-input v-model="typeNames" />
+           <el-input v-model="eTypeNames" />
         </div>
         <el-button @click="saveType">保存并关闭</el-button>
     </el-dialog>
@@ -62,7 +62,7 @@
                     userinfo:"",
                     typeName:"",
                     teamTypeData:[],
-                    typeNames:"",
+                    eTypeNames:"",
                     typeId:"",
                     dialogTableVisible:false,
                     nowPage:1,
@@ -90,12 +90,17 @@
                     })
                 },
                 saveType(){
+                    var self = this;
                     this.dialogTableVisible = false;
+                    this.common.putEventToken(this.api.host+this.api.teamType+"/"+this.typeId,{"name":this.eTypeNames},this.userinfo,function(data){
+                        console.log(data);
+                        self.teamTypeList();
+                    })
                 },
                 editType(info){
                     this.dialogTableVisible = true;
                     this.typeId = info.id;
-                    this.typeNames = info.name;
+                    this.eTypeNames = info.name;
                 }
             },
             watch:{

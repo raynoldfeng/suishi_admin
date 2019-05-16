@@ -1,5 +1,5 @@
 <template>
-    <div id="addGame">
+    <div id="addGame"  @click="displayChange(false)">
         <p class="title_main">新增游戏</p>
         <div class="view_main">
             <span>圈子名称</span>
@@ -35,8 +35,8 @@
             v-model="description">
         </el-input>
         </div>
-        <div  class="view_main">
-            <span>圈子类型</span>
+        <div  class="view_main view_main2">
+            <!--<span>圈子类型</span>
             <el-select v-model="circleTypeId" placeholder="专业">
                 <el-option
                 v-for="item in circleData"
@@ -44,7 +44,14 @@
                 :label="item.name"
                 :value="item.id">
                 </el-option>
-            </el-select>
+            </el-select>-->
+            <span>圈子类型</span>
+            <div class="select-main"  @click.stop>
+                <el-input v-model="circleTypeIdSelect" placeholder="圈子类型" @focus="displayChange(true)" @blur="blurEvent"  @keyup.native="searchEvent" class="input_type" />
+                <ul class="select-menu" v-show="mIsShow" >
+                    <li v-for="item in circleData" v-text="item.name" @click="changeEvent(item.id,item.name)"></li>
+                </ul>
+            </div>
         </div>
         <div class="view_main">
             <span>标签</span>
@@ -152,7 +159,11 @@
                         tagDataList:[],
                         tagDataMenu:[],
                         tags: [],
-                        tagsArr:[]
+                        tagsArr:[],
+
+                        circleTypeIdSelect:"",
+                        saveCircleTypeIdSelect:"",
+                        mIsShow:false
                     }
                 },
                 methods:{
@@ -168,14 +179,20 @@
                                 self.description = data.description;
                                 self.coverImg = data.img;
                                 self.circleTypeId = parseInt(data.type);
+                                self.getCategoryId(parseInt(data.type));
                                 for(var index in data.tag_ids){
                                     console.log(data.tag_ids)
                                     self.tagsArr.push(data.tag_ids[index])
                                 }
                             });
-                        }else{
-
                         }
+                    },
+                    getCategoryId(id){
+                        var self = this;
+                        this.common.getEventToken(this.api.host+this.api.categoryType+"/"+id,{},this.userinfo,function(data){
+                            self.circleTypeIdSelect = data.name;
+                            self.saveCircleTypeIdSelect = data.name;
+                        });
                     },
                     handleClose(tag) {
                         this.tags.splice(this.tags.indexOf(tag), 1);
@@ -195,9 +212,9 @@
                             }
                         }
                     },
-                    circleType:function(){
+                    circleType:function(name){
                         var self = this;
-                        this.common.getEventToken(this.api.host+this.api.categoryType,{},this.userinfo,function(data){
+                        this.common.getEventToken(this.api.host+this.api.categoryType+"?name="+name,{},this.userinfo,function(data){
                             self.circleData = data.data;
                             console.log(data)
                         });
@@ -282,7 +299,7 @@
 
                         if(this.isedits()){
                             var info = {"id":this.$route.query.id,"name":this.name,"description":this.description,"status":this.isUse,"sort":this.sort,"is_recommend":this.is_recommend,"img":this.coverImg,"type":this.circleTypeId,"tag_ids":this.tagsArr}
-                            this.common.putEventToken(this.api.host+this.api.category,info,this.userinfo,function(data){
+                            this.common.putEventToken(this.api.host+this.api.category+"/"+this.$route.query.id,info,this.userinfo,function(data){
                                 self.$router.push("/circleList");
                             })
                         }else{
@@ -302,19 +319,34 @@
                     },
                     uploadImg(){
                         document.getElementById('file-selector').click();
-                    }
-
+                    },
+                    changeEvent(id,name){
+                        this.circleTypeId = id;
+                        this.circleTypeIdSelect = name;
+                        this.saveCircleTypeIdSelect = name;
+                        this.displayChange(false);
+                    },
+                    blurEvent(){
+                        this.circleTypeIdSelect = this.saveCircleTypeIdSelect;
+                    },
+                    searchEvent(){
+                        this.circleType(this.circleTypeIdSelect);
+                    },
+                    displayChange(boolean){
+                        this.mIsShow = boolean;
+                    },
                 },
                 watch:{
-                    circleData(){
-                        this.urlEvent();
-                    }
+//                    circleData(){
+//                        this.urlEvent();
+//                    }
                 },
                 mounted:function(){
                     var self = this;
                     this.userinfo = {"token":this.common.cookie.get("token"),"user_id":this.common.cookie.get("user_id")};
                     this.getUpLoadKey();
                     this.circleType();
+            this.urlEvent();
                     this.tagsType();
                     document.getElementById('file-selector').onchange = function () {
                         var file = this.files[0];
@@ -347,6 +379,9 @@
         .view_main{
             margin-top:10px;
             overflow:hidden;
+            }
+        .view_main2{
+            overflow:inherit;
             }
         .avatar-uploader .el-upload {
             border: 1px dashed #d9d9d9;

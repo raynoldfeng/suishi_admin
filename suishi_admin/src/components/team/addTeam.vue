@@ -1,5 +1,5 @@
 <template>
-    <div id="addTeam">
+    <div id="addTeam" @click="displayChange(false)">
         <div class="top-main">
             <div class="fraction">
             得分：{{total_score}}
@@ -15,10 +15,17 @@
             <el-input readonly v-model="statusValue"  class="input_type"></el-input>
             <el-button type="primary" @click="LabelDialog(0,true)">编辑</el-button>
         </div>
-        <div class="view_main">
-            <span>队友名称</span>
+        <div class="view_main view_main2">
+         <!--   <span>队友名称</span>
             <el-input v-model="userName" class="input_type" readonly></el-input>
-            <el-button @click="LabelDialog(2,true)">选择用户</el-button>
+            <el-button @click="LabelDialog(2,true)">选择用户</el-button>-->
+            <span>队友名称</span>
+            <div class="select-main"  @click.stop>
+                <el-input v-model="nickSelect" placeholder="选择用户" @focus="displayChange(true)" @blur="blurEvent"  @keyup.native="searchEvent" class="input_type" />
+                <ul class="select-menu" v-show="mIsShow" >
+                    <li v-for="item in userData" v-text="item.nick" @click="changeEvent(item.id,item.nick)"></li>
+                </ul>
+            </div>
             <span>角色</span>
             <el-select v-model="roleValue" placeholder="选择角色">
                 <el-option
@@ -279,7 +286,10 @@
                     account:"",
                     id:"",
                     userNick:""
-                }
+                },
+                nickSelect:"",
+                saveNickSelect:"",
+                mIsShow:false
             }
         },
         methods:{
@@ -386,9 +396,9 @@
                     })
                 }
             },
-            userList(){
+            userList(name){
                 var self = this;
-                this.common.getEventToken(this.api.host+this.api.user+"?page="+this.nowPage+"&per_page=10",{},this.userinfo,function(data){
+                this.common.getEventToken(this.api.host+this.api.user+"?nick="+name,{},this.userinfo,function(data){
                     self.userData = data.data;
                     console.log(data)
                 });
@@ -451,7 +461,22 @@
                     self.editUserInfoVisible = false;
                     self.accountList();
                 })
-            }
+            },
+            changeEvent(id,name){
+                this.userId = id;
+                this.nickSelect = name;
+                this.saveNickSelect = name;
+                this.displayChange(false);
+            },
+            blurEvent(){
+                this.nickSelect = this.saveNickSelect;
+            },
+            searchEvent(){
+                this.userList(this.nickSelect);
+            },
+            displayChange(boolean){
+                this.mIsShow = boolean;
+            },
         },
         watch:{
             teamTypeId(){
@@ -463,12 +488,12 @@
                 }
             },
             nowPage(){
-                this.userList();
+
             }
         },
         mounted:function(){
             this.userinfo = {"token":this.common.cookie.get("token"),"user_id":this.common.cookie.get("user_id")};
-            this.userList();
+            this.userList("");
             this.teamTypeList();
             this.getTeamList();
             this.accountList();

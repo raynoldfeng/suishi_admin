@@ -21,6 +21,8 @@ import teamList from '@/components/team/teamList'
 import addTeam from '@/components/team/addTeam'
 import teamAttribute from '@/components/team/teamAttribute'
 import login from '@/components/login/login'
+
+import test from '@/components/curriculumSystem/test'
 Vue.use(Router)
 
 export default new Router({
@@ -193,6 +195,11 @@ export default new Router({
           path: '/login',
           name: 'login',
           component: login
+      },
+      {
+          path: '/test',
+          name: 'test',
+          component: test
       }
   ]
 })

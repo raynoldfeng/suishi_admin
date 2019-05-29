@@ -47,9 +47,111 @@ var cosjs = function newCos(SecretId,SecretKey,file,XCosSecurityToken,expiredTim
 
 };
 
+
+var cosjsFile = function newCos(SecretId,SecretKey,fileurl,file,XCosSecurityToken,expiredTime,callback ){
+//    console.log(2545454);
+//    console.log(SecretId);
+//    console.log(SecretKey);
+//    console.log(file);
+//    console.log(file.name);
+    var cos = new COS({ SecretId: SecretId,SecretKey: SecretKey,XCosSecurityToken:XCosSecurityToken,expiredTime:expiredTime});
+//    cos.sliceUploadFile({
+//        Bucket: "suishi-1256985330",
+//        Region: "ap-guangzhou",
+//        Key: file.name,
+//        Body: file
+//    }, function (err, data) {
+//        console.log(err, data);
+//    });
+
+    cos.putObject({
+        Bucket: "suishi-1256985330",
+        Region: "ap-guangzhou",
+        Key: fileurl+file.name,
+        Body: file
+    }, function (err, data) {
+        console.log(data.headers);
+
+    });
+    cos.getObjectUrl({
+        Bucket: "suishi-1256985330",
+        Region: "ap-guangzhou",
+        Key: fileurl+file.name,
+        Sign: false
+    }, function (err, data) {
+        console.log(err || data.Url);
+        callback(data.Url);
+    });
+
+};
+
+
+var cosjsFile2 = function newCos(SecretId,SecretKey,fileurl,file,XCosSecurityToken,expiredTime,callback ){
+//    console.log(2545454);
+//    console.log(SecretId);
+//    console.log(SecretKey);
+//    console.log(file);
+//    console.log(file.name);
+    var cos = new COS({ SecretId: SecretId,SecretKey: SecretKey,XCosSecurityToken:XCosSecurityToken,expiredTime:expiredTime});
+//    cos.sliceUploadFile({
+//        Bucket: "suishi-1256985330",
+//        Region: "ap-guangzhou",
+//        Key: file.name,
+//        Body: file
+//    }, function (err, data) {
+//        console.log(err, data);
+//    });
+
+    cos.sliceUploadFile({
+        Bucket: 'suishi-1256985330', /* 必须 */
+        Region: 'ap-guangzhou',    /* 必须 */
+        Key: fileurl+file.webkitRelativePath,              /* 必须 */
+        Body: file,                /* 必须 */
+        TaskReady: function(taskId) {                   /* 非必须 */
+            console.log(file);
+            console.log(fileurl+file.webkitRelativePath)
+
+        },
+        onHashProgress: function (progressData) {       /* 非必须 */
+            console.log(JSON.stringify(progressData));
+
+        },
+        onProgress: function (progressData) {           /* 非必须 */
+            console.log(JSON.stringify(progressData));
+
+        }
+    }, function(err, data) {
+
+        console.log(err || data);
+    });
+
+//    cos.putObject({
+//        Bucket: "suishi-1256985330",
+//        Region: "ap-guangzhou",
+//        Key: fileurl+file.name,
+//        Body: file
+//    }, function (err, data) {
+//        console.log(data.headers);
+//
+//    });
+//    cos.getObjectUrl({
+//        Bucket: "suishi-1256985330",
+//        Region: "ap-guangzhou",
+//        Key: fileurl+file.name,
+//        Sign: false
+//    }, function (err, data) {
+//        console.log(err || data.Url);
+//        callback(data.Url);
+//    });
+
+};
+
+
 Vue.prototype.common = common.common;
 Vue.prototype.api = api.api;
 Vue.prototype.cosjs = cosjs;
+Vue.prototype.cosjsFile = cosjsFile;
+Vue.prototype.cosjsFile2 = cosjsFile2;
 Vue.config.productionTip = false;
 Vue.use(ElementUI);
 /* eslint-disable no-new */

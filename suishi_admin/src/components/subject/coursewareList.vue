@@ -1,14 +1,14 @@
 <template>
     <div id="courseware">
             <div class="type_menu">
-            <el-select v-model="typeValue1" placeholder="专业">
+            <!--<el-select v-model="typeValue1" placeholder="专业">
                 <el-option
                         v-for="item in optionsType"
                 :key="item.value"
                 :label="item.label"
                 :value="item.value">
             </el-option>
-        </el-select>
+        </el-select>-->
         <el-select v-model="isUse" placeholder="是否禁用">
             <el-option
                     v-for="item in isUseMenu"
@@ -22,8 +22,8 @@
     class="search_input"
     v-model="searchText">
     </el-input>
-    <el-button>搜索</el-button>
-    <el-button>还原</el-button>
+    <el-button @click="courseList('1')">搜索</el-button>
+    <el-button @click="courseList('2')">还原</el-button>
             </div>
         <el-button class="add_btn" @click="addEvent">新增</el-button>
 <template>
@@ -101,12 +101,12 @@ export default
             typeValue: '',
             typeValue1: '',
             isUseMenu: [
-                {value: "true",
+                {value: "1",
                     label: "是"},
-                {value: "false",
+                {value: "0",
                     label: "否"}
             ],
-            isUse: "false",
+            isUse: "0",
             searchText:"",
             coursewareData: [],
             userinfo:"",
@@ -118,12 +118,30 @@ export default
         addEvent(){
             this.$router.push("/addCourseware");
         },
-        courseList(){
+        /**
+         * type
+         * 1点击搜索
+         * 2 还原搜索
+         */
+        courseList(type){
+            if(type == 1){
+                this.nowPage = 1;
+            }else if(type == 2){
+                this.nowPage = 1;
+                this.searchText ="";
+            }
             var self = this;
-            this.common.getEventToken(this.api.host+this.api.lesson+"?page="+this.nowPage+"&per_page=10",{},this.userinfo,function(data){
+            this.common.getEventToken(this.api.host+this.api.lesson+"?page="+this.nowPage+"&per_page=10&name="+this.searchText,{},this.userinfo,function(data){
                 self.coursewareData = data.data;
                 self.allPage = data.last_page * 10;
 
+            });
+        },
+        searchEvent(){
+            var self = this;
+            this.common.getEventToken(this.api.host+this.api.lesson+"?page="+this.nowPage+"&per_page=10",{},this.userinfo,function(data){
+            self.coursewareData = data.data;
+            self.allPage = data.last_page * 10;
             });
         },
         editEvent(id){

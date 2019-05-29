@@ -36,7 +36,7 @@
             placeholder="请输入内容"
             v-model="descText">
             </el-input>
-            <span>是否学习</span>
+          <!--  <span>是否学习</span>
             <el-select v-model="isStudy" placeholder="是否学习">
                 <el-option
                 v-for="item in isUseMenu"
@@ -44,7 +44,7 @@
                 :label="item.label"
                 :value="item.value">
                 </el-option>
-            </el-select>
+            </el-select>-->
         </div>
         <div class="view_main">
             <span>标签</span>
@@ -163,7 +163,7 @@
                             self.coverImg = data.cover;
                             self.orderValue = data.order;
                             self.isUse = data.status;
-                            self.isStudy = data.is_study;
+                           // self.isStudy = data.is_study;
                             self.majorType = data.type;
                             for(var index in data.tag_ids){
                                 console.log(data.tag_ids)
@@ -204,13 +204,13 @@
 
                     console.log(this.tagsArr)
                     if(this.isedits()){
-                        var datas = {type:this.majorType,"name":this.majorName, "desc":this.descText,"cover":this.coverImg, "order":this.orderValue, "status":this.isUse,"tag_ids":this.tagsArr,is_study:this.isStudy};
+                        var datas = {type:this.majorType,"name":this.majorName, "desc":this.descText,"cover":this.coverImg, "order":this.orderValue, "status":this.isUse,"tag_ids":this.tagsArr};
                         this.common.putEventToken(this.api.host+this.api.course+"/"+this.$route.query.id,datas,this.userinfo,function(data){
                             console.log(data);
                             self.$router.push("/majorList");
                         })
                     }else{
-                        var datas = {type:this.majorType, "name":this.majorName, "desc":this.descText,"cover":this.coverImg, "order":this.orderValue, "status":this.isUse,"tag_ids":this.tagsArr,is_study:this.isStudy};
+                        var datas = {type:this.majorType, "name":this.majorName, "desc":this.descText,"cover":this.coverImg, "order":this.orderValue, "status":this.isUse,"tag_ids":this.tagsArr};
                         this.common.postEventToken(this.api.host+this.api.course,datas,this.userinfo,function(data){
                             console.log(data);
                             self.$router.push("/majorList");

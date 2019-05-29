@@ -28,10 +28,11 @@
             <el-input
             placeholder="请输入内容"
             class="search_input"
+            v-model="searchText"
             >
             </el-input>
-            <el-button>搜索</el-button>
-            <el-button>还原</el-button>
+            <el-button @click="testData('1')">搜索</el-button>
+            <el-button @click="testData('2')">还原</el-button>
         </div>
 <div class="view_main"><el-button class="add_btn" @click="addEvent">新增</el-button></div>
 <template>
@@ -109,16 +110,10 @@ export default
             ],
             isUse: "false",
             searchText:"",
-            testListData: [{
-                id: '2016-05-03',
-                name: '王小虎',
-                province: '上海',
-                city: '普陀区',
-                address: '上海市普陀区金沙江路 1518 弄',
-                zip: 200333
-            }],
+            testListData: [],
             nowPage:1,
-            allPage:0
+            allPage:0,
+            searchText:""
         }
     },
     methods:{
@@ -129,9 +124,20 @@ export default
         editEvent(id){
             this.$router.push({path: "/editTest", query: {id: id}});
         },
-        testData(){
+/**
+ * type
+ * 1点击搜索
+ * 2 还原搜索
+ */
+        testData(type){
+            if(type == 1){
+               this.nowPage = 1;
+            }else if(type == 2){
+                this.nowPage = 1;
+                this.searchText ="";
+            }
             var self = this;
-            this.common.getEventToken(this.api.host+this.api.test+"?page="+this.nowPage+"&per_page=10",{},this.userinfo,function(data){
+            this.common.getEventToken(this.api.host+this.api.test+"?page="+this.nowPage+"&per_page=10&name="+this.searchText,{},this.userinfo,function(data){
                 console.log(data);
                 self.testListData = data.data;
                 self.allPage = data.last_page * 10;

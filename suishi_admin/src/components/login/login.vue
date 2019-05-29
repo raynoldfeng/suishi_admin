@@ -17,8 +17,8 @@
     export default {
         data() {
         return {
-            username: 'admin',
-            password:"suishi@2019"
+            username: '',
+            password:""
         }
         },
     methods:{

@@ -102,26 +102,47 @@ var cosjsFile2 = function newCos(SecretId,SecretKey,fileurl,file,XCosSecurityTok
 //        console.log(err, data);
 //    });
 
-    cos.sliceUploadFile({
-        Bucket: 'suishi-1256985330', /* 必须 */
-        Region: 'ap-guangzhou',    /* 必须 */
-        Key: fileurl+file.webkitRelativePath,              /* 必须 */
-        Body: file,                /* 必须 */
-        TaskReady: function(taskId) {                   /* 非必须 */
-            console.log(file);
-            console.log(fileurl+file.webkitRelativePath)
+//    cos.sliceUploadFile({
+//        Bucket: 'suishi-1256985330', /* 必须 */
+//        Region: 'ap-guangzhou',    /* 必须 */
+//        Key: fileurl+file.webkitRelativePath,              /* 必须 */
+//        Body: file,                /* 必须 */
+//        TaskReady: function(taskId) {                   /* 非必须 */
+//            console.log(file);
+//            console.log(fileurl+file.webkitRelativePath)
+//
+//        },
+//        onHashProgress: function (progressData) {       /* 非必须 */
+//            console.log(JSON.stringify(progressData));
+//
+//        },
+//        onProgress: function (progressData) {           /* 非必须 */
+//            console.log(JSON.stringify(progressData));
+//
+//        }
+//    }, function(err, data) {
+//
+//        console.log(err || data);
+//    });
 
+
+    cos.uploadFiles({
+        files: [{
+            Bucket: 'suishi-1256985330', /* 必须 */
+            Region: 'ap-guangzhou',    /* 必须 */
+            Key: fileurl+file.webkitRelativePath,
+            Body: file,
+        }],
+        SliceSize: 1024 * 1024,
+        onProgress: function (info) {
+            var percent = parseInt(info.percent * 10000) / 100;
+            var speed = parseInt(info.speed / 1024 / 1024 * 100) / 100;
+            console.log('进度：' + percent + '%; 速度：' + speed + 'Mb/s;');
         },
-        onHashProgress: function (progressData) {       /* 非必须 */
-            console.log(JSON.stringify(progressData));
-
+        onFileFinish: function (err, data, options) {
+            console.log(options.Key + '上传' + (err ? '失败' : '完成'));
         },
-        onProgress: function (progressData) {           /* 非必须 */
-            console.log(JSON.stringify(progressData));
-
-        }
-    }, function(err, data) {
-
+    }, function (err, data) {
         console.log(err || data);
     });
 

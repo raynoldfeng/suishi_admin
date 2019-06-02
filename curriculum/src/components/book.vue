@@ -22,8 +22,8 @@
             <v-selectmore></v-selectmore>
         </swiper-slide>
         </swiper>
-<div class="swiper-button-prev" slot="button-prev" @click="pageTurn"></div>
-<div class="swiper-button-next" slot="button-next" @click="pageTurn"></div>
+<div class="swiper-button-prev" slot="button-prev" @click="pageTurn('left')"></div>
+<div class="swiper-button-next" slot="button-next" @click="pageTurn('right')"></div>
 <div class="swiper-pagination" slot="progressbar"></div>
         <div id="page-menu">
             <div id="displayBtn" @click="pageMenuDisplay">☰</div>
@@ -96,7 +96,8 @@
                 },
                 windowHeight:0,
                 isPageMenuShow:false,
-                nowPage:0
+                nowPage:0,
+                isMove:false
             }
         },
      components:{
@@ -118,17 +119,50 @@
              * 点击第几页
              */
             pageClickEvent(){
+                var self= this;
+
                 $("#dealMenu .type-main").eq(this.nowPage).addClass("type-main-click");
-                $("#dealMenu .type-main").on("touchstart",function(){
-                    $("#dealMenu .type-main").removeClass("type-main-click");
-                    $(this).addClass("type-main-click");
+                $("#dealMenu .type-main").on("touchend",function(){
+                    if(self.isMove){
+                        self.isMove = false;
+                        return;
+                    }else{
+                        $("#dealMenu .type-main").removeClass("type-main-click");
+                        $(this).addClass("type-main-click");
+                        self.isMove = false;
+                    }
+                });
+                $("#dealMenu .type-main").on("touchmove",function(){
+                    self.isMove = true;
                 })
             },
             /**
              * 左右翻页
              */
-            pageTurn(){
-                console.log(this.$refs.pages.swiper.realIndex)
+            pageTurn(type){
+                console.log(this.$refs.pages.swiper.realIndex);
+                $("#dealMenu .type-main").removeClass("type-main-click");
+                var len = $("#dealMenu .type-main").length;
+                console.log(len)
+                if(type =="left"){
+                    if(this.$refs.pages.swiper.realIndex == 0){
+                        $("#dealMenu .type-main").eq(0).addClass("type-main-click");
+                        this.$refs.pageMenu.swiper.slideTo(0);
+                    }else{
+                        $("#dealMenu .type-main").eq(this.$refs.pages.swiper.realIndex-1).addClass("type-main-click");
+                        this.$refs.pageMenu.swiper.slideTo(this.$refs.pages.swiper.realIndex-1);
+                    }
+                }else if("right"){
+                    if(this.$refs.pages.swiper.realIndex == len-1){
+                        $("#dealMenu .type-main").eq(len-1).addClass("type-main-click");
+                        this.$refs.pageMenu.swiper.slideTo(len-1);
+                    }else{
+                        $("#dealMenu .type-main").eq(this.$refs.pages.swiper.realIndex+1).addClass("type-main-click");
+                        this.$refs.pageMenu.swiper.slideTo(this.$refs.pages.swiper.realIndex+1);
+                    }
+
+                }
+
             },
             pageMenuDisplay(){
                 if(!this.isPageMenuShow){
@@ -155,7 +189,7 @@
   }
   .swiper-pagination{
       position: fixed;
-      bottom: 0;
+      top: 0;
       width: 100%;
       height: 5px;
       z-index: 200;

@@ -8,6 +8,7 @@ import imageText from '@/components/imageText'
 import imageChange from '@/components/imageChange'
 import titlePage from '@/components/titlePage'
 import selectmore from '@/components/selectmore'
+import lastPage from '@/components/lastPage'
 
 import book from '@/components/book'
 
@@ -17,8 +18,8 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'HelloWorld',
-      component: HelloWorld
+      name: 'book',
+      component: book
     },
       {
           path: '/judge',
@@ -59,6 +60,11 @@ export default new Router({
           path:'/selectmore',
           name:selectmore,
           component:selectmore
+      },
+      {
+          path:'/lastPage',
+          name:lastPage,
+          component:lastPage
       }
   ]
 })

@@ -1,27 +1,31 @@
 <template>
     <div id="QuestMain">
         <div id="QuestBox">
-            <p class="quest-text">请问1+1等于2吗？</p>
+            <p class="quest-text" v-text="data.judgeTitle"></p>
             <div class="true-main">
                 <div class="true-logo">对</div>
-                <div class="kuang true-k yes">
+                <div class="kuang true-k " :class="{ yes: data.judgeAnswer == '1' }">
                     <p></p>
                 </div>
             </div>
             <div class="false-main">
                 <div class="false-logo">错</div>
-                <div class="kuang false-k">
+
+                <div class="kuang false-k " :class="{ yes: data.judgeAnswer == '0' }">
                     <p></p>
                 </div>
             </div>
 
         </div>
-        <div id="nbox" class="animated">选择</div>
+        <div id="nbox" class="animated" v-text="data.judgeText"></div>
     </div>
 </template>
 <script>
 import $ from 'jquery'
 export default {
+    props:{
+        data:""
+    },
     mounted:function(){
 
         $("#nbox").css({top:window.innerHeight/1.5,left:(window.innerWidth-$("#nbox").width())/2});

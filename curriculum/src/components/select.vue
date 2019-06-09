@@ -1,23 +1,29 @@
 <template>
     <div id="QuestMain">
         <div id="QuestBox">
-            <p class="quest-text">
-                请问1+1等于2吗?
+            <p class="quest-text" v-text="data.selectTitle">
+
             </p>
-            <div class="img-main"></div>
+            <div class="img-main">
+                <img id="selectImg" :src="data.selectImg">
+            </div>
             <ul id="selectBox" class="option-menu">
-                <li class="answer-css no animated">
+                <li v-for="(data,index) in data.selectMenu" v-text="data.answerText"   class="answer-css animated" :class="{yes:data.isAnswer == '1' ,no:data.isAnswer == '0'}"></li>
+                <li class="explain" v-text="data.imgTextNote">
+                根据皮亚诺的五条公理用非形式化的方法叙述如下: ①1是自然数; ②每一个确定的自然数 a,都有一个确定的后继数a'
+                </li>
+           <!--     <li class="answer-css no animated">
                     不是
                 </li>
                 <li class="answer-css yes animated">
                     是
                 </li>
-                <li class="answer-css no animated">
+                <li class="answer-css yes animated">
                     不知道
                 </li>
                 <li class="explain">
                     根据皮亚诺的五条公理用非形式化的方法叙述如下: ①1是自然数; ②每一个确定的自然数 a,都有一个确定的后继数a'
-                </li>
+                </li>-->
             </ul>
 
         </div>
@@ -26,7 +32,16 @@
 <script>
     import $ from 'jquery'
     export default {
+    props:{
+    data:""
+    },
+    data(){
+        return {
+            nowyes:0
+        }
+    },
         mounted:function(){
+            var self = this;
             for(var i = 0 ; i<$(".option-menu li").length;i++){
                 //$(".option-menu li").eq(i).css("top",i*0.09*parseInt($(document).outerHeight(true)));
                 if(i == 0){
@@ -42,17 +57,47 @@
 
 
             //$(".option-menu li").css("height",parseInt($(".answer-css").outerHeight(true)));
-            $("#selectBox .yes").on("touchstart",function(){
-                $(this).addClass("true-css");
-                $("#selectBox .answer-css").hide();
-                $(this).show();
-                $(this).animate({top:0},800);
-//                $("#selectBox .explain").animate({top:parseInt($(this).outerHeight(true)),opacity:1},1000);
+//            $("#selectBox .yes").on("touchstart",function(){
+//                $(this).addClass("true-css");
+//                $("#selectBox .answer-css").hide();
+//                $(this).show();
+//                $(this).animate({top:0},800);
+////                $("#selectBox .explain").animate({top:parseInt($(this).outerHeight(true)),opacity:1},1000);
+//
+//                $("#selectBox .explain").show();
+//                var yesLens = $("#selectBox .yes").length;
+//                $("#selectBox .explain").animate({top:yesLens*($("#selectBox .yes").eq(yesLens-1).height()+(parseInt($("#selectBox .yes").eq(yesLens-1).css("paddingTop"))*2)+3)+parseInt($(document).outerHeight(true))*0.02,opacity:1},1000)
+//            });
 
+            $("#selectBox .yes").on("touchstart",function(){
                 $("#selectBox .explain").show();
-                var yesLens = $("#selectBox .yes").length;
-                $("#selectBox .explain").animate({top:yesLens*($("#selectBox .yes").eq(yesLens-1).height()+(parseInt($("#selectBox .yes").eq(yesLens-1).css("paddingTop"))*2)+3)+parseInt($(document).outerHeight(true))*0.02,opacity:1},1000)
+                if($(this).hasClass("true-css")){
+                    return;
+                }else{
+                    $(this).addClass("true-css");
+                    self.nowyes++;
+                    if(self.nowyes == $("#selectBox .yes").length){
+                        $("#selectBox .answer-css").hide();
+                        $("#selectBox .yes").show();
+                        for(let i = 0; i<$("#selectBox .yes").length; i++){
+                            if(i == 0){
+                                $("#selectBox .yes").eq(i).animate({top:0},800)
+                            }else{
+                                $("#selectBox .yes").eq(i).animate({top:($("#selectBox .yes").eq(i-1).height()+(parseInt($("#selectBox .yes").eq(i-1).css("paddingTop"))*2)+3)+parseInt($(document).outerHeight(true))*0.02},800)
+                            }
+                        }
+                        $("#selectBox .explain").show();
+                        var yesLens = $("#selectBox .yes").length;
+                        //                        $(this).animate({top:0},800);
+                 //       $("#selectBox .explain").animate({top:yesLens*($("#selectBox .yes").eq(yesLens-1).height()+(parseInt($("#selectBox .yes").eq(yesLens-1).css("paddingTop"))*2)+3)+parseInt($(document).outerHeight(true))*0.03,opacity:1},1000)
+                        $("#selectBox .explain").animate({top:yesLens*($("#selectBox .yes").eq(yesLens-1).height()+(parseInt($("#selectBox .yes").eq(yesLens-1).css("paddingTop"))*2)+3)+parseInt($(document).outerHeight(true))*0.02,opacity:1},1000)
+                    }
+
+                }
+
             });
+
+
             $(".no").on("click",function(){
                 $(this).addClass("false-css");
                 $(this).addClass("shake")
@@ -103,4 +148,7 @@
             opacity: 0;
             display: none;
         }
+            #selectImg{
+            width:60%;
+            }
         </style>

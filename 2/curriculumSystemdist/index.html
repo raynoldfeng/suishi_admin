@@ -1,20 +1,10 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1.0">
-    <title>course</title>
-    <style>
-        #export{
+<!DOCTYPE html><html><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><title>course</title><style>#export{
             opacity: 0;
         }
         #exportbox{
             overflow: hidden;
             height: 0;
-        }
-    </style>
-        <script>
-        /**
+        }</style><script>/**
          * Created by Administrator on 2019/5/27.
          */
         /* FileSaver.js
@@ -260,15 +250,7 @@
             define([], function() {
                 return saveAs;
             });
-        }
-        </script>
-  </head>
-  <body>
-  <div id="exportbox"><input type="button" id="export" value="保存"/></div>
-    <div id="app"></div>
-    <!-- built files will be auto injected -->
-  <script>
-      var button = document.getElementById("export");
+        }</script><link href=/static/css/app.a3c23cfff0fb4a0c9f6b9e3e6fb8161a.css rel=stylesheet></head><body><div id=exportbox><input type=button id=export value=保存></div><div id=app></div><script>var button = document.getElementById("export");
       button.addEventListener("click", saveHandler, false);
       window.datas = {
           name:"hanmeimei",
@@ -279,8 +261,4 @@
           var content ="window.edit="+JSON.stringify(data);
           var blob = new Blob([content], {type: "text/plain;charset=utf-8"});
           saveAs(blob, "edit.js");
-      }
-  </script>
-  </body>
-
-</html>
+      }</script><script type=text/javascript src=/static/js/manifest.2ae2e69a05c33dfc65f8.js></script><script type=text/javascript src=/static/js/vendor.e8788aeba700f874f9cd.js></script><script type=text/javascript src=/static/js/app.f8dc620b78b7c584d3ef.js></script></body></html>

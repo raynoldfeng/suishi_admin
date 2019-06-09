@@ -1,28 +1,12 @@
 <template>
     <div id="QuestMain">
         <div id="imageText">
-            <p class="it-title">sasdasddasd</p>
+            <p class="it-title" v-text="data.imgTextTitle"></p>
             <div class="it-img-main">
-                <img src="https://mohivecontents-jp.crossknowledge.com/staticcoursecontent/en-gb/bsfi633/medias/E0200216-CA02-405A-B79B-3C734E5EB2F2/Q5_E0200216-CA02-405A-B79B-3C734E5EB2F2.png" />
+                <img :src="data.imgTextImg" />
             </div>
             <ul class="it-text-menu">
-                <li>
-                    It is a record of all the transactions that affect the net worth of the company.
-                </li>
-                <li>
-                    It is a record of all the transactions that affect the net worth of the company.
-                </li>
-                <li>
-                    It is a record of all the transactions that affect the net worth of the company.
-                </li>
-                <li>
-                    It is a record of all the transactions that affect the net worth of the company.
-                </li>
-                <li>
-                    It is a record of all the transactions that affect the net worth of the company.
-                </li>
-                <li>
-                    It is a record of all the transactions that affect the net worth of the company.
+                <li v-for="textData in data.imgTextMenu" v-text="textData">
                 </li>
 
             </ul>
@@ -30,7 +14,13 @@
     </div>
 </template>
  <script>
+export default
+{
+    props:{
+        data:""
+    }
 
+}
  </script>
  <style>
     .it-title{

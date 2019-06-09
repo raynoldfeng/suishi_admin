@@ -1,0 +1,807 @@
+<template>
+    <div >
+        <el-container>
+            <el-header class="blues head-title">课件编辑系统</el-header>
+            <el-container>
+                <el-aside width="200px">
+                    <div id="leftMenu">
+                        <div class="page_menu">
+                            <div class="pagebtnBox" v-for="(data,index) in dataMenu" v-if=" dataMenu.length > 0">
+                                <div class="pagebtn" @click="nowPageEvent(index)" :class="{pageboxclick:nowpage == index}">
+                                第{{index+1}}节
+                                </div>
+                                <i class="delete_btn el-icon-close"  @click="deleteEvent(index)"></i>
+                            </div>
+
+                        </div>
+                        <el-button class="add_page" @click="addPage" type="primary" >添加</el-button>
+                    </div>
+
+                </el-aside>
+                <el-main >
+                    <input id="file-selector" type="file" >
+                        <input id="file-selector2" type="file" >
+                            <input id="selectL-selector" type="file" >
+                                <input id="imgtext-selector" type="file" >
+                                    <input id="file-selector3" multiple="multiple" type="file">
+                                        <input id="select-selector" type="file" >
+                                            <input id="selectR-selector" type="file" >
+                    <div  v-if=" dataMenu.length > 0"><div>
+                        <p>章节:第<span v-text="(nowData.page+1)">1</span>节</p>
+                                                    <el-button  class="view_main" @click="getJsons"  type="primary" >生成配置文件</el-button>
+                                                    <el-button  class="view_main" @click="goUpLoad"  type="primary" >上传</el-button>
+                                                    <div  class="view_main">
+                                                        <el-select v-model="nowData.testType" placeholder="类型">
+                                                            <el-option
+                                                            v-for="item in testTypeMenu"
+                                                            :key="item.value"
+                                                            :label="item.label"
+                                                            :value="item.value">
+                                                            </el-option>
+                                                        </el-select></div>
+                    </div>
+
+                                                <div v-if="nowData.testType == 0">
+                                                    <div  class="view_main">
+                                                        <span>课程标题</span>
+                                                        <el-input class="input_type" v-model="nowData.courseTitle"></el-input>
+                                                    </div>
+                                                    <div  class="view_main">
+                                                        <span class="type_title">封面图</span>
+
+                                                            <div class="avatar-uploader" @click="uploadClick('file-selector')">
+                                                                <img v-if="nowData.courseImg" :src="nowData.courseImg" class="avatar">
+                                                                    <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+                                                            </div>
+                                                                <i class="el-icon-close" @click="deleteImg('courseImg')"></i>
+                                                        </div>
+                                                        <div  class="view_main">
+                                                            <span  class="type_title">作者图</span>
+
+                                                            <div class="avatar-uploader" @click="uploadClick('file-selector2')">
+                                                                <img v-if="nowData.authorImg" :src="nowData.authorImg" class="avatar">
+                                                                    <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+                                                                </div>
+                                                                <i class="el-icon-close" @click="deleteImg('authorImg')"></i>
+                                                            </div>
+                                                            <div  class="view_main">
+                                                                <span  class="type_title">作者名字</span>
+                                                                <el-input class="input_type" v-model="nowData.authorInfo"></el-input>
+
+                                                            </div>
+                                                            <div  class="view_main">
+                                                                <span class="type_title">介绍</span>
+                                                                <el-input
+                                                                class="textarea_type"
+                                                                type="textarea"
+                                                                :autosize="{ minRows: 2, maxRows: 4}"
+                                                                placeholder="请输入内容"
+                                                                v-model="nowData.courseInfo">
+                                                                </el-input>
+                                                            </div>
+                                                        </div>
+
+                                                        <div v-if="nowData.testType == 1">
+                                                            <div class="view_main">
+                                                                <div class="type_title">标题</div>
+
+                                                                <el-input class="input_type" v-model="nowData.imgTextTitle"></el-input>
+                                                            <div class="view_main">
+                                                                    <div class="type_title">图片</div>
+
+                                                                    <div class="avatar-uploader" @click="uploadClick('imgtext-selector')">
+                                                                        <img v-if="nowData.imgTextImg" :src="nowData.imgTextImg" class="avatar">
+                                                                            <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+                                                                    </div>
+                                                                        <i class="el-icon-close" @click="deleteImg('imgTextImg')"></i>
+                                                                </div>
+                                                                <div  class="view_main">
+                                                                        <span>文本</span>
+
+                                                                        <div  class="view_main"  v-for="(data,index) in nowData.imgTextMenu">
+                                                                            <el-input   v-if="nowData.imgTextMenu.length>0"
+                                                                            class="textarea_type"
+                                                                            type="textarea"
+                                                                            :autosize="{ minRows: 2, maxRows: 4}"
+                                                                            placeholder="请输入内容"
+                                                                            v-model="nowData.imgTextMenu[index]">
+                                                                            </el-input>
+                                                                            <span  @click="deleteImgText(index)">删除</span>
+                                                                        </div>
+                                                                        <div  class="view_main">
+                                                                            <el-button @click="addImgText">添加段落</el-button>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                              </div>
+
+                                                                <div v-if="nowData.testType == 2">
+                                                                    <div>
+                                                                        <div>图片</div>
+                                                                        <div>
+                                                                            <div  class="view_main" v-for="(data,index) in nowData.imageChange">
+                                                                                <div class="avatar-uploader">
+                                                                                    <img v-if="nowData.imageChange[index]" :src="nowData.imageChange[index]" class="avatar">
+                                                                                        <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+                                                                                    </div>
+                                                                                    <el-button @click="imageChangeDelete(index)">删除</el-button>
+                                                                                </div>
+                                                                                <el-button @click="uploadClick('file-selector3')">添加图片</el-button>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div v-if="nowData.testType == 3">
+                                                                        <div class="view_main">
+                                                                            <span>题目</span>
+                                                                            <el-input class="input_type" v-model="nowData.judgeTitle"></el-input>
+                                                                        </div>
+                                                                        <div class="view_main">
+                                                                            <span>答案文本</span>
+                                                                            <el-input class="input_type" v-model="nowData.judgeText"></el-input>
+                                                                        </div>
+                                                                        <div class="view_main">
+                                                                            <span>正确选项</span>
+
+                                                                            <el-select v-model="nowData.judgeAnswer" placeholder="正确选项">
+                                                                                <el-option
+                                                                                v-for="item in judgeAnswerMenu"
+                                                                                :key="item.value"
+                                                                                :label="item.label"
+                                                                                :value="item.value">
+                                                                                </el-option>
+                                                                            </el-select>
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <div v-if="nowData.testType == 4">
+                                                                        <div class="view_main">
+                                                                            <span>题目</span>
+                                                                            <el-input class="input_type" v-model="nowData.selectTitle"></el-input>
+                                                                        </div>
+                                                                        <div class="view_main">
+                                                                            <div class="type_title">图片</div>
+
+                                                                            <div class="avatar-uploader" @click="uploadClick('select-selector')">
+                                                                                <img v-if="nowData.selectImg" :src="nowData.selectImg" class="avatar">
+                                                                                    <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+                                                                                </div>
+                                                                                <i class="el-icon-close" @click="deleteImg('selectImg')"></i>
+                                                                            </div>
+                                                                            <div class="view_main">
+                                                                                <span>选项</span>
+                                                                                <el-button @click="selectAddEvent">添加选项</el-button>
+                                                                                <div class="">
+                                                                                    <ul>
+                                                                                        <li v-for="(data,index) in nowData.selectMenu" class="view_main" >
+                                                                                            <el-input class="input_type" v-model="nowData.selectMenu[index].answerText"></el-input>
+                                                                                            <el-select v-model="data.isAnswer" placeholder="是否正确">
+                                                                                                <el-option
+                                                                                                v-for="item in judgeAnswerMenu"
+                                                                                                :key="item.value"
+                                                                                                :label="item.label"
+                                                                                                :value="item.value">
+                                                                                                </el-option>
+                                                                                            </el-select>
+                                                                                            <span @click="selectDeleteEvent(index)">删除</span>
+                                                                                        </li>
+                                                                                    </ul>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="view_main">
+                                                                                <span class="type_title">答案注释</span>
+                                                                                <el-input
+                                                                                class="textarea_type"
+                                                                                type="textarea"
+                                                                                :autosize="{ minRows: 2, maxRows: 4}"
+                                                                                placeholder="请输入内容"
+                                                                                v-model="nowData.imgTextNote">
+                                                                                </el-input>
+                                                                            </div>
+                                                                        </div>
+
+
+                                                                        <div v-if="nowData.testType == 5">
+                                                                            <div class="view_main" >
+                                                                                <span>问题</span>
+                                                                                <el-input class="input_type" v-model="nowData.selectMoreTitle"></el-input>
+                                                                            </div>
+                                                                            <div class="view_main" >
+                                                                                <span>问题描述</span>
+                                                                                <el-input
+                                                                                class="textarea_type"
+                                                                                type="textarea"
+                                                                                :autosize="{ minRows: 2, maxRows: 4}"
+                                                                                placeholder="请输入内容"
+                                                                                v-model="nowData.selectMoreInfo">
+                                                                                </el-input>
+                                                                            </div>
+                                                                            <!--<div>-->
+                                                                            <!--<span>文本1</span>-->
+                                                                            <!--<el-input class="input_type" v-
+                                                    model="nowData.selectTitle"></el-input>-->
+                                                                            <!--</div>-->
+                                                                            <div class="view_main" >
+                                                                                <div class="type_title">图片</div>
+
+                                                                                <div class="avatar-uploader" @click="uploadClick('selectL-selector')">
+                                                                                    <img v-if="nowData.selectMoreImgL" :src="nowData.selectMoreImgL" class="avatar">
+                                                                                        <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+                                                                                    </div>
+                                                                                    <i class="el-icon-close" @click="deleteImg('selectMoreImgL')"></i>
+
+                                                                                </div>
+                                                                                <div class="view_main" >
+                                                                                    <span>选项</span><el-button @click="selectMoreAddEvent('l')">添加选项</el-button>
+                                                                                    <div class="">
+
+                                                                                        <ul>
+                                                                                            <li v-for="(data,index) in nowData.selectMoreMenuL" class="view_main">
+                                                                                                <el-input class="input_type" v-model="data.answerText"></el-input>
+                                                                                                <el-select v-model="data.isAnswer"
+                                                                                                placeholder="是否正确">
+                                                                                                    <el-option
+                                                                                                    v-for="item in judgeAnswerMenu"
+                                                                                                    :key="item.value"
+                                                                                                    :label="item.label"
+                                                                                                    :value="item.value">
+                                                                                                    </el-option>
+                                                                                                </el-select>
+                                                                                                <span @click="selectMoreDeleteEvent('l',index)">删除</span>
+                                                                                            </li>
+                                                                                        </ul>
+                                                                                        <div class="view_main">
+                                                                                            <span class="type_title">答案注释</span>
+                                                                                            <el-input
+                                                                                            class="textarea_type"
+                                                                                            type="textarea"
+                                                                                            :autosize="{ minRows: 2, maxRows: 4}"
+                                                                                            placeholder="请输入内容"
+                                                                                            v-model="nowData.selectTextNoteL">
+                                                                                            </el-input>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <!--<div>-->
+                                                                                <!--<span>文本2</span>-->
+                                                                                <!--<el-input class="input_type" v-
+                                                        model="nowData.selectTitle"></el-input>-->
+                                                                                <!--</div>-->
+                                                                                <div class="view_main" >
+
+                                                                                    <div class="avatar-uploader" @click="uploadClick('selectR-selector')">
+                                                                                        <img v-if="nowData.selectMoreImgR" :src="nowData.selectMoreImgR" class="avatar">
+                                                                                            <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+                                                                                        </div>
+                                                                                        <i class="el-icon-close" @click="deleteImg('selectMoreImgR')"></i>
+                                                                                    </div>
+                                                                                    <div class="view_main" >
+                                                                                        <span>选项</span><el-button  @click="selectMoreAddEvent('r')">添加选项</el-button>
+                                                                                        <div class="">
+                                                                                            <ul>
+                                                                                                <li v-for="(data,index) in nowData.selectMoreMenuR" class="view_main">
+                                                                                                    <el-input class="input_type" v-model="data.answerText"></el-input>
+                                                                                                    <el-select v-model="data.isAnswer" placeholder="正确选项">
+                                                                                                        <el-option
+                                                                                                        v-for="item in judgeAnswerMenu"
+                                                                                                        :key="item.value"
+                                                                                                        :label="item.label"
+                                                                                                        :value="item.value">
+                                                                                                        </el-option>
+                                                                                                    </el-select>
+                                                                                                    <span  @click="selectMoreDeleteEvent('r',index)">删除</span>
+                                                                                                </li>
+                                                                                            </ul>
+                                                                                        </div>
+                                                                                        <div class="view_main">
+                                                                                            <span class="type_title">答案注释</span>
+                                                                                            <el-input
+                                                                                            class="textarea_type"
+                                                                                            type="textarea"
+                                                                                            :autosize="{ minRows: 2, maxRows: 4}"
+                                                                                            placeholder="请输入内容"
+                                                                                            v-model="nowData.selectTextNoteR">
+                                                                                            </el-input>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+
+                                                                            </el-main>
+                                                                        </el-container>
+                                                                    </el-container>
+                                                                </div>
+                                                            </template>
+                                                            <script>
+                                                            /**
+                                                            * page 第几章
+                                                            *
+                                                            * testType 测试类型
+                                                            * 0 介绍页
+                                                            * 1 图文
+                                                            * 2 图片轮播
+                                                            * 3 判断
+                                                            * 4  选泽
+                                                            * 5. 多题选泽
+                                                            *
+                                                            * 0
+                                                            * courseTitle 标题
+                                                            * courseImg 封面图
+                                                            * authorImg 作者头像
+                                                            * authorInfo 作者名字
+                                                            * courseInfo 课程介绍
+                                                            * 1
+                                                            * imgTextTitle 图文类型标题
+                                                            * imgTextImg  图文类型图片
+                                                            * imgTextMenu  图文类型段落
+                                                            *
+                                                            * 2
+                                                            * imageChange 图片轮播
+                                                            *
+                                                            * 3
+                                                            * judgeTitle 判断类型题目
+                                                            * judgeText 判断类型答案
+                                                            * judgeAnswer 正确选项
+                                                            *
+                                                            * 4
+                                                            * selectTitle 选择类型题目
+                                                            * selectImg  选择类型图片
+                                                            * selectMenu 选择类型选项
+                                                            *answerText 答案选项 (selectMenu内)
+                                                            * isAnswer 是不是正确 (selectMenu内)
+                                                            *imgTextNote 答案注释
+                                                            *
+                                                            * 5
+                                                            * selectMoreTitle 多个选择题目
+                                                            *selectMoreInfo 多个选择题目注释
+                                                            * selectMoreImgL  多个选择类型图片1
+                                                            * selectMoreMenuL 多个选择类型选项1
+                                                            *  selectMoreImgR  多个选择类型图片2
+                                                            * selectMoreMenuR 多个选择类型选项2
+                                                            *answerText 答案选项 (selectMoreMenu内)
+                                                            * isAnswer 是不是正确 (selectMoreMenu内)
+                                                            * selectTextNoteL   左侧答案注释
+                                                            * selectTextNoteR   右侧答案注释
+                                                            */
+                                                            export default {
+                                                                data(){
+                                                                return {
+                                                                nowpage:0,
+                                                                judgeAnswerMenu:[
+                                                                {value: "0",
+                                                                label: "false"},
+                                                                {value: "1",
+                                                                label: "true"},
+                                                                ],
+                                                                testTypeMenu:[
+                                                                {value: "0",
+                                                                label: "介绍页"},
+                                                                {value: "1",
+                                                                label: "图文"},
+                                                                {value: "2",
+                                                                label: "图片轮播"},
+                                                                {value: "3",
+                                                                label: "判断"},
+                                                                {value: "4",
+                                                                label: "选择"},
+                                                                {value: "5",
+                                                                label: "多题选泽"},
+                                                                ],
+                                                                dataMenu:[ ],
+                                                                nowData:{
+                                                                page:0,
+                                                                testType:"0",
+                                                                courseTitle:"",
+                                                                courseImg:"",
+                                                                authorImg:"",
+                                                                courseInfo:"",
+                                                                authorInfo:"",
+
+                                                                imgTextTitle:"",
+                                                                imgTextImg:"",
+                                                                imgTextMenu:[""],
+
+                                                                imageChange:[],
+
+                                                                judgeTitle:"",
+                                                                judgeText:"",
+                                                                judgeAnswer:"",
+
+                                                                selectTitle:"",
+                                                                selectImg:"",
+                                                                selectMenu:[
+                                                                {answerText:"",isAnswer:"0"}
+                                                                ],
+                                                                imgTextNote:"",
+
+                                                                selectMoreTitle:"",
+                                                                selectMoreInfo:"",
+                                                                selectMoreImgL:"",
+                                                                selectMoreImgR:"",
+                                                                selectMoreMenuL:[
+                                                                {answerText:"",isAnswer:"0"}
+                                                                ],
+                                                                selectMoreMenuR:[
+                                                                {answerText:"",isAnswer:"0"}
+                                                                ],
+                                                                selectTextNoteL:"",
+                                                                selectTextNoteR:""
+                                                                },
+                                                                copyData:{
+                                                                page:0,
+                                                                testType:"0",
+                                                                courseTitle:"",
+                                                                courseImg:"",
+                                                                authorImg:"",
+                                                                courseInfo:"",
+                                                                authorInfo:"",
+
+                                                                imgTextTitle:"",
+                                                                imgTextImg:"",
+                                                                imgTextMenu:[""],
+
+                                                                imageChange:[],
+
+                                                                judgeTitle:"",
+                                                                judgeText:"",
+                                                                judgeAnswer:"",
+
+                                                                selectTitle:"",
+                                                                selectImg:"",
+                                                                selectMenu:[
+                                                                {answerText:"",isAnswer:"0"}
+                                                                ],
+                                                                imgTextNote:"",
+
+                                                                selectMoreTitle:"",
+                                                                selectMoreInfo:"",
+                                                                selectMoreImgL:"",
+                                                                selectMoreImgR:"",
+                                                                selectMoreMenuL:[
+                                                                {answerText:"",isAnswer:"0"}
+                                                                ],
+                                                                selectMoreMenuR:[
+                                                                {answerText:"",isAnswer:"0"}
+                                                                ],
+                                                                selectTextNoteL:"",
+                                                                selectTextNoteR:""
+                                                                },
+                                                                SecretId:"",
+                                                                SecretKey:"",
+                                                                XCosSecurityToken:"",
+                                                                expiredTime:"",
+                                                                userinfo:""
+                                                                }
+                                                                },
+                                                                methods:{
+                                                                addPage(){
+                                                                console.log(this.dataMenu.length)
+                                                                if(this.dataMenu.length > 0){
+                                                                    this.dataMenu[this.nowData.page] = this.nowData;
+                                                                }
+
+                                                                this.nowData ={
+                                                                page:0,
+                                                                testType:"0",
+                                                                courseTitle:"",
+                                                                courseImg:"",
+                                                                authorImg:"",
+                                                                courseInfo:"",
+                                                                authorInfo:"",
+
+                                                                imgTextTitle:"",
+                                                                imgTextImg:"",
+                                                                imgTextMenu:[""],
+
+                                                                imageChange:[],
+
+                                                                judgeTitle:"",
+                                                                judgeText:"",
+                                                                judgeAnswer:"",
+
+                                                                selectTitle:"",
+                                                                selectImg:"",
+                                                                selectMenu:[
+                                                                {answerText:"",isAnswer:"0"}
+                                                                ],
+                                                                imgTextNote:"",
+
+                                                                selectMoreTitle:"",
+                                                                selectMoreInfo:"",
+                                                                selectMoreImgL:"",
+                                                                selectMoreImgR:"",
+                                                                selectMoreMenuL:[
+                                                                {answerText:"",isAnswer:"0"}
+                                                                ],
+                                                                selectMoreMenuR:[
+                                                                {answerText:"",isAnswer:"0"}
+                                                                ],
+                                                                selectTextNoteL:"",
+                                                                selectTextNoteR:""
+                                                                };
+                                                                //    this.nowData = this.copyData;
+                                                                console.log(this.nowData)
+                                                                this.nowData.page = this.dataMenu.length;
+                                                                console.log(this.dataMenu)
+                                                                console.log(this.dataMenu.length)
+                                                                this.dataMenu.push(this.nowData);
+                                                                console.log(this.dataMenu.length)
+                                                                this.nowpage = this.dataMenu.length-1;
+
+                                                                },
+                                                                goUpLoad(){
+                                                                    this.$router.push("/upload")
+                                                                },
+                                                                getJsons(){
+                                                                this.dataMenu[this.nowData.page] = this.nowData;
+//                this.getjsFile();
+                                                                window.datas = this.dataMenu;
+                                                                this.uploadClick("export");
+                                                                console.log(window.datas);
+                                                                },
+                                                                nowPageEvent(page){
+                                                                    this.dataMenu[this.nowData.page] = this.nowData;
+                                                                    this.nowData = this.dataMenu[page];
+                                                                    this.nowpage = page;
+                                                                },
+                                                                deleteEvent(page){
+                                                                console.log(this.nowData.page)
+                                                                this.dataMenu[this.nowData.page] = this.nowData;
+                                                                //     this.nowData = this.copyData;
+                                                                console.log(this.dataMenu)
+                                                                this.dataMenu.splice(page,1);
+
+                                                                console.log(this.dataMenu)
+                                                                console.log(this.dataMenu.length)
+                                                                for(let i = 0; i < this.dataMenu.length;i++){
+                                                                    if(this.dataMenu.length>0){
+                                                                        this.dataMenu[i].page = i;
+                                                                        if(i == this.dataMenu.length-1){
+                                                                             this.nowData = this.dataMenu[i];
+                                                                                this.nowpage =  i;
+                                                                        }
+                                                                    }
+                                                                }
+
+                                                                },
+                                                                getUpLoadKey(){
+                                                                var self =this;
+                                                                this.common.getEventToken(this.api.host+this.api.cosToken,{},this.userinfo,function(data){
+                                                                console.log(data);
+                                                                self.SecretId = data.credentials.tmpSecretId;
+                                                                self.SecretKey = data.credentials.tmpSecretKey;
+                                                                self.XCosSecurityToken = data.credentials.sessionToken;
+                                                                self.expiredTime = data.expiredTime;
+                                                                console.log(self.SecretId)
+                                                                })
+
+                                                                },
+                                                                uploadEvent(){
+                                                                var self = this
+                                                                document.getElementById('file-selector').onchange = function () {
+                                                                var file = this.files[0];
+                                                                if (!file) return;
+                                                                //                console.log(file.name);
+                                                                //                console.log(file)
+                                                                if(self.SecretId != "" && self.SecretKey !="" ){
+                                                                if(file){
+                                                                self.cosjs(self.SecretId,self.SecretKey,file,self.XCosSecurityToken,self.expiredTime,function(img){
+                                                                self.nowData.courseImg = img;
+                                                                });
+                                                                }
+                                                                }
+
+                                                                };
+
+                                                                document.getElementById('file-selector2').onchange = function () {
+                                                                var file = this.files[0];
+                                                                if (!file) return;
+                                                                if(self.SecretId != "" && self.SecretKey !="" ){
+                                                                if(file){
+                                                                self.cosjs(self.SecretId,self.SecretKey,file,self.XCosSecurityToken,self.expiredTime,function(img){
+                                                                self.nowData.authorImg = img;
+                                                                });
+                                                                }
+                                                                }
+
+                                                                };
+
+                                                                document.getElementById('imgtext-selector').onchange = function () {
+                                                                var file = this.files[0];
+                                                                if (!file) return;
+                                                                //                console.log(file.name);
+                                                                //                console.log(file)
+                                                                if(self.SecretId != "" && self.SecretKey !="" ){
+                                                                if(file){
+                                                                self.cosjs(self.SecretId,self.SecretKey,file,self.XCosSecurityToken,self.expiredTime,function(img){
+                                                                self.nowData.imgTextImg = img;
+                                                                });
+                                                                }
+                                                                }
+
+                                                                };
+
+
+
+                                                                document.getElementById('file-selector3').onchange = function () {
+                                                                var files = this.files;
+                                                                //                console.log(file.name);
+                                                                //                console.log(file)
+                                                                if(files.length>0){
+                                                                self.pptUrl = [];
+                                                                }
+                                                                if(self.SecretId != "" && self.SecretKey !="" ){
+                                                                for(let i = 0 ;i<files.length;i++){
+                                                                var file = files[i];
+                                                                if (!file) return;
+                                                                if(file){
+                                                                self.cosjs(self.SecretId,self.SecretKey,file,self.XCosSecurityToken,self.expiredTime,function(url){
+                                                                    self.nowData.imageChange.push(url);
+                                                                });
+                                                                }
+                                                                }
+                                                                }
+
+                                                                };
+
+
+                                                                document.getElementById('select-selector').onchange = function () {
+                                                                var file = this.files[0];
+                                                                if (!file) return;
+                                                                if(self.SecretId != "" && self.SecretKey !="" ){
+                                                                if(file){
+                                                                self.cosjs(self.SecretId,self.SecretKey,file,self.XCosSecurityToken,self.expiredTime,function(img){
+                                                                self.nowData.selectImg = img;
+                                                                });
+                                                                }
+                                                                }
+                                                                };
+
+                                                                document.getElementById('selectL-selector').onchange = function () {
+                                                                var file = this.files[0];
+                                                                if (!file) return;
+                                                                if(self.SecretId != "" && self.SecretKey !="" ){
+                                                                if(file){
+                                                                self.cosjs(self.SecretId,self.SecretKey,file,self.XCosSecurityToken,self.expiredTime,function(img){
+                                                                self.nowData.selectMoreImgL = img;
+                                                                });
+                                                                }
+                                                                }
+                                                                };
+
+
+                                                                document.getElementById('selectR-selector').onchange = function () {
+                                                                var file = this.files[0];
+                                                                if (!file) return;
+                                                                if(self.SecretId != "" && self.SecretKey !="" ){
+                                                                if(file){
+                                                                self.cosjs(self.SecretId,self.SecretKey,file,self.XCosSecurityToken,self.expiredTime,function(img){
+                                                                self.nowData.selectMoreImgR = img;
+                                                                });
+                                                                }
+                                                                }
+                                                                };
+                                                                },
+                                                                uploadClick(id){
+                                                                document.getElementById(id).click();
+                                                                },
+                                                            /**
+                                                             * 1
+                                                             * 添加段落
+                                                             */
+                                                                addImgText(){
+                                                                this.nowData.imgTextMenu.push("");
+                                                                },
+                                                                deleteImgText(index){
+                                                                this.nowData.imgTextMenu.splice(index,1);
+                                                                },
+                                                            /**
+                                                             * 选择类型 (单题)
+                                                             */
+                                                                selectAddEvent(){
+                                                                var newData =  {answerText:"",isAnswer:"0"}
+                                                                this.nowData.selectMenu.push(newData);
+                                                                },
+                                                                selectDeleteEvent(index){
+                                                                this.nowData.selectMenu.splice(index,1);
+                                                                },
+
+                                                            /**
+                                                             * 选择类型 (多题)
+                                                             */
+                                                                selectMoreAddEvent(type){
+                                                                var newData =  {answerText:"",isAnswer:"0"}
+                                                                if(type=="l"){
+                                                                this.nowData.selectMoreMenuL.push(newData);
+                                                                }else if(type == "r"){
+                                                                this.nowData.selectMoreMenuR.push(newData);
+                                                                }
+                                                                },
+                                                                selectMoreDeleteEvent(type,index){
+                                                                if(type == "l"){
+                                                                this.nowData.selectMoreMenuL.splice(index,1);
+                                                                }else if(type == "r"){
+                                                                this.nowData.selectMoreMenuR.splice(index,1);
+                                                                }
+
+                                                                },
+                                                                imageChangeDelete(index){
+                                                                    if(this.nowData.imageChange.length > 0){
+                                                                        this.nowData.imageChange.splice(index,1);
+                                                                    }
+                                                                },
+                                                                deleteImg(type){
+                                                                    this.nowData[type] = "";
+                                                                }
+                                                                },
+                                                                mounted:function(){
+                                                                this.userinfo = {"token":this.common.cookie.get("token"),"user_id":this.common.cookie.get("user_id")};
+                                                                console.log( this.userinfo)
+                                                                this.getUpLoadKey();
+                                                                this.uploadEvent();
+                                                                }
+                                                                }
+                                                            </script>
+                                                            <style>
+
+                                                            .blues{
+                                                                background:skyblue;
+                                                                }
+                                                            .input_type{
+                                                                width: 200px;
+                                                                }
+                                                            .textarea_type{
+                                                                width: 500px;
+                                                                }
+                                                            .pagebtn{
+                                                                width: 150px;
+                                                                height: 150px;
+                                                                margin: 15px auto;
+                                                                border: 1px solid #d0d0d0;
+                                                                position: relative;
+                                                                background:#d8d8d8;
+                                                                 font-size:25px;
+                                                                line-height: 150px;
+                                                                }
+                                                            .pageboxclick{
+                                                                background:#9cd7ef;
+                                                                color:#fff;
+                                                                }
+                                                            .pagebtnBox{
+
+                                                                position: relative;
+                                                                }
+                                                            .delete_btn{
+                                                                position: absolute;
+                                                                top: 0;
+                                                                right: 0;
+                                                                cursor: pointer;
+                                                                }
+                                                            .avatar {
+                                                                width: 178px;
+                                                                height: 178px;
+                                                                display: block;
+                                                                }
+                                                            .view_main{
+                                                                overflow:hidden;
+                                                                }
+                                                            .type_title{
+                                                                float:left;
+                                                                }
+                                                            .head-title {
+                                                                line-height: 300%;
+                                                                color: #fff;
+                                                                font-size: 20px;
+                                                                font-weight: bold;
+                                                                }
+                                                            #leftMenu{
+                                                                text-align: center;
+                                                                width:200px;
+                                                                height:100%;
+                                                                background:#efefef;
+                                                                overflow: auto;
+                                                                position: absolute;
+                                                                }
+                                                                .add_page{
+                                                                     width:80%;
+                                                                }
+                                                            </style>

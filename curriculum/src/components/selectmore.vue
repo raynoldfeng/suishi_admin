@@ -1,16 +1,20 @@
 <template>
     <div id="QuestMain">
         <div id="selectmore">
-            <p class="sm-q-title">
-                sdasdasdasdfg
+            <p class="sm-q-title" v-text="data.selectMoreTitle">
+
             </p>
-            <p class="operation-text">kjghkdfjuishfuiashdjkah</p>
+            <p class="operation-text" v-text="data.selectMoreInfo"></p>
             <div class="sm-question-menu">
                 <div  class="sm-question-main">
-                    <img id="questionImgLeft" src="https://mohivecontents-jp.crossknowledge.com/staticcoursecontent/en-gb/bsfi633/medias/D3F52562-7A6B-465B-B309-A38D94056795/Q3_D3F52562-7A6B-465B-B309-A38D94056795.jpg">
+                    <img id="questionImgLeft" :src="data.selectMoreImgL">
                     <div class="sm-q-box">
                         <ul class="sm-option-menu" id="questionLeft">
-                            <li class="answer-css no animated">
+                            <li v-for="(data,index) in data.selectMoreMenuL" v-text="data.answerText"   class="answer-css animated" :class="{yes:data.isAnswer == '1' ,no:data.isAnswer == '0'}"></li>
+                            <li class="explain" v-text="data.selectTextNoteL">
+                            根据皮亚诺的五条公理用非形式化的方法叙述如下: ①1是自然数; ②每一个确定的自然数 a,都有一个确定的后继数a'
+                            </li>
+                    <!--        <li class="answer-css no animated">
                                 不是
                             </li>
                             <li class="answer-css yes animated">
@@ -21,27 +25,20 @@
                             </li>
                             <li class="explain">
                                 根据皮亚诺的五条公理用非形式化的方法叙述如下: ①1是自然数; ②每一个确定的自然数 a,都有一个确定的后继数a'
-                            </li>
+                            </li>-->
                         </ul>
                     </div>
 
                 </div>
                 <div class="sm-question-main">
-                    <img id="questionImgRight" src="https://mohivecontents-jp.crossknowledge.com/staticcoursecontent/en-gb/bsfi633/medias/D3F52562-7A6B-465B-B309-A38D94056795/Q3_D3F52562-7A6B-465B-B309-A38D94056795.jpg">
+                    <img id="questionImgRight" :src="data.selectMoreImgR">
                     <div class="sm-q-box">
                     <ul class="sm-option-menu" id="questionRight">
-                        <li class="answer-css no animated">
-                            不是
+                        <li v-for="(data,index) in data.selectMoreMenuR" v-text="data.answerText"   class="answer-css animated" :class="{yes:data.isAnswer == '1' ,no:data.isAnswer == '0'}"></li>
+                        <li class="explain" v-text="data.selectTextNoteR">
+                        根据皮亚诺的五条公理用非形式化的方法叙述如下: ①1是自然数; ②每一个确定的自然数 a,都有一个确定的后继数a'
                         </li>
-                        <li class="answer-css yes animated">
-                            是
-                        </li>
-                        <li class="answer-css yes animated">
-                            不知道
-                        </li>
-                        <li class="explain">
-                            根据皮亚诺的五条公理用非形式化的方法叙述如下: ①1是自然数; ②每一个确定的自然数 a,都有一个确定的后继数a'
-                        </li>
+
                     </ul>
                         </div>
                 </div>
@@ -52,10 +49,13 @@
 <script>
 import $ from 'jquery'
     export default{
+    props:{
+    data:""
+    },
         data(){
             return {
-                allyes:2,
-                nowyes:0
+                nowyesL:0,
+                nowyesR:0,
             }
         },
         methods:{
@@ -82,16 +82,46 @@ import $ from 'jquery'
             },
             clickEvent(){
                 var self = this;
+//                $("#questionLeft .yes").on("touchstart",function(){
+//                    $(this).addClass("true-css");
+//                    $("#questionLeft .answer-css").hide();
+//                    $(this).show();
+//                    $(this).animate({top:0},800);
+//                    $("#questionLeft .explain").show();
+//                    var yesLens = $("#questionLeft .yes").length;
+//                    $("#questionLeft .explain").animate({top:yesLens*($("#questionLeft .yes").eq(yesLens-1).height()+(parseInt($("#questionLeft .yes").eq(yesLens-1).css("paddingTop"))*2)+3)+parseInt($(document).outerHeight(true))*0.02,opacity:1},1000)
+//
+//                });
+
                 $("#questionLeft .yes").on("touchstart",function(){
-                    $(this).addClass("true-css");
-                    $("#questionLeft .answer-css").hide();
-                    $(this).show();
-                    $(this).animate({top:0},800);
                     $("#questionLeft .explain").show();
-                    var yesLens = $("#questionLeft .yes").length;
-                    $("#questionLeft .explain").animate({top:yesLens*($("#questionLeft .yes").eq(yesLens-1).height()+(parseInt($("#questionLeft .yes").eq(yesLens-1).css("paddingTop"))*2)+3)+parseInt($(document).outerHeight(true))*0.02,opacity:1},1000)
+                    if($(this).hasClass("true-css")){
+                        return;
+                    }else{
+
+                        $(this).addClass("true-css");
+                        self.nowyesL++;
+                        if(self.nowyesL == $("#questionLeft .yes").length){
+                        $("#questionLeft .answer-css").hide();
+                        $("#questionLeft .yes").show();
+                        for(let i = 0; i<$("#questionLeft .yes").length; i++){
+                        if(i == 0){
+                        $("#questionLeft .yes").eq(i).animate({top:0},800)
+                        }else{
+                        $("#questionLeft .yes").eq(i).animate({top:($("#questionLeft .yes").eq(i-1).height()+(parseInt($("#questionLeft .yes").eq(i-1).css("paddingTop"))*2)+3)+parseInt($(document).outerHeight(true))*0.02},800)
+                        }
+                        }
+                        $("#questionLeft .explain").show();
+                        var yesLens = $("#questionLeft .yes").length;
+                    //                        $(this).animate({top:0},800);
+                        $("#questionLeft .explain").animate({top:yesLens*($("#questionLeft .yes").eq(yesLens-1).height()+(parseInt($("#questionLeft .yes").eq(yesLens-1).css("paddingTop"))*2)+3)+parseInt($(document).outerHeight(true))*0.03,opacity:1},1000)
+                        }
+
+                    }
 
                 });
+
+
 
                 $("#questionRight .yes").on("touchstart",function(){
                     $("#questionRight .explain").show();
@@ -100,8 +130,8 @@ import $ from 'jquery'
                     }else{
 
                         $(this).addClass("true-css");
-                        self.nowyes++;
-                        if(self.nowyes == self.allyes){
+                        self.nowyesR++;
+                        if(self.nowyesR == $("#questionRight .yes").length){
                             $("#questionRight .answer-css").hide();
                             $("#questionRight .yes").show();
                             for(let i = 0; i<$("#questionRight .yes").length; i++){

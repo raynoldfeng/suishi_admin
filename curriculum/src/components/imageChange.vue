@@ -3,15 +3,15 @@
         <div id="imageChange" :style = '{"height":imageChangeHeight+"px"}'>
             <swiper class="swiper_type_menu" :options="imageChangeOption" >
             <!-- slides -->
-                <swiper-slide key="0"  >
-                   <img src="https://mohivecontents-jp.crossknowledge.com/staticcoursecontent/en-gb/bsfi633/medias/07FFDC33-D863-4B12-8C71-B4D49AA21F30/Q3_07FFDC33-D863-4B12-8C71-B4D49AA21F30.jpg">
+                <swiper-slide v-for="(data,index) in data.imageChange" :key="index" >
+                   <img :src="data">
                 </swiper-slide>
-                <swiper-slide key="1">
+             <!--   <swiper-slide key="1">
                     <img src="https://mohivecontents-jp.crossknowledge.com/staticcoursecontent/en-gb/bsfi633/medias/07FFDC33-D863-4B12-8C71-B4D49AA21F30/Q3_07FFDC33-D863-4B12-8C71-B4D49AA21F30.jpg">
                 </swiper-slide>
                 <swiper-slide key="2">
                     <img src="https://mohivecontents-jp.crossknowledge.com/staticcoursecontent/en-gb/bsfi633/medias/07FFDC33-D863-4B12-8C71-B4D49AA21F30/Q3_07FFDC33-D863-4B12-8C71-B4D49AA21F30.jpg">
-                </swiper-slide>
+                </swiper-slide>-->
             </swiper>
 
         </div>
@@ -20,6 +20,9 @@
 </template>
  <script>
     export default{
+     props:{
+     data:""
+     },
         data(){
             return{
                 imageChangeHeight:0,
@@ -34,7 +37,7 @@
             }
         },
         mounted:function(){
-            this.imageChangeHeight = document.getElementById("imageChange").scrollHeight;
+            this.imageChangeHeight = document.getElementById("QuestMain").scrollHeight;
         }
     }
  </script>
@@ -51,6 +54,11 @@
             float: right;
             margin-top: 30%;
             margin-right: 2%;
+            position: absolute;
+            right: 0;
+            z-index: 100;
+            top: 50%;
+
         }
             #imageChange  .swiper-pagination-bullets {
                 right: 10px;

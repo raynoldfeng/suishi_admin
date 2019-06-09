@@ -1,17 +1,17 @@
 <template>
     <div id="QuestMain">
         <div id="titlePage" :style="{'margin-top':marginTop}">
-            <p class="tp-title">
-                asdasdasddd
+            <p class="tp-title" v-text="data.courseTitle">
+
             </p>
             <div class="tp-logo-main">
-                <img src="https://mohivecontents-jp.crossknowledge.com/staticcoursecontent/en-gb/bsfi633/medias/B554A3D7-CB55-4709-92AC-082054EDC144/Q3_B554A3D7-CB55-4709-92AC-082054EDC144.jpg">
+                <img :src="data.authorImg">
             </div>
-            <p class="tp-info">
-                Pascal Quiry
+            <p class="tp-info" v-text="data.authorInfo">
+
             </p>
-            <p class="tp-info">
-                Professor at HEC where he holds the BNP Paribas chair, co-author of
+            <p class="tp-info" v-text="data.courseInfo">
+
             </p>
             <div class="tp-start-btn" @click="startEvent">
                 start
@@ -21,6 +21,9 @@
 </template>
 <script>
     export default{
+    props:{
+        data:""
+    },
         data(){
             return{
                 marginTop:0
@@ -33,6 +36,7 @@
         },
         mounted:function(){
             this.marginTop = "-"+document.getElementById("titlePage").clientHeight/2 + "px";
+
         }
     }
 </script>

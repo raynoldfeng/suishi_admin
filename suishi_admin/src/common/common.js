@@ -20,7 +20,8 @@ export const common={
             exp.setTime(exp.getTime() + Days * 24 * 60 * 60 * 1000);
             var expire = 'expires=' + exp.toGMTString();
             //;domain=.nimo.tv
-            var cookieValue = name + '=' + encodeURI(value) + ';domain=.sui10.com;path=/;' + expire;
+            //;domain=.sui10.com;path=/;
+            var cookieValue = name + '=' + encodeURI(value) + ';domain=129.204.236.40;path=/;' + expire;
             document.cookie = cookieValue;
         },
         del: function (name) { // 删除
@@ -29,7 +30,7 @@ export const common={
             var cval = this.get(name);
             if (cval != null) {
                 //  document.cookie = name + '=' + cval + ';domain=.nimo.tv;path=/;expires=' + exp.toGMTString();
-                document.cookie = name + '=' + cval + ';domain=.sui10.com;path=/;expires=' + exp.toGMTString();
+                document.cookie = name + '=' + cval + ';domain=129.204.236.40;path=/;expires=' + exp.toGMTString();
             }
         }
     },

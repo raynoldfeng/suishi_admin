@@ -23,12 +23,12 @@
         </swiper-slide>-->
 
             <swiper-slide v-for="(data,index) in bookData" :key="index">
-                <v-titlePage v-if="data.testType == '0'" v-on:isStart = "isStartEvent" :data="data"></v-titlePage>
-                <v-imageText v-else-if="data.testType == '1'" :data="data"></v-imageText>
-                <v-imageChange v-else-if="data.testType == '2'" :data="data"></v-imageChange>
-                <v-judge  v-else-if="data.testType == '3'" :data="data"></v-judge>
-                <v-select v-else-if="data.testType == '4'" :data="data"></v-select>
-                <v-selectmore  v-else-if="data.testType == '5'" :data="data"></v-selectmore>
+                <v-titlePage v-if="data.testType == '0' && data.displayType == 't1'" v-on:isStart = "isStartEvent" :data="data"></v-titlePage>
+                <v-imageText v-else-if="data.testType == '1' && data.displayType == 'it1'" :data="data"></v-imageText>
+                <v-imageChange v-else-if="data.testType == '2' && data.displayType == 'ic1'" :data="data"></v-imageChange>
+                <v-judge  v-else-if="data.testType == '3' && data.displayType == 'j1'" :data="data"></v-judge>
+                <v-select v-else-if="data.testType == '4' && data.displayType == 's1'" :data="data"></v-select>
+                <v-selectmore  v-else-if="data.testType == '5' && data.displayType == 'sm1'" :data="data"></v-selectmore>
             </swiper-slide>
             <swiper-slide :key="bookData.length">
                 <v-lastPage></v-lastPage>
@@ -135,7 +135,9 @@ import lastPage from "../components/lastPage.vue"
             this.nowPage = this.$refs.pages.swiper.realIndex;
             this.windowHeight = window.innerHeight;
          //   this.pageClickEvent();
-
+            window.getAllPage=function(){
+                return window.edit.length;
+            }
         },
         methods:{
             /**

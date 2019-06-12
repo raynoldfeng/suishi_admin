@@ -13,6 +13,9 @@
             </el-select>
         </div>
         <div  class="margin-css">  <input id="mfile-selector" type="file" accept="*/*" multiple="" webkitdirectory=""></div>
+        <div>
+            <p>路径:<span v-text="cpath"></span></p>
+        </div>
                 <!--   <input title="点击选择文件夹" id="h5Input2" multiple="" webkitdirectory="" accept="*/*" type="file" name="html5uploader" style="position:absolute;opacity:0;top:0;left:0;width:100%;height:100%;cursor:pointer;">-->
             </div>
         </template>
@@ -30,7 +33,8 @@
             value: 'test/',
             label: '测试'
             }],
-            value: ''
+            value: '',
+            cpath:""
             }
             },
             methods: {
@@ -77,11 +81,13 @@
             console.log(this.files);
             if(self.value != ""){
                 var path = "test/";
+
             }else{
                 alert("选择专业");
                 return ;
             }
             var fileurl = "courseware/"+path;
+         //   this.cpath = "https://suishi-1256985330.cos.ap-guangzhou.myqcloud.com/courseware/"+ path + ""
             if (!file) return;
             //                console.log(file.name);
             //                console.log(file)

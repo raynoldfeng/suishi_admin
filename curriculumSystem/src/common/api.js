@@ -1,6 +1,7 @@
 /**
  * Created by Administrator on 2019/4/21 0021.
  *  "host":"http://admin.sui10.com/",
+ *  "host":"http://129.204.236.40/"
  */
 export const api={
     "host":"http://129.204.236.40/",

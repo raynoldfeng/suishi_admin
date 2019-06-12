@@ -573,7 +573,8 @@ export default {
     },
     methods:{
         bigEvent(){
-            this.isbig = !this.big;
+            this.isbig = !this.isbig;
+
         },
         displayTypeReset(){
            this.nowData.displayType = "";
@@ -914,7 +915,7 @@ export default {
     width: 150px;
     background: #ffffff;
     position: fixed;
-    top: 20%;
+    top: 10%;
     right: 0;
     z-index: 1000;
     cursor: pointer;

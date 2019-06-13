@@ -112,15 +112,15 @@
                     preposition:"0",
                     courTypeMenu:[
                         {
-                            value: '0',
+                            value: 0,
                             label: '视频'
                         },
                         {
-                            value: '1',
+                            value: 1,
                             label: 'H5'
                         }
                     ],
-                    courType:'0',
+                    courType:0,
                     majorValue:"",
                     majorData: [],
                     SecretId:"",
@@ -240,9 +240,9 @@
                         }
                     },
                     uploadFile(){
-                        if(this.courType == '0'){
+                        if(this.courType == 0){
                             document.getElementById('file-selectorvideo').click();
-                        }else if(this.courType == '1'){
+                        }else if(this.courType == 1){
                             this.pptUrl = [];
                             document.getElementById('file-selectorH5').click();
                         }

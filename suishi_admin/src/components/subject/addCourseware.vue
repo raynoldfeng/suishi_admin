@@ -49,7 +49,7 @@
         </div>
         <div class="view_main">
             <span>排序</span>
-            <el-input v-model="sort" class="input_type" />
+            <el-input v-model="order" class="input_type" />
             <span>关联前置</span>
             <el-select v-model="preposition" placeholder="请选择">
                 <el-option
@@ -62,12 +62,24 @@
         </div>
         <div class="view_main">
             <span>课题内容</span>
+        <div class="view_main">
+            <span>课件类型:</span>
+            <el-select v-model="courType" placeholder="选择类型" v-on:change="resetPath">
+                <el-option
+                        v-for="item in courTypeMenu"
+                :key="item.value"
+                :label="item.label"
+                :value="item.value">
+                </el-option>
+            </el-select>
+        </div>
             <div v-for="(data,index) in pptUrl">
                 <el-input v-model = "pptUrl[index]" class="input_type" />
                 <el-button @click="deleteEvent(index)">删除</el-button>
             </div>
             <el-button @click="uploadFile">上传课件</el-button>
-            <input id="file-selector" multiple="multiple" type="file">
+             <input id="file-selectorH5" multiple="multiple" type="file" accept="*/*" >
+             <input id="file-selectorvideo" multiple="multiple" accept="video/*">
         </div>
         <div class="view_main">
             <el-button @click="addEvent">提交</el-button>
@@ -80,7 +92,7 @@
                 return{
                     userinfo:"",
                     coursewarename:"",
-                    sort:"",
+                    order:"",
                     statusOptions: [{
                         value: '1',
                         label: '是'
@@ -97,6 +109,17 @@
                         label: '否'
                     }],
                     preposition:"0",
+                    courTypeMenu:[
+                        {
+                            value: '0',
+                            label: '视频'
+                        },
+                        {
+                            value: '1',
+                            label: 'H5'
+                        }
+                    ],
+                    courType:'0',
                     majorValue:"",
                     majorData: [],
                     SecretId:"",
@@ -122,13 +145,13 @@
                             self.coursewarename = data.name;
                             self.descText = data.desc;
                             self.isUse = data.status;
-                            self.sort = data.sort;
+                            self.order = data.order;
                             self.pptUrl = data.url;
                             self.preposition = data.preposition;
-                            self.majorValue = data.course_id
+                            self.majorValue = data.course_name
                             self.getMajorId(self.majorValue)
 //                            for(var i = 0 ;i < self.majorData.length; i++){
-//                                if(data.course_id == self.majorData[i].id){
+//                                if(data.course_name == self.majorData[i].id){
 //                                    self.majorValue = self.majorData[i].name;
 //                                    self.major.majorNameId = self.majorData[i].id;
 //                                    self.major.majorName = self.majorData[i].name;
@@ -152,7 +175,7 @@
                     }else if(this.majorValue == ""){
                         alert("请选择专业");
                         return;
-                    }else if(this.sort == ""){
+                    }else if(this.order == ""){
                         alert("输入顺序");
                         return ;
                     }else if(this.url == ""){
@@ -160,7 +183,7 @@
                         return;
                     }
                     if(this.isedits()){
-                        var info = {"name":this.coursewarename, "sort":this.sort, "status":this.isUse,"preposition":this.preposition,"url":this.pptUrl, "course_id":this.majorValue,desc:this.descText};
+                        var info = {"name":this.coursewarename, "order":this.order, "status":this.isUse,"preposition":this.preposition,"url":this.pptUrl, "course_name":this.majorValue,desc:this.descText};
 //                        if(self.majorValue == this.major.majorName){
 //                            info.profession_id=this.major.majorNameId;
 //                        }
@@ -169,7 +192,7 @@
                             self.$router.push("/coursewareList")
                         });
                     }else{
-                        var info = {"name":this.coursewarename, "sort":this.sort, "status":this.isUse,"preposition":this.preposition,"url":this.pptUrl, "course_id":this.majorValue,desc:this.descText};
+                        var info = {"name":this.coursewarename, "order":this.order, "status":this.isUse,"preposition":this.preposition,"url":this.pptUrl, "course_name":this.majorValue,desc:this.descText};
                         this.common.postEventToken(this.api.host+this.api.lesson,info,this.userinfo,function(data){
                             console.log(data);
                             self.$router.push("/coursewareList")
@@ -213,9 +236,16 @@
                         }
                     },
                     uploadFile(){
-                        document.getElementById('file-selector').click();
+                        if(this.courType == '0'){
+                            document.getElementById('file-selectorvideo').click();
+                        }else if(this.courType == '1'){
+                            this.pptUrl = [];
+                            document.getElementById('file-selectorH5').click();
+                        }
                     },
-
+                resetPath(){
+                    this.pptUrl = [];
+                },
 
                     changeEvent(id,name){
                         this.majorValue = id;
@@ -245,12 +275,13 @@
                 this.professionList("");
             this.urlEvent();
 
-                document.getElementById('file-selector').onchange = function () {
+
+                document.getElementById('file-selectorvideo').onchange = function () {
                     var files = this.files;
 //                console.log(file.name);
 //                console.log(file)
                     if(files.length>0){
-                         self.pptUrl = [];
+                        self.pptUrl = [];
                     }
                     if(self.SecretId != "" && self.SecretKey !="" ){
                         for(let i = 0 ;i<files.length;i++){
@@ -263,7 +294,35 @@
                             }
                         }
                     }
+                };
+                document.getElementById('file-selectorH5').onchange = function () {
+                    var file = this.files;
+                    console.log(self.value);
+                    console.log(this.files);
+                    if(self.value != ""){
+                        var path = "test/";
 
+                    }else{
+                        alert("选择专业");
+                        return ;
+                    }
+                    var fileurl = "courseware/"+path;
+                    //   this.cpath = "https://suishi-1256985330.cos.ap-guangzhou.myqcloud.com/courseware/"+ path + ""
+                    if (!file) return;
+                    //                console.log(file.name);
+                    //                console.log(file)
+                    if(self.SecretId != "" && self.SecretKey !="" ){
+                        if(file){
+                            var lens = this.files.length;
+                            for(let i =0 ;i<lens;i++){
+                                self.cosjsFile2(self.SecretId,self.SecretKey,fileurl,file[i],self.XCosSecurityToken,self.expiredTime,function(url){
+                                    // self.coverImg = img;
+                                    self.pptUrl.push(url);
+                                });
+                            }
+
+                        }
+                    }
                 };
             }
         }

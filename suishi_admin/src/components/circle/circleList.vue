@@ -181,4 +181,5 @@ export default
 .page_main{
     text-align:center;
     }
+
 </style>

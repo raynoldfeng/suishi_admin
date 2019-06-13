@@ -182,7 +182,7 @@
                         return ;
                     }else if(this.resource_type == ""){
                         alert("选择课件类型");
-                    }else if(this.url.length == 0){
+                    }else if(this.pptUrl.length == 0){
                         alert("选择课件");
                         return;
                     }
@@ -303,13 +303,14 @@
                     var file = this.files;
                     console.log(self.value);
                     console.log(this.files);
-                    if(self.value != ""){
-                        var path = "test/";
-
-                    }else{
-                        alert("选择专业");
-                        return ;
-                    }
+//                    if(self.value != ""){
+//                        var path = "test/";
+//
+//                    }else{
+//                        alert("选择专业");
+//                        return ;
+//                    }
+                    var path = "test/";
                     var fileurl = "courseware/"+path;
                     //   this.cpath = "https://suishi-1256985330.cos.ap-guangzhou.myqcloud.com/courseware/"+ path + ""
                     if (!file) return;

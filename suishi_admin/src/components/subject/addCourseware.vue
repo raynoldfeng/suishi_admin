@@ -322,7 +322,7 @@
                             for(let i =0 ;i<lens;i++){
                                 self.cosjsFile2(self.SecretId,self.SecretKey,fileurl,file[i],self.XCosSecurityToken,self.expiredTime,function(url){
                                     // self.coverImg = img;
-                                    self.pptUrl.push(url);
+                                    self.pptUrl.push("https://suishi-1256985330.cos.ap-guangzhou.myqcloud.com/courseware/"+url);
                                 });
                             }
 

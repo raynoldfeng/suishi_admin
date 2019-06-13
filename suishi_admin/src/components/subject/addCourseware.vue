@@ -182,7 +182,14 @@
                         return ;
                     }else if(this.resource_type == ""){
                         alert("选择课件类型");
-                    }else if(this.pptUrl.length == 0){
+                    }
+
+                    if(this.pptUrl != null || this.pptUrl != "null"){
+                        if(this.pptUrl.length == 0) {
+                            alert("选择课件");
+                            return;
+                        }
+                    }else{
                         alert("选择课件");
                         return;
                     }

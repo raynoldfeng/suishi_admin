@@ -43,9 +43,13 @@ style="width: 100%">
         >
 </el-table-column>
 <el-table-column
-        prop="profession_id"
+        prop="course_name"
         label="所属专业"
        >
+    <template slot-scope="scope">
+        <p v-if="majorName(scope.row.course_name)"  v-text="majorName(scope.row.course_name)"></p>
+        <p v-else></p>
+    </template>
 </el-table-column>
 <el-table-column label="课件数">
     <template slot-scope="scope">
@@ -143,6 +147,14 @@ export default
             self.coursewareData = data.data;
             self.allPage = data.last_page * 10;
             });
+        },
+        majorName(name){
+            var self = this;
+            this.common.getEventToken(this.api.host+this.api.course+"?name="+name,{},this.userinfo,function(data){
+                console.log(data);
+                 return data.data[0].name;
+
+            })
         },
         editEvent(id){
             this.$router.push({path:"/editCourseware",query:{id:id}});

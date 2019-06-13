@@ -78,8 +78,9 @@
                 <el-button @click="deleteEvent(index)">删除</el-button>
             </div>
             <el-button @click="uploadFile">上传课件</el-button>
-             <input id="file-selectorH5" multiple="multiple" type="file" accept="*/*" >
-             <input id="file-selectorvideo" multiple="multiple" accept="video/*">
+             <input id="file-selectorH5" type="file" accept="*/*" multiple="" webkitdirectory="">
+             <!--<input id="file-selectorvideo" multiple="multiple" accept="*.3gpp  audio/3gpp， video/3gpp  3GPP Audio/Video">-->
+             <input id="file-selectorvideo" type="file" accept="*.3gpp  audio/3gpp， video/3gpp  3GPP Audio/Video">
         </div>
         <div class="view_main">
             <el-button @click="addEvent">提交</el-button>

@@ -14,7 +14,7 @@
         </div>
         <div  class="margin-css">  <input id="mfile-selector" type="file" accept="*/*" multiple="" webkitdirectory=""></div>
         <div>
-            <p>路径:<span v-text="cpath"></span></p>
+            <p v-for="urls in urlMenu" v-text="urls"></p>
         </div>
                 <!--   <input title="点击选择文件夹" id="h5Input2" multiple="" webkitdirectory="" accept="*/*" type="file" name="html5uploader" style="position:absolute;opacity:0;top:0;left:0;width:100%;height:100%;cursor:pointer;">-->
             </div>
@@ -34,7 +34,8 @@
             label: '测试'
             }],
             value: '',
-            cpath:""
+            cpath:"",
+            urlMenu:[]
             }
             },
             methods: {
@@ -94,9 +95,11 @@
             if(self.SecretId != "" && self.SecretKey !="" ){
             if(file){
             var lens = this.files.length;
+            this.urlMenu = [];
             for(let i =0 ;i<lens;i++){
-            self.cosjsFile2(self.SecretId,self.SecretKey,fileurl,file[i],self.XCosSecurityToken,self.expiredTime,function(img){
+            self.cosjsFile2(self.SecretId,self.SecretKey,fileurl,file[i],self.XCosSecurityToken,self.expiredTime,function(url){
             // self.coverImg = img;
+                self.urlMenu.push(url);
             });
             }
 

@@ -149,7 +149,8 @@
                             self.order = data.order;
                             self.pptUrl = data.url;
                             self.preposition = data.preposition;
-                            self.majorValue = data.course_name
+                            self.majorValue = data.course_name;
+                            self.courType = data.resource_type;
                             self.getMajorId(self.majorValue)
 //                            for(var i = 0 ;i < self.majorData.length; i++){
 //                                if(data.course_name == self.majorData[i].id){
@@ -179,12 +180,14 @@
                     }else if(this.order == ""){
                         alert("输入顺序");
                         return ;
-                    }else if(this.url == ""){
+                    }else if(this.resource_type == ""){
+                        alert("选择课件类型");
+                    }else if(this.url.length == 0){
                         alert("选择课件");
                         return;
                     }
                     if(this.isedits()){
-                        var info = {"name":this.coursewarename, "order":this.order, "status":this.isUse,"preposition":this.preposition,"url":this.pptUrl, "course_name":this.majorValue,desc:this.descText};
+                        var info = {"resource_type":this.courType,"name":this.coursewarename, "order":this.order, "status":this.isUse,"preposition":this.preposition,"url":this.pptUrl, "course_name":this.majorValue,desc:this.descText};
 //                        if(self.majorValue == this.major.majorName){
 //                            info.profession_id=this.major.majorNameId;
 //                        }

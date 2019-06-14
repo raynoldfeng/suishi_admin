@@ -47,7 +47,7 @@ style="width: 100%">
         label="所属专业"
        >
     <template slot-scope="scope">
-        <p  v-text="majorName(scope.row.course_name)"></p>
+        <p  v-text="scope.row.course_namekey"></p>
     </template>
 </el-table-column>
 <el-table-column label="课件数">
@@ -136,6 +136,9 @@ export default
             var self = this;
             this.common.getEventToken(this.api.host+this.api.lesson+"?page="+this.nowPage+"&per_page=10&name="+this.searchText,{},this.userinfo,function(data){
                 self.coursewareData = data.data;
+                for(var i = 0; i<self.coursewareData.length;i++){
+                    self.coursewareData[i].course_namekey = self.majorName(self.coursewareData[i].course_name);
+                }
                 self.allPage = data.last_page * 10;
 
             });
@@ -154,14 +157,14 @@ export default
                 console.log(data.data);
                 console.log(data.data.length);
                 console.log(data.data[0].name);
-//                if(data.data.length>0){
-//                    return data.data[0].name;
-//                    console.log(data.data[0].name);
-//                }else{
-//                    return "";
-//                }
-
+                if(data.data.length>0){
                     return data.data[0].name;
+                    console.log(data.data[0].name);
+                }else{
+                    return "";
+                }
+
+                //    return data.data[0].name;
 
 
 

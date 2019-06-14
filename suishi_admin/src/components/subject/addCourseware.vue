@@ -209,7 +209,7 @@
                             self.$router.push("/coursewareList")
                         });
                     }else{
-                        var info = {"name":this.coursewarename, "order":this.order, "status":this.isUse,"preposition":this.preposition,"url":this.pptUrl, "course_name":this.majorValueSelect,desc:this.descText};
+                        var info = {"resource_type":this.courType,"name":this.coursewarename, "order":this.order, "status":this.isUse,"preposition":this.preposition,"url":this.pptUrl, "course_name":this.majorValueSelect,desc:this.descText};
                         this.common.postEventToken(this.api.host+this.api.lesson,info,this.userinfo,function(data){
                             console.log(data);
                             self.$router.push("/coursewareList")

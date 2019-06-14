@@ -43,10 +43,12 @@ style="width: 100%">
         >
 </el-table-column>
 <el-table-column
-        prop="course_namekey"
+
         label="所属专业"
        >
-
+    <template slot-scope="scope">
+        <p  v-text="course_namekey[scope.row.url.course_name]"></p>
+    </template>
 </el-table-column>
 <el-table-column label="课件数">
     <template slot-scope="scope">
@@ -112,7 +114,8 @@ export default
             coursewareData: [],
             userinfo:"",
             nowPage:1,
-            allPage:0
+            allPage:0,
+            course_namekey:{},
         }
     },
     methods:{
@@ -135,8 +138,9 @@ export default
             this.common.getEventToken(this.api.host+this.api.lesson+"?page="+this.nowPage+"&per_page=10&name="+this.searchText,{},this.userinfo,function(data){
                 self.coursewareData = data.data;
                 for(var i = 0; i<self.coursewareData.length;i++){
-                    self.coursewareData[i].course_namekey = self.majorName(self.coursewareData[i].course_name);
+                    self.course_namekey[self.coursewareData[i].course_name] = self.majorName(self.coursewareData[i].course_name);
                 }
+                console.log( self.course_namekey)
                 self.allPage = data.last_page * 10;
 
             });
@@ -151,13 +155,11 @@ export default
         majorName(name){
             var self = this;
             this.common.getEventToken(this.api.host+this.api.course+"?name="+name,{},this.userinfo,function(data){
-                console.log(data);
-                console.log(data.data);
-                console.log(data.data.length);
-                console.log(data.data[0].name);
+
                 if(data.data.length>0){
-                    return data.data[0].name;
                     console.log(data.data[0].name);
+                    return data.data[0].name;
+
                 }else{
                     return "";
                 }

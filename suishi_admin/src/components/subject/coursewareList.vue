@@ -160,11 +160,9 @@ export default
 //                }else{
 //                    return "";
 //                }
-                if(data.data[0].name){
+
                     return data.data[0].name;
-                }else{
-                    return "";
-                }
+
 
 
 

@@ -153,9 +153,11 @@
                                 self.pptUrl = data.url;
                             }
                             self.preposition = data.preposition;
-                            self.majorValue = data.course_name;
+                          //  self.majorValue = data.course_name;
+                            self.majorValueSelect = data.name;
+                            self.saveMajorValueSelect = data.name;
                             self.courType = data.resource_type;
-                            self.getMajorId(self.majorValue)
+                        //    self.getMajorId(self.majorValue)
 //                            for(var i = 0 ;i < self.majorData.length; i++){
 //                                if(data.course_name == self.majorData[i].id){
 //                                    self.majorValue = self.majorData[i].name;
@@ -178,7 +180,7 @@
                     if(this.coursewarename == ""){
                         alert("输入课件名称");
                         return;
-                    }else if(this.majorValue == ""){
+                    }else if(this.majorValueSelect == ""){
                         alert("请选择专业");
                         return;
                     }else if(this.order == ""){
@@ -198,7 +200,7 @@
                         return;
                     }
                     if(this.isedits()){
-                        var info = {"resource_type":this.courType,"name":this.coursewarename, "order":this.order, "status":this.isUse,"preposition":this.preposition,"url":this.pptUrl, "course_name":this.majorValue,desc:this.descText};
+                        var info = {"resource_type":this.courType,"name":this.coursewarename, "order":this.order, "status":this.isUse,"preposition":this.preposition,"url":this.pptUrl, "course_name":this.majorValueSelect,desc:this.descText};
 //                        if(self.majorValue == this.major.majorName){
 //                            info.profession_id=this.major.majorNameId;
 //                        }
@@ -207,7 +209,7 @@
                             self.$router.push("/coursewareList")
                         });
                     }else{
-                        var info = {"name":this.coursewarename, "order":this.order, "status":this.isUse,"preposition":this.preposition,"url":this.pptUrl, "course_name":this.majorValue,desc:this.descText};
+                        var info = {"name":this.coursewarename, "order":this.order, "status":this.isUse,"preposition":this.preposition,"url":this.pptUrl, "course_name":this.majorValueSelect,desc:this.descText};
                         this.common.postEventToken(this.api.host+this.api.lesson,info,this.userinfo,function(data){
                             console.log(data);
                             self.$router.push("/coursewareList")

@@ -154,8 +154,8 @@
                             }
                             self.preposition = data.preposition;
                           //  self.majorValue = data.course_name;
-                            self.majorValueSelect = data.name;
-                            self.saveMajorValueSelect = data.name;
+                            self.majorValueSelect = data.course_name;
+                            self.saveMajorValueSelect = data.course_name;
                             self.courType = data.resource_type;
                         //    self.getMajorId(self.majorValue)
 //                            for(var i = 0 ;i < self.majorData.length; i++){

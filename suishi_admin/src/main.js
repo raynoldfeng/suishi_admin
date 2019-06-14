@@ -142,9 +142,9 @@ var cosjsFile2 = function newCos(SecretId,SecretKey,fileurl,file,XCosSecurityTok
         onFileFinish: function (err, data, options) {
             console.log(options.Key + '上传' + (err ? '失败' : '完成'));
             if(err){
-                callback(options.Key+"失败了!");
+                callback(options.Key,1);
             }else{
-                callback(options.Key);
+                callback(options.Key,0);
             }
         },
     }, function (err, data) {

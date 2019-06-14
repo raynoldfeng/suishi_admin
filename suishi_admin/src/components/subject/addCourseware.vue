@@ -334,9 +334,15 @@
                         if(file){
                             var lens = this.files.length;
                             for(let i =0 ;i<lens;i++){
-                                self.cosjsFile2(self.SecretId,self.SecretKey,fileurl,file[i],self.XCosSecurityToken,self.expiredTime,function(url){
+                                self.cosjsFile2(self.SecretId,self.SecretKey,fileurl,file[i],self.XCosSecurityToken,self.expiredTime,function(url,err){
                                     // self.coverImg = img;
-                                    self.pptUrl.push("https://suishi-1256985330.cos.ap-guangzhou.myqcloud.com/"+url);
+                                    if(err){
+                                        alert(url+"上传失败")
+                                    }else {
+                                        if (url.indexOf("index.html") != (-1)) {
+                                            self.pptUrl.push("https://suishi-1256985330.cos.ap-guangzhou.myqcloud.com/" + url);
+                                        }
+                                    }
                                 });
                             }
 

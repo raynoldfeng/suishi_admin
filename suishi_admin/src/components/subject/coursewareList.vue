@@ -43,12 +43,10 @@ style="width: 100%">
         >
 </el-table-column>
 <el-table-column
-        prop="course_name"
+        prop="course_namekey"
         label="所属专业"
        >
-    <template slot-scope="scope">
-        <p  v-text="scope.row.course_namekey"></p>
-    </template>
+
 </el-table-column>
 <el-table-column label="课件数">
     <template slot-scope="scope">

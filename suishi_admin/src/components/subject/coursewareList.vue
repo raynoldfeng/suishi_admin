@@ -47,8 +47,7 @@ style="width: 100%">
         label="所属专业"
        >
     <template slot-scope="scope">
-        <p v-if="majorName(scope.row.course_name)"  v-text="majorName(scope.row.course_name)"></p>
-        <p v-else></p>
+        <p  v-text="majorName(scope.row.course_name)"></p>
     </template>
 </el-table-column>
 <el-table-column label="课件数">
@@ -151,8 +150,14 @@ export default
         majorName(name){
             var self = this;
             this.common.getEventToken(this.api.host+this.api.course+"?name="+name,{},this.userinfo,function(data){
-                console.log(data);
-                 return data.data[0].name;
+
+                if(data.data.length>0){
+                    return data.data[0].name;
+                    console.log(data.data[0].name);
+                }else{
+                    return "";
+                }
+
 
             })
         },

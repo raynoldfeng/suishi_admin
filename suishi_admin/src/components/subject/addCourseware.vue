@@ -64,7 +64,7 @@
             <span>课题内容</span>
         <div class="view_main">
             <span>课件类型:</span>
-            <el-select v-model="courType" placeholder="选择类型" v-on:change="resetPath">
+            <el-select v-model="courType" placeholder="选择类型">
                 <el-option
                         v-for="item in courTypeMenu"
                 :key="item.value"
@@ -248,6 +248,7 @@
                     },
                     uploadFile(){
                         if(this.courType == 1){
+                            this.pptUrl = [];
                             document.getElementById('file-selectorvideo').click();
                         }else if(this.courType == 2){
                             this.pptUrl = [];
@@ -255,7 +256,7 @@
                         }
                     },
                 resetPath(){
-                    this.pptUrl = [];
+
                 },
 
                     changeEvent(id,name){

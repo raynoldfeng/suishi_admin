@@ -147,7 +147,11 @@
                             self.descText = data.desc;
                             self.isUse = data.status;
                             self.order = data.order;
-                            self.pptUrl = data.url;
+                            if(data.url == null || data.url == 'null'){
+                                self.pptUrl = [];
+                            }else{
+                                self.pptUrl = data.url;
+                            }
                             self.preposition = data.preposition;
                             self.majorValue = data.course_name;
                             self.courType = data.resource_type;

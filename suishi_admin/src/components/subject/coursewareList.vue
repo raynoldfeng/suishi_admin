@@ -152,13 +152,20 @@ export default
             this.common.getEventToken(this.api.host+this.api.course+"?name="+name,{},this.userinfo,function(data){
                 console.log(data);
                 console.log(data.data);
+                console.log(data.data.length);
                 console.log(data.data[0].name);
-                if(data.data.length>0){
+//                if(data.data.length>0){
+//                    return data.data[0].name;
+//                    console.log(data.data[0].name);
+//                }else{
+//                    return "";
+//                }
+                if(data.data[0].name){
                     return data.data[0].name;
-                    console.log(data.data[0].name);
                 }else{
                     return "";
                 }
+
 
 
             })

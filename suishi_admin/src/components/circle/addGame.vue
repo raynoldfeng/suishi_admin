@@ -345,7 +345,7 @@
                     var self = this;
                     this.userinfo = {"token":this.common.cookie.get("token"),"user_id":this.common.cookie.get("user_id")};
                     this.getUpLoadKey();
-                    this.circleType();
+                    this.circleType("");
             this.urlEvent();
                     this.tagsType();
                     document.getElementById('file-selector').onchange = function () {

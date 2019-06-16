@@ -84,7 +84,7 @@
                 >
                     <template slot-scope="scope">
                         <el-button @click="editEvent(scope.row.id)" type="text" size="small">编辑</el-button>
-                        <el-button type="text" size="small">删除</el-button>
+                        <el-button type="text" size="small" @click="deleteEvent(scope.row.id)">删除</el-button>
                     </template>
                 </el-table-column>
             </el-table>
@@ -157,6 +157,16 @@ export default
         },
         editEvent(id){
             this.$router.push({path:"/editGame",query:{id:id}})
+        },
+        deleteEvent(id){
+            var self = this;
+            this.common.commonDeleteEvent(this,this.userinfo,this.api.category,id,function(){
+                self.$message({
+                    type: 'success',
+                    message: '删除成功!'
+                });
+                self.getCircleList();
+            })
         }
     },
     watch:{

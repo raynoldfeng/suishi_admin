@@ -1,6 +1,6 @@
 <template>
     <div id="addGame"  @click="displayChange(false)">
-        <p class="title_main">新增游戏</p>
+        <p class="title_main">新增圈子</p>
         <div class="view_main">
             <span>圈子名称</span>
             <el-input v-model="name" class="input_type"></el-input>
@@ -35,7 +35,7 @@
             v-model="description">
         </el-input>
         </div>
-        <div  class="view_main view_main2">
+        <div  class="view_main2">
             <!--<span>圈子类型</span>
             <el-select v-model="circleTypeId" placeholder="专业">
                 <el-option
@@ -381,6 +381,7 @@
             overflow:hidden;
             }
         .view_main2{
+            margin-top: 10px;
             overflow:inherit;
             }
         .avatar-uploader .el-upload {

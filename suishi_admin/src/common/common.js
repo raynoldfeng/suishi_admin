@@ -22,6 +22,7 @@ export const common={
             //;domain=.nimo.tv
             //;domain=.sui10.com;path=/;
             //;domain=129.204.236.40;path=/;
+            //   var cookieValue = name + '=' + encodeURI(value) + ';domain=.sui10.com;path=/;' + expire;
             var cookieValue = name + '=' + encodeURI(value) + ';domain=129.204.236.40;path=/;' + expire;
             document.cookie = cookieValue;
         },
@@ -31,6 +32,7 @@ export const common={
             var cval = this.get(name);
             if (cval != null) {
                 //  document.cookie = name + '=' + cval + ';domain=.nimo.tv;path=/;expires=' + exp.toGMTString();
+                //   document.cookie = name + '=' + cval + ';domain=.sui10.com;path=/;expires=' + exp.toGMTString();
                 document.cookie = name + '=' + cval + ';domain=129.204.236.40;path=/;expires=' + exp.toGMTString();
             }
         }
@@ -59,6 +61,7 @@ export const common={
                 callback(data);
             }
         }).catch((err)=>{
+    alert(err);
             console.log(err);
         })
     },
@@ -84,6 +87,7 @@ export const common={
                 callback(data);
             }
         }).catch((err)=>{
+    alert(err);
             console.log(err);
         })
     },
@@ -113,6 +117,7 @@ export const common={
                         callback(data);
                     }
         }).catch((err)=>{
+    alert(err);
             console.log(err);
         })
     },
@@ -138,6 +143,7 @@ export const common={
             callback(data);
         }
     }).catch((err)=>{
+    alert(err);
         console.log(err);
     })
     },
@@ -165,8 +171,56 @@ export const common={
             callback(data);
         }
     }).catch((err)=>{
+    alert(err);
         console.log(err);
     })
     },
+deleteEventToken(url,data,userinfo,callback){
+    var token = userinfo.token;
+    var userid = userinfo.user_id;
+    axios({
+        method:'delete',
+        url:url,
+        headers: { 'content-type': 'application/json','token':token,'userid':userid },
+        withCredentials: false,
+        data: data ? data:{}
+    }).then((res)=>{
+        if(res.status===200){
+        var code = res.data.code;
+        var data = "";
+        if (code == 0) {
+            data = res.data.data;
+        }else if(code == 414){
+            router.push("/login");
+        } else {
+            alert(res.data.msg);
+            return;
+        }
+        callback(data);
+    }
+}).catch((err)=>{
+    alert(err);
+    console.log(err);
+})
+},
+commonDeleteEvent(self,userinfo,url,id,callback){
+    var _this = self
+    _this.$confirm('确定要删除此帖子吗?', '提示', {
+            confirmButtonText: '确定',
+            cancelButtonText: '取消',
+            type: 'warning'
+        }).then(() => {
+        _this.common.deleteEventToken(_this.api.host+url+'/'+id,{},userinfo,function(data){
+                console.log(data);
+          callback && callback(data);
+
+            })
+    }).catch(() => {
+    _this.$message({
+            type: 'info',
+            message: '已取消删除'
+        });
+    });
+},
 
 }

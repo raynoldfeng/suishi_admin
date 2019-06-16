@@ -93,7 +93,7 @@
                     >
                         <template slot-scope="scope">
                             <el-button @click="seeEvent(scope.row.id)" type="text" size="small">查看</el-button>
-                            <el-button type="text" size="small">删除</el-button>
+                            <el-button type="text" size="small" @click="deleteEvent(scope.row.id)">删除</el-button>
                         </template>
                     </el-table-column>
                 </el-table>
@@ -182,7 +182,36 @@
         },
         seeEvent(id){
             this.$router.push({path:"/editPost",query:{id:id}});
-        }
+        },
+        deleteEvent(id){
+            var self = this;
+//            this.$confirm('确定要删除此帖子吗?', '提示', {
+//                confirmButtonText: '确定',
+//                cancelButtonText: '取消',
+//                type: 'warning'
+//            }).then(() => {
+//            this.common.deleteEventToken(this.api.host+this.api.postList+'/'+id,{},this.userinfo,function(data){
+//                console.log(data);
+//                self.$message({
+//                    type: 'success',
+//                    message: '删除成功!'
+//                    });
+//                    self.postDatas();
+//                })
+//            }).catch(() => {
+//                this.$message({
+//                    type: 'info',
+//                    message: '已取消删除'
+//                });
+//        });
+            this.common.commonDeleteEvent(this,this.userinfo,this.api.postList,id,function(){
+                self.$message({
+                    type: 'success',
+                    message: '删除成功!'
+                });
+                self.postDatas();
+            })
+    }
     },
     watch:{
         nowPage(){

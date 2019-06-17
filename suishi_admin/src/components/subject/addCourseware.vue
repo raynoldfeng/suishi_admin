@@ -45,7 +45,7 @@
             :autosize="{ minRows: 2, maxRows: 4}"
             placeholder="请输入内容"
             v-model="descText">
-            </el-input>
+            </el-input><span>最多300字</span>
         </div>
         <div class="view_main">
             <span>排序</span>
@@ -168,6 +168,7 @@
                         });
                     }
                 },
+
                 getMajorId(id){
                     var self = this;
                     this.common.getEventToken(this.api.host+this.api.course+"/"+id,{},this.userinfo,function(data){
@@ -284,6 +285,11 @@
             watch:{
                 majorData(){
 
+                },
+                descText(){
+                    if(this.descText.length>300){
+                        this.descText = this.descText.slice(0,299);
+                    }
                 }
             },
             mounted:function(){

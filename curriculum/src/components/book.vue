@@ -136,7 +136,12 @@ import lastPage from "../components/lastPage.vue"
             this.windowHeight = window.innerHeight;
          //   this.pageClickEvent();
             window.getAllPage=function(){
-                return window.edit.length;
+                try{
+                    getCurrentPage(window.edit.length);
+                }catch (e){
+                    alert(e);
+                }
+               // return window.edit.length;
             }
         },
         methods:{

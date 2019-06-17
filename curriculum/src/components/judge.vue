@@ -1,7 +1,7 @@
 <template>
     <div id="QuestMain">
         <div id="QuestBox">
-            <p class="quest-text" v-text="data.judgeTitle"></p>
+            <p class="quest-text" id="judgeTitle" v-text="data.judgeTitle"></p>
             <div class="true-main">
                 <div class="true-logo">对</div>
                 <div class="kuang true-k " :class="{ yes: data.judgeAnswer == '1' }">
@@ -102,10 +102,11 @@ export default {
     color: #ffffff;
     text-align: center;
 }
-.quest-text{
+#judgeTitle{
     font-size: 5vw;
     margin-top: 10%;
     color: #666;
+    padding-bottom: 10%;
 }
 .select-css{
     background: #efefef;

@@ -8,6 +8,10 @@
 </template>
 <script></script>
 <style>
+#lastPage{
+    padding-top: 25%;
+    font-size: 5vw;
+}
 .tp-start-btn{
     min-width: 30%;
     display: inline-block;

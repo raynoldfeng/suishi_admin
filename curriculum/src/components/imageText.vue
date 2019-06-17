@@ -24,7 +24,7 @@ export default
  </script>
  <style>
     .it-title{
-        font-size: 9vw;
+        font-size: 5vw;
         color: #666666;
         width: 90%;
         margin: 5% auto 0;

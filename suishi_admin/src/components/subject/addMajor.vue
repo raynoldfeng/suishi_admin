@@ -35,7 +35,7 @@
             :autosize="{ minRows: 2, maxRows: 4}"
             placeholder="请输入内容"
             v-model="descText">
-            </el-input>
+            </el-input><span>最多300字</span>
           <!--  <span>是否学习</span>
             <el-select v-model="isStudy" placeholder="是否学习">
                 <el-option
@@ -275,6 +275,13 @@
                 },
                 uploadImg(){
                     document.getElementById('file-selector').click();
+                }
+            },
+            watch:{
+                descText(){
+                    if(this.descText.length>300){
+                        this.descText = this.descText.slice(0,299);
+                    }
                 }
             },
             mounted:function(){

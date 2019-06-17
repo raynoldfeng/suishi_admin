@@ -47,7 +47,7 @@
         top: 50%;
     }
     .tp-title{
-        font-size: 9vw;
+        font-size: 6vw;
         color: #666666;
         width: 90%;
         margin: 5% auto 0;
@@ -67,7 +67,7 @@
         margin: 2% auto 0;
         text-align: center;
         color: #acafb2;
-        font-size: 5vw;
+        font-size: 4vw;
     }
     .tp-start-btn{
         min-width: 30%;
@@ -76,5 +76,6 @@
         margin: 10% auto 0;
         padding: 2% 4%;
         color: #ffffff;
+        font-size: 4vw;
     }
 </style>

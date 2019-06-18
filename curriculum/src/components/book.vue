@@ -1,5 +1,11 @@
 <template>
     <div id = "book">
+        <div id="saveBox" v-if="hasSave"></div>
+        <div id="saveMain" v-if="hasSave">
+            <p>需要继续之前的学习吗？</p>
+            <div id="yesbtn" @click="studyEvent(1)">继续学习</div>
+            <div id="nobtn" @click="studyEvent(2)">重新学习</div>
+        </div>
         <swiper class="swiper_type_menu" ref="pages" :options="swiperOption" >
             <!-- slides -->
 
@@ -117,7 +123,8 @@ import lastPage from "../components/lastPage.vue"
                 isPageMenuShow:false,
                 nowPage:0,
                 isMove:false,
-                bookData:""
+                bookData:"",
+                hasSave:false
             }
         },
      components:{
@@ -130,21 +137,52 @@ import lastPage from "../components/lastPage.vue"
              'v-lastPage':lastPage
      },
         mounted:function(){
+            var self = this;
             this.bookData = window.edit;
+            window.savePage = 0;
             console.log(this.bookData)
             this.nowPage = this.$refs.pages.swiper.realIndex;
             this.windowHeight = window.innerHeight;
          //   this.pageClickEvent();
             window.getAllPage=function(){
                 try{
-                    getCurrentPage(window.edit.length);
+                    getAllPageResult(window.edit.length);
                 }catch (e){
-                    alert(e);
+                    console.log(e);
                 }
                // return window.edit.length;
+            };
+
+            window.getNowPage=function(){
+                try{
+                    getNowPageResult(self.nowPage);
+                }catch (e){
+
+                }
             }
+
+            window.getCurrentPage=function(page){
+                window.savePage = page;
+            };
+
+            if(window.savePage > 0 && window.savePage < window.edit.length){
+                this.hasSave = true;
+            }
+
+
+
         },
         methods:{
+            studyEvent(type){
+               if(type == 1) {
+                   this.nowPage = window.savePage;
+                   this.$refs.pageMenu.swiper.slideTo(window.savePage-1);
+                   this.hasSave = false;
+               }else{
+                   this.hasSave = false;
+               }
+            },
+
             /**
              * 点击第几页
              */
@@ -267,10 +305,44 @@ import lastPage from "../components/lastPage.vue"
   .typemainclick ,.type-main-click{
       background-color: skyblue;
       color: steelblue;
+      font-size: 5vw;
   }
       #book, .swiper_type_menu{
         position:fixed;
         width:100%;
       height:100%;
       }
+  #saveBox{
+      width: 100%;
+  height: 100%;
+  position: fixed;
+      z-index: 1000;
+      top: 0;
+      left: 0;
+      background-color: #000000;
+      opacity: 0.4;
+  }
+  #saveMain p{
+      color: #ffffff;
+      font-size: 6vw;
+      padding-bottom: 2%;
+  }
+  #saveMain{
+      width: 80%;
+      position: fixed;
+      top: 20%;
+      left: 50%;
+      margin-left: -40%;
+      z-index: 1002;
+  }
+  #yesbtn,#nobtn{
+      width: 60%;
+      padding: 3% 0;
+      margin: 4% auto;
+      font-size: 5vw;
+      text-align: center;
+      background-color: #019ccb;
+      color: #ffffff;
+  }
+
   </style>

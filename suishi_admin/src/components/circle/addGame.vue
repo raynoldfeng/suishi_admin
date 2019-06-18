@@ -33,7 +33,7 @@
             :autosize="{ minRows: 2, maxRows: 4}"
             placeholder="请输入内容"
             v-model="description">
-        </el-input>
+        </el-input><span>最多300字</span>
         </div>
         <div  class="view_main2">
             <!--<span>圈子类型</span>
@@ -340,6 +340,11 @@
 //                    circleData(){
 //                        this.urlEvent();
 //                    }
+                    description(){
+                        if(this.description.length>300){
+                            this.description = this.description.slice(0,299);
+                        }
+                    }
                 },
                 mounted:function(){
                     var self = this;

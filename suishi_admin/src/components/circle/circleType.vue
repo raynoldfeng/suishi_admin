@@ -51,7 +51,14 @@
         </div>
         <div class="view_main">
             <span>简介</span>
-            <el-input v-model="eDescription" class="input_type"></el-input>
+            <!--<el-input v-model="eDescription" class="input_type"></el-input>-->
+            <el-input
+                    class="textarea_type2"
+                    type="textarea"
+            :autosize="{ minRows: 2, maxRows: 4}"
+            placeholder="请输入内容"
+            v-model="eDescription">
+        </el-input><span>最多300字</span>
         </div>
         <el-button @click="editCircle">修改</el-button>
     </el-dialog>
@@ -146,6 +153,11 @@
     watch:{
         nowPage(){
             this.circleList();
+        },
+        eDescription(){
+            if(this.eDescription.length>300){
+                this.eDescription = this.eDescription.slice(0,299);
+            }
         }
     },
     mounted:function(){
@@ -166,4 +178,7 @@
 .input_type{
     width: 200px;
     }
+.textarea_type2{
+    width: 300px;;
+}
 </style>

@@ -34,7 +34,7 @@
             <el-button>还原</el-button>
         </div>
         <div class="view_main">
-            <el-button @click="addEvent">发布</el-button>
+            <!--<el-button @click="addEvent">发布</el-button>-->
             <ul class="sort_type">
                 <li>按发布时间排序</li>
                 <li>按评论数排序</li>

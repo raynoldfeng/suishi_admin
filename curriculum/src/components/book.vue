@@ -146,7 +146,7 @@ import lastPage from "../components/lastPage.vue"
          //   this.pageClickEvent();
             window.getAllPage=function(){
                 try{
-                    getAllPageResult(window.edit.length);
+                    h5.getAllPageResult(window.edit.length);
                 }catch (e){
                     console.log(e);
                 }
@@ -155,19 +155,24 @@ import lastPage from "../components/lastPage.vue"
 
             window.getNowPage=function(){
                 try{
-                    getNowPageResult(self.nowPage);
+                    h5.getNowPageResult(self.nowPage);
                 }catch (e){
 
                 }
+            };
+            window.setCurrentPage = function(page){
+                this.nowPage = page;
+                this.$refs.pageMenu.swiper.slideTo(page-1);
+
             }
 
             window.getCurrentPage=function(page){
                 window.savePage = page;
+                if(window.savePage > 0 && window.savePage < window.edit.length){
+                    this.hasSave = true;
+                }
             };
 
-            if(window.savePage > 0 && window.savePage < window.edit.length){
-                this.hasSave = true;
-            }
 
 
 

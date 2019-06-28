@@ -77,7 +77,7 @@ export default {
     },
     methods:{
         handleClick(id) {
-            console.log(row);
+            console.log(id);
             this.$router.push("/editJurisdiction?id="+id)
         },
         addEvent(){

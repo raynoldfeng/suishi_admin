@@ -34,9 +34,9 @@
             </div>
         </div>
         <div class="view_main">
-            <el-button v-if="dealType == 0" @click="addJurisdictions()">新增</el-button>
-            <el-button v-if="dealType == 1" @click="editJurisdictions()">编辑</el-button>
-            <el-button v-if="dealType == 2" @click="saveJurisdictions()">保存</el-button>
+            <el-button  @click="addJurisdictions()">新增</el-button>
+            <!--<el-button v-if="dealType == 1" @click="editJurisdictions()">编辑</el-button>-->
+            <!--<el-button v-if="dealType == 2" @click="saveJurisdictions()">保存</el-button>-->
             <el-button v-if="dealType == 2" @click="cancelEvnet()">取消</el-button>
         </div>
 
@@ -103,16 +103,29 @@ export default {
     },
     methods: {
         dealEvent(){
-            var path = this.$route.name;
-            console.log(path);
-            if(path == "seeJurisdiction"){
-                this.dealType = 1;
-            }else if(path == "editJurisdiction"){
-                this.dealType = 2;
-            }else{
-                this.dealType = 0;
+            var self = this;
+//            if(path == "seeJurisdiction"){
+//                this.dealType = 1;
+//            }else if(path == "editJurisdiction"){
+//                this.dealType = 2;
+//            }else{
+//                this.dealType = 0;
+//            }
+            if(self.isedits()){
+                this.common.getEventToken(this.api.host+this.api.addAuth+"/"+this.$route.query.id,{},this.userinfo,function(data){
+                        console.log(data)
+                })
             }
         },
+
+        isedits(){
+            if(this.$route.name == "editJurisdiction"){
+                return true;
+            }else{
+                return false;
+            }
+        },
+
         handleCheckAllChange(val,index) {
       //      console.log(this.dataMenu[index].cityOptions);
        //     console.log(this.dataMenu[index].checkedCities);
@@ -144,17 +157,25 @@ export default {
             }
             console.log(this.rolesId);
             console.log(menu_ids);
-            this.common.postEventToken(this.api.host+this.api.addAuth,{menu_ids:menu_ids,role_id:this.rolesId},this.userinfo,function(data){
-           //     console.log(data)
-                alert("ok")
-            });
+            if(this.isedits()){
+                this.common.putEventToken(this.api.host+this.api.addAuth+"/"+this.$route.query.id,{menu_ids:menu_ids,role_id:this.rolesId},this.userinfo,function(data){
+                    //     console.log(data)
+                    alert("ok")
+                });
+            }else{
+                this.common.postEventToken(this.api.host+this.api.addAuth,{menu_ids:menu_ids,role_id:this.rolesId},this.userinfo,function(data){
+                    //     console.log(data)
+                    alert("ok")
+                });
+            }
+
         },
         saveJurisdictions(){
 
         },
         editJurisdictions(){
             this.$router.push("/editJurisdiction");
-            this.dealType = 2;
+          //  this.dealType = 2;
         },
         cancelEvnet(){
             this.$router.push("/jurisdiction");

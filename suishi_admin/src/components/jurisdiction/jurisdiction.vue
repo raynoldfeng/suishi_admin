@@ -26,7 +26,7 @@
                 label="操作"
               >
                     <template slot-scope="scope">
-                        <el-button @click="handleClick(scope.row)" type="text" size="small">编辑</el-button>
+                        <el-button @click="handleClick(scope.row.id)" type="text" size="small">编辑</el-button>
                         <el-button type="text" size="small">删除</el-button>
                     </template>
                 </el-table-column>
@@ -76,9 +76,9 @@ export default {
         }
     },
     methods:{
-        handleClick(row) {
+        handleClick(id) {
             console.log(row);
-            this.$router.push("/seeJurisdiction")
+            this.$router.push("/editJurisdiction?id="+id)
         },
         addEvent(){
             this.$router.push("/addJurisdiction");

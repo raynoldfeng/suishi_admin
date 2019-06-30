@@ -29,7 +29,7 @@
                self.common.cookie.set("nickname",data.nickname);
                self.common.cookie.set("token",data.token);
                self.common.cookie.set("user_id",data.user_id);
-               self.$router.push("/jurisdiction");
+               self.$router.push("/home");
            });
 
         }

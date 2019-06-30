@@ -173,10 +173,11 @@ export default
         teamTypeList(){
             var self = this;
             this.common.getEventToken(this.api.host+this.api.teamType,{},this.userinfo,function(data){
+                console.log(22);
                 console.log(data);
                 self.teamTypeData = data.data;
-                for(var index in data){
-                    self.teamTypeObj[data[index].id] = data[index].name;
+                for(var index in self.teamTypeData){
+                    self.teamTypeObj[self.teamTypeData[index].id] = self.teamTypeData[index].name;
                 }
             })
         },

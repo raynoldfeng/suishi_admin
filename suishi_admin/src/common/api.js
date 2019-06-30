@@ -8,6 +8,7 @@ export const api={
     "login":"login",
     "roles":"admin/admin_user/roles",
     "adminUser":"admin/admin_user",
+    "adminUserUsers":"admin/admin_user/user",
     "menus":"admin/admin_user/menus",
     "auth":"admin/admin_user/auth",
     "addAuth":"admin/admin_user/auth",

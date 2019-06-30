@@ -34,7 +34,7 @@
             </div>
         </div>
         <div class="view_main">
-            <el-button  @click="addJurisdictions()">新增</el-button>
+            <el-button  @click="addJurisdictions()">保存</el-button>
             <!--<el-button v-if="dealType == 1" @click="editJurisdictions()">编辑</el-button>-->
             <!--<el-button v-if="dealType == 2" @click="saveJurisdictions()">保存</el-button>-->
             <el-button v-if="dealType == 2" @click="cancelEvnet()">取消</el-button>
@@ -104,18 +104,11 @@ export default {
     methods: {
         dealEvent(){
             var self = this;
-//            if(path == "seeJurisdiction"){
-//                this.dealType = 1;
-//            }else if(path == "editJurisdiction"){
-//                this.dealType = 2;
-//            }else{
-//                this.dealType = 0;
+//            if(self.isedits()){
+//                this.common.getEventToken(this.api.host+this.api.addAuth+"/"+this.$route.query.id,{},this.userinfo,function(data){
+//                        console.log(data)
+//                })
 //            }
-            if(self.isedits()){
-                this.common.getEventToken(this.api.host+this.api.addAuth+"/"+this.$route.query.id,{},this.userinfo,function(data){
-                        console.log(data)
-                })
-            }
         },
 
         isedits(){
@@ -138,6 +131,7 @@ export default {
             this.dataMenu[index].checkAll = checkedCount === this.dataMenu[index].children.length;
             this.dataMenu[index].isIndeterminate = checkedCount > 0 && checkedCount < this.dataMenu[index].children.length;
         },
+        //每个职能的权限菜单
         rolesListEvent(){
             var self = this;
             this.common.getEventToken(this.api.host+this.api.roles,{},this.userinfo,function(data){
@@ -157,17 +151,17 @@ export default {
             }
             console.log(this.rolesId);
             console.log(menu_ids);
-            if(this.isedits()){
-                this.common.putEventToken(this.api.host+this.api.addAuth+"/"+this.$route.query.id,{menu_ids:menu_ids,role_id:this.rolesId},this.userinfo,function(data){
-                    //     console.log(data)
-                    alert("ok")
-                });
-            }else{
+//            if(this.isedits()){
+//                this.common.putEventToken(this.api.host+this.api.addAuth+"/"+this.$route.query.id,{menu_ids:menu_ids,role_id:this.rolesId},this.userinfo,function(data){
+//                    //     console.log(data)
+//                    alert("ok")
+//                });
+//            }else{
                 this.common.postEventToken(this.api.host+this.api.addAuth,{menu_ids:menu_ids,role_id:this.rolesId},this.userinfo,function(data){
                     //     console.log(data)
                     alert("ok")
                 });
-            }
+//            }
 
         },
         saveJurisdictions(){
@@ -184,7 +178,8 @@ export default {
         jurisdictionMenu(datalist){
             var self = this;
             this.common.getEventToken(this.api.host+this.api.menus,{},this.userinfo,function(data){
-             //   console.log(data);
+                console.log(2);
+                console.log(data);
                 var dataMenus = data;
                 for(let i = 0 ;i<dataMenus.length;i++){
                     dataMenus[i].checkedCities = new Array();

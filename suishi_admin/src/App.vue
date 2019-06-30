@@ -8,7 +8,15 @@
                   :default-active="$route.path"
                   :default-openeds="openeds"
                   @close="handleClose">
-                      <el-submenu index="1">
+
+                      <el-submenu v-for="(data,index) in dataMenu" index="index">
+                          <template slot="title">{{data.title}}</template>
+                          <el-menu-item v-for="cdata in data.children" :index="linkMenu[cdata.id]"  @click="jumpEvent(cdata.id)">{{cdata.title}}</el-menu-item>
+                      <!--    <el-menu-item index="/jurisdiction"  @click="jumpEvent('jurisdiction')">管理权限</el-menu-item>
+                          <el-menu-item index="/labelAdmin" @click="jumpEvent('labelAdmin')">标签管理</el-menu-item>-->
+                      </el-submenu>
+
+                  <!--    <el-submenu index="1">
                           <template slot="title">全局</template>
                               <el-menu-item index="/jurisdiction"  @click="jumpEvent('jurisdiction')">管理权限</el-menu-item>
                               <el-menu-item index="/labelAdmin" @click="jumpEvent('labelAdmin')">标签管理</el-menu-item>
@@ -47,7 +55,7 @@
                               <el-menu-item index="userAdministration" @click="jumpEvent('userAdministration')">用户管理</el-menu-item>
                               <el-menu-item index="/operateAdministration" @click="jumpEvent('operateAdministration')">运营账户管理</el-menu-item>
                           </el-menu-item-group>
-                      </el-submenu>
+                      </el-submenu>-->
                   </el-menu>
               </el-aside>
               <el-main>
@@ -64,12 +72,28 @@ export default {
         return{
             openeds:[],
             menuList:[],
-            isloginPage:false
+            isloginPage:false,
+            dataMenu:[],
+            userinfo:"",
+            linkMenu:{
+               "6" :"/jurisdiction",
+                "7":"/labelAdmin",
+                "8":"/majorList",
+                "9":"/coursewareList",
+                "10":"/testList",
+                "11":"/teamList",
+                "12":"/teamAttribute",
+                "13":"/circleList",
+                "14":"/circleType",
+                "15":"/postList",
+                "16":"/userAdministration",
+                "17":"/operateAdministration",
+            }
         }
     },
     methods:{
-        jumpEvent(type){
-            this.$router.push("/"+type)
+        jumpEvent(id){
+            this.$router.push(this.linkMenu[id])
         },
         handleOpen(key, keyPath){
             console.log(key, keyPath);
@@ -78,8 +102,15 @@ export default {
             console.log(key, keyPath);
         },
         menusEvent(){
-            //http://admin.suishi.com/admin/admin_user/menus
             this.menuList=[]
+        },
+        getMenuList(){
+            var self = this;
+            console.log(this.api.host)
+            this.common.getEventToken(this.api.host+this.api.menus,{"user_id":this.common.cookie.get("user_id")},this.userinfo,function(data){
+                self.dataMenu = data;
+                console.log(data)
+            });
         }
     },
     watch:{
@@ -90,15 +121,22 @@ export default {
             }else{
                 self.isloginPage = true;
             }
+        },
+        roleMenu(){
+
         }
     },
     mounted:function(){
         var self = this;
+        this.userinfo = {"token":this.common.cookie.get("token"),"user_id":this.common.cookie.get("user_id")};
         if(this.$route.name == "login"){
             self.isloginPage = false;
         }else{
+           // self.getRoleMenu();
             self.isloginPage = true;
+            this.getMenuList();
         }
+
     }
 }
 </script>

@@ -30,6 +30,7 @@
                self.common.cookie.set("token",data.token);
                self.common.cookie.set("user_id",data.user_id);
                self.$router.push("/jurisdiction");
+               location.reload();
            });
 
         }

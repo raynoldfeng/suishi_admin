@@ -119,6 +119,7 @@ export default {
             if(to.name == "login"){
                 self.isloginPage = false;
             }else{
+                location.reload();
                 self.isloginPage = true;
             }
         },

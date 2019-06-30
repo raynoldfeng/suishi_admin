@@ -62,7 +62,7 @@
                     <el-pagination
                     background
                     layout="prev, pager, next"
-                    :current-page.sync="openNowPage"
+                    :current-page.sync="opennowPage"
                     :total="openAllPage">
                     </el-pagination>
                 </div>
@@ -130,6 +130,7 @@
                         openMajorData: [],
                         userinfo:"",
                         nowPage:1,
+                        opennowPage:1,
                         allPage:0,
                         openNowPage:1,
                         openAllPage:0,
@@ -140,17 +141,19 @@
                     addEvent(){
                         this.$router.push("/addMajor");
                     },
-                    professionList(type){
+                    professionList(){
                         var self = this;
-                        this.common.getEventToken(this.api.host+this.api.course+"?page="+this.nowPage+"&per_page=10&type="+type,{},this.userinfo,function(data){
-                            console.log(data);
-                            if(type == 0){
-                                self.openMajorData = data.data;
-                                self.openAllPage = data.last_page * 10;
-                            }else{
+                        this.common.getEventToken(this.api.host+this.api.course+"?page="+this.nowPage+"&per_page=10&type="+1,{},this.userinfo,function(data){
                                 self.majorData = data.data;
                                 self.allPage = data.last_page * 10;
-                            }
+                        })
+                    },
+                    openprofessionList(){
+                        var self = this;
+                        this.common.getEventToken(this.api.host+this.api.course+"?page="+this.opennowPage+"&per_page=10&type="+0,{},this.userinfo,function(data){
+                            console.log(data);
+                                self.openMajorData = data.data;
+                                self.openAllPage = data.last_page * 10;
 
                         })
                     },
@@ -163,12 +166,15 @@
                 watch:{
                     nowPage(){
                         this.professionList();
+                    },
+                    opennowPage(){
+                        this.openprofessionList();
                     }
                 },
                 mounted:function(){
                     this.userinfo = {"token":this.common.cookie.get("token"),"user_id":this.common.cookie.get("user_id")};
-                    this.professionList(0);
-                    this.professionList(1);
+                    this.professionList();
+                    this.openprofessionList();
                 }
             }
         </script>

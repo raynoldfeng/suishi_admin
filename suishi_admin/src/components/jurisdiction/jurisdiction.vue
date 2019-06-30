@@ -114,8 +114,8 @@ export default {
             self.nickname = "";
             self.role_id = "";
             self.editId = "";
-        //    var userinfo = {"username":this.username, "password":this.password, "nickname":this.nickname,"role_id":this.role_id};
-            this.common.getEventToken(this.api.host+this.api.adminUserUsers+"/"+id,userinfo,this.userinfo,function(data){
+         //   var userinfo = {"username":this.username, "password":this.password, "nickname":this.nickname,"role_id":this.role_id};
+            this.common.getEventToken(this.api.host+this.api.adminUserUsers+"/"+id,{},this.userinfo,function(data){
                 console.log(data)
                 self.adminUserEvent();
                 self.username = data.username;

@@ -80,14 +80,17 @@ export default {
                 "7":"/labelAdmin",
                 "8":"/majorList",
                 "9":"/coursewareList",
-                "10":"/testList",
-                "11":"/teamList",
-                "12":"/teamAttribute",
-                "13":"/circleList",
-                "14":"/circleType",
-                "15":"/postList",
-                "16":"/userAdministration",
-                "17":"/operateAdministration",
+
+                "10":"/circleList",
+                "11":"/circleType",
+
+                "12":"/postList",
+                "13":"/userAdministration",
+                "14":"/operateAdministration",
+                "15":"/teamList",
+                "16":"/teamAttribute",
+               // "17":"/operateAdministration",
+                "17":"/testList",
             }
         }
     },
@@ -119,7 +122,7 @@ export default {
             if(to.name == "login"){
                 self.isloginPage = false;
             }else{
-                location.reload();
+
                 self.isloginPage = true;
             }
         },

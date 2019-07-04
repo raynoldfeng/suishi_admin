@@ -1,7 +1,9 @@
 <template>
     <div >
         <el-container>
-        <el-header class="blues head-title">课件编辑系统</el-header>
+        <el-header class="blues head-title">
+           <div class="head_main"> 课件编辑系统</div>
+        </el-header>
         <el-container>
         <el-aside width="200px">
         <div id="leftMenu">
@@ -38,10 +40,10 @@
                                 <div>
                                 <p>章节:第<span v-text="(nowData.page+1)">1</span>节</p>
                                 <el-button  class="view_main" @click="getJsons"  type="primary" >生成配置文件</el-button>
-                                <el-button  class="view_main" @click="goUpLoad"  type="primary" >上传</el-button>
+                                <!--<el-button  class="view_main" @click="goUpLoad"  type="primary" >上传</el-button>-->
                             <div  class="view_main">
                                 <span>模板类型:</span>
-                                <el-select v-model="nowData.testType" placeholder="类型" v-on:change="displayTypeReset">
+                                <el-select v-model="nowData.testType" class="select-css" placeholder="类型" v-on:change="displayTypeReset">
                                         <el-option
                                                 v-for="item in testTypeMenu"
                                         :key="item.value"
@@ -50,7 +52,7 @@
                                          </el-option>
                                 </el-select>
                             <span>交互类型:</span>
-                            <el-select v-show="nowData.testType == 0" v-model="nowData.displayType" placeholder="类型">
+                            <el-select v-show="nowData.testType == 0" class="select-css" v-model="nowData.displayType" placeholder="类型">
                                 <el-option
                                      v-for="item in titleInfoTypeMenu"
                                     :key="item.value"
@@ -58,7 +60,7 @@
                                     :value="item.value">
                             </el-option>
                         </el-select>
-                        <el-select v-show="nowData.testType == 1" v-model="nowData.displayType" placeholder="类型">
+                        <el-select v-show="nowData.testType == 1" class="select-css" v-model="nowData.displayType" placeholder="类型">
                             <el-option
                                     v-for="item in imgTextTypeMenu"
                             :key="item.value"
@@ -66,7 +68,7 @@
                             :value="item.value">
                         </el-option>
                     </el-select>
-                    <el-select v-show="nowData.testType == 2" v-model="nowData.displayType" placeholder="类型">
+                    <el-select v-show="nowData.testType == 2" class="select-css" v-model="nowData.displayType" placeholder="类型">
                         <el-option
                                 v-for="item in imgChangeTypeMenu"
                         :key="item.value"
@@ -74,7 +76,7 @@
                         :value="item.value">
                     </el-option>
                 </el-select>
-                            <el-select v-show="nowData.testType == 3" v-model="nowData.displayType" placeholder="类型">
+                            <el-select v-show="nowData.testType == 3" class="select-css" v-model="nowData.displayType" placeholder="类型">
                                     <el-option
                                             v-for="item in judgeTypeMenu"
                                     :key="item.value"
@@ -82,7 +84,7 @@
                                     :value="item.value">
                                 </el-option>
                             </el-select>
-                        <el-select v-show="nowData.testType == 4" v-model="nowData.displayType" placeholder="类型">
+                        <el-select v-show="nowData.testType == 4" class="select-css" v-model="nowData.displayType" placeholder="类型">
                             <el-option
                                     v-for="item in selectTypeMenu"
                             :key="item.value"
@@ -90,7 +92,7 @@
                             :value="item.value">
                         </el-option>
                     </el-select>
-                    <el-select v-show="nowData.testType == 5" v-model="nowData.displayType" placeholder="类型">
+                    <el-select v-show="nowData.testType == 5" class="select-css" v-model="nowData.displayType" placeholder="类型">
                         <el-option
                                 v-for="item in selectMoreTypeMenu"
                         :key="item.value"
@@ -103,11 +105,11 @@
 
                     <div v-if="nowData.testType == 0 && nowData.displayType == 't1'">
                         <div  class="view_main">
-                            <span>课程标题</span>
+                            <span>课程标题:</span>
                             <el-input class="input_type" v-model="nowData.courseTitle"></el-input>
                         </div>
                         <div  class="view_main">
-                            <span class="type_title">封面图</span>
+                            <span class="type_title">封面图:</span>
 
                             <div class="avatar-uploader" @click="uploadClick('file-selector')">
                             <img v-if="nowData.courseImg" :src="nowData.courseImg" class="avatar">
@@ -116,7 +118,7 @@
                         <i class="el-icon-close" @click="deleteImg('courseImg')"></i>
                 </div>
                 <div  class="view_main">
-                    <span  class="type_title">作者图</span>
+                    <span  class="type_title">作者图:</span>
 
                     <div class="avatar-uploader" @click="uploadClick('file-selector2')">
                     <img v-if="nowData.authorImg" :src="nowData.authorImg" class="avatar">
@@ -125,12 +127,12 @@
                 <i class="el-icon-close" @click="deleteImg('authorImg')"></i>
         </div>
         <div  class="view_main">
-            <span  class="type_title">作者名字</span>
+            <span >作者名字:</span>
             <el-input class="input_type" v-model="nowData.authorInfo"></el-input>
 
         </div>
         <div  class="view_main">
-            <span class="type_title">介绍</span>
+            <span class="type_title">介绍:</span>
             <el-input
                     class="textarea_type"
                     type="textarea"
@@ -143,11 +145,12 @@
 
 <div v-if="nowData.testType == 1 && nowData.displayType == 'it1'">
     <div class="view_main">
-        <div class="type_title">标题</div>
-
-        <el-input class="input_type" v-model="nowData.imgTextTitle"></el-input>
         <div class="view_main">
-            <div class="type_title">图片</div>
+            <span>标题:</span>
+            <el-input class="input_type" v-model="nowData.imgTextTitle"></el-input>
+        </div>
+        <div class="view_main">
+            <div class="type_title">图片:</div>
 
             <div class="avatar-uploader" @click="uploadClick('imgtext-selector')">
             <img v-if="nowData.imgTextImg" :src="nowData.imgTextImg" class="avatar">
@@ -156,8 +159,8 @@
         <i class="el-icon-close" @click="deleteImg('imgTextImg')"></i>
 </div>
 <div  class="view_main">
-    <span>文本</span>
 
+    <p>文本</p>
     <div  class="view_main"  v-for="(data,index) in nowData.imgTextMenu">
         <el-input   v-if="nowData.imgTextMenu.length>0"
                     class="textarea_type"
@@ -176,33 +179,36 @@
         </div>
 
 <div v-if="nowData.testType == 2 && nowData.displayType == 'ic1'">
-<div>
+<div class="view_main">
     <div>图片</div>
-    <div>
+
         <div  class="view_main" v-for="(data,index) in nowData.imageChange">
             <div class="avatar-uploader">
                 <img v-if="nowData.imageChange[index]" :src="nowData.imageChange[index]" class="avatar">
                 <i v-else class="el-icon-plus avatar-uploader-icon"></i>
             </div>
             <el-button @click="imageChangeDelete(index)">删除</el-button>
-    </div>
-    <el-button @click="uploadClick('file-selector3')">添加图片</el-button>
-</div>
+        </div>
+        <div class="view_main">
+            <el-button @click="uploadClick('file-selector3')">添加图片</el-button>
+         </div>
+
+
         </div>
         </div>
 <div v-if="nowData.testType == 3 && nowData.displayType == 'j1'">
 <div class="view_main">
-    <span>题目</span>
+    <span>题目:</span>
     <el-input class="input_type" v-model="nowData.judgeTitle"></el-input>
 </div>
 <div class="view_main">
-    <span>答案文本</span>
+    <span>答案文本:</span>
     <el-input class="input_type" v-model="nowData.judgeText"></el-input>
 </div>
 <div class="view_main">
-    <span>正确选项</span>
+    <span>正确选项:</span>
 
-    <el-select v-model="nowData.judgeAnswer" placeholder="正确选项">
+    <el-select v-model="nowData.judgeAnswer" class="select-css" placeholder="正确选项">
         <el-option
                 v-for="item in judgeAnswerMenu"
         :key="item.value"
@@ -215,11 +221,11 @@
 
 <div v-if="nowData.testType == 4 && nowData.displayType == 's1'">
 <div class="view_main">
-    <span>题目</span>
+    <span>题目:</span>
     <el-input class="input_type" v-model="nowData.selectTitle"></el-input>
 </div>
 <div class="view_main">
-    <div class="type_title">图片</div>
+    <div class="type_title">图片:</div>
 
     <div class="avatar-uploader" @click="uploadClick('select-selector')">
     <img v-if="nowData.selectImg" :src="nowData.selectImg" class="avatar">
@@ -228,13 +234,14 @@
 <i class="el-icon-close" @click="deleteImg('selectImg')"></i>
         </div>
 <div class="view_main">
-<span>选项</span>
+<span>答案选项</span>
 <el-button @click="selectAddEvent">添加选项</el-button>
 <div class="">
 <ul>
     <li v-for="(data,index) in nowData.selectMenu" class="view_main" >
+        <span>选项{{index+1}}</span>
         <el-input class="input_type" v-model="nowData.selectMenu[index].answerText"></el-input>
-        <el-select v-model="data.isAnswer" placeholder="是否正确">
+        <el-select v-model="data.isAnswer" class="select-css" placeholder="是否正确">
             <el-option
                     v-for="item in judgeAnswerMenu"
             :key="item.value"
@@ -248,7 +255,7 @@
         </div>
         </div>
 <div class="view_main">
-<span class="type_title">答案注释</span>
+<span class="type_title">答案注释:</span>
 <el-input
         class="textarea_type"
         type="textarea"
@@ -262,11 +269,11 @@ v-model="nowData.imgTextNote">
 
 <div v-if="nowData.testType == 5 && nowData.displayType == 'sm1'">
 <div class="view_main" >
-    <span>问题</span>
+    <span>问题:</span>
     <el-input class="input_type" v-model="nowData.selectMoreTitle"></el-input>
 </div>
 <div class="view_main" >
-    <span>问题描述</span>
+    <span class="type_title">问题描述:</span>
     <el-input
             class="textarea_type"
             type="textarea"
@@ -281,7 +288,7 @@ v-model="nowData.imgTextNote">
 model="nowData.selectTitle"></el-input>-->
         <!--</div>-->
 <div class="view_main" >
-<div class="type_title">图片</div>
+<div class="type_title">左侧图片:</div>
 
 <div class="avatar-uploader" @click="uploadClick('selectL-selector')">
 <img v-if="nowData.selectMoreImgL" :src="nowData.selectMoreImgL" class="avatar">
@@ -291,13 +298,14 @@ model="nowData.selectTitle"></el-input>-->
 
         </div>
 <div class="view_main" >
-<span>选项</span><el-button @click="selectMoreAddEvent('l')">添加选项</el-button>
+<span>左侧选项:</span><el-button @click="selectMoreAddEvent('l')">添加选项</el-button>
 <div class="">
 
 <ul>
     <li v-for="(data,index) in nowData.selectMoreMenuL" class="view_main">
+        <span>选项{{index+1}}</span>
         <el-input class="input_type" v-model="data.answerText"></el-input>
-        <el-select v-model="data.isAnswer"
+        <el-select class="select-css" v-model="data.isAnswer"
                    placeholder="是否正确">
             <el-option
                     v-for="item in judgeAnswerMenu"
@@ -327,20 +335,21 @@ v-model="nowData.selectTextNoteL">
 model="nowData.selectTitle"></el-input>-->
         <!--</div>-->
 <div class="view_main" >
-
+<div class="type_title">右侧图片:</div>
 <div class="avatar-uploader" @click="uploadClick('selectR-selector')">
-<img v-if="nowData.selectMoreImgR" :src="nowData.selectMoreImgR" class="avatar">
-<i v-else class="el-icon-plus avatar-uploader-icon"></i>
+    <img v-if="nowData.selectMoreImgR" :src="nowData.selectMoreImgR" class="avatar">
+    <i v-else class="el-icon-plus avatar-uploader-icon"></i>
 </div>
 <i class="el-icon-close" @click="deleteImg('selectMoreImgR')"></i>
         </div>
-<div class="view_main" >
-<span>选项</span><el-button  @click="selectMoreAddEvent('r')">添加选项</el-button>
-<div class="">
+    <div class="view_main" >
+          <span>右侧选项:</span><el-button  @click="selectMoreAddEvent('r')">添加选项</el-button>
+    <div>
 <ul>
     <li v-for="(data,index) in nowData.selectMoreMenuR" class="view_main">
+        <span>选项{{index+1}}</span>
         <el-input class="input_type" v-model="data.answerText"></el-input>
-        <el-select v-model="data.isAnswer" placeholder="正确选项">
+        <el-select v-model="data.isAnswer" class="select-css" placeholder="正确选项">
             <el-option
                     v-for="item in judgeAnswerMenu"
             :key="item.value"
@@ -353,7 +362,7 @@ model="nowData.selectTitle"></el-input>-->
         </ul>
         </div>
 <div class="view_main">
-<span class="type_title">答案注释</span>
+<span class="type_title">答案注释:</span>
 <el-input
         class="textarea_type"
         type="textarea"
@@ -849,7 +858,15 @@ export default {
 }
 </script>
 <style>
-
+.head_main{
+    position: fixed;
+    top: 0;
+    z-index: 1000;
+    background: skyblue;
+    width: 100%;
+    height: 60px;
+    left: 0;
+}
 .blues{
     background:skyblue;
 }
@@ -873,8 +890,10 @@ export default {
     background:#9cd7ef;
     color:#fff;
 }
-.pagebtnBox{
+.page_menu{
 
+}
+.pagebtnBox{
     position: relative;
 }
 .delete_btn{
@@ -906,7 +925,8 @@ export default {
     height:100%;
     background:#efefef;
     overflow: auto;
-    position: absolute;
+    position: fixed;
+    top: 60px;
 }
 .add_page{
     width:80%;
@@ -926,6 +946,12 @@ export default {
 }
 #testMedolBox.big_size{
     animation:bigs 0.3s linear 0s forwards;
+}
+.select-css{
+    margin-right: 10px;;
+}
+.avatar-uploader-icon{
+    background: #ffffff;
 }
 @keyframes bigs{
     0%{width: 150px}

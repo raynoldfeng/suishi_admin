@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Swiper demo</title>
+    <!-- Link Swiper's CSS -->
+    <link rel="stylesheet" href="css/swiper.css">
+
+    <!-- Demo styles -->
+    <style>
+        body {
+            background: #eee;
+            font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+            font-size: 14px;
+            color:#000;
+            margin: 0;
+            padding: 0;
+            background: url("./img/page1.jpg") no-repeat 0 0;
+            background-size: 100% ;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+        .swiper-wrapper{
+            transition-delay:.3s;
+        }
+        .swiper-container {
+            width: 100%;
+            height: 100%;
+            position: fixed;
+            margin: 0 auto;
+        }
+        .swiper-slide {
+            text-align: center;
+            font-size: 18px;
+            background: #fff;
+
+            /* Center slide text vertically */
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: -webkit-flex;
+            display: flex;
+            -webkit-box-pack: center;
+            -ms-flex-pack: center;
+            -webkit-justify-content: center;
+            justify-content: center;
+            -webkit-box-align: center;
+            -ms-flex-align: center;
+            -webkit-align-items: center;
+            align-items: center;
+        }
+        .swiper-slide:nth-child(2){
+            background:#3183ff;
+            color:#fff;}
+        .swiper-slide p{
+            transform:translateX(-200px);
+            opacity:0;
+            transition:all .4s;}
+        .ani-slide p{
+            transform:translateX(0);
+            opacity:1;
+        }
+
+        #phoneBox{
+            width: 300px;
+            height: 500px;
+            overflow: hidden;
+            color: #000000;
+
+        }
+        #mainBox{
+            background: transparent;
+        }
+        #page1{
+            background: url("./img/page1u.png") no-repeat 0 100%;
+            background-size:100%;
+        }
+        #logo{
+            width: 20%;
+            display: block;
+        }
+        #p1-title{
+           width: 40%;
+            display: block;
+        }
+        #homeMenuBox{
+            background: transparent;
+        }
+        .page-box{
+            width: 100%;
+            height: 100%;
+        }
+        #qr{
+            float: left;
+            width: 10%;
+        }
+        #qr img{
+            width: 100%;
+        }
+        #androidBtn,#iosBtn{
+            width: 20%;
+            margin-left:12% ;
+
+        }
+        #iosBtn{
+            margin-top: 1%;
+        }
+        #androidBtn img , #iosBtn img{
+            width: 100%;
+        }
+        #p1-title,.download-box{
+            margin-top: 1%;
+        }
+    </style>
+</head>
+<body>
+<!-- Swiper -->
+<div class="swiper-container" id="mainBox">
+    <div class="swiper-wrapper" id="homeMenuBox">
+        <div class="swiper-slide" id="page1">
+            <div class="page-box">
+                <img src="./img/logo.png" id="logo">
+                <img src="img/title.png" id="p1-title">
+                <div class="download-box">
+                    <div id="qr">
+                        <img src="./img/qr.jpg">
+                    </div>
+                    <div id="androidBtn">
+                        <img src="./img/android_btn.png">
+                    </div>
+                    <div id="iosBtn">
+                        <img src="./img/ios_btn.png">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="swiper-slide">
+
+            <div  id="phoneBox">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide">Slide 1</div>
+                    <div class="swiper-slide">Slide 2</div>
+                    <div class="swiper-slide">Slide 3</div>
+                </div>
+            </div>
+
+        </div>
+        <div class="swiper-slide">
+
+        </div>
+        <div class="swiper-slide"><p>Slide 4</p></div>
+        <div class="swiper-slide"><p>Slide 5</p></div>
+        <div class="swiper-slide"><p>Slide 6</p></div>
+    </div>
+    <div class="swiper-pagination"></div>
+</div>
+
+<!-- Swiper JS -->
+<script src="js/swiper.js"></script>
+
+<!-- Initialize Swiper -->
+<script>
+    var ff = new Swiper('#phoneBox',{
+        autoplay: {
+            delay: 2000,
+            disableOnInteraction: false,
+        }
+    });
+
+
+    var swiper = new Swiper('#mainBox',{
+        direction : 'vertical',
+        followFinger : false,
+        speed:800,
+        mousewheel: true,
+        pagination : {
+            el:'.swiper-pagination',
+        },
+        on:{
+            init:function(swiper){
+                slide=this.slides.eq(0);
+                slide.addClass('ani-slide');
+            },
+            transitionStart: function(){
+                for(i=0;i<this.slides.length;i++){
+                    slide=this.slides.eq(i);
+                    slide.removeClass('ani-slide');
+                }
+            },
+            transitionEnd: function(){
+                slide=this.slides.eq(this.activeIndex);
+                slide.addClass('ani-slide');
+
+            },
+        }
+    });
+
+</script>
+</body>
+</html>

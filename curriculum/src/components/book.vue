@@ -140,8 +140,10 @@ import lastPage from "../components/lastPage.vue"
             var self = this;
             this.bookData = window.edit;
             window.savePage = 0;
+            window.nowPage = 0;
             console.log(this.bookData)
             this.nowPage = this.$refs.pages.swiper.realIndex;
+            window.nowPage =  this.$refs.pages.swiper.realIndex;
             this.windowHeight = window.innerHeight;
          //   this.pageClickEvent();
             window.getAllPage=function(){
@@ -155,13 +157,14 @@ import lastPage from "../components/lastPage.vue"
 
             window.getNowPage=function(){
                 try{
-                    h5.getNowPageResult(self.nowPage);
+                    h5.getNowPageResult( window.nowPage);
                 }catch (e){
-
+                    console.log(e);
                 }
             };
             window.setCurrentPage = function(page){
                 this.nowPage = page;
+                window.nowPage = page;
                 this.$refs.pageMenu.swiper.slideTo(page-1);
 
             }
@@ -181,6 +184,7 @@ import lastPage from "../components/lastPage.vue"
             studyEvent(type){
                if(type == 1) {
                    this.nowPage = window.savePage;
+                   window.nowPage = window.savePage;
                    this.$refs.pageMenu.swiper.slideTo(window.savePage-1);
                    this.hasSave = false;
                }else{
@@ -194,6 +198,7 @@ import lastPage from "../components/lastPage.vue"
             pageClickEvent(index){
                 var self= this;
                 this.nowPage = index;
+                window.nowPage = index;
 //                $("#dealMenu .type-main").eq(this.nowPage).addClass("type-main-click");
 //                $("#dealMenu .type-main").on("touchend",function(){
 //                    if(self.isMove){
@@ -222,20 +227,24 @@ import lastPage from "../components/lastPage.vue"
                         $("#dealMenu .type-main").eq(0).addClass("typemainclick");
                         this.$refs.pageMenu.swiper.slideTo(0);
                         this.nowPage = 0;
+                        window.nowPage = 0;
                     }else{
                         $("#dealMenu .type-main").eq(this.$refs.pages.swiper.realIndex-1).addClass("typemainclick");
                         this.$refs.pageMenu.swiper.slideTo(this.$refs.pages.swiper.realIndex-1);
                         this.nowPage = this.$refs.pages.swiper.realIndex-1;
+                        window.nowPage = this.$refs.pages.swiper.realIndex-1;
                     }
                 }else if("right"){
                     if(this.$refs.pages.swiper.realIndex == len-1){
                         $("#dealMenu .type-main").eq(len-1).addClass("typemainclick");
                         this.$refs.pageMenu.swiper.slideTo(len-1);
                         this.nowPage = len-1;
+                        window.nowPage = len-1;
                     }else{
                         $("#dealMenu .type-main").eq(this.$refs.pages.swiper.realIndex+1).addClass("typemainclick");
                         this.$refs.pageMenu.swiper.slideTo(this.$refs.pages.swiper.realIndex+1);
                         this.nowPage = this.$refs.pages.swiper.realIndex+1;
+                        window.nowPage = this.$refs.pages.swiper.realIndex+1;
                     }
 
                 }
@@ -255,6 +264,7 @@ import lastPage from "../components/lastPage.vue"
                     this.$refs.pages.swiper.slideTo(1);
                     this.$refs.pageMenu.swiper.slideTo(1);
                     this.nowPage = 1;
+                    window.nowPage = 1;
                 }
             }
         },

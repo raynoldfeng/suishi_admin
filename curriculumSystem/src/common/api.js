@@ -4,7 +4,7 @@
  *  "host":"http://129.204.236.40/"
  */
 export const api={
-    "host":"http://129.204.236.40/",
+    "host":"http://admin.sui10.com/",
     "login":"login",
     "roles":"admin/admin_user/roles",
     "adminUser":"admin/admin_user",

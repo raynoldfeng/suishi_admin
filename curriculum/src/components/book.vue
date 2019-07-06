@@ -70,7 +70,7 @@
                         <div class="type-main" @click="pageClickEvent(index)"  :class="{typemainclick:nowPage == index}">第{{index+1}}页</div>
                     </swiper-slide>
                     <swiper-slide :key="bookData.length">
-                        <div class="type-main"  @click="finishEvent"  :class="{typemainclick:nowPage == bookData.length}">最后一页</div>
+                        <div class="type-main"  @click="pageClickEvent(bookData.length)"  :class="{typemainclick:nowPage == bookData.length}">最后一页</div>
                     </swiper-slide>
                 </swiper>
             </div>
@@ -164,9 +164,10 @@ import lastPage from "../components/lastPage.vue"
             };
             window.setCurrentPage = function(page){
                 window.nowPage = page;
-                self.$refs.pages.swiper.slideTo(page-1);
-                self.hasSave = true;
-
+                if(page > 0){
+                    self.$refs.pages.swiper.slideTo(page-1);
+                    self.hasSave = true;
+                }
             };
 
 
@@ -184,15 +185,14 @@ import lastPage from "../components/lastPage.vue"
                    this.$refs.pages.swiper.slideTo(0);
                    this.nowPage = 0;
                    window.nowPage = 0;
+                   try{
+                       h5.resetStudyResult();
+                   }catch (e){
+
+                   }
                }
             },
-            finishEvent(){
-                try{
-                    h5.finishResult();
-                }catch(e){
 
-                }
-            },
             /**
              * 点击第几页
              */

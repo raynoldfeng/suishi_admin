@@ -1,12 +1,24 @@
 <template>
     <div id="lastPage">
         <p>最后一页</p>
-        <div class="tp-start-btn" @click="startEvent">
+        <div class="tp-start-btn" @click="finishEvent">
         退出
         </div>
     </div>
 </template>
-<script></script>
+<script>
+    export default{
+    methods:{
+        finishEvent(){
+            try{
+                h5.finishResult();
+            }catch(e){
+
+            }
+        }
+    }
+}
+</script>
 <style>
 #lastPage{
     padding-top: 25%;

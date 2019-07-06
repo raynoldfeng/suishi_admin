@@ -141,10 +141,10 @@ import lastPage from "../components/lastPage.vue"
             this.bookData = window.edit;
             window.savePage = 0;
             window.nowPage = 0;
-            console.log(this.bookData);
             this.nowPage = this.$refs.pages.swiper.realIndex;
             window.nowPage =  this.$refs.pages.swiper.realIndex;
             this.windowHeight = window.innerHeight;
+
          //   this.pageClickEvent();
             window.getAllPage=function(){
                 try{
@@ -163,32 +163,27 @@ import lastPage from "../components/lastPage.vue"
                 }
             };
             window.setCurrentPage = function(page){
-                this.nowPage = page;
                 window.nowPage = page;
-                this.$refs.pageMenu.swiper.slideTo(page-1);
+                self.$refs.pages.swiper.slideTo(page-1);
+                self.hasSave = true;
 
-            }
-
-            window.getCurrentPage=function(page){
-                window.savePage = page;
-                if(window.savePage > 0 && window.savePage < window.edit.length){
-                    this.hasSave = true;
-                }
             };
-
-
 
 
         },
         methods:{
             studyEvent(type){
                if(type == 1) {
-                   this.nowPage = window.savePage;
-                   window.nowPage = window.savePage;
-                   this.$refs.pageMenu.swiper.slideTo(window.savePage-1);
+                   this.nowPage = window.nowPage-1;
+                   this.$refs.pageMenu.swiper.slideTo(this.nowPage);
+                   this.$refs.pages.swiper.slideTo(this.nowPage);
                    this.hasSave = false;
                }else{
                    this.hasSave = false;
+                   this.$refs.pageMenu.swiper.slideTo(0);
+                   this.$refs.pages.swiper.slideTo(0);
+                   this.nowPage = 0;
+                   window.nowPage = 0;
                }
             },
             finishEvent(){

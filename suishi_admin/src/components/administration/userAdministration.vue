@@ -32,7 +32,7 @@
                         <template slot-scope="scope">
                             <el-button v-if="scope.row.status == 0" @click="statusChange(scope.$index,scope.row.id,scope.row.status)" type="text" size="small">封禁</el-button>
                             <el-button v-if="scope.row.status == 1" @click="statusChange(scope.$index,scope.row.id,scope.row.status)" type="text" size="small">解封</el-button>
-                            <el-button @click="logOutEvent(scope.row.id)" type="text" size="small">注销</el-button>
+                            <el-button @click="dialogVisibleEvent(true,scope.row.id)" type="text" size="small">注销</el-button>
                         </template>
                     </el-table-column>
                 </el-table>
@@ -46,6 +46,17 @@
             :total="allPage">
             </el-pagination>
         </div>
+<el-dialog
+title="提示"
+        :visible.sync="dialogVisible"
+        width="30%"
+        :before-close="handleClose">
+<span>是否注销该账号</span>
+<span slot="footer" class="dialog-footer">
+    <el-button @click="dialogVisibleEvent(false,'')">取 消</el-button>
+<el-button type="primary" @click="logOutEvent">确 定</el-button>
+        </span>
+        </el-dialog>
     </div>
 </template>
 <script>
@@ -56,7 +67,9 @@
                 searchText:"",
                 userinfo:"",
                 nowPage:1,
-                allPage:0
+                allPage:0,
+                dialogVisible:false,
+                nowId:""
             }
         },
         methods:{
@@ -80,12 +93,20 @@
                     self.userData[index].status = data.status;
                 });
             },
+            dialogVisibleEvent(bool,id){
+                this.dialogVisible = bool;
+                this.nowId = id;
+            },
             logOutEvent(id){
                 var self = this;
-                this.common.deleteEventToken(this.api.host+this.api.user+"/"+id,{},this.userinfo,function(data){
-                    alert("注销成功");
-                    self.userList();
-                })
+                if(this.nowId !=""){
+                    this.common.deleteEventToken(this.api.host+this.api.user+"/"+id,{},this.userinfo,function(data){
+                        alert("注销成功");
+                        this.nowId = "";
+                        self.userList();
+                    })
+                }
+
             }
         },
         watch:{

@@ -1,15 +1,15 @@
 <template>
     <div id="labelAdmin">
         <p class="title_main">标签管理</p>
-        <div class="label_main">
+        <div class="label_main view_main">
             <div class="parents_main">
-                <div class="view_main">
+                <div class="view_main marginleft_20">
                     <el-input
                     placeholder="输入名称"
                     class="name_input"
                     v-model="typeValue"
                     ></el-input>
-                    <el-button @click="addType">新建母标签</el-button>
+                    <el-button @click="addType" type="primary">新建母标签</el-button>
                 </div>
                 <el-table class="table_main"
                     v-if="typeData.length > 0"
@@ -45,13 +45,13 @@
                 </el-table>
             </div>
             <div class="sub_main">
-                <div class="view_main">
+                <div class="view_main marginleft_20">
                     <el-input
                     placeholder="输入名称"
                     class="name_input"
                       v-model="tagValue"
                     ></el-input>
-                    <el-button @click="addTags">新建子标签</el-button>
+                    <el-button @click="addTags"  type="primary">新建子标签</el-button>
                 </div>
                 <el-table class="table_main"
                     v-if="tagData.length > 0"

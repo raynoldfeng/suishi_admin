@@ -891,7 +891,8 @@ export default {
     color:#fff;
 }
 .page_menu{
-
+    max-height:80%;
+    overflow: auto;
 }
 .pagebtnBox{
     position: relative;
@@ -924,7 +925,6 @@ export default {
     width:200px;
     height:100%;
     background:#efefef;
-    overflow: auto;
     position: fixed;
     top: 60px;
 }

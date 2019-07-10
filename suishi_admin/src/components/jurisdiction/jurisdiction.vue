@@ -1,37 +1,40 @@
 <template>
     <div id="jurisdiction">
-        <el-button @click="userDialog(true)">新建用户</el-button>
-        <el-button @click="addEvent">职能权限</el-button>
-        <template v-if="adminUserList.length>0">
-            <el-table
-            :data="adminUserList"
-            border
-            style="width: 100%">
+        <el-button @click="userDialog(true)" type="primary">新建用户</el-button>
+        <el-button @click="addEvent" type="primary">职能权限</el-button>
+        <div class="view_main">
+            <template v-if="adminUserList.length>0">
+                <el-table
+                :data="adminUserList"
+                border
+                style="width: 100%">
                 <el-table-column
-                prop="id"
-                label="ID"
-                >
+                        prop="id"
+                        label="ID"
+                        >
                 </el-table-column>
                 <el-table-column
-                prop="username"
-                label="姓名"
-               >
+                        prop="username"
+                        label="姓名"
+                        >
                 </el-table-column>
                 <el-table-column
-                prop="name"
-                label="职能"
-                >
+                        prop="name"
+                        label="职能"
+                        >
                 </el-table-column>
                 <el-table-column
-                label="操作"
-              >
-                    <template slot-scope="scope">
-                        <el-button @click="handleClick(scope.row.id)" type="text" size="small">编辑</el-button>
-                        <el-button type="text" size="small">删除</el-button>
-                    </template>
-                </el-table-column>
+                        label="操作"
+                        >
+                <template slot-scope="scope">
+                    <el-button @click="handleClick(scope.row.id)" type="text" size="small">编辑</el-button>
+                <el-button type="text" size="small">删除</el-button>
+            </template>
+            </el-table-column>
             </el-table>
-        </template>
+            </template>
+        </div>
+
         <el-dialog title="新建" :visible.sync="dialogVisible">
             <div class="view_main">
                 <span>账户</span>

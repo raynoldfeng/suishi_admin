@@ -32,6 +32,7 @@
                         <template slot-scope="scope">
                             <el-button v-if="scope.row.status == 0" @click="statusChange(scope.$index,scope.row.id,scope.row.status)" type="text" size="small">封禁</el-button>
                             <el-button v-if="scope.row.status == 1" @click="statusChange(scope.$index,scope.row.id,scope.row.status)" type="text" size="small">解封</el-button>
+                            <el-button @click="logOutEvent(scope.row.id)" type="text" size="small">注销</el-button>
                         </template>
                     </el-table-column>
                 </el-table>
@@ -78,6 +79,13 @@
                 this.common.putEventToken(this.api.host+this.api.user+"/"+id,{status:cStatus},this.userinfo,function(data){
                     self.userData[index].status = data.status;
                 });
+            },
+            logOutEvent(id){
+                var self = this;
+                this.common.deleteEventToken(this.api.host+this.api.user+"/"+id,{},this.userinfo,function(data){
+                    alert("注销成功");
+                    self.userList();
+                })
             }
         },
         watch:{

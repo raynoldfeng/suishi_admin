@@ -56,13 +56,15 @@ ul li {
     position: relative;
 }
 .select-menu{
-    width:198px;
+    width:205px;
     position: absolute;
     top: 45px;
     background:#fff;
     z-index:100;
     border: 1px solid #E4E7ED;
     box-shadow: 0 2px 12px 0 rgba(0,0,0,.1);
+    overflow: auto;
+    max-height: 300px;
 }
 .select-menu li{
     height:40px;
@@ -84,4 +86,8 @@ ul li {
 }
 .self-select-menu li span{
     float: right;
+}
+
+.marginleft_20{
+    margin-left:20px;
 }

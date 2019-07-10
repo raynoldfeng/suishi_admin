@@ -18,8 +18,8 @@
             <div class="select-main"  @click.stop>
                 <el-input v-model="majorValueSelect" placeholder="请选择" @focus="displayChange(true)" @blur="blurEvent"  @keyup.native="searchEvent" class="input_type" />
                 <ul class="select-menu self-select-menu" v-show="mIsShow" >
-                    <li v-for="item in majorData"  @click="changeEvent(item.id,item.name)">
-                        <p v-text="item.name"></p>
+                    <li v-for="item in majorData" class="major_li"  @click="changeEvent(item.id,item.name)">
+                        <p class="major_name" v-text="item.name"></p>
                         <span v-if="item.type == 1">专业课</span>
                         <span v-else-if="item.type == 0">公开课</span>
                         <span v-else>未定义</span>
@@ -237,7 +237,7 @@
                 },
                     professionList(name){
                          var self = this;
-                         this.common.getEventToken(this.api.host+this.api.course+"?name="+name,{},this.userinfo,function(data){
+                         this.common.getEventToken(this.api.host+this.api.course+"?name="+name+"&per_page=100",{},this.userinfo,function(data){
                             console.log(data);
                             self.majorData = data.data;
 
@@ -378,4 +378,13 @@
         .textarea_type{
             width: 500px;
             }
+        .select-menu li.major_li{
+            padding-left: 10px;
+        }
+        .major_name{
+            width: 120px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
         </style>

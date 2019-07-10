@@ -40,8 +40,8 @@
                 <v-lastPage></v-lastPage>
             </swiper-slide>
         </swiper>
-<div class="swiper-button-prev" slot="button-prev" @click="pageTurn('left')"></div>
-<div class="swiper-button-next" slot="button-next" @click="pageTurn('right')"></div>
+<div id="swiper-button-prev" class="swiper-button-prev" slot="button-prev" @click="pageTurn('left')"></div>
+<div id="swiper-button-next" class="swiper-button-next" slot="button-next" @click="pageTurn('right')"></div>
 <div class="swiper-pagination" slot="progressbar"></div>
         <div id="page-menu">
             <div id="displayBtn" @click="pageMenuDisplay">☰</div>
@@ -359,6 +359,12 @@ import lastPage from "../components/lastPage.vue"
       text-align: center;
       background-color: #019ccb;
       color: #ffffff;
+  }
+  #swiper-button-prev, .swiper-container-rtl .swiper-button-next{
+       background-image:url("./../img/left.png");
+   }
+  #swiper-button-next, .swiper-container-rtl .swiper-button-prev{
+      background-image:url("./../img/right.png");
   }
 
   </style>

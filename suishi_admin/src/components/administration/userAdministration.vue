@@ -97,10 +97,10 @@ title="提示"
                 this.dialogVisible = bool;
                 this.nowId = id;
             },
-            logOutEvent(id){
+            logOutEvent(){
                 var self = this;
                 if(this.nowId !=""){
-                    this.common.deleteEventToken(this.api.host+this.api.user+"/"+id,{},this.userinfo,function(data){
+                    this.common.deleteEventToken(this.api.host+this.api.user+"/"+this.nowId,{},this.userinfo,function(data){
                         alert("注销成功");
                         this.nowId = "";
                         self.userList();

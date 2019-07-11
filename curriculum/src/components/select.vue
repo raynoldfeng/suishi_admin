@@ -9,8 +9,8 @@
             </div>
             <ul id="selectBox" class="option-menu">
                 <li v-for="(data,index) in data.selectMenu" v-text="data.answerText"   class="answer-css animated" :class="{yes:data.isAnswer == '1' ,no:data.isAnswer == '0'}"></li>
-                <li class="explain" v-text="data.imgTextNote">
-                根据皮亚诺的五条公理用非形式化的方法叙述如下: ①1是自然数; ②每一个确定的自然数 a,都有一个确定的后继数a'
+                <li class="explain" v-html="Trim(data.imgTextNote)">
+
                 </li>
            <!--     <li class="answer-css no animated">
                     不是
@@ -102,6 +102,11 @@
                 $(this).addClass("false-css");
                 $(this).addClass("shake")
             });
+        },
+        methods:{
+            Trim(str) {
+                return str.replace(/\n|\r\n/g,"<br/>");
+            }
         }
     }
 </script>

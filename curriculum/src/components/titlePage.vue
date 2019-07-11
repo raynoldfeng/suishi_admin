@@ -7,10 +7,10 @@
             <div class="tp-logo-main">
                 <img :src="data.authorImg">
             </div>
-            <p class="tp-info" v-text="data.authorInfo">
+            <p class="tp-info" v-html="data.authorInfo">
 
             </p>
-            <p class="tp-info" v-text="data.courseInfo">
+            <p class="tp-info" v-html="Trim(data.courseInfo)">
 
             </p>
             <div class="tp-start-btn" @click="startEvent">
@@ -32,7 +32,10 @@
         methods:{
             startEvent(){
                 this.$emit("isStart",true);
-            }
+            },
+            Trim(str) {
+                return str.replace(/\n|\r\n/g,"<br/>");
+            },
         },
         mounted:function(){
             this.marginTop = "-"+document.getElementById("titlePage").clientHeight/2 + "px";

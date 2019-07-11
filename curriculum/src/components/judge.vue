@@ -17,7 +17,7 @@
             </div>
 
         </div>
-        <div id="nbox" class="animated" v-text="data.judgeText"></div>
+        <div id="nbox" class="animated" v-html="Trim(data.judgeText)"></div>
     </div>
 </template>
 <script>
@@ -33,6 +33,11 @@ export default {
         var oBar = document.getElementById("nbox");
         // this.drop.phoneStartDrag(oBar, oBox ,"#nbox");
         console.log(this.drops.phoneStartDrag(oBar, oBox ,"#nbox"))
+    },
+    methods:{
+        Trim(str) {
+            return str.replace(/\n|\r\n/g,"<br/>");
+        }
     }
 }
 </script>

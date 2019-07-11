@@ -11,8 +11,8 @@
                     <div class="sm-q-box">
                         <ul class="sm-option-menu" id="questionLeft">
                             <li v-for="(data,index) in data.selectMoreMenuL" v-text="data.answerText"   class="answer-css animated" :class="{yes:data.isAnswer == '1' ,no:data.isAnswer == '0'}"></li>
-                            <li class="explain" v-text="data.selectTextNoteL">
-                            根据皮亚诺的五条公理用非形式化的方法叙述如下: ①1是自然数; ②每一个确定的自然数 a,都有一个确定的后继数a'
+                            <li class="explain" v-html="Trim(data.selectTextNoteL)">
+
                             </li>
                     <!--        <li class="answer-css no animated">
                                 不是
@@ -35,8 +35,8 @@
                     <div class="sm-q-box">
                     <ul class="sm-option-menu" id="questionRight">
                         <li v-for="(data,index) in data.selectMoreMenuR" v-text="data.answerText"   class="answer-css animated" :class="{yes:data.isAnswer == '1' ,no:data.isAnswer == '0'}"></li>
-                        <li class="explain" v-text="data.selectTextNoteR">
-                        根据皮亚诺的五条公理用非形式化的方法叙述如下: ①1是自然数; ②每一个确定的自然数 a,都有一个确定的后继数a'
+                        <li class="explain" v-html="Trim(data.selectTextNoteR)">
+
                         </li>
 
                     </ul>
@@ -59,6 +59,9 @@ import $ from 'jquery'
             }
         },
         methods:{
+            Trim(str) {
+                return str.replace(/\n|\r\n/g,"<br/>");
+            },
             questionPosition(){
                 for(var i = 0 ; i<$("#questionLeft li").length;i++){
 

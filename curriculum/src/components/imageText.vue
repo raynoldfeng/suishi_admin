@@ -6,7 +6,7 @@
                 <img :src="data.imgTextImg" />
             </div>
             <ul class="it-text-menu">
-                <li v-for="textData in data.imgTextMenu" v-text="textData">
+                <li v-for="textData in data.imgTextMenu" v-html="Trim(textData)">
                 </li>
 
             </ul>
@@ -18,9 +18,14 @@ export default
 {
     props:{
         data:""
+    },
+    methods:{
+        Trim(str) {
+            return str.replace(/\n|\r\n/g,"<br/>");
+        }
     }
-
 }
+
  </script>
  <style>
     .it-title{

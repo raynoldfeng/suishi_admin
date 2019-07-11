@@ -6,8 +6,8 @@
         mounted:function(){
          //   location.reload();
             if(this.$route.query.isr == "1"){
-                this.$router.push({path:"/home",query:{isr:"0"}});
-                location.reload();
+             //   this.$router.push({path:"/home",query:{isr:"0"}});
+             //   location.reload();
             }
 
         }

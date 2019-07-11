@@ -102,7 +102,7 @@ title="提示"
                 if(this.nowId !=""){
                     this.common.deleteEventToken(this.api.host+this.api.user+"/"+this.nowId,{},this.userinfo,function(data){
                         alert("注销成功");
-                        this.nowId = "";
+                        self.nowId = "";
                         self.userList();
                     })
                 }

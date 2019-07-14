@@ -5,123 +5,9 @@
     <title>Swiper demo</title>
     <!-- Link Swiper's CSS -->
     <link rel="stylesheet" href="css/swiper.css">
+    <link rel="stylesheet" href="css/style.css">
 
-    <!-- Demo styles -->
-    <style>
-        body {
-            min-width: 1200px;
-            background: #eee;
-            font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
-            font-size: 14px;
-            color:#000;
-            margin: 0;
-            padding: 0;
-            background: url("./img/page1.jpg") no-repeat 0 0;
-            background-size: 100% ;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-        }
-        .swiper-wrapper{
-            transition-delay:.3s;
-        }
-        .swiper-container {
-            min-width: 1200px;
-            width: 100%;
-            height: 100%;
-            position: fixed;
-            margin: 0 auto;
-        }
-        .swiper-slide {
-            text-align: center;
-            font-size: 18px;
-            background: #fff;
 
-            /* Center slide text vertically */
-            display: -webkit-box;
-            display: -ms-flexbox;
-            display: -webkit-flex;
-            display: flex;
-            -webkit-box-pack: center;
-            -ms-flex-pack: center;
-            -webkit-justify-content: center;
-            justify-content: center;
-            -webkit-box-align: center;
-            -ms-flex-align: center;
-            -webkit-align-items: center;
-            align-items: center;
-        }
-        .swiper-slide:nth-child(2){
-            background:#3183ff;
-            color:#fff;}
-        .swiper-slide p{
-            transform:translateX(-200px);
-            opacity:0;
-            transition:all .4s;}
-        .ani-slide p{
-            transform:translateX(0);
-            opacity:1;
-        }
-
-        #phoneBox{
-            width: 300px;
-            height: 500px;
-            overflow: hidden;
-            color: #000000;
-
-        }
-        #mainBox{
-            background: transparent;
-        }
-        #page1{
-            background: url("./img/page1u.png") no-repeat 0 100%;
-            background-size:100%;
-        }
-        #logo{
-            width: 20%;
-            display: block;
-            margin: 5% 0 0 10%;
-        }
-        #p1-title{
-           width: 40%;
-            display: block;
-            margin: 0 0 0 10%;
-        }
-        #homeMenuBox{
-            background: transparent;
-        }
-        .page-box{
-            width: 100%;
-            height: 100%;
-        }
-        #qr{
-            float: left;
-            width: 10%;
-        }
-        #qr img{
-            width: 100%;
-        }
-        #androidBtn,#iosBtn{
-            width: 20%;
-            margin-left:12% ;
-
-        }
-        #iosBtn{
-            margin-top: 1%;
-        }
-        #androidBtn img , #iosBtn img{
-            width: 100%;
-        }
-        #p1-title,.download-box{
-            margin: 1% 0 0 10%;
-        }
-        .swiper-slidebg{
-
-            width: 100%;
-        }
-    </style>
 </head>
 <body>
 <!-- Swiper -->
@@ -145,8 +31,21 @@
             </div>
         </div>
         <div class="swiper-slide">
-            <div class="swiper-wrapper" id="homeMenuBox">
-                <img class="swiper-slidebg" src="img/page2.jpg">
+            <div class="swiper-wrapper">
+                <div class="page-box" id="pageBox2">
+                    <div class="title-box">
+                        <img src="./img/page2-title.jpg">
+                        <p>管理职能是职业生涯中的必经之路，让自己每天随拾学一课<br/>
+                            掌握管理者必不可少的知识</p>
+                    </div>
+
+
+
+                <img class="pge2-i" src="img/pge2-i.png">
+
+
+
+                </div>
             </div>
             <!--<div  id="phoneBox">-->
                 <!--<div class="swiper-wrapper">-->
@@ -155,23 +54,50 @@
                     <!--<div class="swiper-slide">Slide 3</div>-->
                 <!--</div>-->
             <!--</div>-->
+        </div>
+        <div class="swiper-slide">
+            <div class="swiper-wrapper" >
+                <div class="page-box" id="pageBox3">
+                    <div class="title-box">
+                        <img src="./img/page3-title.jpg">
+                        <p>好友常在身边，与好友一起分享美好</p>
+                    </div>
+                    <img class="page3-phone" src="./img/page3-phone.png">
+                    <img class="page3-p1" src="./img/page3-p1.png">
+                    <img class="page3-p2" src="./img/page3-p2.png">
+                    <img class="page3-p3" src="./img/page3-p3.png">
+                </div>
+            </div>
+        </div>
+        <div class="swiper-slide">
+            <div class="swiper-wrapper" >
+                <div class="page-box" id="pageBox4">
+                    <div class="title-box">
+                        <img src="./img/page4-title.png">
+                        <p>好友常在身边，与好友一起分享美好</p>
+                    </div>
+                    <div class="page4-lbox">
+                        <img src="img/page4-l.png">
+                        <img class="page4-l1" src="img/page4-l1.png">
+                        <img class="page4-l2" src="img/page4-l2.png">
+                    </div>
+                    <img class="page4-phone" src="img/page4-phone.png">
+                </div>
 
+            </div>
+        </div>
+        <div class="swiper-slide">
+            <div class="swiper-wrapper">
+                <div class="page-box" id="pageBox5">
+                    <div class="title-box">
+                        <img src="./img/page5-title.jpg">
+                        <div class="pageBox5-text">“随拾”是一个面向精英用户的职业能力拓展平台。用户在这里可以学习到世界顶尖商学院的授权课程；通过我们提供的专业测试以及教练服务，
+                            客观全面的了解自己，达到“知行合一”；也可以组队参加我们组织的商业模拟经营活动以及各种兴趣圈子，认识更多经过筛选的精英伙伴，拓展人脉资源。</div>
+                    </div>
 
-        </div>
-        <div class="swiper-slide">
-            <div class="swiper-wrapper" id="homeMenuBox">
-                <img class="swiper-slidebg" src="img/page3.jpg">
+                </div>
             </div>
-        </div>
-        <div class="swiper-slide">
-            <div class="swiper-wrapper" id="homeMenuBox">
-                <img class="swiper-slidebg" src="img/page4.jpg">
-            </div>
-        </div>
-        <div class="swiper-slide">
-            <div class="swiper-wrapper" id="homeMenuBox">
-                <img class="swiper-slidebg" src="img/page5.jpg">
-            </div>
+
         </div>
         <!--<div class="swiper-slide"><p>Slide 6</p></div>-->
     </div>
@@ -183,12 +109,10 @@
 
 <!-- Initialize Swiper -->
 <script>
-    var ff = new Swiper('#phoneBox',{
-        autoplay: {
-            delay: 2000,
-            disableOnInteraction: false,
-        }
-    });
+
+
+
+
 
 
     var swiper = new Swiper('#mainBox',{

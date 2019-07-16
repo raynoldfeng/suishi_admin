@@ -165,7 +165,6 @@ import lastPage from "../components/lastPage.vue"
             window.setCurrentPage = function(page){
                 window.nowPage = page;
                 if(page > 0){
-                    self.$refs.pages.swiper.slideTo(page-1);
                     self.hasSave = true;
                 }
             };

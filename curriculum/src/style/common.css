@@ -23,3 +23,6 @@ ul li{
 #QuestBox{
     text-align: center;
 }
+.QuestMain1{
+    overflow: auto;
+}

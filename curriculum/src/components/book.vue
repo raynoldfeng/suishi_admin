@@ -35,6 +35,7 @@
                 <v-judge  v-else-if="data.testType == '3' && data.displayType == 'j1'" :data="data"></v-judge>
                 <v-select v-else-if="data.testType == '4' && data.displayType == 's1'" :data="data"></v-select>
                 <v-selectmore  v-else-if="data.testType == '5' && data.displayType == 'sm1'" :data="data"></v-selectmore>
+                <v-selectAllJType   v-else-if="data.testType == '6' && data.displayType == 'sm2'" :data="data"></v-selectAllJType>
             </swiper-slide>
             <swiper-slide :key="bookData.length">
                 <v-lastPage></v-lastPage>
@@ -86,6 +87,7 @@
  import titlePage from "../components/titlePage.vue"
  import selectmore from "../components/selectmore.vue"
 import lastPage from "../components/lastPage.vue"
+ import selectAllJType from "../components/selectAllJType.vue"
  import $ from 'jquery'
     export default{
         data(){
@@ -134,7 +136,8 @@ import lastPage from "../components/lastPage.vue"
           'v-imageChange':imageChange,
           'v-titlePage':titlePage,
          'v-selectmore':selectmore,
-             'v-lastPage':lastPage
+          'v-lastPage':lastPage,
+          "v-selectAllJType":selectAllJType
      },
         mounted:function(){
             var self = this;

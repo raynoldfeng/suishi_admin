@@ -27,7 +27,8 @@
             <input id="imgtext-selector" type="file" >
                 <input id="file-selector3" multiple="multiple" type="file">
                     <input id="select-selector" type="file" >
-                        <input id="selectR-selector" type="file" >
+                    <input id="selectAllJ-selector" type="file" >
+                    <input id="selectR-selector" type="file" >
                             <div  v-if=" dataMenu.length > 0">
                                 <div id="testMedolBox" :class="{big_size:isbig}" @click="bigEvent">
                                     <img  v-if="nowData.testType == 0 && nowData.displayType == 't1'" src="./../image/01.png" />
@@ -98,8 +99,16 @@
                         :key="item.value"
                         :label="item.label"
                         :value="item.value">
-                    </el-option>
-                </el-select>
+                        </el-option>
+                    </el-select>
+                    <el-select v-show="nowData.testType == 6" class="select-css" v-model="nowData.displayType" placeholder="类型">
+                        <el-option
+                                v-for="item in selectAllJTypeMenu"
+                        :key="item.value"
+                        :label="item.label"
+                        :value="item.value">
+                        </el-option>
+                    </el-select>
                         </div>
                     </div>
 
@@ -268,65 +277,64 @@ v-model="nowData.imgTextNote">
 
 
 <div v-if="nowData.testType == 5 && nowData.displayType == 'sm1'">
-<div class="view_main" >
-    <span>问题:</span>
-    <el-input class="input_type" v-model="nowData.selectMoreTitle"></el-input>
-</div>
-<div class="view_main" >
-    <span class="type_title">问题描述:</span>
-    <el-input
+    <div class="view_main" >
+        <span>问题:</span>
+        <el-input class="input_type" v-model="nowData.selectMoreTitle"></el-input>
+    </div>
+    <div class="view_main" >
+        <span class="type_title">问题描述:</span>
+        <el-input
             class="textarea_type"
             type="textarea"
-    :autosize="{ minRows: 2, maxRows: 4}"
-    placeholder="请输入内容"
-    v-model="nowData.selectMoreInfo">
-</el-input>
-</div>
+        :autosize="{ minRows: 2, maxRows: 4}"
+        placeholder="请输入内容"
+        v-model="nowData.selectMoreInfo">
+        </el-input>
+    </div>
         <!--<div>-->
         <!--<span>文本1</span>-->
         <!--<el-input class="input_type" v-
 model="nowData.selectTitle"></el-input>-->
         <!--</div>-->
-<div class="view_main" >
-<div class="type_title">左侧图片:</div>
-
-<div class="avatar-uploader" @click="uploadClick('selectL-selector')">
-<img v-if="nowData.selectMoreImgL" :src="nowData.selectMoreImgL" class="avatar">
-<i v-else class="el-icon-plus avatar-uploader-icon"></i>
-</div>
-<i class="el-icon-close" @click="deleteImg('selectMoreImgL')"></i>
-
+    <div class="view_main" >
+        <div class="type_title">左侧图片:</div>
+        <div class="avatar-uploader" @click="uploadClick('selectL-selector')">
+            <img v-if="nowData.selectMoreImgL" :src="nowData.selectMoreImgL" class="avatar">
+            <i v-else class="el-icon-plus avatar-uploader-icon"></i>
         </div>
-<div class="view_main" >
-<span>左侧选项:</span><el-button @click="selectMoreAddEvent('l')">添加选项</el-button>
-<div class="">
+        <i class="el-icon-close" @click="deleteImg('selectMoreImgL')"></i>
 
-<ul>
-    <li v-for="(data,index) in nowData.selectMoreMenuL" class="view_main">
-        <span>选项{{index+1}}</span>
-        <el-input class="input_type" v-model="data.answerText"></el-input>
-        <el-select class="select-css" v-model="data.isAnswer"
-                   placeholder="是否正确">
-            <el-option
-                    v-for="item in judgeAnswerMenu"
-            :key="item.value"
-            :label="item.label"
-            :value="item.value">
-        </el-option>
-    </el-select>
-    <span @click="selectMoreDeleteEvent('l',index)">删除</span>
-</li>
-        </ul>
-<div class="view_main">
-<span class="type_title">答案注释</span>
-<el-input
-        class="textarea_type"
-        type="textarea"
-:autosize="{ minRows: 2, maxRows: 4}"
-placeholder="请输入内容"
-v-model="nowData.selectTextNoteL">
-</el-input>
-        </div>
+       </div>
+    <div class="view_main" >
+        <span>左侧选项:</span><el-button @click="selectMoreAddEvent('l')">添加选项</el-button>
+        <div class="">
+
+        <ul>
+            <li v-for="(data,index) in nowData.selectMoreMenuL" class="view_main">
+                <span>选项{{index+1}}</span>
+                <el-input class="input_type" v-model="data.answerText"></el-input>
+                <el-select class="select-css" v-model="data.isAnswer"
+                           placeholder="是否正确">
+                    <el-option
+                            v-for="item in judgeAnswerMenu"
+                    :key="item.value"
+                    :label="item.label"
+                    :value="item.value">
+                </el-option>
+            </el-select>
+            <span @click="selectMoreDeleteEvent('l',index)">删除</span>
+        </li>
+                </ul>
+        <div class="view_main">
+        <span class="type_title">答案注释</span>
+        <el-input
+                class="textarea_type"
+                type="textarea"
+        :autosize="{ minRows: 2, maxRows: 4}"
+        placeholder="请输入内容"
+        v-model="nowData.selectTextNoteL">
+        </el-input>
+                </div>
         </div>
         </div>
         <!--<div>-->
@@ -374,7 +382,60 @@ v-model="nowData.selectTextNoteR">
         </div>
         </div>
         </div>
+        <div v-if="nowData.testType == 6 && nowData.displayType == 'sm2'">
 
+            <div class="view_main">
+                <span>题目:</span>
+                <el-input class="input_type" v-model="nowData.selectAllJTitle"></el-input>
+            </div>
+            <div class="view_main">
+                <span>副标题:</span>
+                <el-input class="input_type" v-model="nowData.selectAllJSubtitleTitle"></el-input>
+            </div>
+            <div class="view_main">
+                <div class="type_title">背景图片:</div>
+
+                <div class="avatar-uploader" @click="uploadClick('selectAllJ-selector')">
+                    <img v-if="nowData.selectAllJImg" :src="nowData.selectAllJImg" class="avatar">
+                    <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+                </div>
+                <i class="el-icon-close" @click="deleteImg('selectAllJImg')"></i>
+            </div>
+            <div class="view_main">
+                <span>答案选项</span>
+                <el-button @click="selectAllJAddEvent">添加选项</el-button>
+                <div class="">
+                    <ul>
+                        <li v-for="(data,index) in nowData.selectAllJMenu" class="view_main" >
+                            <span>选项{{index+1}}</span>
+                            <el-input class="input_type" v-model="nowData.selectAllJMenu[index].answerText"></el-input>
+                            <el-select v-model="data.isAnswer" class="select-css" placeholder="是否正确">
+                                <el-option
+                                        v-for="item in judgeAnswerMenu"
+                                :key="item.value"
+                                :label="item.label"
+                                :value="item.value">
+                            </el-option>
+                        </el-select>
+                        <span @click="selectAllJDeleteEvent(index)">删除</span>
+                    <div class="view_main">
+                        <span class="type_title">答案解释:</span>
+                        <el-input
+                                class="textarea_type"
+                                type="textarea"
+                        :autosize="{ minRows: 2, maxRows: 4}"
+                        placeholder="请输入内容"
+                        v-model="data.selectTextNote">
+                    </el-input>
+                </div>
+
+                        </li>
+                     </ul>
+                  </div>
+                </div>
+
+
+        </div>
         </el-main>
         </el-container>
         </el-container>
@@ -430,6 +491,16 @@ v-model="nowData.selectTextNoteR">
  * isAnswer 是不是正确 (selectMoreMenu内)
  * selectTextNoteL   左侧答案注释
  * selectTextNoteR   右侧答案注释
+ *
+ * 6
+ * selectAllJTitle 选项带解释选择题目
+ * selectAllJSubtitleTitle 选项带解释选择副标题
+ * selectAllJImg 选项带解释选择背景图片
+ * selectAllJMenu 选项
+ * answerText 答案选项 (selectAllJMenu内)
+ * isAnswer 是不是正确 (selectAllJMenu内)
+ * selectTextNote 解释 (selectAllJMenu内)
+ *
  */
 export default {
     data(){
@@ -455,6 +526,8 @@ export default {
                     label: "选择"},
                 {value: "5",
                     label: "多题选泽"},
+                {value:"6",
+                label:"选择(带解释)"}
             ],
             titleInfoTypeMenu:[
                 {
@@ -492,6 +565,12 @@ export default {
                     label:"点击"
                 }
             ],
+            selectAllJTypeMenu:[
+                {
+                    value:"sm2",
+                    label:"点击"
+                }
+            ],
             dataMenu:[ ],
             nowData:{
                 page:0,
@@ -503,15 +582,24 @@ export default {
                 courseInfo:"",
                 authorInfo:"",
 
+
+
                 imgTextTitle:"",
                 imgTextImg:"",
                 imgTextMenu:[""],
 
+
+
                 imageChange:[],
+
+
 
                 judgeTitle:"",
                 judgeText:"",
                 judgeAnswer:"",
+
+
+
 
                 selectTitle:"",
                 selectImg:"",
@@ -519,6 +607,9 @@ export default {
                     {answerText:"",isAnswer:"0"}
                 ],
                 imgTextNote:"",
+
+
+
 
                 selectMoreTitle:"",
                 selectMoreInfo:"",
@@ -531,7 +622,16 @@ export default {
                     {answerText:"",isAnswer:"0"}
                 ],
                 selectTextNoteL:"",
-                selectTextNoteR:""
+                selectTextNoteR:"",
+
+
+
+                selectAllJTitle:"",
+                selectAllJSubtitleTitle:"",
+                selectAllJImg:"",
+                selectAllJMenu:[
+                    {answerText:"",isAnswer:"0",selectTextNote:""}
+                ]
             },
             copyData:{
                 page:0,
@@ -543,15 +643,23 @@ export default {
                 courseInfo:"",
                 authorInfo:"",
 
+
+
                 imgTextTitle:"",
                 imgTextImg:"",
                 imgTextMenu:[""],
 
+
+
                 imageChange:[],
+
+
 
                 judgeTitle:"",
                 judgeText:"",
                 judgeAnswer:"",
+
+
 
                 selectTitle:"",
                 selectImg:"",
@@ -559,6 +667,8 @@ export default {
                     {answerText:"",isAnswer:"0"}
                 ],
                 imgTextNote:"",
+
+
 
                 selectMoreTitle:"",
                 selectMoreInfo:"",
@@ -571,7 +681,17 @@ export default {
                     {answerText:"",isAnswer:"0"}
                 ],
                 selectTextNoteL:"",
-                selectTextNoteR:""
+                selectTextNoteR:"",
+
+
+
+                selectAllJTitle:"",
+                selectAllJSubtitleTitle:"",
+                selectAllJImg:"",
+                selectAllJMenu:[
+                    {answerText:"",isAnswer:"0",selectTextNote:""}
+                ]
+
             },
             SecretId:"",
             SecretKey:"",
@@ -604,15 +724,23 @@ export default {
                 courseInfo:"",
                 authorInfo:"",
 
+
+
                 imgTextTitle:"",
                 imgTextImg:"",
                 imgTextMenu:[""],
 
+
+
                 imageChange:[],
+
+
 
                 judgeTitle:"",
                 judgeText:"",
                 judgeAnswer:"",
+
+
 
                 selectTitle:"",
                 selectImg:"",
@@ -620,6 +748,9 @@ export default {
                     {answerText:"",isAnswer:"0"}
                 ],
                 imgTextNote:"",
+
+
+
 
                 selectMoreTitle:"",
                 selectMoreInfo:"",
@@ -632,7 +763,16 @@ export default {
                     {answerText:"",isAnswer:"0"}
                 ],
                 selectTextNoteL:"",
-                selectTextNoteR:""
+                selectTextNoteR:"",
+
+
+
+                selectAllJTitle:"",
+                selectAllJSubtitleTitle:"",
+                selectAllJImg:"",
+                selectAllJMenu:[
+                    {answerText:"",isAnswer:"0",selectTextNote:""}
+                ]
             };
             //    this.nowData = this.copyData;
             console.log(this.nowData)
@@ -783,6 +923,17 @@ export default {
                     }
                 }
             };
+            document.getElementById('selectAllJ-selector').onchange = function () {
+                var file = this.files[0];
+                if (!file) return;
+                if(self.SecretId != "" && self.SecretKey !="" ){
+                    if(file){
+                        self.cosjs(self.SecretId,self.SecretKey,file,self.XCosSecurityToken,self.expiredTime,function(img){
+                            self.nowData.selectAllJImg = img;
+                        });
+                    }
+                }
+            };
 
 
             document.getElementById('selectR-selector').onchange = function () {
@@ -847,7 +998,17 @@ export default {
         },
         deleteImg(type){
             this.nowData[type] = "";
-        }
+        },
+        /**
+         * 选项带解释 选择
+         */
+        selectAllJAddEvent(){
+            var newData =  {answerText:"",isAnswer:"0",selectTextNote:""};
+            this.nowData.selectAllJMenu.push(newData);
+        },
+        selectAllJDeleteEvent(index){
+            this.nowData.selectAllJMenu.splice(index,1);
+        },
     },
     mounted:function(){
         this.userinfo = {"token":this.common.cookie.get("token"),"user_id":this.common.cookie.get("user_id")};

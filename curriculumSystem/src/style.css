@@ -18,7 +18,9 @@ ul li {
 .input_type{
     width:200px;
 }
-#file-selector,#file-selector2,#file-selector3,#img-selector,#video-selector,#imgtext-selector,#select-selector,#selectL-selector,#selectR-selector{
+#file-selector,#file-selector2,#file-selector3,#img-selector,
+#video-selector,#imgtext-selector,#select-selector,#selectL-selector,
+#selectR-selector,#selectAllJ-selector{
     display: none;
 }
 .avatar-uploader{

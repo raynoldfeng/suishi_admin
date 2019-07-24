@@ -28,6 +28,8 @@
                 <input id="file-selector3" multiple="multiple" type="file">
                     <input id="select-selector" type="file" >
                     <input id="selectAllJ-selector" type="file" >
+                        <input id="selectImgJ-selector" type="file" >
+                            <input id="selectLt-selector" type="file" >
                     <input id="selectR-selector" type="file" >
                             <div  v-if=" dataMenu.length > 0">
                                 <div id="testMedolBox" :class="{big_size:isbig}" @click="bigEvent">
@@ -104,6 +106,22 @@
                     <el-select v-show="nowData.testType == 6" class="select-css" v-model="nowData.displayType" placeholder="类型">
                         <el-option
                                 v-for="item in selectAllJTypeMenu"
+                        :key="item.value"
+                        :label="item.label"
+                        :value="item.value">
+                        </el-option>
+                    </el-select>
+                    <el-select v-show="nowData.testType == 7" class="select-css" v-model="nowData.displayType" placeholder="类型">
+                        <el-option
+                                v-for="item in imgJumpTypeMenu"
+                        :key="item.value"
+                        :label="item.label"
+                        :value="item.value">
+                        </el-option>
+                    </el-select>
+                    <el-select v-show="nowData.testType == 8" class="select-css" v-model="nowData.displayType" placeholder="类型">
+                        <el-option
+                                v-for="item in listTypeMenu"
                         :key="item.value"
                         :label="item.label"
                         :value="item.value">
@@ -399,7 +417,7 @@ v-model="nowData.selectTextNoteR">
                     <img v-if="nowData.selectAllJImg" :src="nowData.selectAllJImg" class="avatar">
                     <i v-else class="el-icon-plus avatar-uploader-icon"></i>
                 </div>
-                <i class="el-icon-close" @click="deleteImg('selectAllJImg')"></i>
+                <!--<i class="el-icon-close" @click="deleteImg('selectAllJImg')"></i>-->
             </div>
             <div class="view_main">
                 <span>答案选项</span>
@@ -436,6 +454,68 @@ v-model="nowData.selectTextNoteR">
 
 
         </div>
+
+        <div v-if="nowData.testType == 7 && nowData.displayType == 'imt'">
+            <div class="view_main">
+                <span>标题:</span>
+                <el-input class="input_type" v-model="nowData.ImgJumpTypeTitle"></el-input>
+            </div>
+            <div class="view_main">
+                <span>介绍文字:</span>
+                <el-input
+                        class="textarea_type"
+                        type="textarea"
+                :autosize="{ minRows: 2, maxRows: 4}"
+                placeholder="请输入内容"
+                v-model="nowData.ImgJumpTypeInfo">
+            </div>
+            <div class="view_main">
+                <div class="type_title">背景图片:</div>
+
+                <div class="avatar-uploader" @click="uploadClick('selectImgJ-selector')">
+                    <img v-if="nowData.ImgJumpTypeBg" :src="nowData.ImgJumpTypeBg" class="avatar">
+                    <!--<i v-else class="el-icon-plus avatar-uploader-icon"></i>-->
+                </div>
+                <i class="el-icon-close" @click="deleteImg('ImgJumpTypeBg')"></i>
+            </div>
+            <div class="view_main">
+                <span>跳转按钮文本:</span>
+                <el-input class="input_type" v-model="nowData.ImgJumpBtnText"></el-input>
+            </div>
+        </div>
+
+        <div v-if="nowData.testType == 8 && nowData.displayType == 'lt'">
+            <div class="view_main">
+                <span>标题:</span>
+                <el-input class="input_type" v-model="nowData.listTypeTitle"></el-input>
+            </div>
+            <div class="view_main">
+                <div class="type_title">背景图片:</div>
+
+                <div class="avatar-uploader" @click="uploadClick('selectLt-selector')">
+                    <img v-if="nowData.listTypeImg" :src="nowData.listTypeImg" class="avatar">
+                <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+                </div>
+                <!--<i class="el-icon-close" @click="deleteImg('listTypeImg')"></i>-->
+            </div>
+            <div>
+            <el-button @click="selectListTypeAddEvent">添加段落</el-button>
+                <ul>
+                    <li v-for="(data,index) in nowData.listTypeMenu" class="view_main" >
+                        <el-input
+                                class="textarea_type"
+                                type="textarea"
+                        :autosize="{ minRows: 2, maxRows: 4}"
+                        placeholder="请输入内容"
+                        v-model="data.listTypeText">
+                        <span @click="selectListTypeDeleteEvent(index)">删除</span>
+                    </li>
+                </ul>
+
+            </div>
+
+        </div>
+
         </el-main>
         </el-container>
         </el-container>
@@ -501,6 +581,17 @@ v-model="nowData.selectTextNoteR">
  * isAnswer 是不是正确 (selectAllJMenu内)
  * selectTextNote 解释 (selectAllJMenu内)
  *
+ * 7
+ * ImgJumpTypeTitle 图片类型标题
+ * ImgJumpTypeInfo  图片类型介绍文字
+ * ImgJumpTypeBg  图片类型背景
+ * ImgJumpBtnText 图片类型跳转按钮文本
+ *
+ * 8
+ * listTypeTitle 列表类型标题
+ * listTypeImg 列表类型图片
+ * listTypeMenu 列表类型段落集合
+ * listTypeText 列表类型段落(listTypeMenu内)
  */
 export default {
     data(){
@@ -527,7 +618,11 @@ export default {
                 {value: "5",
                     label: "多题选泽"},
                 {value:"6",
-                label:"选择(带解释)"}
+                label:"选择(带解释)"},
+                {value:"7",
+                label:"图片形式"},
+                {value:"8",
+                    label:"列表类型"}
             ],
             titleInfoTypeMenu:[
                 {
@@ -568,6 +663,18 @@ export default {
             selectAllJTypeMenu:[
                 {
                     value:"sm2",
+                    label:"点击"
+                }
+            ],
+            imgJumpTypeMenu:[
+                {
+                    value:"imt",
+                    label:"跳转"
+                }
+            ],
+            listTypeMenu:[
+                {
+                    value:"lt",
                     label:"点击"
                 }
             ],
@@ -631,6 +738,19 @@ export default {
                 selectAllJImg:"",
                 selectAllJMenu:[
                     {answerText:"",isAnswer:"0",selectTextNote:""}
+                ],
+
+
+                ImgJumpTypeTitle:"",
+                ImgJumpTypeInfo :"",
+                ImgJumpTypeBg:"",
+                ImgJumpBtnText:"",
+
+
+                listTypeTitle:"",
+                listTypeImg:"",
+                listTypeMenu:[
+                    {listTypeText:""}
                 ]
             },
             copyData:{
@@ -690,8 +810,20 @@ export default {
                 selectAllJImg:"",
                 selectAllJMenu:[
                     {answerText:"",isAnswer:"0",selectTextNote:""}
-                ]
+                ],
 
+
+                ImgJumpTypeTitle:"",
+                ImgJumpTypeInfo :"",
+                ImgJumpTypeBg:"",
+                ImgJumpBtnText:"",
+
+
+                listTypeTitle:"",
+                listTypeImg:"",
+                listTypeMenu:[
+                    {listTypeText:""}
+                ]
             },
             SecretId:"",
             SecretKey:"",
@@ -772,13 +904,25 @@ export default {
                 selectAllJImg:"",
                 selectAllJMenu:[
                     {answerText:"",isAnswer:"0",selectTextNote:""}
+                ],
+
+
+                ImgJumpTypeTitle:"",
+                ImgJumpTypeInfo :"",
+                ImgJumpTypeBg:"",
+                ImgJumpBtnText:"",
+
+
+                listTypeTitle:"",
+                listTypeImg:"",
+                listTypeMenu:[
+                    {listTypeText:""}
                 ]
             };
             //    this.nowData = this.copyData;
             console.log(this.nowData)
             this.nowData.page = this.dataMenu.length;
             console.log(this.dataMenu)
-            console.log(this.dataMenu.length)
             this.dataMenu.push(this.nowData);
             console.log(this.dataMenu.length)
             this.nowpage = this.dataMenu.length-1;
@@ -876,8 +1020,35 @@ export default {
 
             };
 
+            document.getElementById('selectImgJ-selector').onchange = function () {
+                var file = this.files[0];
+                if (!file) return;
+                //                console.log(file.name);
+                //                console.log(file)
+                if(self.SecretId != "" && self.SecretKey !="" ){
+                    if(file){
+                        self.cosjs(self.SecretId,self.SecretKey,file,self.XCosSecurityToken,self.expiredTime,function(img){
+                            self.nowData.ImgJumpTypeInfo = img;
+                        });
+                    }
+                }
 
+            };
 
+            document.getElementById('selectLt-selector').onchange = function () {
+                var file = this.files[0];
+                if (!file) return;
+                //                console.log(file.name);
+                //                console.log(file)
+                if(self.SecretId != "" && self.SecretKey !="" ){
+                    if(file){
+                        self.cosjs(self.SecretId,self.SecretKey,file,self.XCosSecurityToken,self.expiredTime,function(img){
+                            self.nowData.listTypeImg = img;
+                        });
+                    }
+                }
+
+            };
             document.getElementById('file-selector3').onchange = function () {
                 var files = this.files;
                 //                console.log(file.name);
@@ -1009,6 +1180,16 @@ export default {
         selectAllJDeleteEvent(index){
             this.nowData.selectAllJMenu.splice(index,1);
         },
+        /**
+         * 列表类型
+         */
+        selectListTypeAddEvent(){
+            var newData = {listTypeText:""};
+            this.nowData.listTypeMenu.push(newData);
+        },
+        selectListTypeDeleteEvent(index){
+            this.nowData.listTypeMenu.splice(index,1);
+        }
     },
     mounted:function(){
         this.userinfo = {"token":this.common.cookie.get("token"),"user_id":this.common.cookie.get("user_id")};

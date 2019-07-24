@@ -36,6 +36,7 @@
                 <v-select v-else-if="data.testType == '4' && data.displayType == 's1'" :data="data"></v-select>
                 <v-selectmore  v-else-if="data.testType == '5' && data.displayType == 'sm1'" :data="data"></v-selectmore>
                 <v-selectAllJType   v-else-if="data.testType == '6' && data.displayType == 'sm2'" :data="data"></v-selectAllJType>
+                <v-imgJumpType v-else-if="data.testType == '7' && data.displayType == 'imt'" :data="data" :page="index"  v-on:isJump = "isJumpEvent"></v-imgJumpType>
             </swiper-slide>
             <swiper-slide :key="bookData.length">
                 <v-lastPage></v-lastPage>
@@ -88,6 +89,7 @@
  import selectmore from "../components/selectmore.vue"
 import lastPage from "../components/lastPage.vue"
  import selectAllJType from "../components/selectAllJType.vue"
+ import imgJumpType from "../components/imgJumpType.vue"
  import $ from 'jquery'
     export default{
         data(){
@@ -137,7 +139,8 @@ import lastPage from "../components/lastPage.vue"
           'v-titlePage':titlePage,
          'v-selectmore':selectmore,
           'v-lastPage':lastPage,
-          "v-selectAllJType":selectAllJType
+          "v-selectAllJType":selectAllJType,
+           'v-imgJumpType':imgJumpType
      },
         mounted:function(){
             var self = this;
@@ -269,6 +272,12 @@ import lastPage from "../components/lastPage.vue"
                     this.nowPage = 1;
                     window.nowPage = 1;
                 }
+            },
+            isJumpEvent(index){
+                this.$refs.pages.swiper.slideTo(index);
+                this.$refs.pageMenu.swiper.slideTo(index);
+                this.nowPage = index;
+                window.nowPage = index;
             }
         },
     }

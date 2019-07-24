@@ -467,14 +467,14 @@ v-model="nowData.selectTextNoteR">
                         type="textarea"
                 :autosize="{ minRows: 2, maxRows: 4}"
                 placeholder="请输入内容"
-                v-model="nowData.ImgJumpTypeInfo">
+                v-model="nowData.ImgJumpTypeInfo"></el-input>
             </div>
             <div class="view_main">
                 <div class="type_title">背景图片:</div>
 
                 <div class="avatar-uploader" @click="uploadClick('selectImgJ-selector')">
                     <img v-if="nowData.ImgJumpTypeBg" :src="nowData.ImgJumpTypeBg" class="avatar">
-                    <!--<i v-else class="el-icon-plus avatar-uploader-icon"></i>-->
+                    <i v-else class="el-icon-plus avatar-uploader-icon"></i>
                 </div>
                 <i class="el-icon-close" @click="deleteImg('ImgJumpTypeBg')"></i>
             </div>
@@ -507,7 +507,7 @@ v-model="nowData.selectTextNoteR">
                                 type="textarea"
                         :autosize="{ minRows: 2, maxRows: 4}"
                         placeholder="请输入内容"
-                        v-model="data.listTypeText">
+                        v-model="data.listTypeText"></el-input>
                         <span @click="selectListTypeDeleteEvent(index)">删除</span>
                     </li>
                 </ul>
@@ -1028,7 +1028,7 @@ export default {
                 if(self.SecretId != "" && self.SecretKey !="" ){
                     if(file){
                         self.cosjs(self.SecretId,self.SecretKey,file,self.XCosSecurityToken,self.expiredTime,function(img){
-                            self.nowData.ImgJumpTypeInfo = img;
+                            self.nowData.ImgJumpTypeBg = img;
                         });
                     }
                 }

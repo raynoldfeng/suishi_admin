@@ -20,7 +20,8 @@ ul li {
 }
 #file-selector,#file-selector2,#file-selector3,#img-selector,
 #video-selector,#imgtext-selector,#select-selector,#selectL-selector,
-#selectR-selector,#selectAllJ-selector,#selectImgJ-selector,#selectLt-selector{
+#selectR-selector,#selectAllJ-selector,#selectImgJ-selector,#selectLt-selector,
+#sideEdgeImg-upload{
     display: none;
 }
 .avatar-uploader{

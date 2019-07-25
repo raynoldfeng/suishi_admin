@@ -1,13 +1,13 @@
 <template>
     <div id="QuestMain">
         <div id="QuestBox">
-            <div v-for="(sdata,sindex) in data">
+            <div v-for="(sdata,sindex) in data.selectQMenu" class="padd-css">
                 <p class="quest-text" v-text="sdata.selectTitle"></p>
                 <div class="img-main">
                     <img id="selectImg" :src="sdata.selectImg">
                 </div>
                 <ul class="option-menu selectBox">
-                    <li v-for="(data,index) in sdata.selectMenu" v-text="data.answerText"   class="answer-css animated" :class="{yes:data.isAnswer == '1' ,no:data.isAnswer == '0'}"></li>
+                    <li v-for="(data,index) in sdata.selectMenu" v-text="data.answerText" :indexQ = "sindex"   class="answer-css animated" :class="{yes:data.isAnswer == '1' ,no:data.isAnswer == '0'}"></li>
                 <li class="explain" v-html="Trim(sdata.imgTextNote)">
 
                 </li>
@@ -38,11 +38,16 @@
     },
     data(){
         return {
-            nowyes:0
+            nowyes:[]
         }
     },
         mounted:function(){
             var self = this;
+           // this.nowyes = [];
+            for(let l = 0;l < this.data.selectQMenu.length;l++){
+                this.nowyes.push(0)
+            }
+            console.log(this.nowyes);
             for(var i = 0 ; i<$(".option-menu li").length;i++){
                 //$(".option-menu li").eq(i).css("top",i*0.09*parseInt($(document).outerHeight(true)));
                 if(i == 0){
@@ -71,14 +76,20 @@
 //            });
 
             $(".selectBox .yes").on("touchstart",function(){
+
+                var indexQ = $(this).attr("indexQ");
                 $(this).parent().find(".explain").show();
               //  $("#selectBox .explain").show();
                 if($(this).hasClass("true-css")){
                     return;
                 }else{
                     $(this).addClass("true-css");
-                    self.nowyes++;
-                    if(self.nowyes ==  $(this).parent().find(".yes").length){
+                    console.log(indexQ);
+                    console.log(self.nowyes[indexQ]);
+                    self.nowyes[indexQ]++;
+                    console.log(self.nowyes)
+                    if(self.nowyes[indexQ] ==  $(this).parent().find(".yes").length){
+
                         $(this).parent().find(".answer-css").hide();
                         $(this).parent().find(".yes").show();
                         for(let i = 0; i<$(this).parent().find(".yes").length; i++){
@@ -92,7 +103,8 @@
                         var yesLens = $(this).parent().find(".yes").length;
                         //                        $(this).animate({top:0},800);
                  //       $("#selectBox .explain").animate({top:yesLens*($("#selectBox .yes").eq(yesLens-1).height()+(parseInt($("#selectBox .yes").eq(yesLens-1).css("paddingTop"))*2)+3)+parseInt($(document).outerHeight(true))*0.03,opacity:1},1000)
-                        $(this).parent().find(".explain").animate({top:yesLens*($(this).parent().find(".yes").eq(yesLens-1).height()+(parseInt($(this).parent().find(".yes").eq(yesLens-1).css("paddingTop"))*2)+3)+parseInt($(document).outerHeight(true))*0.02,opacity:1},1000)
+//                        $(this).parent().find(".explain").animate({top:yesLens*($(this).parent().find(".yes").eq(yesLens-1).height()+(parseInt($(this).parent().find(".yes").eq(yesLens-1).css("paddingTop"))*2)+3)+parseInt($(document).outerHeight(true))*0.02,opacity:1},1000)
+                        $(this).parent().find(".explain").animate({opacity:1},2000);
                     }
 
                 }
@@ -130,7 +142,8 @@
             width: 100%;
             margin-top: 5%;
             padding: 3% 2%;
-            position: absolute;
+            /*position: absolute;*/
+            /*position: relative;*/
             border: 1px solid #cbcbcb;
             font-size: 4vw;
             background: #ffffff;
@@ -152,10 +165,12 @@
             border: 0 solid transparent;
             font-size: 4vw;
             color: #666;
-            opacity: 0;
             display: none;
         }
             #selectImg{
             width:60%;
             }
+        .padd-css{
+            padding: 0 0 50px 0;
+        }
         </style>

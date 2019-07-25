@@ -256,15 +256,21 @@
         </div>
 
 <div v-if="nowData.testType == 4 && nowData.displayType == 's1'">
-    <div v-for="(selectData,selectIndex) in nowData.selectQMenu">
-
+    <div class="view_main">
+        <el-button @click="selectAddQEvent">添加题目</el-button>
+    </div>
+    <div v-for="(selectData,selectIndex) in nowData.selectQMenu"  class="padd-bottom">
+        <div class="view_main">
+            <span>第{{selectIndex+1}}题</span>
+            <el-button @click="selectDeleteQEvent(selectIndex)">删除</el-button>
+        </div>
         <div class="view_main">
             <span>题目:</span>
             <el-input class="input_type" v-model="selectData.selectTitle"></el-input>
         </div>
         <div class="view_main">
             <div class="type_title">图片:</div>
-            <div class="avatar-uploader" @click="uploadClick('select-selector')">
+            <div class="avatar-uploader" @click="uploadClick('select-selector',selectIndex)">
                 <img v-if="selectData.selectImg" :src="selectData.selectImg" class="avatar">
                 <i v-else class="el-icon-plus avatar-uploader-icon"></i>
             </div>
@@ -544,7 +550,7 @@ v-model="nowData.selectTextNoteR">
             </div>
             <div class="view_main">
                 <span>展示方式:</span>
-                <el-select v-model="data.isAnswer" class="select-css" placeholder="是否正确">
+                <el-select v-model="nowData.sideEdgeImgLRType" class="select-css" placeholder="是否正确">
                     <el-option
                             v-for="item in sideEdgeImgDisplayType"
                     :key="item.value"
@@ -1038,7 +1044,9 @@ export default {
                 sideEdgeImgTypeInfo:"",
                 sideEdgeImgMenu:[{sideEdgeImgTypeText:""}],
                 sideEdgeImgLRType:"0",
-                sideEdgeImg:""
+                sideEdgeImg:"",
+
+                selectImgIndex:""      //选择题类型需要展示的图片
             };
             //    this.nowData = this.copyData;
             console.log(this.nowData)
@@ -1198,7 +1206,7 @@ export default {
                 if(self.SecretId != "" && self.SecretKey !="" ){
                     if(file){
                         self.cosjs(self.SecretId,self.SecretKey,file,self.XCosSecurityToken,self.expiredTime,function(img){
-                            self.nowData.selectImg = img;
+                            self.nowData.selectQMenu[self.selectImgIndex].selectImg = img;
                         });
                     }
                 }
@@ -1253,8 +1261,11 @@ export default {
             };
 
         },
-        uploadClick(id){
+        uploadClick(id,index){
             document.getElementById(id).click();
+            if(index > (-1)){
+                this.selectImgIndex = index;
+            }
         },
         /**
          * 1
@@ -1267,8 +1278,22 @@ export default {
             this.nowData.imgTextMenu.splice(index,1);
         },
         /**
-         * 选择类型 (单题)
+         * 选择类型 (可添加多个题目)
          */
+        selectAddQEvent(){
+              var newData = {
+                  selectTitle: "",
+                  selectImg: "",
+                  selectMenu: [
+                      {answerText: "", isAnswer: "0"}
+                  ],
+                  imgTextNote: ""
+              };
+            this.nowData.selectQMenu.push(newData);
+        },
+        selectDeleteQEvent(index){
+            this.nowData.selectQMenu.splice(index,1);
+        },
         selectAddEvent(index){
             var newData =  {answerText:"",isAnswer:"0"}
             this.nowData.selectQMenu[index].selectMenu.push(newData);

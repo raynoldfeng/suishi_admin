@@ -8,7 +8,7 @@
                 </div>
                 <ul class="option-menu selectBox">
                     <li v-for="(data,index) in sdata.selectMenu" v-text="data.answerText" v-show="data.isShow == true"  @click="test(sindex,index,data.isAnswer)" :indexQ = "sindex"   class="answer-css animated" :class="{yes:data.isAnswer == '1' ,no:data.isAnswer == '0' , clickcss:data.isClick}"></li>
-                <li class="explain" v-html="Trim(sdata.imgTextNote)" v-show="sdata.imgTextNoteShow == true" ></li>
+                <li class="explain" v-html="Trim(sdata.imgTextNote)"  :class="{opacityami:sdata.imgTextNoteShow == true}"></li>
                 <!--     <li class="answer-css no animated">
                 <!-     <li class="answer-css no animated">
                          不是
@@ -205,6 +205,7 @@
             border: 0 solid transparent;
             font-size: 4vw;
             color: #666;
+            opacity: 0;
             /*display: none;*/
         }
             #selectImg{
@@ -212,5 +213,10 @@
             }
         .padd-css{
             padding: 0 0 50px 0;
+        }
+        .option-menu li.opacityami{
+            transition: opacity 2s;
+            -webkit-transition:opacity 2s;
+            opacity:1;
         }
         </style>

@@ -33,7 +33,7 @@
                 <v-imageText v-else-if="data.testType == '1' && data.displayType == 'it1'" :data="data"></v-imageText>
                 <v-imageChange v-else-if="data.testType == '2' && data.displayType == 'ic1'" :data="data"></v-imageChange>
                 <v-judge  v-else-if="data.testType == '3' && data.displayType == 'j1'" :data="data"></v-judge>
-                <v-select v-else-if="data.testType == '4' && data.displayType == 's1'" :data="data"></v-select>
+                <v-select v-else-if="data.testType == '4' && data.displayType == 's1'" :data="data" :nowyes="nowyesEvent(data)"></v-select>
                 <v-selectmore  v-else-if="data.testType == '5' && data.displayType == 'sm1'" :data="data"></v-selectmore>
                 <v-selectAllJType   v-else-if="data.testType == '6' && data.displayType == 'sm2'" :data="data"></v-selectAllJType>
                 <v-imgJumpType v-else-if="data.testType == '7' && data.displayType == 'imt'" :data="data" :page="index"  v-on:isJump = "isJumpEvent"></v-imgJumpType>
@@ -178,6 +178,13 @@ import lastPage from "../components/lastPage.vue"
 
         },
         methods:{
+            nowyesEvent(data){
+                var nowyes =[];
+                for(let l = 0;l < data.selectQMenu.length;l++){
+                    nowyes.push(0)
+                }
+                return nowyes;
+            },
             studyEvent(type){
                if(type == 1) {
                    this.nowPage = window.nowPage-1;

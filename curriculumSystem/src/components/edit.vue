@@ -807,9 +807,10 @@ export default {
                     selectTitle:"",
                     selectImg:"",
                     selectMenu:[
-                        {answerText:"",isAnswer:"0"}
+                        {answerText:"",isAnswer:"0" , isClick:false ,isShow:true}
                     ],
-                    imgTextNote:""
+                    imgTextNote:"",
+                    imgTextNoteShow:false
                 }],
 
 
@@ -891,9 +892,10 @@ export default {
                         selectTitle: "",
                         selectImg: "",
                         selectMenu: [
-                            {answerText: "", isAnswer: "0"}
+                            {answerText:"",isAnswer:"0" , isClick:false ,isShow:true}
                         ],
-                        imgTextNote: ""
+                        imgTextNote: "",
+                        imgTextNoteShow:false,
                     }],
 
 
@@ -995,9 +997,10 @@ export default {
                         selectTitle: "",
                         selectImg: "",
                         selectMenu: [
-                            {answerText: "", isAnswer: "0"}
+                            {answerText:"",isAnswer:"0" , isClick:false ,isShow:true}
                         ],
-                        imgTextNote: ""
+                        imgTextNote: "",
+                    imgTextNoteShow:false
                     }],
 
 
@@ -1285,9 +1288,10 @@ export default {
                   selectTitle: "",
                   selectImg: "",
                   selectMenu: [
-                      {answerText: "", isAnswer: "0"}
+                      {answerText:"",isAnswer:"0" , isClick:false ,isShow:true}
                   ],
-                  imgTextNote: ""
+                  imgTextNote: "",
+                  imgTextNoteShow:false
               };
             this.nowData.selectQMenu.push(newData);
         },

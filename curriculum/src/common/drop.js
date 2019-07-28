@@ -16,7 +16,7 @@ function getCss(o,key){
 };
 export const drop = {
 
-    phoneStartDrag:function(bar, target,id,callback){
+    phoneStartDrag:function(bar, target,id,callback,truecallback){
         if(getCss(target, "left") !== "auto"){
             params.left = getCss(target, "left");
         }
@@ -35,7 +35,7 @@ export const drop = {
                 }
             }
             var e = event;
-            console.log(e.targetTouches[0].clientX)
+        //    console.log(e.targetTouches[0].clientX)
             params.currentX = e.targetTouches[0].clientX;
             params.currentY = e.targetTouches[0].clientY;
         });
@@ -48,7 +48,6 @@ export const drop = {
             if(isSelection(".true-main", target.style.top, target.style.left) || isSelection(".false-main", target.style.top, target.style.left)){
                 target.style.left = (window.innerWidth - $(id).width())/2 + "px";
                 target.style.top = window.innerHeight/1.5 + "px";
-
                 $(id).hide();
                 if(getCss(target, "left") !== "auto"){
                     params.left = getCss(target, "left");
@@ -56,6 +55,7 @@ export const drop = {
                 if(getCss(target, "top") !== "auto"){
                     params.top = getCss(target, "top");
                 }
+                truecallback && truecallback();
             }else{
                 $(id).removeClass("shake");
                 var left = (window.innerWidth - $(id).width())/2 + "px";

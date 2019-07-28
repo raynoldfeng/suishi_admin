@@ -33,10 +33,12 @@
                 <v-imageText v-else-if="data.testType == '1' && data.displayType == 'it1'" :data="data"></v-imageText>
                 <v-imageChange v-else-if="data.testType == '2' && data.displayType == 'ic1'" :data="data"></v-imageChange>
                 <v-judge  v-else-if="data.testType == '3' && data.displayType == 'j1'" :data="data"></v-judge>
-                <v-select v-else-if="data.testType == '4' && data.displayType == 's1'" :data="data" :nowyes="nowyesEvent(data)"></v-select>
+                <v-select v-else-if="data.testType == '4' && data.displayType == 's1'" :data="data" :nowyes="nowyesEvent(data)" v-on:imgShow = "imgShowEvent"></v-select>
                 <v-selectmore  v-else-if="data.testType == '5' && data.displayType == 'sm1'" :data="data"></v-selectmore>
                 <v-selectAllJType   v-else-if="data.testType == '6' && data.displayType == 'sm2'" :data="data"></v-selectAllJType>
                 <v-imgJumpType v-else-if="data.testType == '7' && data.displayType == 'imt'" :data="data" :page="index"  v-on:isJump = "isJumpEvent"></v-imgJumpType>
+                <v-listTypePage v-else-if="data.testType == '8' && data.displayType == 'lt'" :data="data" v-on:imgShow = "imgShowEvent"></v-listTypePage>
+                <v-sideEdgeImg v-else-if="data.testType == '9' && data.displayType == 'ct'" :data="data"></v-sideEdgeImg>
             </swiper-slide>
             <swiper-slide :key="bookData.length">
                 <v-lastPage></v-lastPage>
@@ -77,6 +79,14 @@
                 </swiper>
             </div>
         </div>
+        <div id="imgWin"  @click="imgHiddenEvnet"  :class="{showBox:displayImg != ''}"></div>
+        <div id="imgBox"   :class="{showBox:displayImg != ''}">
+            <div @click="imgHiddenEvnet" class="closeBtn">x</div>
+            <img :src="displayImg" />
+            <p v-if="displayText != ''" v-html="Trim(displayText)"></p>
+        </div>
+        <div id="noteWin" @click="hideNoteEvent"></div>
+        <p id="noteText" v-html="noteTexts"></p>
     </div>
 </template>
  <script>
@@ -90,6 +100,8 @@
 import lastPage from "../components/lastPage.vue"
  import selectAllJType from "../components/selectAllJType.vue"
  import imgJumpType from "../components/imgJumpType.vue"
+import listTypePage from "../components/listTypePage.vue"
+import sideEdgeImg from "../components/sideEdgeImg.vue"
  import $ from 'jquery'
     export default{
         data(){
@@ -128,7 +140,10 @@ import lastPage from "../components/lastPage.vue"
                 nowPage:0,
                 isMove:false,
                 bookData:"",
-                hasSave:false
+                hasSave:false,
+                displayImg:"",
+                displayText:"",
+                noteTexts:""
             }
         },
      components:{
@@ -140,7 +155,9 @@ import lastPage from "../components/lastPage.vue"
          'v-selectmore':selectmore,
           'v-lastPage':lastPage,
           "v-selectAllJType":selectAllJType,
-           'v-imgJumpType':imgJumpType
+           'v-imgJumpType':imgJumpType,
+           'v-listTypePage':listTypePage,
+             'v-sideEdgeImg':sideEdgeImg
      },
         mounted:function(){
             var self = this;
@@ -178,6 +195,10 @@ import lastPage from "../components/lastPage.vue"
 
         },
         methods:{
+            Trim(str) {
+                console.log(str)
+                return str.replace(/\n|\r\n/g,"<br/>");
+            },
             nowyesEvent(data){
                 var nowyes =[];
                 for(let l = 0;l < data.selectQMenu.length;l++){
@@ -285,6 +306,29 @@ import lastPage from "../components/lastPage.vue"
                 this.$refs.pageMenu.swiper.slideTo(index);
                 this.nowPage = index;
                 window.nowPage = index;
+            },
+            imgShowEvent(data){
+                if(data.url == null || data.url == undefined){
+                    this.displayImg = "";
+                }else{
+                    this.displayImg = data.url;
+                }
+                if(data.text == null || data.text == undefined){
+                    this.displayText = "";
+                }else{
+                    this.displayText = data.text;
+                }
+
+
+            },
+            imgHiddenEvnet(){
+                this.displayImg = "";
+                this.displayText = "";
+            },
+            hideNoteEvent(){
+                $("#noteWin").hide();
+                $("#noteText").hide();
+                this.noteTexts = "";
             }
         },
     }
@@ -384,5 +428,56 @@ import lastPage from "../components/lastPage.vue"
   #swiper-button-next, .swiper-container-rtl .swiper-button-prev{
       background-image:url("./../img/right.png");
   }
+  #imgBox{
+          position: absolute;
+          z-index:0;
+          top: 0;
+          left: 50%;
+          width: 80%;
+          opacity: 0;
+          display: none;
+            margin:25% 0 0 -40%;
+      }
+      #imgBox img{
+          width: 100%;
+          float:left;
+      }
+  #imgBox p{
+      width: 90%;
+      padding: 4% 5% 2%;
+      background: #ffffff;
+      text-align: left;
+      float: left;
+      font-size:4vw;
+      }
+  #imgBox.showBox{
+      transition:opacity 2s ;
+      -webkit-transition:opacity 2s ;
+      opacity: 1;
+      display: block;
+      z-index:100;
+      }
+      #imgWin{
+          position: absolute;
+          z-index:0;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          opacity: 0.3;
+          background-color: #333333;
+          display: none;
+      }
+  #imgWin.showBox{
+      transition:opacity 2s ;
+      -webkit-transition:opacity 2s ;
+      display: block;
+      z-index:99;
+      }
+      .closeBtn{
+          position: absolute;
+          top:0;
+          right:0;
+      }
 
   </style>

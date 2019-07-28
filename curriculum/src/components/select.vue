@@ -3,11 +3,11 @@
         <div id="QuestBox">
             <div v-for="(sdata,sindex) in data.selectQMenu" class="padd-css">
                 <p class="quest-text" v-text="sdata.selectTitle"></p>
-                <div class="img-main" v-if="sdata.selectImg">
-                    <img id="selectImg" :src="sdata.selectImg">
+                <div class="img-main simg-main" v-if="sdata.selectImg">
+                    <img id="selectImg" :src="sdata.selectImg" @click="displayEvent(sdata.selectImg,sdata.imgNoteNode)">
                 </div>
                 <ul class="option-menu selectBox">
-                    <li v-for="(data,index) in sdata.selectMenu" v-text="data.answerText" v-show="data.isShow == true"  @click="test(sindex,index,data.isAnswer)" :indexQ = "sindex"   class="answer-css animated" :class="{yes:data.isAnswer == '1' ,no:data.isAnswer == '0' , clickcss:data.isClick}"></li>
+                    <li v-for="(data,index) in sdata.selectMenu" v-text="data.answerText"   @click="test(sindex,index,data.isAnswer)" :indexQ = "sindex"   class="answer-css animated" :class="{yes:data.isAnswer == '1' ,no:data.isAnswer == '0' , clickcss:data.isClick,anwdisplay:data.isShow == false}"></li>
                 <li class="explain" v-html="Trim(sdata.imgTextNote)"  :class="{opacityami:sdata.imgTextNoteShow == true}"></li>
                 <!--     <li class="answer-css no animated">
                 <!-     <li class="answer-css no animated">
@@ -27,6 +27,7 @@
 
 
         </div>
+
     </div>
 </template>
 <script>
@@ -38,7 +39,8 @@
     },
     data(){
         return {
-            yesMenu:[]
+            yesMenu:[],
+
         }
     },
         mounted:function(){
@@ -159,6 +161,10 @@
                     $(this).addClass("false-css");
                     $(this).addClass("shake")
                 });
+            },
+            displayEvent(url,text){
+                var data = {url:url,text:text};
+                this.$emit("imgShow",data);
             }
         }
 
@@ -177,6 +183,7 @@
             width: 70%;
             margin: 8% auto 0;
             position: relative;
+            min-height:150px;
         }
         .option-menu li{
             width: 100%;
@@ -188,7 +195,21 @@
             font-size: 4vw;
             background: #ffffff;
             word-break: break-all;
+            overflow:hidden;
         }
+         .option-menu li.anwdisplay{
+            animation:hides 0.5s linear 0s forwards;
+            -webkit-animation:hides 0.5s linear 0s forwards;
+         }
+
+        @keyframes hides{
+            0%{width: 100%;height:auto;opacity:1;margin-top: 5%;padding: 3% 2%;}
+            100%{width: 0;height:0;;opacity:0;margin-top: 0%;padding: 0;}
+            }
+        @-webkit-keyframes hides{
+            0%{width: 100%;height:auto;opacity:1;margin-top: 5%;padding: 3% 2%;}
+            100%{width: 0;height:0;;opacity:0;margin-top: 0%;padding: 0;}
+            }
 
         .option-menu li.true-css,.option-menu li.yes.clickcss{
             color: #ffffff;
@@ -208,8 +229,12 @@
             opacity: 0;
             /*display: none;*/
         }
+            .simg-main{
+                width:40%;
+                margin: 10% auto;
+            }
             #selectImg{
-            width:60%;
+            width:100%;
             }
         .padd-css{
             padding: 0 0 50px 0;
@@ -219,4 +244,5 @@
             -webkit-transition:opacity 2s;
             opacity:1;
         }
+
         </style>

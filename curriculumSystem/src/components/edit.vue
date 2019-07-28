@@ -253,6 +253,16 @@
     </el-option>
 </el-select>
 </div>
+    <div class="view_main">
+        <span>答案注释:</span>
+        <el-input
+        class="textarea_type"
+        type="textarea"
+        :autosize="{ minRows: 2, maxRows: 4}"
+        placeholder="请输入内容"
+        v-model="nowData.judgeAnswerText">
+        </el-input>
+    </div>
         </div>
 
 <div v-if="nowData.testType == 4 && nowData.displayType == 's1'">
@@ -275,6 +285,17 @@
                 <i v-else class="el-icon-plus avatar-uploader-icon"></i>
             </div>
             <i class="el-icon-close" @click="deleteImg('selectImg')"></i>
+        </div>
+
+        <div class="view_main">
+            <span class="type_title">图片文字介绍:</span>
+            <el-input
+            class="textarea_type"
+            type="textarea"
+            :autosize="{ minRows: 2, maxRows: 4}"
+            placeholder="请输入内容"
+            v-model="selectData.imgNoteNode">
+            </el-input>
         </div>
 
         <div class="view_main">
@@ -623,7 +644,8 @@ v-model="nowData.selectTextNoteR">
  * judgeTitle 判断类型题目
  * judgeText 判断类型答案
  * judgeAnswer 正确选项
- *
+ * judgeAnswerText 答案注释
+  *
  * 4
  * selectQMenu 选择类型菜单
  * selectTitle 选择类型题目 (selectQMenu)
@@ -632,6 +654,7 @@ v-model="nowData.selectTextNoteR">
  *answerText 答案选项 (selectMenu内)
  * isAnswer 是不是正确 (selectMenu内)
  *imgTextNote 答案注释
+ *imgNoteNode 图片文字介绍
  *
  * 5
  * selectMoreTitle 多个选择题目
@@ -800,6 +823,7 @@ export default {
                 judgeTitle:"",
                 judgeText:"",
                 judgeAnswer:"",
+                judgeAnswerText:"",
 
 
 
@@ -810,7 +834,8 @@ export default {
                         {answerText:"",isAnswer:"0" , isClick:false ,isShow:true}
                     ],
                     imgTextNote:"",
-                    imgTextNoteShow:false
+                    imgTextNoteShow:false,
+                    imgNoteNode:""
                 }],
 
 
@@ -885,6 +910,7 @@ export default {
                 judgeTitle:"",
                 judgeText:"",
                 judgeAnswer:"",
+                judgeAnswerText:"",
 
 
 
@@ -896,6 +922,7 @@ export default {
                         ],
                         imgTextNote: "",
                         imgTextNoteShow:false,
+                        imgNoteNode:""
                     }],
 
 
@@ -990,6 +1017,7 @@ export default {
                 judgeTitle:"",
                 judgeText:"",
                 judgeAnswer:"",
+                judgeAnswerText:"",
 
 
 
@@ -1000,7 +1028,8 @@ export default {
                             {answerText:"",isAnswer:"0" , isClick:false ,isShow:true}
                         ],
                         imgTextNote: "",
-                    imgTextNoteShow:false
+                    imgTextNoteShow:false,
+                    imgNoteNode:""
                     }],
 
 
@@ -1291,7 +1320,8 @@ export default {
                       {answerText:"",isAnswer:"0" , isClick:false ,isShow:true}
                   ],
                   imgTextNote: "",
-                  imgTextNoteShow:false
+                  imgTextNoteShow:false,
+                  imgNoteNode:""
               };
             this.nowData.selectQMenu.push(newData);
         },

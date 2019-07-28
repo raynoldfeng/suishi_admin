@@ -2,10 +2,10 @@
     <div id="QuestMain">
         <p class="quest-text" v-text="data.listTypeTitle"></p>
         <div class="sideEdgeBox">
-            <div class="sideEdgeBoxImg">
+            <div class="sideEdgeBoxImg" :class="{sideEdgeBoxLeft:data.sideEdgeImgLRType == '0', sideEdgeBoxRight:data.sideEdgeImgLRType == '1'}">
                 <img @click="displayEvent(data.sideEdgeImg,'')" :src="data.sideEdgeImg">
             </div>
-            <div class="sideEdgeBoxMain">
+            <div class="sideEdgeBoxMain" :class="{sideEdgeBoxLeft:data.sideEdgeImgLRType == '0', sideEdgeBoxRight:data.sideEdgeImgLRType == '1'}">
                 <p v-html="Trim(data.sideEdgeImgTypeInfo)"></p>
                 <ul class="sideEdgeBoxMenu">
                     <li v-for="(datas,index) in data.sideEdgeImgMenu" v-html="Trim(datas.sideEdgeImgTypeText)"></li>
@@ -51,7 +51,6 @@ import $ from 'jquery'
         }
         .sideEdgeBoxImg{
             width:49%;
-            float:left;
             text-align:center;
         }
         .sideEdgeBoxImg img{
@@ -61,10 +60,16 @@ import $ from 'jquery'
             margin:15% 0 0 0;
         }
         .sideEdgeBoxMain{
-            width:49%;
-            float:left;
+            width: 45%;
             text-align: left;
-            font-size:4vw;
+            font-size: 4vw;
+            margin-left: 4%;
+        }
+        .sideEdgeBoxLeft{
+            float:left;
+        }
+        .sideEdgeBoxRight{
+            float:right;
         }
         .sideEdgeBoxMenu li{
             margin:5% 0 0 0;

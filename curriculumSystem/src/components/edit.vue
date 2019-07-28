@@ -136,6 +136,14 @@
                         :value="item.value">
                         </el-option>
                     </el-select>
+                                <el-select v-show="nowData.testType == 10" class="select-css" v-model="nowData.displayType" placeholder="类型">
+                                    <el-option
+                                    v-for="item in blanksTypeMenu"
+                                    :key="item.value"
+                                    :label="item.label"
+                                    :value="item.value">
+                                    </el-option>
+                                </el-select>
                         </div>
                     </div>
 
@@ -609,6 +617,40 @@ v-model="nowData.selectTextNoteR">
 
         </div>
 
+            <div v-if="nowData.testType == 10 && nowData.displayType == 'bl'">
+                <div class="view_main">
+                    <span>标题:</span>
+                    <el-input class="input_type" v-model="nowData.blanksTitle"></el-input>
+                </div>
+                <div class="view_main">
+                    <span>副标题:</span>
+                    <el-input class="input_type" v-model="nowData.blanksInfo"></el-input>
+                </div>
+                <div class="view_main">
+                    <el-button @click="blanksAddEvent(1)">添加段落</el-button>
+                    <el-button @click="blanksAddEvent(2)">添加填空</el-button>
+                </div>
+                <div class="view_main">
+                    <ul>
+                        <li v-for="(data,index) in nowData.blanksMenu "  class="view_main">
+                            <span v-if="data.blanksType == 1">段落:</span>
+                            <el-input
+                            class="textarea_type"
+                            type="textarea"
+                            v-if="data.blanksType == 1"
+                            :autosize="{ minRows: 2, maxRows: 4}"
+                            placeholder="请输入内容"
+                            v-model="data.blanksText"></el-input>
+                            <span v-if="data.blanksType == 2">答案:</span>
+                            <el-input class="input_type" v-if="data.blanksType == 2" v-model="data.blanksAnswer"></el-input>
+                            <span @click="blanksDeleteEvent(index)">删除</span>
+                        </li>
+                    </ul>
+                </div>
+
+
+            </div>
+
         </el-main>
         </el-container>
         </el-container>
@@ -697,6 +739,16 @@ v-model="nowData.selectTextNoteR">
  * sideEdgeImgMenu 侧边图片段落菜单
  * sideEdgeImgTypeText 侧边图片段落 (sideEdgeImgMenu内)
  * sideEdgeImgLRType 侧边图片展示位置(左右)
+*
+* 10
+*blanksTitle 填空题标题
+*blanksInfo 填空副标题
+* blanksMenu 填空题菜单
+* blanksType 段落类型(1 段落 2填空)
+* blanksText 填空段落
+* blanksInput 填空内容
+* blanksAnswer 填空答案
+*
  */
 export default {
     data(){
@@ -735,7 +787,9 @@ export default {
                 {value:"8",
                     label:"列表类型"},
                 {value:"9",
-                    label:"侧边图片"}
+                    label:"侧边图片"},
+                {value:"10",
+                    label:"填空"}
             ],
             titleInfoTypeMenu:[
                 {
@@ -795,6 +849,12 @@ export default {
                 {
                     value:"ct",
                     label:"展示"
+                }
+            ],
+            blanksTypeMenu:[
+                {
+                    value:"bl",
+                    label:"填空"
                 }
             ],
             dataMenu:[ ],
@@ -883,7 +943,15 @@ export default {
                 sideEdgeImgTypeInfo:"",
                 sideEdgeImgMenu:[{sideEdgeImgTypeText:""}],
                 sideEdgeImgLRType:"0",
-                sideEdgeImg:""
+                sideEdgeImg:"",
+
+
+
+                blanksTitle:"",
+                blanksInfo:"",
+                blanksMenu:[]
+
+
             },
             copyData:{
                 page:0,
@@ -969,7 +1037,13 @@ export default {
                 sideEdgeImgTypeInfo:"",
                 sideEdgeImgMenu:[{sideEdgeImgTypeText:""}],
                 sideEdgeImgLRType:"0",
-                sideEdgeImg:""
+                sideEdgeImg:"",
+
+
+
+                blanksTitle:"",
+                blanksInfo:"",
+                blanksMenu:[]
             },
             SecretId:"",
             SecretKey:"",
@@ -1077,6 +1151,11 @@ export default {
                 sideEdgeImgMenu:[{sideEdgeImgTypeText:""}],
                 sideEdgeImgLRType:"0",
                 sideEdgeImg:"",
+
+
+                blanksTitle:"",
+                blanksInfo:"",
+                blanksMenu:[],
 
                 selectImgIndex:""      //选择题类型需要展示的图片
             };
@@ -1392,6 +1471,20 @@ export default {
         },
         sideEdgeImgTypeDeleteEvent(index){
             this.nowData.sideEdgeImgMenu.splice(index,1);
+        },
+        /**
+         * 填空
+         */
+        blanksAddEvent(type){
+            if(type == 1){
+                var data = {blanksType:1,blanksText:""};
+            }else if(type == 2){
+                var data ={blanksType:2,blanksInput:"",blanksAnswer:""};
+            }
+            this.nowData.blanksMenu.push(data);
+        },
+        blanksDeleteEvent(index){
+            this.nowData.blanksMenu.splice(index,1);
         }
     },
     mounted:function(){

@@ -39,6 +39,7 @@
                 <v-imgJumpType v-else-if="data.testType == '7' && data.displayType == 'imt'" :data="data" :page="index"  v-on:isJump = "isJumpEvent"></v-imgJumpType>
                 <v-listTypePage v-else-if="data.testType == '8' && data.displayType == 'lt'" :data="data" v-on:imgShow = "imgShowEvent"></v-listTypePage>
                 <v-sideEdgeImg v-else-if="data.testType == '9' && data.displayType == 'ct'" :data="data"></v-sideEdgeImg>
+                <v-blanksType v-else-if="data.testType == '10' && data.displayType == 'bl'" :data="data"></v-blanksType>
             </swiper-slide>
             <swiper-slide :key="bookData.length">
                 <v-lastPage></v-lastPage>
@@ -102,6 +103,7 @@ import lastPage from "../components/lastPage.vue"
  import imgJumpType from "../components/imgJumpType.vue"
 import listTypePage from "../components/listTypePage.vue"
 import sideEdgeImg from "../components/sideEdgeImg.vue"
+import blanksType from '../components/blanksType.vue'
  import $ from 'jquery'
     export default{
         data(){
@@ -157,7 +159,8 @@ import sideEdgeImg from "../components/sideEdgeImg.vue"
           "v-selectAllJType":selectAllJType,
            'v-imgJumpType':imgJumpType,
            'v-listTypePage':listTypePage,
-             'v-sideEdgeImg':sideEdgeImg
+             'v-sideEdgeImg':sideEdgeImg,
+             "v-blanksType":blanksType
      },
         mounted:function(){
             var self = this;

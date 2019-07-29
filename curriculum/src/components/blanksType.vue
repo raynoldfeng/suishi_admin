@@ -2,17 +2,16 @@
     <div id="QuestMain">
         <p class="quest-text blanks-title" v-text="data.blanksTitle"></p>
         <p class="blanks-info" v-text="data.blanksInfo"></p>
-        <div>
-            <p v-for="(idata,index) in data.blanksMenu">
-                <span v-if="idata.blanksType == '1'" class="blanks-text" v-text="idata.blanksText"></span>
-                <div class="input-b-box" v-if="idata.blanksType == '2'">
-                    <input v-if="aShow[index] == 0" class="blanks-anw" v-model="idata.blanksInput" />
-                    <span  v-if="aShow[index] == 1" v-text="idata.blanksAnswer"></span>
-                    <span v-if="aShow[index] == 0" class="show-abtn" @click="showAnswer(index)"> > </span>
-                    <span  v-if="aShow[index] == 1" class="true-btn">1</span>
+        <div class="btext-menu">
+            <div class="btext-main" v-for="(idata,index) in data.blanksMenu">
+                    <span v-if="idata.blanksType == 1"  class="blanks-text" v-text="idata.blanksText"></span>
+                <div class="input-b-box" v-if="idata.blanksType == 2">
+                    <div class="blanks-anw" contenteditable="true" v-text="idata.blanksInput" ></div>
+                    <span v-if="idata.isShow == false" class="show-abtn" @click="showAnswer(index,idata.blanksAnswer)"> > </span>
+                    <span  v-if="idata.isShow == true" class="true-btn"  @click="showAnswer(index,idata.blanksAnswer)">1</span>
                 </div>
 
-            </p>
+            </div>
 
         </div>
     </div>
@@ -30,11 +29,13 @@ export default
         }
     },
     methods:{
-        showAnswer(index){
-            this.aShow[index] = 1;
+        showAnswer(index,anw){
+            this.data.blanksMenu[index].isShow = true;
+            this.data.blanksMenu[index].blanksInput = anw;
         }
     },
     mounted:function(){
+        console.log(this.data.blanksMenu)
         for(let i =0; i < this.data.blanksMenu.length;i++){
             this.aShow.push(0);
         }
@@ -59,10 +60,10 @@ export default
         font-size:4vw;
     }
     .blanks-anw{
-        width:25vw;
+        min-width:25vw;
+        border: 1px solid #999;
         display:inline-block;
         font-size:4vw;
-        text-algin:center;
     }
     .input-b-box{
         display: inline-block;
@@ -72,7 +73,16 @@ export default
         background: skyblue;
         color: #fff;
     }
+    .true-anw{
+        font-size:4vw;
+    }
     .true-btn{
        background: green;
     }
+.btext-main{
+    display: inline-block;
+}
+.btext-menu{
+    text-align: left;
+}
 </style>

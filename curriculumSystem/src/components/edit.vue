@@ -803,6 +803,7 @@ v-model="nowData.selectTextNoteR">
 * blanksText 填空段落
 * blanksInput 填空内容
 * blanksAnswer 填空答案
+ * isShow 答案是否展示
  *
  * 11
  * imgselectDisplayTitle 图片选项展示标题
@@ -1604,7 +1605,7 @@ export default {
             if(type == 1){
                 var data = {blanksType:1,blanksText:""};
             }else if(type == 2){
-                var data ={blanksType:2,blanksInput:"",blanksAnswer:""};
+                var data ={blanksType:2,blanksInput:"",blanksAnswer:"",isShow:false};
             }
             this.nowData.blanksMenu.push(data);
         },

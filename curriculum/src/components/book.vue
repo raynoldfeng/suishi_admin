@@ -198,6 +198,14 @@ import blanksType from '../components/blanksType.vue'
                 }
             };
 
+            window.onresetStudyResult = function(){
+                try{
+                    h5.resetStudyResult();
+                }catch (e){
+
+                }
+            }
+
 
         },
         methods:{
@@ -224,11 +232,7 @@ import blanksType from '../components/blanksType.vue'
                    this.$refs.pages.swiper.slideTo(0);
                    this.nowPage = 0;
                    window.nowPage = 0;
-                   try{
-                       h5.resetStudyResult();
-                   }catch (e){
-
-                   }
+                   window.onresetStudyResult();
                }
             },
 

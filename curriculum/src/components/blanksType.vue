@@ -3,8 +3,17 @@
         <p class="quest-text blanks-title" v-text="data.blanksTitle"></p>
         <p class="blanks-info" v-text="data.blanksInfo"></p>
         <div>
-            <span class="blanks-text">sdfsdfdsf</span>
-            <input class="blanks-anw" value="dsfdsfsd" />
+            <p v-for="(idata,index) in data.blanksMenu">
+                <span v-if="idata.blanksType == '1'" class="blanks-text" v-text="idata.blanksText"></span>
+                <div class="input-b-box" v-if="idata.blanksType == '2'">
+                    <input v-if="aShow[index] == 0" class="blanks-anw" v-model="idata.blanksInput" />
+                    <span  v-if="aShow[index] == 1" v-text="idata.blanksAnswer"></span>
+                    <span v-if="aShow[index] == 0" class="show-abtn" @click="showAnswer(index)"> > </span>
+                    <span  v-if="aShow[index] == 1" class="true-btn">1</span>
+                </div>
+
+            </p>
+
         </div>
     </div>
 </template>
@@ -15,6 +24,21 @@ export default
     props:{
         data:""
     },
+    data(){
+        return{
+            aShow:[]
+        }
+    },
+    methods:{
+        showAnswer(index){
+            this.aShow[index] = 1;
+        }
+    },
+    mounted:function(){
+        for(let i =0; i < this.data.blanksMenu.length;i++){
+            this.aShow.push(0);
+        }
+    }
 }
 </script>
 <style>
@@ -39,5 +63,16 @@ export default
         display:inline-block;
         font-size:4vw;
         text-algin:center;
+    }
+    .input-b-box{
+        display: inline-block;
+    }
+    .show-abtn{
+        display: inline-block;
+        background: skyblue;
+        color: #fff;
+    }
+    .true-btn{
+       background: green;
     }
 </style>

@@ -32,6 +32,7 @@
                     <input id="selectLt-selector" type="file" >
                     <input id="sideEdgeImg-upload" type="file" >
                     <input id="selectR-selector" type="file" >
+                    <input id=" img-selector" type="file" >
                             <div  v-if=" dataMenu.length > 0">
                                 <div id="testMedolBox" :class="{big_size:isbig}" @click="bigEvent">
                                     <img  v-if="nowData.testType == 0 && nowData.displayType == 't1'" src="./../image/01.png" />
@@ -144,6 +145,14 @@
                                     :value="item.value">
                                     </el-option>
                                 </el-select>
+                            <el-select v-show="nowData.testType == 11" class="select-css" v-model="nowData.displayType" placeholder="类型">
+                                <el-option
+                                        v-for="item in imgselectDisplayMenu"
+                                    :key="item.value"
+                                    :label="item.label"
+                                    :value="item.value">
+                                </el-option>
+                            </el-select>
                         </div>
                     </div>
 
@@ -651,6 +660,52 @@ v-model="nowData.selectTextNoteR">
 
             </div>
 
+            <div v-if="nowData.testType == 11 && nowData.displayType == 'isd'">
+                <div class="view_main">
+                    <span>标题:</span>
+                    <el-input class="input_type" v-model="nowData.imgselectDisplayTitle"></el-input>
+                </div>
+                <div class="view_main">
+                    <span>副标题:</span>
+                    <el-input class="input_type" v-model="nowData.imgselectDisplayInfo"></el-input>
+                </div>
+                <div class="view_main">
+                    <span>内容:</span>
+                    <el-button @click="imgSelectAddEvent">添加内容</el-button>
+                    <div class="view_main" v-for="(data,index) in nowData.imgselectDisplayMenu">
+                        <div class="view_main">
+                            <el-button @click="imgSelectDeleteEvent(index)">添加填空</el-button>
+                        </div>
+                        <div class="view_main">
+                            <span>按钮内容:</span>
+                            <el-input class="input_type" v-model="data.imgselectDisplayBtn"></el-input>
+                        </div>
+                        <div class="view_main">
+                            <div class="type_title">图片:</div>
+                            <div class="avatar-uploader" @click="uploadClick('img-selector',index)">
+                                <img v-if="data.imgselectDisplayImg" :src="data.imgselectDisplayImg" class="avatar">
+                                <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+                            </div>
+                        </div>
+                        <div class="view_main">
+                            <span>段落:</span>
+                            <el-button @click="imgSelectTextAddEvent(index)">添加段落</el-button>
+                            <ul class="view_main">
+                                <li v-for="(sdata,sindex) in data.imgselectDisplayTextMenu">
+                                    <el-input
+                                            class="textarea_type"
+                                            type="textarea"
+                                    :autosize="{ minRows: 2, maxRows: 4}"
+                                    placeholder="请输入内容"
+                                    v-model="sdata.imgselectDisplayText"></el-input>
+                                    <span @click="imgSelectTextDeleteEvent(index,sindex)">删除</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </el-main>
         </el-container>
         </el-container>
@@ -748,6 +803,16 @@ v-model="nowData.selectTextNoteR">
 * blanksText 填空段落
 * blanksInput 填空内容
 * blanksAnswer 填空答案
+ *
+ * 11
+ * imgselectDisplayTitle 图片选项展示标题
+ *imgselectDisplayInfo 图片选项展示副标题
+ * imgselectDisplayMenu 图片选项展示菜单
+ * imgselectDisplayBtn 按钮文案
+ * imgselectDisplayImg 图片
+ * imgselectDisplayTextMenu 段落菜单
+ * imgselectDisplayText 段落
+ *
 *
  */
 export default {
@@ -789,7 +854,9 @@ export default {
                 {value:"9",
                     label:"侧边图片"},
                 {value:"10",
-                    label:"填空"}
+                    label:"填空"},
+                {value:"11",
+                    label:"图片选项展示"}
             ],
             titleInfoTypeMenu:[
                 {
@@ -855,6 +922,12 @@ export default {
                 {
                     value:"bl",
                     label:"填空"
+                }
+            ],
+            imgselectDisplayMenu:[
+                {
+                    value:"isd",
+                    label:"点击"
                 }
             ],
             dataMenu:[ ],
@@ -949,7 +1022,20 @@ export default {
 
                 blanksTitle:"",
                 blanksInfo:"",
-                blanksMenu:[]
+                blanksMenu:[],
+
+
+                imgselectDisplayTitle:"",
+                imgselectDisplayInfo:"",
+                imgselectDisplayMenu:[
+                    {
+                        imgselectDisplayBtn:"",
+                        imgselectDisplayImg:"",
+                        imgselectDisplayTextMenu:[{
+                            imgselectDisplayText:""
+                        }]
+                    }
+                ]
 
 
             },
@@ -1043,13 +1129,27 @@ export default {
 
                 blanksTitle:"",
                 blanksInfo:"",
-                blanksMenu:[]
+                blanksMenu:[],
+
+
+                imgselectDisplayTitle:"",
+                imgselectDisplayInfo:"",
+                imgselectDisplayMenu:[
+                    {
+                        imgselectDisplayBtn:"",
+                        imgselectDisplayImg:"",
+                        imgselectDisplayTextMenu:[{
+                            imgselectDisplayText:""
+                        }]
+                    }
+                ]
             },
             SecretId:"",
             SecretKey:"",
             XCosSecurityToken:"",
             expiredTime:"",
-            userinfo:""
+            userinfo:"",
+            selectImgIndex:""      //模板需要多个带图片的问题时
         }
     },
     methods:{
@@ -1157,7 +1257,19 @@ export default {
                 blanksInfo:"",
                 blanksMenu:[],
 
-                selectImgIndex:""      //选择题类型需要展示的图片
+
+
+                imgselectDisplayTitle:"",
+                imgselectDisplayInfo:"",
+                imgselectDisplayMenu:[
+                    {
+                        imgselectDisplayBtn:"",
+                        imgselectDisplayImg:"",
+                        imgselectDisplayTextMenu:[{
+                            imgselectDisplayText:""
+                        }]
+                    }
+                ]
             };
             //    this.nowData = this.copyData;
             console.log(this.nowData)
@@ -1371,6 +1483,19 @@ export default {
                 }
             };
 
+
+            document.getElementById('img-selector').onchange = function () {
+                var file = this.files[0];
+                if (!file) return;
+                if(self.SecretId != "" && self.SecretKey !="" ){
+                    if(file){
+                        self.cosjs(self.SecretId,self.SecretKey,file,self.XCosSecurityToken,self.expiredTime,function(img){
+                            self.nowData.imgselectDisplayMenu[selectImgIndex].imgselectDisplayImg = img;
+                        });
+                    }
+                }
+            };
+
         },
         uploadClick(id,index){
             document.getElementById(id).click();
@@ -1485,6 +1610,28 @@ export default {
         },
         blanksDeleteEvent(index){
             this.nowData.blanksMenu.splice(index,1);
+        },
+        /**
+         * 图片选项展示
+         */
+        imgSelectAddEvent(){
+            var newdata = { imgselectDisplayBtn:"",
+                imgselectDisplayImg:"",
+                imgselectDisplayTextMenu:[{
+                    imgselectDisplayText:""
+                }]
+            };
+            this.nowData.imgselectDisplayMenu.push(newdata);
+        },
+        imgSelectDeleteEvent(index){
+            this.nowData.imgselectDisplayMenu.splice(index,1);
+        },
+        imgSelectTextAddEvent(index){
+            var newdata = {imgselectDisplayText:""};
+            this.nowData.imgselectDisplayMenu[index].imgselectDisplayTextMenu.push(newdata);
+        },
+        imgSelectTextDeleteEvent(index,sindex){
+            this.nowData.imgselectDisplayMenu[index].imgselectDisplayTextMenu.splice(sindex,1);
         }
     },
     mounted:function(){

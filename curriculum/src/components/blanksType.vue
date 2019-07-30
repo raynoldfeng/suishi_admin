@@ -3,10 +3,11 @@
         <p class="quest-text blanks-title" v-text="data.blanksTitle"></p>
         <p class="blanks-info" v-text="data.blanksInfo"></p>
         <div class="btext-menu">
+            <div v-html="ss"></div>
             <div class="btext-main" v-for="(idata,index) in data.blanksMenu">
                     <span v-if="idata.blanksType == 1"  class="blanks-text" v-text="idata.blanksText"></span>
                 <div class="input-b-box" v-if="idata.blanksType == 2">
-                    <div class="blanks-anw" contenteditable="true" v-text="idata.blanksInput" ></div>
+                   <div class="blanks-anw" contenteditable="true" v-text="idata.blanksInput" ></div>
                     <span v-if="idata.isShow == false" class="show-abtn" @click="showAnswer(index,idata.blanksAnswer)"> > </span>
                     <span  v-if="idata.isShow == true" class="true-btn"  @click="showAnswer(index,idata.blanksAnswer)">✔</span>
                 </div>
@@ -25,13 +26,18 @@ export default
     },
     data(){
         return{
-            aShow:[]
+            aShow:[],
+            ss:"",
+            ll:"sdssdooo"
         }
     },
     methods:{
         showAnswer(index,anw){
             this.data.blanksMenu[index].isShow = true;
             this.data.blanksMenu[index].blanksInput = anw;
+        },
+        test(){
+            alert(1);
         }
     },
     mounted:function(){
@@ -39,6 +45,7 @@ export default
         for(let i =0; i < this.data.blanksMenu.length;i++){
             this.aShow.push(0);
         }
+        this.ss = "<div @click='test' v-text='this.ll'></div>"
     }
 }
 </script>

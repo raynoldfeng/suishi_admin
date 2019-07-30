@@ -76,7 +76,7 @@ import $ from 'jquery'
             word-break: break-all;
         }
     .sideEdgeBoxMenu li:before{
-        content: "•";
+        content: "▶";
         padding-right: .5em;
         font-family: "iconfont";
         vertical-align: middle;

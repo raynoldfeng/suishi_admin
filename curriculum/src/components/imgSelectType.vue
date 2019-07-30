@@ -9,7 +9,7 @@
             <div class="isd-rightMenu">
                 <div  v-for="(datas,index) in data.imgselectDisplayMenu" v-show="nowshow == index">
                     <img v-if="datas.imgselectDisplayImg != ''" :src="datas.imgselectDisplayImg" />
-                    <ul>
+                    <ul  class="sideEdgeBoxMenu">
                         <li v-for="(mdata,mindex) in datas.imgselectDisplayTextMenu" v-html="mdata.imgselectDisplayText"></li>
                     </ul>
                 </div>
@@ -63,5 +63,16 @@
     border: 1px solid #999999;
     padding: 2% 2%;
     margin: 1% 0;
+}
+.sideEdgeBoxMenu li{
+    margin:5% 0 0 0;
+    word-break: break-all;
+}
+.sideEdgeBoxMenu li:before{
+    content: "▶";
+    padding-right: .5em;
+    font-family: "iconfont";
+    vertical-align: middle;
+    display: inline-block;
 }
 </style>

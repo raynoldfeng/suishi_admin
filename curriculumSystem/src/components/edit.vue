@@ -32,7 +32,7 @@
                     <input id="selectLt-selector" type="file" >
                     <input id="sideEdgeImg-upload" type="file" >
                     <input id="selectR-selector" type="file" >
-                    <input id=" img-selector" type="file" >
+                    <input id="img-selector" type="file" >
                             <div  v-if=" dataMenu.length > 0">
                                 <div id="testMedolBox" :class="{big_size:isbig}" @click="bigEvent">
                                     <img  v-if="nowData.testType == 0 && nowData.displayType == 't1'" src="./../image/01.png" />
@@ -670,11 +670,10 @@ v-model="nowData.selectTextNoteR">
                     <el-input class="input_type" v-model="nowData.imgselectDisplayInfo"></el-input>
                 </div>
                 <div class="view_main">
-                    <span>内容:</span>
-                    <el-button @click="imgSelectAddEvent">添加内容</el-button>
-                    <div class="view_main" v-for="(data,index) in nowData.imgselectDisplayMenu">
+                    <el-button @click="imgSelectAddEvent" type="primary" >添加图片选项</el-button>
+                    <div class="view_main box-css" v-for="(data,index) in nowData.imgselectDisplayMenu">
                         <div class="view_main">
-                            <el-button @click="imgSelectDeleteEvent(index)">添加填空</el-button>
+                            <el-button @click="imgSelectDeleteEvent(index)">删除</el-button>
                         </div>
                         <div class="view_main">
                             <span>按钮内容:</span>
@@ -691,7 +690,7 @@ v-model="nowData.selectTextNoteR">
                             <span>段落:</span>
                             <el-button @click="imgSelectTextAddEvent(index)">添加段落</el-button>
                             <ul class="view_main">
-                                <li v-for="(sdata,sindex) in data.imgselectDisplayTextMenu">
+                                <li v-for="(sdata,sindex) in data.imgselectDisplayTextMenu"  class="view_main">
                                     <el-input
                                             class="textarea_type"
                                             type="textarea"
@@ -1491,7 +1490,7 @@ export default {
                 if(self.SecretId != "" && self.SecretKey !="" ){
                     if(file){
                         self.cosjs(self.SecretId,self.SecretKey,file,self.XCosSecurityToken,self.expiredTime,function(img){
-                            self.nowData.imgselectDisplayMenu[selectImgIndex].imgselectDisplayImg = img;
+                            self.nowData.imgselectDisplayMenu[self.selectImgIndex].imgselectDisplayImg = img;
                         });
                     }
                 }

@@ -8,7 +8,7 @@
                 <div class="input-b-box" v-if="idata.blanksType == 2">
                     <div class="blanks-anw" contenteditable="true" v-text="idata.blanksInput" ></div>
                     <span v-if="idata.isShow == false" class="show-abtn" @click="showAnswer(index,idata.blanksAnswer)"> > </span>
-                    <span  v-if="idata.isShow == true" class="true-btn"  @click="showAnswer(index,idata.blanksAnswer)">√</span>
+                    <span  v-if="idata.isShow == true" class="true-btn"  @click="showAnswer(index,idata.blanksAnswer)">✔</span>
                 </div>
 
             </div>
@@ -62,22 +62,26 @@ export default
     .blanks-anw{
         min-width:25vw;
         border: 1px solid #999;
-        display:inline-block;
+        float: left;
         font-size:4vw;
     }
     .input-b-box{
         display: inline-block;
     }
     .show-abtn{
-        display: inline-block;
         background: skyblue;
         color: #fff;
-    }
-    .true-anw{
-        font-size:4vw;
+        float: left;
+        font-size:4.5vw;
+        width: 5vw;
+        text-align: center;
     }
     .true-btn{
        background: green;
+        float: left;
+        font-size:4vw;
+        width: 5vw;
+        text-align: center;
     }
 .btext-main{
     display: inline-block;

@@ -7,7 +7,7 @@
                 <div class="isb-btn" v-for="(datas,index) in data.imgselectDisplayMenu" @click="showContentEvent(index)" v-text="datas.imgselectDisplayBtn"></div>
             </div>
             <div class="isd-rightMenu">
-                <div  v-for="(datas,index) in data.imgselectDisplayMenu" v-show="nowshow == index">
+                <div  class="sideEdgeBoxMain" v-for="(datas,index) in data.imgselectDisplayMenu" v-show="nowshow == index">
                     <img v-if="datas.imgselectDisplayImg != ''" :src="datas.imgselectDisplayImg" />
                     <ul  class="sideEdgeBoxMenu">
                         <li v-for="(mdata,mindex) in datas.imgselectDisplayTextMenu" v-html="mdata.imgselectDisplayText"></li>
@@ -19,7 +19,7 @@
 </template>
 <script>
     export default{
-        prop:{
+        props:{
             data:""
         },
         data(){
@@ -33,7 +33,7 @@
             }
         },
         mounted:function(){
-
+            console.log(this.data)
         }
     }
 </script>
@@ -51,22 +51,26 @@
     z-index: 1;
 }
 .isd-leftMenu,.isd-rightMenu{
-    display: inline-block;
+    float: left;
 }
 .isd-leftMenu{
-    width: 48%;
+    width: 40%;
 }
 .isd-rightMenu{
-    width: 48%;
+    width: 56%;
 }
 .isb-btn{
-    border: 1px solid #999999;
-    padding: 2% 2%;
-    margin: 1% 0;
+    border: 1px solid #d9d9d9;
+    padding: 4% 2%;
+    margin: 6% 0 0;
+    font-size: 4vw;
+    border-radius: 5px;
+    color: #666;
 }
 .sideEdgeBoxMenu li{
     margin:5% 0 0 0;
     word-break: break-all;
+    font-size: 4vw;
 }
 .sideEdgeBoxMenu li:before{
     content: "▶";
@@ -74,5 +78,11 @@
     font-family: "iconfont";
     vertical-align: middle;
     display: inline-block;
+}
+.sideEdgeBoxMain{
+    width: 100%;
+}
+.sideEdgeBoxMain img{
+    width: 40%;
 }
 </style>

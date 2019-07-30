@@ -8,7 +8,7 @@
                 <div class="input-b-box" v-if="idata.blanksType == 2">
                     <div class="blanks-anw" contenteditable="true" v-text="idata.blanksInput" ></div>
                     <span v-if="idata.isShow == false" class="show-abtn" @click="showAnswer(index,idata.blanksAnswer)"> > </span>
-                    <span  v-if="idata.isShow == true" class="true-btn"  @click="showAnswer(index,idata.blanksAnswer)">1</span>
+                    <span  v-if="idata.isShow == true" class="true-btn"  @click="showAnswer(index,idata.blanksAnswer)">√</span>
                 </div>
 
             </div>

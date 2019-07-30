@@ -4,9 +4,16 @@
         <p class="blanks-info" v-text="data.imgselectDisplayInfo"></p>
         <div>
             <div class="isd-leftMenu">
-                
+                <div class="isb-btn" v-for="(datas,index) in data.imgselectDisplayMenu" @click="showContentEvent(index)" v-text="datas.imgselectDisplayBtn"></div>
             </div>
-            <div class="isd-rightMenu"></div>
+            <div class="isd-rightMenu">
+                <div  v-for="(datas,index) in data.imgselectDisplayMenu" v-show="nowshow == index">
+                    <img v-if="datas.imgselectDisplayImg != ''" :src="datas.imgselectDisplayImg" />
+                    <ul>
+                        <li v-for="(mdata,mindex) in datas.imgselectDisplayTextMenu" v-html="mdata.imgselectDisplayText"></li>
+                    </ul>
+                </div>
+            </div>
         </div>
     </div>
 </template>
@@ -16,10 +23,14 @@
             data:""
         },
         data(){
-            return{}
+            return{
+                nowshow:""
+            }
         },
         methods:{
-
+            showContentEvent(index){
+                this.nowshow = index;
+            }
         },
         mounted:function(){
 
@@ -47,5 +58,10 @@
 }
 .isd-rightMenu{
     width: 48%;
+}
+.isb-btn{
+    border: 1px solid #999999;
+    padding: 2% 2%;
+    margin: 1% 0;
 }
 </style>

@@ -33,6 +33,7 @@
                     <input id="sideEdgeImg-upload" type="file" >
                     <input id="selectR-selector" type="file" >
                     <input id="img-selector" type="file" >
+                    <input id="img-display" type="file" >
                             <div  v-if=" dataMenu.length > 0">
                                 <div id="testMedolBox" :class="{big_size:isbig}" @click="bigEvent">
                                     <img  v-if="nowData.testType == 0 && nowData.displayType == 't1'" src="./../image/01.png" />
@@ -148,6 +149,14 @@
                             <el-select v-show="nowData.testType == 11" class="select-css" v-model="nowData.displayType" placeholder="类型">
                                 <el-option
                                         v-for="item in imgselectDisplayMenu"
+                                    :key="item.value"
+                                    :label="item.label"
+                                    :value="item.value">
+                                </el-option>
+                            </el-select>
+                            <el-select v-show="nowData.testType == 12" class="select-css" v-model="nowData.displayType" placeholder="类型">
+                                <el-option
+                                        v-for="item in imgDisplayTypeMenu"
                                     :key="item.value"
                                     :label="item.label"
                                     :value="item.value">
@@ -705,6 +714,48 @@ v-model="nowData.selectTextNoteR">
                 </div>
             </div>
 
+
+            <div v-if="nowData.testType == 12 && nowData.displayType == 'idp'">
+                <div class="view_main">
+                    <span>标题:</span>
+                    <el-input class="input_type" v-model="nowData.imgDisplayTypeTitle"></el-input>
+                </div>
+                <div class="view_main">
+                    <span>副标题:</span>
+                    <el-input class="input_type" v-model="nowData.imgDisplayTypeInfo"></el-input>
+                </div>
+                <div class="view_main">
+                    <el-button @click="imgDisplayAddEvent" type="primary" >添加图片展示</el-button>
+                    <div class="view_main" v-for="(data,index) in nowData.imgDisplayTypeMenu">
+                        <div class="view_main">
+                            <el-button @click="imgDisplayDeleteEvent(index)">删除</el-button>
+                        </div>
+                        <div class="view_main">
+                            <div class="type_title">图片:</div>
+                            <div class="avatar-uploader" @click="uploadClick('img-display',index)">
+                                <img v-if="data.imgDisplayTypeImg" :src="data.imgDisplayTypeImg" class="avatar">
+                                <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+                            </div>
+                        </div>
+                        <div class="view_main">
+                            <span>段落:</span>
+                            <el-button @click="imgDisplayTextAddEvent">添加段落</el-button>
+                            <ul class="view_main">
+                                <li v-for="(sdata,sindex) in data.imgDisplayTypeTextMenu"  class="view_main">
+                                    <el-input
+                                            class="textarea_type"
+                                            type="textarea"
+                                    :autosize="{ minRows: 2, maxRows: 4}"
+                                    placeholder="请输入内容"
+                                    v-model="sdata.imgDisplayTypeText"></el-input>
+                                    <span @click="imgDisplayTextDeleteEvent(index,sindex)">删除</span>
+                               </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </el-main>
         </el-container>
         </el-container>
@@ -813,6 +864,14 @@ v-model="nowData.selectTextNoteR">
  * imgselectDisplayTextMenu 段落菜单
  * imgselectDisplayText 段落
  *
+ * 12
+ * imgDisplayTypeTitle 图片展示标题
+ * imgDisplayTypeInfo  图片展示副标题
+ * imgDisplayTypeMenu 图片展示菜单
+ *imgDisplayTypeImg 图片展示图片
+ * imgDisplayTypeTextMenu 图片展示段落菜单
+ * imgDisplayTypeText 图片展示段落
+ *
 *
  */
 export default {
@@ -856,7 +915,11 @@ export default {
                 {value:"10",
                     label:"填空"},
                 {value:"11",
-                    label:"图片选项展示"}
+                    label:"图片选项展示"},
+                {
+                    value:"12",
+                    label:"图片展示"
+                }
             ],
             titleInfoTypeMenu:[
                 {
@@ -927,6 +990,12 @@ export default {
             imgselectDisplayMenu:[
                 {
                     value:"isd",
+                    label:"点击"
+                }
+            ],
+            imgDisplayTypeMenu:[
+                {
+                    value:"idp",
                     label:"点击"
                 }
             ],
@@ -1035,8 +1104,20 @@ export default {
                             imgselectDisplayText:""
                         }]
                     }
-                ]
+                ],
 
+
+
+
+
+                 imgDisplayTypeTitle :"",
+                 imgDisplayTypeInfo:"",
+                imgDisplayTypeMenu:[{
+                    imgDisplayTypeImg:"",
+                    imgDisplayTypeTextMenu:[{
+                        imgDisplayTypeText:""
+                    }]
+                }]
 
             },
             copyData:{
@@ -1142,7 +1223,20 @@ export default {
                             imgselectDisplayText:""
                         }]
                     }
-                ]
+                ],
+
+
+
+
+
+                imgDisplayTypeTitle :"",
+                imgDisplayTypeInfo:"",
+                imgDisplayTypeMenu:[{
+                    imgDisplayTypeImg:"",
+                    imgDisplayTypeTextMenu:[{
+                        imgDisplayTypeText:""
+                    }]
+                }]
             },
             SecretId:"",
             SecretKey:"",
@@ -1269,7 +1363,18 @@ export default {
                             imgselectDisplayText:""
                         }]
                     }
-                ]
+                ],
+
+
+
+                imgDisplayTypeTitle :"",
+                imgDisplayTypeInfo:"",
+                imgDisplayTypeMenu:[{
+                    imgDisplayTypeImg:"",
+                    imgDisplayTypeTextMenu:[{
+                        imgDisplayTypeText:""
+                    }]
+                }]
             };
             //    this.nowData = this.copyData;
             console.log(this.nowData)
@@ -1632,6 +1737,28 @@ export default {
         },
         imgSelectTextDeleteEvent(index,sindex){
             this.nowData.imgselectDisplayMenu[index].imgselectDisplayTextMenu.splice(sindex,1);
+        },
+        /**
+         * 图片展示类型
+         */
+        imgDisplayAddEvent(){
+            var newdata = {
+                imgDisplayTypeImg:"",
+                imgDisplayTypeTextMenu:[{
+                    imgDisplayTypeText:""
+                }]
+            };
+            this.nowData.imgDisplayTypeMenu.push(newdata);
+        },
+        imgDisplayDeleteEvent(index){
+            this.nowData.imgDisplayTypeMenu.splice(index,1);
+        },
+        imgDisplayTextAddEvent(index){
+            var newdata = {imgDisplayTypeText:""}
+            this.nowData.imgDisplayTypeMenu[index].imgDisplayTypeTextMenu.push(newdata);
+        },
+        imgDisplayTextDeleteEvent(index,sindex){
+            this.nowData.imgDisplayTypeMenu[index].imgDisplayTypeTextMenu.splice(sindex,1);
         }
     },
     mounted:function(){

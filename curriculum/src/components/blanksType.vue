@@ -3,7 +3,6 @@
         <p class="quest-text blanks-title" v-text="data.blanksTitle"></p>
         <p class="blanks-info" v-text="data.blanksInfo"></p>
         <div class="btext-menu">
-            <div v-html="ss"></div>
             <div class="btext-main" v-for="(idata,index) in data.blanksMenu">
                     <span v-if="idata.blanksType == 1"  class="blanks-text" v-text="idata.blanksText"></span>
                 <div class="input-b-box" v-if="idata.blanksType == 2">
@@ -27,25 +26,30 @@ export default
     data(){
         return{
             aShow:[],
-            ss:"",
-            ll:"sdssdooo"
         }
     },
     methods:{
         showAnswer(index,anw){
             this.data.blanksMenu[index].isShow = true;
             this.data.blanksMenu[index].blanksInput = anw;
-        },
-        test(){
-            alert(1);
         }
     },
     mounted:function(){
-        console.log(this.data.blanksMenu)
-        for(let i =0; i < this.data.blanksMenu.length;i++){
-            this.aShow.push(0);
+         var html = "";
+        for(let i = 0;i < this.data.blanksMenu.length;i++){
+            if(this.data.blanksMenu[i].blanksType == 1){
+                html+= this.data.blanksMenu[i].blanksText;
+            }else if(this.data.blanksMenu[i].blanksType == 2){
+                html+= '<div class="input-b-box"><div class="blanks-anw" contenteditable="true"  >'+this.data.blanksMenu[i].blanksInput+'</div>'+
+                        '<span class="show-abtn" key="'+this.data.blanksMenu[i].blanksAnswer+'"> > </span></div>'
+            }
         }
-        this.ss = "<div @click='test' v-text='this.ll'></div>"
+        $(".btext-menu").html(html);
+        $(".show-abtn").on("click",function(){
+            $(this).prev().text($(this).attr("key"));
+            $(this).addClass("true-btn").text("✔");
+        })
+
     }
 }
 </script>
@@ -74,6 +78,8 @@ export default
     }
     .input-b-box{
         display: inline-block;
+        position: relative;
+        top: 2px;
     }
     .show-abtn{
         background: skyblue;
@@ -95,5 +101,7 @@ export default
 }
 .btext-menu{
     text-align: left;
+    font-size: 4vw;
+    word-break: break-all;
 }
 </style>

@@ -7,7 +7,7 @@
             <div class="tp-logo-main">
                 <img :src="data.authorImg">
             </div>
-            <p class="tp-info" v-html="data.authorInfo">
+            <p class="tp-info tp-info-title" v-html="data.authorInfo">
 
             </p>
             <p class="tp-info" v-html="Trim(data.courseInfo)">
@@ -47,19 +47,19 @@
     #titlePage{
         position: absolute;
         width: 100%;
-        top: 50%;
+        top: 42%;
     }
     .tp-title{
         font-size: 6vw;
         color: #666666;
         width: 90%;
-        margin: 5% auto 0;
+        margin: 0 auto 0;
         word-break: break-all ;
         text-align: center;
     }
     .tp-logo-main{
-        width: 15%;
-        margin: 10% auto 6%;
+        width: 22%;
+        margin: 14% auto 6%;
     }
     .tp-logo-main img{
         width: 100%;
@@ -71,6 +71,10 @@
         text-align: center;
         color: #acafb2;
         font-size: 4vw;
+    }
+    .tp-info-title{
+        font-size: 5vw;
+        color: #333333;
     }
     .tp-start-btn{
         min-width: 30%;

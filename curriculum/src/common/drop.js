@@ -153,8 +153,14 @@ export const drop = {
             var left_e = $(id).offset().left + $(id).width()/2;
             var top_s = $(id).offset().top -  $(id).height()/2;
             var top_e =  $(id).offset().top + $(id).height();
-            var nowTop = parseInt(top)+target.style.height/2;
-            var nowLeft = parseInt(left)+target.style.width/2;
+            var nowTop = parseInt(top)+parseInt(target.css("height"))/2;
+            var nowLeft = parseInt(left)+parseInt(target.css("width"))/2;
+            console.log(left_s)
+            console.log(left_e)
+            console.log(top_s)
+            console.log(top_e)
+            console.log(nowTop)
+            console.log(nowLeft)
             if(nowTop > top_s && nowTop < top_e && nowLeft > left_s && nowLeft < left_e){
                 if($(id).find(".kuang").hasClass("yes")){
                     $(id).find(".kuang").addClass("answer-css");  //给答案添加样式

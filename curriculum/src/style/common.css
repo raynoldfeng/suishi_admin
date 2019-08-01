@@ -52,6 +52,7 @@ ul li{
     font-size: 4vw;
     color: #666;
     z-index: 1;
+    margin-top: 4vw;
 }
 
 .sideEdgeBoxMenu li{
@@ -68,4 +69,12 @@ ul li{
 }
 .ishide{
     display: none;
+}
+
+#selectImgBg{
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin-left: -50%;
 }

@@ -4,7 +4,7 @@
         <p class="common-info" v-text="data.imgDisplayTypeInfo"></p>
         <div class="idt-main"  v-for="(datas,index) in data.imgDisplayTypeMenu">
             <img class="idt-img" :src="datas.imgDisplayTypeImg">
-            <ul class="sideEdgeBoxMenu ishide">
+            <ul class="sideEdgeBoxMenu ishide idp-type-menu">
                 <li v-for="(sdata,sindex) in datas.imgDisplayTypeTextMenu" v-html="Trim(sdata.imgDisplayTypeText)"></li>
             </ul>
         </div>
@@ -13,6 +13,9 @@
 <script>
 import $ from 'jquery'
            export default{
+                props:{
+                    data:""
+                },
                methods:{
                    Trim(str) {
                        return str.replace(/\n|\r\n/g,"<br/>");
@@ -34,4 +37,10 @@ import $ from 'jquery'
         .idt-img{
             width: 50%;
         }
+ .idt-main{
+     margin-top: 4vw;
+ }
+ .idp-type-menu li{
+     margin-top: 3vw;
+ }
 </style>

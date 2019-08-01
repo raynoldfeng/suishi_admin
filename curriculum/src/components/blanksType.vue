@@ -98,5 +98,6 @@ export default
     text-align: left;
     font-size: 4vw;
     word-break: break-all;
+    margin-top: 4vw;
 }
 </style>

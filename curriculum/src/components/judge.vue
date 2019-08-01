@@ -17,7 +17,7 @@
             </div>
 
         </div>
-        <div id="nbox" class="animated" v-html="Trim(data.judgeText)"></div>
+        <div id="nbox" class="animated ddds" v-html="Trim(data.judgeText)"></div>
     </div>
 </template>
 <script>
@@ -28,7 +28,7 @@ export default {
     },
     mounted:function(){
         var self = this;
-        $("#nbox").css({top:window.innerHeight/1.5,left:(window.innerWidth-$("#nbox").width())/2});
+        $(".ddds").css({top:window.innerHeight/1.5,left:(window.innerWidth-$("#nbox").width())/2});
 //        var oBox = document.getElementById("nbox");
 //        var oBar = document.getElementById("nbox");
         // this.drop.phoneStartDrag(oBar, oBox ,"#nbox");
@@ -39,9 +39,9 @@ export default {
 //             $("#noteText").show();
 //        $("#noteText").html(this.Trim(this.data.judgeAnswerText))
 //        });
-        var oBox = $("#nbox");
-        var oBar = $("#nbox");
-        this.drops.phoneStartDrag(oBar, oBox ,"#nbox",function(data){
+        var oBox = $(".ddds");
+        var oBar = $(".ddds");
+        this.drops.phoneStartDrag(oBar, oBox ,".ddds",function(data){
 
             },()=>{
                 $("#noteWin").show();

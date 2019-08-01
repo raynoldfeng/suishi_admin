@@ -739,7 +739,7 @@ v-model="nowData.selectTextNoteR">
                         </div>
                         <div class="view_main">
                             <span>段落:</span>
-                            <el-button @click="imgDisplayTextAddEvent">添加段落</el-button>
+                            <el-button @click="imgDisplayTextAddEvent(index)">添加段落</el-button>
                             <ul class="view_main">
                                 <li v-for="(sdata,sindex) in data.imgDisplayTypeTextMenu"  class="view_main">
                                     <el-input
@@ -1596,6 +1596,21 @@ export default {
                     if(file){
                         self.cosjs(self.SecretId,self.SecretKey,file,self.XCosSecurityToken,self.expiredTime,function(img){
                             self.nowData.imgselectDisplayMenu[self.selectImgIndex].imgselectDisplayImg = img;
+                        });
+                    }
+                }
+            };
+
+            document.getElementById('img-display').onchange = function () {
+                var file = this.files[0];
+                if (!file) return;
+                if(self.SecretId != "" && self.SecretKey !="" ){
+                    if(file){
+                        self.cosjs(self.SecretId,self.SecretKey,file,self.XCosSecurityToken,self.expiredTime,function(img){
+                            self.nowData.imgDisplayTypeMenu[self.selectImgIndex].imgDisplayTypeImg = img;
+                            console.log(111111111111)
+                            console.log(img)
+                            console.log( self.nowData.imgDisplayTypeMenu)
                         });
                     }
                 }

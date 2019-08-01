@@ -5,7 +5,7 @@
                 <img id="selectImgBg" :src="data.ImgJumpTypeBg">
             </div>
             <p class="quest-text" v-text="data.ImgJumpTypeTitle"></p>
-            <p class="quest-text" v-text="data.ImgJumpTypeInfo"></p>
+            <p class="quest-info common-info" v-text="data.ImgJumpTypeInfo"></p>
             <div class="tp-start-btn" @click="jumpEvent" v-text="data.ImgJumpBtnText"></div>
         </div>
     </div>
@@ -36,6 +36,11 @@ import $ from 'jquery'
     }
 </script>
         <style>
+        .quest-info{
+            position: relative;
+            z-index: 1;
+            color: #999999;
+        }
         .tp-start-btn{
             min-width: 30%;
             display: inline-block;
@@ -46,11 +51,5 @@ import $ from 'jquery'
             font-size: 4vw;
             position: relative;
         }
-        #selectImgBg{
-            width:100%;
-            height: 100%;
-            position: absolute;
-            top: 0;
-            left: 0;
-        }
+
         </style>

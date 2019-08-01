@@ -5,7 +5,7 @@
                 <img id="selectImgBg" :src="data.selectAllJImg">
             </div>
             <p class="quest-text" v-text="data.selectAllJTitle"></p>
-            <p class="quest-text" v-text="data.selectAllJSubtitleTitle"></p>
+            <p class="quest-info common-info" v-text="data.selectAllJSubtitleTitle"></p>
             <ul id="selectBox" class="optionall-menu">
                 <!--<li v-for="(data,index) in data.selectMenu" v-text="data.answerText"   class="answer-css animated" :class="{yes:data.isAnswer == '1' ,no:data.isAnswer == '0'}"></li>-->
             <!--<li class="explain" v-html="Trim(data.imgTextNote)">-->
@@ -76,6 +76,11 @@ export default {
     position: relative;
     z-index: 1;
 }
+.quest-info{
+    position: relative;
+    z-index: 1;
+    color: #999999;
+}
 
 .optionall-menu{
     width: 70%;
@@ -109,11 +114,5 @@ export default {
     color: #666;
     display: none;
 }
-#selectImgBg{
-    width:100%;
-    height: 100%;
-    position: absolute;
-    top: 0;
-    left: 0;
-}
+
 </style>

@@ -41,6 +41,7 @@
                 <v-sideEdgeImg v-else-if="data.testType == '9' && data.displayType == 'ct'" :data="data"></v-sideEdgeImg>
                 <v-blanksType v-else-if="data.testType == '10' && data.displayType == 'bl'" :data="data"></v-blanksType>
                 <v-imgSelectType v-else-if="data.testType == '11' && data.displayType == 'isd'" :data="data"></v-imgSelectType>
+                <v-imgDisplayType v-else-if="data.testType == '12' && data.displayType == 'idp'" :data="data"></v-imgDisplayType>
             </swiper-slide>
             <swiper-slide :key="bookData.length">
                 <v-lastPage></v-lastPage>
@@ -106,6 +107,7 @@ import listTypePage from "../components/listTypePage.vue"
 import sideEdgeImg from "../components/sideEdgeImg.vue"
 import blanksType from '../components/blanksType.vue'
  import imgSelectType from  '../components/imgSelectType.vue'
+ import imgDisplayType from '../components/imgDisplayType.vue'
  import $ from 'jquery'
     export default{
         data(){
@@ -163,7 +165,8 @@ import blanksType from '../components/blanksType.vue'
            'v-listTypePage':listTypePage,
              'v-sideEdgeImg':sideEdgeImg,
              "v-blanksType":blanksType,
-             "v-imgSelectType":imgSelectType
+             "v-imgSelectType":imgSelectType,
+             "v-imgDisplayType":imgDisplayType
      },
         mounted:function(){
             var self = this;

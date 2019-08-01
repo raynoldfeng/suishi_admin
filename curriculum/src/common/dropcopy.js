@@ -12,8 +12,7 @@ var params = {
     flag: false
 };
 function getCss(o,key){
-  //  return o.currentStyle? o.currentStyle[key] : document.defaultView.getComputedStyle(o,false)[key];
-    return o.css(key);
+    return o.currentStyle? o.currentStyle[key] : document.defaultView.getComputedStyle(o,false)[key];
 };
 export const drop = {
 
@@ -25,28 +24,12 @@ export const drop = {
             params.top = getCss(target, "top");
         }
 
-//        bar.addEventListener("touchstart",function(event){
-//            $(".kuang").addClass("select-css");
-//            params.flag = true;
-//            if(!event){
-//                event = window.event;
-//                //防止IE文字选中
-//                bar.onselectstart = function(){
-//                    return false;
-//                }
-//            }
-//            var e = event;
-//        //    console.log(e.targetTouches[0].clientX)
-//            params.currentX = e.targetTouches[0].clientX;
-//            params.currentY = e.targetTouches[0].clientY;
-//        });
-
-        bar.on("touchstart",function(event){
+        bar.addEventListener("touchstart",function(event){
             $(".kuang").addClass("select-css");
             params.flag = true;
             if(!event){
                 event = window.event;
-                //防止IE文字选中???
+                //防止IE文字选中
                 bar.onselectstart = function(){
                     return false;
                 }
@@ -56,23 +39,15 @@ export const drop = {
             params.currentX = e.targetTouches[0].clientX;
             params.currentY = e.targetTouches[0].clientY;
         });
-
-
-
-
-
-
         document.addEventListener("touchend",function(){
             params.flag = false;
 //        target.style.left = 100 + "px";
 //        target.style.top = 300 + "px";
 
             $(".kuang").removeClass("select-css");
-
-
-            if(isSelection(".true-main", target.css("top"), target.css("left")) || isSelection(".false-main", target.css("top"), target.css("left"))){
-                target.css("left",(window.innerWidth - $(id).width())/2 + "px");
-                target.css("top",window.innerHeight/1.5 + "px");
+            if(isSelection(".true-main", target.style.top, target.style.left) || isSelection(".false-main", target.style.top, target.style.left)){
+                target.style.left = (window.innerWidth - $(id).width())/2 + "px";
+                target.style.top = window.innerHeight/1.5 + "px";
                 $(id).hide();
                 if(getCss(target, "left") !== "auto"){
                     params.left = getCss(target, "left");
@@ -96,32 +71,6 @@ export const drop = {
                 });
             }
 
-//            if(isSelection(".true-main", target.style.top, target.style.left) || isSelection(".false-main", target.style.top, target.style.left)){
-//                target.style.left = (window.innerWidth - $(id).width())/2 + "px";
-//                target.style.top = window.innerHeight/1.5 + "px";
-//                $(id).hide();
-//                if(getCss(target, "left") !== "auto"){
-//                    params.left = getCss(target, "left");
-//                }
-//                if(getCss(target, "top") !== "auto"){
-//                    params.top = getCss(target, "top");
-//                }
-//                truecallback && truecallback();
-//            }else{
-//                $(id).removeClass("shake");
-//                var left = (window.innerWidth - $(id).width())/2 + "px";
-//                var top =window.innerHeight/1.5 + "px";
-//                $(id).animate({left:left,top:top},function(){
-//                    if(getCss(target, "left") !== "auto"){
-//                        params.left = getCss(target, "left");
-//                    }
-//                    if(getCss(target, "top") !== "auto"){
-//                        params.top = getCss(target, "top");
-//                    }
-//                    $(id).addClass("shake");
-//                });
-//            }
-
 
 
 
@@ -133,11 +82,8 @@ export const drop = {
             if(params.flag){
                 var nowX = e.targetTouches[0].clientX, nowY = e.targetTouches[0].clientY;
                 var disX = nowX - params.currentX, disY = nowY - params.currentY;
-//                target.style.left = parseInt(params.left) + disX + "px";
-//                target.style.top = parseInt(params.top) + disY + "px";
-                target.css("left",parseInt(params.left) + disX + "px");
-                target.css("top",parseInt(params.top) + disY + "px");
-
+                target.style.left = parseInt(params.left) + disX + "px";
+                target.style.top = parseInt(params.top) + disY + "px";
                 if (typeof callback == "function") {
                     callback((parseInt(params.left) || 0) + disX, (parseInt(params.top) || 0) + disY);
                 }

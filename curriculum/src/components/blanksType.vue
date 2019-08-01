@@ -1,18 +1,17 @@
 <template>
     <div id="QuestMain">
         <p class="quest-text blanks-title" v-text="data.blanksTitle"></p>
-        <p class="blanks-info" v-text="data.blanksInfo"></p>
+        <p class="common-info" v-text="data.blanksInfo"></p>
         <div class="btext-menu">
-            <div class="btext-main" v-for="(idata,index) in data.blanksMenu">
-                    <span v-if="idata.blanksType == 1"  class="blanks-text" v-text="idata.blanksText"></span>
-                <div class="input-b-box" v-if="idata.blanksType == 2">
-                   <div class="blanks-anw" contenteditable="true" v-text="idata.blanksInput" ></div>
-                    <span v-if="idata.isShow == false" class="show-abtn" @click="showAnswer(index,idata.blanksAnswer)"> > </span>
-                    <span  v-if="idata.isShow == true" class="true-btn"  @click="showAnswer(index,idata.blanksAnswer)">✔</span>
-                </div>
+            <!--<div class="btext-main" v-for="(idata,index) in data.blanksMenu">-->
+                    <!--<span v-if="idata.blanksType == 1"  class="blanks-text" v-text="idata.blanksText"></span>-->
+                <!--<div class="input-b-box" v-if="idata.blanksType == 2">-->
+                   <!--<div class="blanks-anw" contenteditable="true" v-text="idata.blanksInput" ></div>-->
+                    <!--<span v-if="idata.isShow == false" class="show-abtn" @click="showAnswer(index,idata.blanksAnswer)"> > </span>-->
+                    <!--<span  v-if="idata.isShow == true" class="true-btn"  @click="showAnswer(index,idata.blanksAnswer)">✔</span>-->
+                <!--</div>-->
 
-            </div>
-
+            <!--</div>-->
         </div>
     </div>
 </template>
@@ -29,10 +28,10 @@ export default
         }
     },
     methods:{
-        showAnswer(index,anw){
-            this.data.blanksMenu[index].isShow = true;
-            this.data.blanksMenu[index].blanksInput = anw;
-        }
+//        showAnswer(index,anw){
+//            this.data.blanksMenu[index].isShow = true;
+//            this.data.blanksMenu[index].blanksInput = anw;
+//        }
     },
     mounted:function(){
          var html = "";
@@ -61,11 +60,7 @@ export default
         position: relative;
         z-index: 1;
     }
-    .blanks-info{
-        font-size: 4vw;
-        color: #666;
-        z-index: 1;
-    }
+
     .blanks-text{
         display:inline-block;
         font-size:4vw;

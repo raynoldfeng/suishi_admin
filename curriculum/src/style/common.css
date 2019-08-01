@@ -48,3 +48,24 @@ ul li{
     font-size:4vw;
     display:none;
 }
+.common-info{
+    font-size: 4vw;
+    color: #666;
+    z-index: 1;
+}
+
+.sideEdgeBoxMenu li{
+    margin:5% 0 0 0;
+    word-break: break-all;
+    font-size: 4vw;
+}
+.sideEdgeBoxMenu li:before{
+    content: "▶";
+    padding-right: .5em;
+    font-family: "iconfont";
+    vertical-align: middle;
+    display: inline-block;
+}
+.ishide{
+    display: none;
+}

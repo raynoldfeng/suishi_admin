@@ -29,15 +29,24 @@ export default {
     mounted:function(){
         var self = this;
         $("#nbox").css({top:window.innerHeight/1.5,left:(window.innerWidth-$("#nbox").width())/2});
-        var oBox = document.getElementById("nbox");
-        var oBar = document.getElementById("nbox");
+//        var oBox = document.getElementById("nbox");
+//        var oBar = document.getElementById("nbox");
         // this.drop.phoneStartDrag(oBar, oBox ,"#nbox");
+//        this.drops.phoneStartDrag(oBar, oBox ,"#nbox",function(data){
+//
+//        },()=>{
+//            $("#noteWin").show();
+//             $("#noteText").show();
+//        $("#noteText").html(this.Trim(this.data.judgeAnswerText))
+//        });
+        var oBox = $("#nbox");
+        var oBar = $("#nbox");
         this.drops.phoneStartDrag(oBar, oBox ,"#nbox",function(data){
 
-        },()=>{
-            $("#noteWin").show();
-             $("#noteText").show();
-        $("#noteText").html(this.Trim(this.data.judgeAnswerText))
+            },()=>{
+                $("#noteWin").show();
+            $("#noteText").show();
+            $("#noteText").html(this.Trim(this.data.judgeAnswerText))
         });
     },
     methods:{

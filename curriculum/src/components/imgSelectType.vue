@@ -10,7 +10,7 @@
                 <div  class="isb-sideEdgeBoxMain" v-for="(datas,index) in data.imgselectDisplayMenu" v-show="nowshow == index">
                     <img v-if="datas.imgselectDisplayImg != ''" :src="datas.imgselectDisplayImg" />
                     <ul  class="sideEdgeBoxMenu">
-                        <li v-for="(mdata,mindex) in datas.imgselectDisplayTextMenu" v-html="mdata.imgselectDisplayText"></li>
+                        <li v-for="(mdata,mindex) in datas.imgselectDisplayTextMenu" v-html="Trim(mdata.imgselectDisplayText)"></li>
                     </ul>
                 </div>
             </div>
@@ -31,6 +31,9 @@ import $ from 'jquery'
         methods:{
             showContentEvent(index){
                 this.nowshow = index;
+            },
+            Trim(str) {
+                return str.replace(/\n|\r\n/g,"<br/>");
             }
         },
         mounted:function(){
@@ -76,18 +79,7 @@ import $ from 'jquery'
     border: 1px solid deepskyblue;
     color: deepskyblue;
 }
-.sideEdgeBoxMenu li{
-    margin:5% 0 0 0;
-    word-break: break-all;
-    font-size: 4vw;
-}
-.sideEdgeBoxMenu li:before{
-    content: "▶";
-    padding-right: .5em;
-    font-family: "iconfont";
-    vertical-align: middle;
-    display: inline-block;
-}
+
 .isb-sideEdgeBoxMain{
     margin-left: 10%;
     width: 90%;

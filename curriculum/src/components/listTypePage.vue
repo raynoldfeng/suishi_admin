@@ -91,7 +91,8 @@ export default {
 .list-type-menu li{
         font-size: 5vw;
         color: #333;
-        margin:1% 0;
+        margin:1% 6% 0;
+        text-align: left;
     }
     .tp-next-btn{
         min-width: 30%;

@@ -67,12 +67,15 @@ ul li {
     max-height: 300px;
 }
 .select-menu li{
-    height:40px;
-    line-height:40px;
-    padding-left:20px;
-    padding-right: 10px;
+    width: 80%;
+    height: 40px;
+    overflow: hidden;
+    line-height: 40px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    padding-left: 20px;
     cursor: pointer;
-    color:#606266;
+    color: #606266;
     font-size: 14px;
 }
 .select-menu li:hover{

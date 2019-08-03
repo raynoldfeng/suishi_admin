@@ -52,7 +52,7 @@
                                 >
                         <template slot-scope="scope">
                             <el-button @click="editEvent(scope.row.id)" type="text" size="small">查看</el-button>
-                        <el-button type="text" size="small">删除</el-button>
+                            <el-button type="text" size="small" @click="deleteEvent(scope.row.id,'0')">删除</el-button>
                     </template>
                 </el-table-column>
             </el-table>
@@ -95,7 +95,7 @@
                             >
                     <template slot-scope="scope">
                         <el-button @click="editEvent(scope.row.id)" type="text" size="small">查看</el-button>
-                    <el-button type="text" size="small">删除</el-button>
+                    <el-button type="text" size="small" @click="deleteEvent(scope.row.id,'1')">删除</el-button>
                 </template>
             </el-table-column>
             </el-table>
@@ -158,6 +158,27 @@
                                 self.openAllPage = data.last_page * 10;
 
                         })
+                    },
+                    deleteEvent(id,type){
+                        var self = this;
+                        if(type == '0'){
+                            this.common.commonDeleteEvent(this,this.userinfo,this.api.course,id,function(){
+                                self.$message({
+                                    type: 'success',
+                                    message: '删除成功!'
+                                });
+                                self.openprofessionList();
+                            })
+                        }else if(type == '1'){
+                            this.common.commonDeleteEvent(this,this.userinfo,this.api.course,id,function(){
+                                self.$message({
+                                    type: 'success',
+                                    message: '删除成功!'
+                                });
+                                self.professionList();
+                            })
+                        }
+
                     },
                     editEvent(id){
                         console.log(id)

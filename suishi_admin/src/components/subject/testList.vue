@@ -67,7 +67,8 @@ style="width: 100%">
         >
 <template slot-scope="scope">
     <el-button @click="editEvent(scope.row.id)" type="text" size="small">查看</el-button>
-<el-button type="text" size="small">编辑</el-button>
+    <el-button type="text" size="small">编辑</el-button>
+    <el-button type="text" size="small" @click="deleteEvent(scope.row.id)">删除</el-button>
 </template>
         </el-table-column>
         </el-table>
@@ -149,6 +150,16 @@ export default
             }else{
                 return false;
             }
+        },
+        deleteEvent(id){
+            var self = this;
+                this.common.commonDeleteEvent(this,this.userinfo,this.api.test,id,function(){
+                    self.$message({
+                    type: 'success',
+                    message: '删除成功!'
+                });
+                self.testData();
+            })
         },
     },
     watch:{

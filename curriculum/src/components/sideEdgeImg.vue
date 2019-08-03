@@ -63,7 +63,6 @@ import $ from 'jquery'
             width: 45%;
             text-align: left;
             font-size: 4vw;
-            margin-left: 4%;
         }
         .sideEdgeBoxLeft{
             float:left;

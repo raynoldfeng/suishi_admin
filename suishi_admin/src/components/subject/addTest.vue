@@ -39,7 +39,13 @@
         </div>
         <div class="view_main">
             <span>测试问题</span>
-            <el-input class="input_test"  v-model="testName" placeholder="输入问题"></el-input>
+            <el-input
+            class="textarea_type"
+            type="textarea"
+            :autosize="{ minRows: 2, maxRows: 4}"
+            placeholder="输入问题"
+            v-model="testName">
+            </el-input><span>最多300字</span>
         </div>
         <div class="view_main">
                <div>
@@ -269,7 +275,11 @@
             }
         },
         watch:{
-
+            testName(){
+                if(this.testName.length>300){
+                    this.testName = this.testName.slice(0,299);
+                }
+            }
         },
         mounted:function(){
             var self = this;

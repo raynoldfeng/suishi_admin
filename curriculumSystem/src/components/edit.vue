@@ -42,6 +42,13 @@
                                     <img v-if="nowData.testType == 3 && nowData.displayType == 'j1'" src="./../image/04.png" />
                                     <img v-if="nowData.testType == 4 && nowData.displayType == 's1'" src="./../image/05.png" />
                                     <img v-if="nowData.testType == 5 && nowData.displayType == 'sm1'" src="./../image/06.png" />
+                                    <img v-if="nowData.testType == 6 && nowData.displayType == 'sm2'" src="./../image/07.jpg" />
+                                    <img v-if="nowData.testType == 7 && nowData.displayType == 'imt'" src="./../image/08.jpg" />
+                                    <img v-if="nowData.testType == 8 && nowData.displayType == 'lt'" src="./../image/09.png" />
+                                    <img v-if="nowData.testType == 9 && nowData.displayType == 'ct'" src="./../image/10.jpg" />
+                                    <img v-if="nowData.testType == 10 && nowData.displayType == 'bl'" src="./../image/11.jpg" />
+                                    <img v-if="nowData.testType == 11 && nowData.displayType == 'isd'" src="./../image/12.jpg" />
+                                    <img v-if="nowData.testType == 12 && nowData.displayType == 'idp'" src="./../image/13.png" />
                                 </div>
                                 <div>
                                 <p>章节:第<span v-text="(nowData.page+1)">1</span>节</p>
@@ -263,33 +270,41 @@
     <span>题目:</span>
     <el-input class="input_type" v-model="nowData.judgeTitle"></el-input>
 </div>
-<div class="view_main">
-    <span>答案文本:</span>
-    <el-input class="input_type" v-model="nowData.judgeText"></el-input>
-</div>
-<div class="view_main">
-    <span>正确选项:</span>
-
-    <el-select v-model="nowData.judgeAnswer" class="select-css" placeholder="正确选项">
-        <el-option
-                v-for="item in judgeAnswerMenu"
-        :key="item.value"
-        :label="item.label"
-        :value="item.value">
-    </el-option>
-</el-select>
-</div>
     <div class="view_main">
-        <span>答案注释:</span>
-        <el-input
-        class="textarea_type"
-        type="textarea"
-        :autosize="{ minRows: 2, maxRows: 4}"
-        placeholder="请输入内容"
-        v-model="nowData.judgeAnswerText">
-        </el-input>
+        <el-button @click="addJudgeEvent">添加问题</el-button>
     </div>
+    <div class="view_main" v-for="(data,index) in nowData.judgeMenu">
+        <el-button @click="deleteJudgeEvent(index)">删除问题</el-button>
+        <div class="view_main">
+            <span>答案文本:</span>
+            <el-input class="input_type" v-model="data.judgeText"></el-input>
         </div>
+        <div class="view_main">
+            <span>正确选项:</span>
+
+            <el-select v-model="data.judgeAnswer" class="select-css" placeholder="正确选项">
+                <el-option
+                v-for="item in judgeAnswerMenu"
+                :key="item.value"
+                :label="item.label"
+                :value="item.value">
+                </el-option>
+            </el-select>
+        </div>
+        <div class="view_main">
+            <span>答案注释:</span>
+            <el-input
+            class="textarea_type"
+            type="textarea"
+            :autosize="{ minRows: 2, maxRows: 4}"
+            placeholder="请输入内容"
+            v-model="data.judgeAnswerText">
+            </el-input>
+        </div>
+
+    </div>
+
+</div>
 
 <div v-if="nowData.testType == 4 && nowData.displayType == 's1'">
     <div class="view_main">
@@ -789,7 +804,8 @@ v-model="nowData.selectTextNoteR">
  *
  * 3
  * judgeTitle 判断类型题目
- * judgeText 判断类型答案
+*    judgeMenu 判断类型菜单
+  * judgeText 判断类型答案
  * judgeAnswer 正确选项
  * judgeAnswerText 答案注释
   *
@@ -1023,9 +1039,12 @@ export default {
 
 
                 judgeTitle:"",
-                judgeText:"",
-                judgeAnswer:"",
-                judgeAnswerText:"",
+                judgeMenu:[{
+                    judgeText:"",
+                    judgeAnswer:"0",
+                    judgeAnswerText:""
+                }],
+
 
 
 
@@ -1143,9 +1162,11 @@ export default {
 
 
                 judgeTitle:"",
-                judgeText:"",
-                judgeAnswer:"",
-                judgeAnswerText:"",
+                judgeMenu:[{
+                    judgeText:"",
+                    judgeAnswer:"0",
+                    judgeAnswerText:""
+                }],
 
 
 
@@ -1283,9 +1304,11 @@ export default {
 
 
                 judgeTitle:"",
-                judgeText:"",
-                judgeAnswer:"",
-                judgeAnswerText:"",
+                judgeMenu:[{
+                    judgeText:"",
+                    judgeAnswer:"0",
+                    judgeAnswerText:""
+                }],
 
 
 
@@ -1774,6 +1797,21 @@ export default {
         },
         imgDisplayTextDeleteEvent(index,sindex){
             this.nowData.imgDisplayTypeMenu[index].imgDisplayTypeTextMenu.splice(sindex,1);
+        },
+
+        /**
+         * 判断题
+         */
+        addJudgeEvent(){
+            var newData={
+                 judgeText:"",
+                 judgeAnswer:"0",
+                 judgeAnswerText:""
+            }
+            this.nowData.judgeMenu.push(newData)
+        },
+        deleteJudgeEvent(index){
+            this.nowData.judgeMenu.splice(index,1);
         }
     },
     mounted:function(){

@@ -1,6 +1,6 @@
 <template>
     <div id="QuestMain">
-        <p class="quest-text blanks-title" v-text="data.blanksTitle"></p>
+        <p class="common-text" v-text="data.blanksTitle"></p>
         <p class="common-info" v-text="data.blanksInfo"></p>
         <div class="btext-menu">
             <!--<div class="btext-main" v-for="(idata,index) in data.blanksMenu">-->
@@ -98,6 +98,6 @@ export default
     text-align: left;
     font-size: 4vw;
     word-break: break-all;
-    margin-top: 4vw;
+    margin: 4vw 3vw 0;
 }
 </style>

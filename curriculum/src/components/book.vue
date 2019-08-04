@@ -32,7 +32,7 @@
                 <v-titlePage v-if="data.testType == '0' && data.displayType == 't1'" v-on:isStart = "isStartEvent" :data="data"></v-titlePage>
                 <v-imageText v-else-if="data.testType == '1' && data.displayType == 'it1'" :data="data"></v-imageText>
                 <v-imageChange v-else-if="data.testType == '2' && data.displayType == 'ic1'" :data="data"></v-imageChange>
-                <v-judge  v-else-if="data.testType == '3' && data.displayType == 'j1'" :data="data"></v-judge>
+                <v-judge  v-else-if="data.testType == '3' && data.displayType == 'j1'" :data="data" :index = "index" :nowPage="nowPage" ></v-judge>
                 <v-select v-else-if="data.testType == '4' && data.displayType == 's1'" :data="data" :nowyes="nowyesEvent(data)" v-on:imgShow = "imgShowEvent"></v-select>
                 <v-selectmore  v-else-if="data.testType == '5' && data.displayType == 'sm1'" :data="data"></v-selectmore>
                 <v-selectAllJType   v-else-if="data.testType == '6' && data.displayType == 'sm2'" :data="data"></v-selectAllJType>
@@ -149,7 +149,7 @@ import blanksType from '../components/blanksType.vue'
                 hasSave:false,
                 displayImg:"",
                 displayText:"",
-                noteTexts:""
+                noteTexts:"",
             }
         },
      components:{
@@ -169,6 +169,11 @@ import blanksType from '../components/blanksType.vue'
              "v-imgDisplayType":imgDisplayType
      },
         mounted:function(){
+
+            window.jpage = 0;
+            window.jshow = true;
+
+
             var self = this;
             this.bookData = window.edit;
             window.savePage = 0;
@@ -243,7 +248,9 @@ import blanksType from '../components/blanksType.vue'
              * 点击第几页
              */
             pageClickEvent(index){
-                var self= this;
+
+
+
                 this.nowPage = index;
                 window.nowPage = index;
 //                $("#dealMenu .type-main").eq(this.nowPage).addClass("type-main-click");
@@ -268,7 +275,6 @@ import blanksType from '../components/blanksType.vue'
                 console.log(this.$refs.pages.swiper.realIndex);
                 $("#dealMenu .type-main").removeClass("typemainclick");
                 var len = $("#dealMenu .type-main").length;
-                console.log(len)
                 if(type =="left"){
                     if(this.$refs.pages.swiper.realIndex == 0){
                         $("#dealMenu .type-main").eq(0).addClass("typemainclick");

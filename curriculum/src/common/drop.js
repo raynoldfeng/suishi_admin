@@ -9,8 +9,11 @@ var params = {
     top: 0,
     currentX: 0,
     currentY: 0,
-    flag: false
+    flag: false,
+    self:""
 };
+var now =0;
+var _self = "";
 function getCss(o,key){
   //  return o.currentStyle? o.currentStyle[key] : document.defaultView.getComputedStyle(o,false)[key];
     return o.css(key);
@@ -25,24 +28,10 @@ export const drop = {
             params.top = getCss(target, "top");
         }
 
-//        bar.addEventListener("touchstart",function(event){
-//            $(".kuang").addClass("select-css");
-//            params.flag = true;
-//            if(!event){
-//                event = window.event;
-//                //防止IE文字选中
-//                bar.onselectstart = function(){
-//                    return false;
-//                }
-//            }
-//            var e = event;
-//        //    console.log(e.targetTouches[0].clientX)
-//            params.currentX = e.targetTouches[0].clientX;
-//            params.currentY = e.targetTouches[0].clientY;
-//        });
 
         bar.on("touchstart",function(event){
             $(".kuang").addClass("select-css");
+            params.self = $(this);
             params.flag = true;
             if(!event){
                 event = window.event;
@@ -73,14 +62,16 @@ export const drop = {
             if(isSelection(".true-main", target.css("top"), target.css("left")) || isSelection(".false-main", target.css("top"), target.css("left"))){
                 target.css("left",(window.innerWidth - $(id).width())/2 + "px");
                 target.css("top",window.innerHeight/1.5 + "px");
-                $(id).hide();
+              //  params.self.hide();
+                //$(id).hide();
                 if(getCss(target, "left") !== "auto"){
                     params.left = getCss(target, "left");
                 }
                 if(getCss(target, "top") !== "auto"){
                     params.top = getCss(target, "top");
                 }
-                truecallback && truecallback();
+                var all = parseInt(params.self.attr("attr-all"));
+                truecallback && truecallback(all,now);
             }else{
                 $(id).removeClass("shake");
                 var left = (window.innerWidth - $(id).width())/2 + "px";
@@ -95,33 +86,6 @@ export const drop = {
                     $(id).addClass("shake");
                 });
             }
-
-//            if(isSelection(".true-main", target.style.top, target.style.left) || isSelection(".false-main", target.style.top, target.style.left)){
-//                target.style.left = (window.innerWidth - $(id).width())/2 + "px";
-//                target.style.top = window.innerHeight/1.5 + "px";
-//                $(id).hide();
-//                if(getCss(target, "left") !== "auto"){
-//                    params.left = getCss(target, "left");
-//                }
-//                if(getCss(target, "top") !== "auto"){
-//                    params.top = getCss(target, "top");
-//                }
-//                truecallback && truecallback();
-//            }else{
-//                $(id).removeClass("shake");
-//                var left = (window.innerWidth - $(id).width())/2 + "px";
-//                var top =window.innerHeight/1.5 + "px";
-//                $(id).animate({left:left,top:top},function(){
-//                    if(getCss(target, "left") !== "auto"){
-//                        params.left = getCss(target, "left");
-//                    }
-//                    if(getCss(target, "top") !== "auto"){
-//                        params.top = getCss(target, "top");
-//                    }
-//                    $(id).addClass("shake");
-//                });
-//            }
-
 
 
 
@@ -149,22 +113,20 @@ export const drop = {
             }
         });
         function isSelection(id,top,left){
-            var left_s = $(id).offset().left - $(id).width()/2;
-            var left_e = $(id).offset().left + $(id).width()/2;
-            var top_s = $(id).offset().top -  $(id).height()/2;
-            var top_e =  $(id).offset().top + $(id).height();
-            var nowTop = parseInt(top)+parseInt(target.css("height"))/2;
-            var nowLeft = parseInt(left)+parseInt(target.css("width"))/2;
-            console.log(left_s)
-            console.log(left_e)
-            console.log(top_s)
-            console.log(top_e)
-            console.log(nowTop)
-            console.log(nowLeft)
+            var left_s =params.self.prev(".judgebox").find(id).offset().left - params.self.prev(".judgebox").find(id).width()/2;
+            var left_e = params.self.prev(".judgebox").find(id).offset().left + params.self.prev(".judgebox").find(id).width()/2;
+            var top_s = params.self.prev(".judgebox").find(id).offset().top -  params.self.prev(".judgebox").find(id).height()/2;
+            var top_e =  params.self.prev(".judgebox").find(id).offset().top + params.self.prev(".judgebox").find(id).height();
+            var nowTop = parseInt(top);
+            var nowLeft = parseInt(left);
             if(nowTop > top_s && nowTop < top_e && nowLeft > left_s && nowLeft < left_e){
-                if($(id).find(".kuang").hasClass("yes")){
-                    $(id).find(".kuang").addClass("answer-css");  //给答案添加样式
-                    $(id).find(".kuang").find("p").text(target.innerHTML);
+                if(params.self.prev(".judgebox").find(id).find(".kuang").hasClass("yes")){
+//                    $(id).find(".kuang").addClass("answer-css");  //给答案添加样式
+//                    $(id).find(".kuang").find("p").text(target.innerHTML);
+                //    params.self.prev(".judgebox").find(id).find(".kuang").addClass("answer-css");  //给答案添加样式
+                    var html = "<li>"+ params.self.text() +"</li>";
+                    params.self.prev(".judgebox").find(id).find(".anwer-menu").append(html);
+                   // params.self.prev(".judgebox").find(id).find(".kuang").find("p").text(target.innerHTML);
                     return true;
                 }else{
                     return false;
@@ -174,5 +136,8 @@ export const drop = {
             }
 
         }
+    },
+    getNow(nowQ){
+        now = nowQ;
     }
 }

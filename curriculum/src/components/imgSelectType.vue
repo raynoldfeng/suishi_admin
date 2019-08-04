@@ -1,7 +1,7 @@
 <template>
     <div id="QuestMain">
-        <p class="quest-text blanks-title" v-text="data.imgselectDisplayTitle"></p>
-        <p class="blanks-info" v-text="data.imgselectDisplayInfo"></p>
+        <p class="quest-text common-text" v-text="data.imgselectDisplayTitle"></p>
+        <p class="common-info" v-text="data.imgselectDisplayInfo"></p>
         <div>
             <div class="isd-leftMenu">
                 <div class="isb-btn" v-for="(datas,index) in data.imgselectDisplayMenu" @click="showContentEvent(index)" v-text="datas.imgselectDisplayBtn"></div>

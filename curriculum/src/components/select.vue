@@ -173,11 +173,7 @@
         <style>
 
 
-        .quest-text{
-            margin-top: 10%;
-            font-size: 5vw;
-            color: #666;
-        }
+
 
         .option-menu{
             width: 70%;

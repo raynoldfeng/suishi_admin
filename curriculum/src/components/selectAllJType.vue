@@ -69,13 +69,7 @@ export default {
 <style>
 
 
-.quest-text{
-    margin-top: 10%;
-    font-size: 5vw;
-    color: #666;
-    position: relative;
-    z-index: 1;
-}
+
 .quest-info{
     position: relative;
     z-index: 1;

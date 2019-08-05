@@ -34,6 +34,7 @@
                     <input id="selectR-selector" type="file" >
                     <input id="img-selector" type="file" >
                     <input id="img-display" type="file" >
+                    <input id="mimg-selector" type="file" >
                             <div  v-if=" dataMenu.length > 0">
                                 <div id="testMedolBox" :class="{big_size:isbig}" @click="bigEvent">
                                     <img  v-if="nowData.testType == 0 && nowData.displayType == 't1'" src="./../image/01.png" />
@@ -694,6 +695,18 @@ v-model="nowData.selectTextNoteR">
                     <el-input class="input_type" v-model="nowData.imgselectDisplayInfo"></el-input>
                 </div>
                 <div class="view_main">
+                    <div class="type_title">默認图片:</div>
+                    <div class="avatar-uploader" @click="uploadClick('mimg-selector')">
+                        <img v-if="nowData.imgselectDisplayMImg" :src="nowData.imgselectDisplayMImg" class="avatar">
+                        <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+
+                    </div>
+                <div class="view_main">
+                    <el-button @click="imgselectDisplayMImgEvent">删除</el-button>
+
+                </div>
+                </div>
+                <div class="view_main">
                     <el-button @click="imgSelectAddEvent" type="primary" >添加图片选项</el-button>
                     <div class="view_main box-css" v-for="(data,index) in nowData.imgselectDisplayMenu">
                         <div class="view_main">
@@ -874,6 +887,7 @@ v-model="nowData.selectTextNoteR">
  * 11
  * imgselectDisplayTitle 图片选项展示标题
  *imgselectDisplayInfo 图片选项展示副标题
+ * imgselectDisplayMImg 默認圖片
  * imgselectDisplayMenu 图片选项展示菜单
  * imgselectDisplayBtn 按钮文案
  * imgselectDisplayImg 图片
@@ -1115,6 +1129,7 @@ export default {
 
                 imgselectDisplayTitle:"",
                 imgselectDisplayInfo:"",
+                imgselectDisplayMImg:"",
                 imgselectDisplayMenu:[
                     {
                         imgselectDisplayBtn:"",
@@ -1236,6 +1251,7 @@ export default {
 
                 imgselectDisplayTitle:"",
                 imgselectDisplayInfo:"",
+                imgselectDisplayMImg:"",
                 imgselectDisplayMenu:[
                     {
                         imgselectDisplayBtn:"",
@@ -1378,6 +1394,7 @@ export default {
 
                 imgselectDisplayTitle:"",
                 imgselectDisplayInfo:"",
+                imgselectDisplayMImg:"",
                 imgselectDisplayMenu:[
                     {
                         imgselectDisplayBtn:"",
@@ -1639,6 +1656,19 @@ export default {
                 }
             };
 
+            document.getElementById('mimg-selector').onchange = function () {
+                var file = this.files[0];
+                if (!file) return;
+                if(self.SecretId != "" && self.SecretKey !="" ){
+                    if(file){
+                        self.cosjs(self.SecretId,self.SecretKey,file,self.XCosSecurityToken,self.expiredTime,function(img){
+                            self.nowData.imgselectDisplayMImg = img;
+                        });
+                    }
+                }
+            };
+
+
         },
         uploadClick(id,index){
             document.getElementById(id).click();
@@ -1775,6 +1805,9 @@ export default {
         },
         imgSelectTextDeleteEvent(index,sindex){
             this.nowData.imgselectDisplayMenu[index].imgselectDisplayTextMenu.splice(sindex,1);
+        },
+        imgselectDisplayMImgEvent(){
+            this.nowData.imgselectDisplayMImg = "";
         },
         /**
          * 图片展示类型

@@ -150,7 +150,7 @@ console.log(now,all);
     background: #286b36;
 }
 .false-k.answer-css{
-    background: #bf374b;
+    background: #286b36;
 }
 .q-main{
     text-align: center;

@@ -6,7 +6,10 @@
             </div>
             <p class="quest-text" v-text="data.ImgJumpTypeTitle"></p>
             <p class="quest-info common-info" v-text="data.ImgJumpTypeInfo"></p>
-            <div class="tp-start-btn" @click="jumpEvent" v-text="data.ImgJumpBtnText"></div>
+            <div class="tp-startBtn-main">
+                <div class="tp-start-btn" @click="jumpEvent" v-text="data.ImgJumpBtnText"></div>
+            </div>
+
         </div>
     </div>
 </template>
@@ -45,11 +48,15 @@ import $ from 'jquery'
             min-width: 30%;
             display: inline-block;
             background: #019ccb;
-            margin: 10% auto 0;
+            margin: 0 auto 0;
             padding: 2% 4%;
             color: #ffffff;
             font-size: 4vw;
             position: relative;
         }
-
+        .tp-startBtn-main{
+            width: 100%;
+            position: absolute;
+            top: 65%;
+        }
         </style>

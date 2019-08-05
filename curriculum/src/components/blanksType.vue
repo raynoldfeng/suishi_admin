@@ -1,6 +1,7 @@
 <template>
     <div id="QuestMain">
-        <p class="common-text" v-text="data.blanksTitle"></p>
+
+        <p class="quest-text common-text" v-text="data.blanksTitle"></p>
         <p class="common-info" v-text="data.blanksInfo"></p>
         <div class="btext-menu">
             <!--<div class="btext-main" v-for="(idata,index) in data.blanksMenu">-->

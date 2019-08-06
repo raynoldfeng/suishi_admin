@@ -1,6 +1,6 @@
 <template>
     <div id="QuestMain">
-        <p class="quest-text" v-text="data.listTypeTitle"></p>
+        <p class="quest-text" :class="{color-fff:data.listTypeTitleColor == '1'}" v-text="data.listTypeTitle"></p>
         <div class="img-main simg-main" v-if="data.listTypeImg">
             <img id="selectImg" :src="data.listTypeImg" @click="displayEvent(data.listTypeImg,'')" >
         </div>
@@ -10,7 +10,7 @@
             <ul class="ratelist">
                 <li  v-for="(idata,index) in listMenu" @click="reShow(index)" :class="{clickbtned:listLen == index}"></li>
             </ul>
-            <div class="tp-next-btn" @click="listShowEvent"  v-text="data.listTypeBtnText"></div>
+            <div class="tp-next-btn" @click="listShowEvent" v-show="data.listTypeBtnText != ''"  v-text="data.listTypeBtnText"></div>
 
     </div>
 </template>

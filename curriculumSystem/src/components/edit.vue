@@ -497,6 +497,17 @@ v-model="nowData.selectTextNoteR">
                 <el-input class="input_type" v-model="nowData.selectAllJSubtitleTitle"></el-input>
             </div>
             <div class="view_main">
+                <span>标题颜色:</span>
+                <el-select v-model="nowData.selectAllJSubtitleTitleColor" class="select-css" placeholder="标题颜色">
+                    <el-option
+                            v-for="item in titleColor"
+                        :key="item.value"
+                        :label="item.label"
+                        :value="item.value">
+                    </el-option>
+                </el-select>
+            </div>
+            <div class="view_main">
                 <div class="type_title">背景图片:</div>
 
                 <div class="avatar-uploader" @click="uploadClick('selectAllJ-selector')">
@@ -556,6 +567,17 @@ v-model="nowData.selectTextNoteR">
                 v-model="nowData.ImgJumpTypeInfo"></el-input>
             </div>
             <div class="view_main">
+                <span>标题颜色:</span>
+                <el-select v-model="nowData.ImgJumpTypeTitleColor" class="select-css" placeholder="标题颜色">
+                    <el-option
+                            v-for="item in titleColor"
+                        :key="item.value"
+                        :label="item.label"
+                        :value="item.value">
+                    </el-option>
+                </el-select>
+            </div>
+            <div class="view_main">
                 <div class="type_title">背景图片:</div>
 
                 <div class="avatar-uploader" @click="uploadClick('selectImgJ-selector')">
@@ -575,6 +597,17 @@ v-model="nowData.selectTextNoteR">
                 <span>标题:</span>
                 <el-input class="input_type" v-model="nowData.listTypeTitle"></el-input>
             </div>
+            <div class="view_main">
+                <span>标题颜色:</span>
+                <el-select v-model="nowData.listTypeTitleColor" class="select-css" placeholder="标题颜色">
+                    <el-option
+                            v-for="item in titleColor"
+                    :key="item.value"
+                    :label="item.label"
+                    :value="item.value">
+                </el-option>
+            </el-select>
+        </div>
             <div class="view_main">
                 <div class="type_title">背景图片:</div>
 
@@ -847,6 +880,7 @@ v-model="nowData.selectTextNoteR">
  * 6
  * selectAllJTitle 选项带解释选择题目
  * selectAllJSubtitleTitle 选项带解释选择副标题
+ * selectAllJSubtitleTitleColor 标题颜色
  * selectAllJImg 选项带解释选择背景图片
  * selectAllJMenu 选项
  * answerText 答案选项 (selectAllJMenu内)
@@ -855,12 +889,14 @@ v-model="nowData.selectTextNoteR">
  *
  * 7
  * ImgJumpTypeTitle 图片类型标题
+ * ImgJumpTypeTitleColor 标题背景
  * ImgJumpTypeInfo  图片类型介绍文字
  * ImgJumpTypeBg  图片类型背景
  * ImgJumpBtnText 图片类型跳转按钮文本
  *
  * 8
  * listTypeTitle 列表类型标题
+ * listTypeTitleColor 标题背景
  * listTypeImg 列表类型图片
  * listTypeBtnText 列表类型按钮文案
  * listTypeMenu 列表类型段落集合
@@ -920,6 +956,12 @@ export default {
                     label: "left"},
                 {value: "1",
                     label: "right"},
+            ],
+            titleColor:[
+                {value: "0",
+                    label: "黑色"},
+                {value: "1",
+                    label: "白色"},
             ],
             testTypeMenu:[
                 {value: "0",
@@ -1094,6 +1136,7 @@ export default {
 
                 selectAllJTitle:"",
                 selectAllJSubtitleTitle:"",
+                selectAllJSubtitleTitleColor:"0",
                 selectAllJImg:"",
                 selectAllJMenu:[
                     {answerText:"",isAnswer:"0",selectTextNote:""}
@@ -1101,12 +1144,14 @@ export default {
 
 
                 ImgJumpTypeTitle:"",
+                ImgJumpTypeTitleColor:"0",
                 ImgJumpTypeInfo :"",
                 ImgJumpTypeBg:"",
                 ImgJumpBtnText:"",
 
 
                 listTypeTitle:"",
+                listTypeTitleColor:"0",
                 listTypeImg:"",
                 listTypeBtnText:"",
                 listTypeMenu:[
@@ -1215,6 +1260,7 @@ export default {
 
                 selectAllJTitle:"",
                 selectAllJSubtitleTitle:"",
+                selectAllJSubtitleTitleColor:"0",
                 selectAllJImg:"",
                 selectAllJMenu:[
                     {answerText:"",isAnswer:"0",selectTextNote:""}
@@ -1222,12 +1268,14 @@ export default {
 
 
                 ImgJumpTypeTitle:"",
+                ImgJumpTypeTitleColor:"0",
                 ImgJumpTypeInfo :"",
                 ImgJumpTypeBg:"",
                 ImgJumpBtnText:"",
 
 
                 listTypeTitle:"",
+                listTypeTitleColor:"0",
                 listTypeImg:"",
                 listTypeBtnText:"",
                 listTypeMenu:[
@@ -1359,6 +1407,7 @@ export default {
 
                 selectAllJTitle:"",
                 selectAllJSubtitleTitle:"",
+                selectAllJSubtitleTitleColor:"0",
                 selectAllJImg:"",
                 selectAllJMenu:[
                     {answerText:"",isAnswer:"0",selectTextNote:""}
@@ -1366,12 +1415,14 @@ export default {
 
 
                 ImgJumpTypeTitle:"",
+                ImgJumpTypeTitleColor:"0",
                 ImgJumpTypeInfo :"",
                 ImgJumpTypeBg:"",
                 ImgJumpBtnText:"",
 
 
                 listTypeTitle:"",
+                listTypeTitleColor:"0",
                 listTypeImg:"",
                 listTypeBtnText:"",
                 listTypeMenu:[

@@ -7,6 +7,9 @@
                 <div class="isb-btn" v-for="(datas,index) in data.imgselectDisplayMenu" @click="showContentEvent(index)" v-text="datas.imgselectDisplayBtn"></div>
             </div>
             <div class="isd-rightMenu">
+                <div  class="isb-sideEdgeBoxMain" v-show="nowshow == '-1'">
+                    <img v-if="data.imgselectDisplayMImg != ''" :src="data.imgselectDisplayMImg" />
+                </div>
                 <div  class="isb-sideEdgeBoxMain" v-for="(datas,index) in data.imgselectDisplayMenu" v-show="nowshow == index">
                     <img v-if="datas.imgselectDisplayImg != ''" :src="datas.imgselectDisplayImg" />
                     <ul  class="sideEdgeBoxMenu">

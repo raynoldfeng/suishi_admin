@@ -597,17 +597,7 @@ v-model="nowData.selectTextNoteR">
                 <span>标题:</span>
                 <el-input class="input_type" v-model="nowData.listTypeTitle"></el-input>
             </div>
-            <div class="view_main">
-                <span>标题颜色:</span>
-                <el-select v-model="nowData.listTypeTitleColor" class="select-css" placeholder="标题颜色">
-                    <el-option
-                            v-for="item in titleColor"
-                    :key="item.value"
-                    :label="item.label"
-                    :value="item.value">
-                </el-option>
-            </el-select>
-        </div>
+
             <div class="view_main">
                 <div class="type_title">图片:</div>
 

@@ -1,8 +1,11 @@
 <template>
     <div id="QuestMain">
-        <p class="quest-text" :class="{color-fff:data.listTypeTitleColor == '1'}" v-text="data.listTypeTitle"></p>
+        <p class="quest-text" v-text="data.listTypeTitle"></p>
+
         <div class="img-main simg-main" v-if="data.listTypeImg">
-            <img id="selectImg" :src="data.listTypeImg" @click="displayEvent(data.listTypeImg,'')" >
+            <div class="white-r">
+                <img id="selectImg" :src="data.listTypeImg" @click="displayEvent(data.listTypeImg,'')" >
+            </div>
         </div>
         <ul class="list-type-menu">
             <li v-for="(idata,index) in listMenu" v-html="Trim(idata.text)" v-show="idata.show"></li>
@@ -27,6 +30,7 @@ export default {
             }
         },
         mounted:function(){
+            $(".simg-main").height($(".simg-main").width());
             this.listMenu = [];
             for(let i = 0 ; i < this.data.listTypeMenu.length; i++){
                 if(i == 0){
@@ -106,9 +110,14 @@ export default {
     }
 .simg-main{
     width:40%;
+
     margin: 10% auto;
+    border-radius: 100%;
+    padding: 2%;
+    border:1px solid #999999;
     }
+
 #selectImg{
-    width:100%;
+    width:200%;
     }
 </style>

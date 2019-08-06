@@ -4,8 +4,8 @@
             <div class="img-main">
                 <img id="selectImgBg" :src="data.selectAllJImg">
             </div>
-            <p class="quest-text" :class="{color-fff:data.selectAllJSubtitleTitleColor == '1'}" v-text="data.selectAllJTitle"></p>
-            <p class="quest-info common-info" :class="{color-fff:data.selectAllJSubtitleTitleColor == '1'}"  v-text="data.selectAllJSubtitleTitle"></p>
+            <p class="quest-text" :class="{colorfff:data.selectAllJSubtitleTitleColor == '1'}" v-text="data.selectAllJTitle"></p>
+            <p class="quest-info common-info" :class="{colorfff:data.selectAllJSubtitleTitleColor == '1'}"  v-text="data.selectAllJSubtitleTitle"></p>
             <ul id="selectBox" class="optionall-menu">
                 <!--<li v-for="(data,index) in data.selectMenu" v-text="data.answerText"   class="answer-css animated" :class="{yes:data.isAnswer == '1' ,no:data.isAnswer == '0'}"></li>-->
             <!--<li class="explain" v-html="Trim(data.imgTextNote)">-->

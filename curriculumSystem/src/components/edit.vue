@@ -609,7 +609,7 @@ v-model="nowData.selectTextNoteR">
             </el-select>
         </div>
             <div class="view_main">
-                <div class="type_title">背景图片:</div>
+                <div class="type_title">图片:</div>
 
                 <div class="avatar-uploader" @click="uploadClick('selectLt-selector')">
                     <img v-if="nowData.listTypeImg" :src="nowData.listTypeImg" class="avatar">

@@ -22,6 +22,7 @@
         </el-aside>
 <el-main >
 <input id="file-selector" type="file" >
+    <input type="file" name = "file" id = "fileId" />
                     <input id="file-selector2" type="file" >
                     <input id="selectL-selector" type="file" >
                     <input id="imgtext-selector" type="file" >
@@ -54,6 +55,7 @@
                                 <div>
                                 <p>章节:第<span v-text="(nowData.page+1)">1</span>节</p>
                                 <el-button  class="view_main" @click="getJsons"  type="primary" >生成配置文件</el-button>
+                                <el-button class="view_main" type="primary" @click="uploadClick('fileId')">导入文件</el-button>
                                 <!--<el-button  class="view_main" @click="goUpLoad"  type="primary" >上传</el-button>-->
                             <div  class="view_main">
                                 <span>模板类型:</span>
@@ -1709,6 +1711,20 @@ export default {
                 }
             };
 
+            document.getElementById('fileId').onchange = function () {
+                var file = this.files[0];
+                if (!file) return;
+                console.log(objFile.files[0].size); // 文件字节数
+
+
+                    var reader = new FileReader();//新建一个FileReader
+                    reader.readAsText(files[0], "UTF-8");//读取文件
+                    reader.onload = function(evt){ //读取完文件之后会回来这里
+                        var fileString = evt.target.result; // 读取文件内容
+                        console.log(fileString)
+                    }
+
+            };
 
         },
         uploadClick(id,index){

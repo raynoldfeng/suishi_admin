@@ -113,27 +113,30 @@ export const drop = {
             }
         });
         function isSelection(id,top,left){
-            var left_s =params.self.prev(".judgebox").find(id).offset().left - params.self.prev(".judgebox").find(id).width()/2;
-            var left_e = params.self.prev(".judgebox").find(id).offset().left + params.self.prev(".judgebox").find(id).width()/2;
-            var top_s = params.self.prev(".judgebox").find(id).offset().top -  params.self.prev(".judgebox").find(id).height()/2;
-            var top_e =  params.self.prev(".judgebox").find(id).offset().top + params.self.prev(".judgebox").find(id).height();
-            var nowTop = parseInt(top);
-            var nowLeft = parseInt(left);
-            if(nowTop > top_s && nowTop < top_e && nowLeft > left_s && nowLeft < left_e){
-                if(params.self.prev(".judgebox").find(id).find(".kuang").hasClass("yes")){
+            if(params.self!= ""){
+                var left_s =params.self.prev(".judgebox").find(id).offset().left - params.self.prev(".judgebox").find(id).width()/2;
+                var left_e = params.self.prev(".judgebox").find(id).offset().left + params.self.prev(".judgebox").find(id).width()/2;
+                var top_s = params.self.prev(".judgebox").find(id).offset().top -  params.self.prev(".judgebox").find(id).height()/2;
+                var top_e =  params.self.prev(".judgebox").find(id).offset().top + params.self.prev(".judgebox").find(id).height();
+                var nowTop = parseInt(top);
+                var nowLeft = parseInt(left);
+                if(nowTop > top_s && nowTop < top_e && nowLeft > left_s && nowLeft < left_e){
+                    if(params.self.prev(".judgebox").find(id).find(".kuang").hasClass("yes")){
 //                    $(id).find(".kuang").addClass("answer-css");  //给答案添加样式
 //                    $(id).find(".kuang").find("p").text(target.innerHTML);
-                //    params.self.prev(".judgebox").find(id).find(".kuang").addClass("answer-css");  //给答案添加样式
-                    var html = "<li>"+ params.self.text() +"</li>";
-                    params.self.prev(".judgebox").find(id).find(".anwer-menu").append(html);
-                   // params.self.prev(".judgebox").find(id).find(".kuang").find("p").text(target.innerHTML);
-                    return true;
+                        //    params.self.prev(".judgebox").find(id).find(".kuang").addClass("answer-css");  //给答案添加样式
+                        var html = "<li>"+ params.self.text() +"</li>";
+                        params.self.prev(".judgebox").find(id).find(".anwer-menu").append(html);
+                        // params.self.prev(".judgebox").find(id).find(".kuang").find("p").text(target.innerHTML);
+                        return true;
+                    }else{
+                        return false;
+                    }
                 }else{
                     return false;
                 }
-            }else{
-                return false;
             }
+
 
         }
     },

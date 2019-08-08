@@ -22,7 +22,7 @@
     </div>
 </template>
 <script>
-    export default{
+   export default{
     props:{
         data:""
     },
@@ -63,11 +63,12 @@
         width: 22%;
         margin: 14% auto 6%;
         border-radius:100%;
-        padding: 2%;
+        padding: 1%;
         border:1px solid #999999;
     }
     .tp-logo-main img{
         width: 100%;
+        height: 100%;
         border-radius: 100%;
     }
     .tp-info{

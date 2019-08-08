@@ -3,7 +3,9 @@
         <div id="imageText">
             <p class="it-title" v-text="data.imgTextTitle"></p>
             <div class="it-img-main">
-                <img :src="data.imgTextImg" />
+                <div class="white-r">
+                    <img :src="data.imgTextImg" />
+                </div>
             </div>
             <ul class="it-text-menu">
                 <li v-for="textData in data.imgTextMenu" v-html="Trim(textData)">
@@ -14,6 +16,7 @@
     </div>
 </template>
  <script>
+
 export default
 {
     props:{
@@ -23,6 +26,9 @@ export default
         Trim(str) {
             return str.replace(/\n|\r\n/g,"<br/>");
         }
+    },
+    mounted:function(){
+        $(".it-img-main").height($(".it-img-main").width());
     }
 }
 
@@ -37,11 +43,15 @@ export default
         text-align: center;
     }
      .it-img-main{
-        width: 20%;
+        width: 28%;
          margin: 5% auto 0;
+         border: 1px solid #999999;
+         padding: 1%;
+         border-radius: 100%;
      }
     .it-img-main img{
         width: 100%;
+        height: 100%;
     }
     .it-text-menu{
         width: 75%;

@@ -4,7 +4,9 @@
             <div v-for="(sdata,sindex) in data.selectQMenu" class="padd-css">
                 <p class="quest-text" v-text="sdata.selectTitle"></p>
                 <div class="img-main simg-main" v-if="sdata.selectImg">
-                    <img id="selectImg" :src="sdata.selectImg" @click="displayEvent(sdata.selectImg,sdata.imgNoteNode)">
+                    <div class="white-r">
+                        <img id="selectImg" :src="sdata.selectImg" @click="displayEvent(sdata.selectImg,sdata.imgNoteNode)">
+                    </div>
                 </div>
                 <ul class="option-menu selectBox">
                     <li v-for="(data,index) in sdata.selectMenu" v-text="data.answerText"   @click="test(sindex,index,data.isAnswer)" :indexQ = "sindex"   class="answer-css animated" :class="{yes:data.isAnswer == '1' ,no:data.isAnswer == '0' , clickcss:data.isClick,anwdisplay:data.isShow == false}"></li>
@@ -56,8 +58,7 @@
                     }
                 }
             }
-            console.log(this.yesMenu)
-
+            $(".simg-main").height($(".simg-main").width());
 //            for(var i = 0 ; i<$(".option-menu li").length;i++){
 //                //$(".option-menu li").eq(i).css("top",i*0.09*parseInt($(document).outerHeight(true)));
 //                if(i == 0){
@@ -228,6 +229,9 @@
             .simg-main{
                 width:40%;
                 margin: 10% auto;
+                border: 1px solid #999999;
+                border-radius: 100%;
+                padding: 2%;
             }
             #selectImg{
             width:100%;

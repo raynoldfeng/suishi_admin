@@ -3,7 +3,12 @@
         <p class="quest-text" v-text="data.listTypeTitle"></p>
         <div class="sideEdgeBox">
             <div class="sideEdgeBoxImg" :class="{sideEdgeBoxLeft:data.sideEdgeImgLRType == '0', sideEdgeBoxRight:data.sideEdgeImgLRType == '1'}">
-                <img @click="displayEvent(data.sideEdgeImg,'')" :src="data.sideEdgeImg">
+                <div class="sideEdgeBoxImg-main">
+                    <div class="white-r">
+                        <img @click="displayEvent(data.sideEdgeImg,'')" :src="data.sideEdgeImg">
+                    </div>
+                </div>
+
             </div>
             <div class="sideEdgeBoxMain" :class="{sideEdgeBoxLeft:data.sideEdgeImgLRType == '0', sideEdgeBoxRight:data.sideEdgeImgLRType == '1'}">
                 <p v-html="Trim(data.sideEdgeImgTypeInfo)"></p>
@@ -37,8 +42,9 @@ import $ from 'jquery'
             var data = {url:url,text:text};
             this.$emit("imgShow",data);
         },
-
-
+    },
+    mounted:function(){
+        $(".sideEdgeBoxImg-main").height($(".sideEdgeBoxImg-main").width());
     }
 }
 </script>
@@ -51,10 +57,17 @@ import $ from 'jquery'
         }
         .sideEdgeBoxImg{
             width:49%;
-            text-align:center;
+        }
+        .sideEdgeBoxImg-main{
+            width:66%;
+            margin: 0 auto;
+            padding: 1%;
+            border: 1px solid #999999;
+            border-radius: 100%;
         }
         .sideEdgeBoxImg img{
-            width:66%;
+            width: 100%;
+            height:100%;
         }
         .sideEdgeBox{
             margin:15% 0 0 0;

@@ -8,10 +8,18 @@
             </div>
             <div class="isd-rightMenu">
                 <div  class="isb-sideEdgeBoxMain" v-show="nowshow == '-1'">
-                    <img v-if="data.imgselectDisplayMImg != ''" :src="data.imgselectDisplayMImg" />
+                    <div class="isb-imgmain">
+                        <div class="white-r">
+                            <img v-if="data.imgselectDisplayMImg != ''" :src="data.imgselectDisplayMImg" />
+                        </div>
+                    </div>
                 </div>
                 <div  class="isb-sideEdgeBoxMain" v-for="(datas,index) in data.imgselectDisplayMenu" v-show="nowshow == index">
-                    <img v-if="datas.imgselectDisplayImg != ''" :src="datas.imgselectDisplayImg" />
+                    <div class="isb-imgmain">
+                        <div class="white-r">
+                            <img v-if="datas.imgselectDisplayImg != ''" :src="datas.imgselectDisplayImg" />
+                        </div>
+                    </div>
                     <ul  class="sideEdgeBoxMenu">
                         <li v-for="(mdata,mindex) in datas.imgselectDisplayTextMenu" v-html="Trim(mdata.imgselectDisplayText)"></li>
                     </ul>
@@ -43,7 +51,9 @@ import $ from 'jquery'
             $(".isb-btn").on("click",function(){
                 $(this).parents(".isd-leftMenu").find(".isb-btn").removeClass("isb-clicked");
                 $(this).addClass("isb-clicked");
-            })
+            });
+
+            $(".isb-imgmain").height($(".isb-imgmain").width());
         }
     }
 </script>
@@ -89,7 +99,14 @@ import $ from 'jquery'
     text-align: left;
     font-size: 4vw;
 }
-.isb-sideEdgeBoxMain img{
+.isb-imgmain{
     width: 70%;
+    padding: 1%;
+    border: 1px solid #999999;
+    border-radius: 100%;
+}
+.isb-sideEdgeBoxMain img{
+   width: 100%;
+    height: 100%;
 }
 </style>

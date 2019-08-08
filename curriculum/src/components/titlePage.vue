@@ -5,7 +5,9 @@
 
             </p>
             <div class="tp-logo-main">
-                <img :src="data.authorImg">
+                <div class="white-r">
+                    <img :src="data.authorImg">
+                </div>
             </div>
             <p class="tp-info tp-info-title" v-html="data.authorInfo">
 
@@ -39,7 +41,7 @@
         },
         mounted:function(){
             this.marginTop = "-"+document.getElementById("titlePage").clientHeight/2 + "px";
-
+            $(".tp-logo-main").height($(".tp-logo-main").width());
         }
     }
 </script>
@@ -60,6 +62,9 @@
     .tp-logo-main{
         width: 22%;
         margin: 14% auto 6%;
+        border-radius:100%;
+        padding: 2%;
+        border:1px solid #999999;
     }
     .tp-logo-main img{
         width: 100%;

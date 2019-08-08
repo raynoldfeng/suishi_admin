@@ -82,7 +82,7 @@
                 >
                     <template slot-scope="scope">
                         <el-button @click="editEvent(scope.row.id)" type="text" size="small">查看</el-button>
-                        <el-button type="text" size="small">编辑</el-button>
+                        <el-button type="text" size="small" >编辑</el-button>
                     </template>
                 </el-table-column>
             </el-table>

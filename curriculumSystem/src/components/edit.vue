@@ -53,7 +53,7 @@
                                     <img v-if="nowData.testType == 11 && nowData.displayType == 'isd'" src="./../image/12.jpg" />
                                     <img v-if="nowData.testType == 12 && nowData.displayType == 'idp'" src="./../image/13.png" />
                                 </div>
-                                <div>
+                                <div  class="view_main">
                                 <p>章节:第<span v-text="(nowData.page+1)">1</span>节</p>
                                 <el-button  class="view_main" @click="getJsons"  type="primary" >生成配置文件</el-button>
 
@@ -1717,19 +1717,20 @@ export default {
                 var file = this.files[0];
                 if (!file) return;
                 console.log(file.size); // 文件字节数
-
+                    self.dataMenu = [];
 
                     var reader = new FileReader();//新建一个FileReader
                     reader.readAsText(file, "UTF-8");//读取文件
                     reader.onload = function(evt){ //读取完文件之后会回来这里
                         var fileString = evt.target.result; // 读取文件内容
                         var json = JSON.parse(fileString.slice(12,fileString.length));
-                        self.dataMenu =json;
+                  //      self.dataMenu =json;
                         self.nowData = json[0];
-//                        for(let i = 0 ; i < json.length;i++){
-//                            self.dataMenu.push(Object.assign(self.copyData,json[i]))
-//                        }
-
+                        for(let i = 0 ; i < json.length;i++){
+                            var odata = self.copyData;
+                            var obj = $.extend({},odata,json[i])
+                                self.dataMenu.push(obj);
+                        }
                     }
 
             };

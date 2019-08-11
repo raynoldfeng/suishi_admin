@@ -23,6 +23,8 @@ import teamAttribute from '@/components/team/teamAttribute'
 import login from '@/components/login/login'
 import home from '@/components/home/home'
 
+import userJump from '@/components/team/userJump'
+
 import test from '@/components/curriculumSystem/test'
 Vue.use(Router)
 
@@ -206,6 +208,11 @@ export default new Router({
           path: '/test',
           name: 'test',
           component: test
+      },
+      {
+          path: '/userJump',
+          name: 'userJump',
+          component:userJump
       }
   ]
 })

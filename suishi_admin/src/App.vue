@@ -16,7 +16,6 @@
                       <!--    <el-menu-item index="/jurisdiction"  @click="jumpEvent('jurisdiction')">管理权限</el-menu-item>
                           <el-menu-item index="/labelAdmin" @click="jumpEvent('labelAdmin')">标签管理</el-menu-item>-->
                       </el-submenu>
-
                   <!--    <el-submenu index="1">
                           <template slot="title">全局</template>
                               <el-menu-item index="/jurisdiction"  @click="jumpEvent('jurisdiction')">管理权限</el-menu-item>
@@ -92,6 +91,7 @@ export default {
                 "16":"/teamAttribute",
                // "17":"/operateAdministration",
                 "17":"/testList",
+                "18":"/userJump"
             }
         }
     },

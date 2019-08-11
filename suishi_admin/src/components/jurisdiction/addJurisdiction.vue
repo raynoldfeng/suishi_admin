@@ -69,7 +69,7 @@ export default {
                     typeName:"实战队伍",
                     checkedCities: [],
                     cities: ['队伍列表', '队伍属性'],
-                    cityOptions:['队伍列表', '队伍属性'],
+                    cityOptions:['队伍列表', '队伍属性','报名用户管理'],
                     isIndeterminate: true
                 },
                 {checkAll: false,

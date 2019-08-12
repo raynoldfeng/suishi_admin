@@ -114,7 +114,7 @@ import blanksType from '../components/blanksType.vue'
          var self = this;
             return{
                 swiperOption: {
-                    allowTouchMove:false,
+                    allowTouchMove:true,
                     pagination: {
                         el: '.swiper-pagination',
                         type: 'progressbar'

@@ -27,12 +27,12 @@
                 style="width: 100%">
                     <el-table-column
                     fixed
-                    prop="id"
+                    prop="team_id"
                     label="用户ID"
                     >
                     </el-table-column>
                     <el-table-column
-                    prop="name"
+                    prop="real_name"
                     label="用户昵称"
                     >
                     </el-table-column>
@@ -86,8 +86,11 @@
         },
         methods:{
             requestUserJump(){
+                var self =this;
                 this.common.getEventToken(this.api.host+this.api.request,{},this.userinfo,function(data){
+                    console.log(3333)
                     console.log(data)
+                    self.userinfo = data;
                 })
             }
         }

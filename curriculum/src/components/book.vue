@@ -42,10 +42,11 @@
                 <v-blanksType v-else-if="data.testType == '10' && data.displayType == 'bl'" :data="data"></v-blanksType>
                 <v-imgSelectType v-else-if="data.testType == '11' && data.displayType == 'isd'" :data="data"></v-imgSelectType>
                 <v-imgDisplayType v-else-if="data.testType == '12' && data.displayType == 'idp'" :data="data"></v-imgDisplayType>
+                <v-lastPage  v-else-if="data.testType == '1111' && data.displayType == 'oooo'" :data="data"></v-lastPage>
             </swiper-slide>
-            <swiper-slide :key="bookData.length">
-                <v-lastPage></v-lastPage>
-            </swiper-slide>
+            <!--<swiper-slide :key="bookData.length">-->
+                <!---->
+            <!--</swiper-slide>-->
         </swiper>
 <div id="swiper-button-prev" class="swiper-button-prev" slot="button-prev" @click="pageTurn('left')"></div>
 <div id="swiper-button-next" class="swiper-button-next" slot="button-next" @click="pageTurn('right')"></div>
@@ -74,11 +75,12 @@
                          <div class="type-main">第6页</div>
                      </swiper-slide>-->
                     <swiper-slide  v-for="(data,index) in bookData" :key="index">
-                        <div class="type-main" @click="pageClickEvent(index)"  :class="{typemainclick:nowPage == index}">第{{index+1}}页</div>
+                        <div v-if="index == bookData.length-1" class="type-main" @click="pageClickEvent(index)"  :class="{typemainclick:nowPage == index}">最后一页</div>
+                        <div v-else class="type-main" @click="pageClickEvent(index)"  :class="{typemainclick:nowPage == index}">第{{index+1}}页</div>
                     </swiper-slide>
-                    <swiper-slide :key="bookData.length">
-                        <div class="type-main"  @click="pageClickEvent(bookData.length)"  :class="{typemainclick:nowPage == bookData.length}">最后一页</div>
-                    </swiper-slide>
+                    <!--<swiper-slide :key="bookData.length">-->
+                        <!--<div class="type-main"  @click="pageClickEvent(bookData.length)"  :class="{typemainclick:nowPage == bookData.length}">最后一页</div>-->
+                    <!--</swiper-slide>-->
                 </swiper>
             </div>
         </div>
@@ -127,7 +129,15 @@ import blanksType from '../components/blanksType.vue'
                     paginationClickable :true,
                     mousewheelControl : true,
                     observeParents:true,
-                    loop: false
+                    loop: false,
+                    on:{
+                        slideChange:function(){
+                            self.nowPage = self.$refs.pages.swiper.snapIndex;
+                            window.nowPage = self.$refs.pages.swiper.snapIndex;
+                            self.$refs.pageMenu.swiper.slideTo(self.$refs.pages.swiper.snapIndex);
+
+                        }
+                    }
                 },
                 swiperSmooth:{
                     freeMode: true,
@@ -150,6 +160,17 @@ import blanksType from '../components/blanksType.vue'
                 displayImg:"",
                 displayText:"",
                 noteTexts:"",
+                lastData:{
+                    page:0,
+                    testType:"1111",
+                    displayType:"oooo",
+                    judgeTitle:"",
+                    judgeMenu:[{
+                        judgeText:"",
+                        judgeAnswer:"0",
+                        judgeAnswerText:""
+                    }],
+                }
             }
         },
      components:{
@@ -176,11 +197,13 @@ import blanksType from '../components/blanksType.vue'
 
             var self = this;
             this.bookData = window.edit;
+            this.bookData.push(this.lastData);
             window.savePage = 0;
             window.nowPage = 0;
             this.nowPage = this.$refs.pages.swiper.realIndex;
             window.nowPage =  this.$refs.pages.swiper.realIndex;
             this.windowHeight = window.innerHeight;
+
 
          //   this.pageClickEvent();
             window.getAllPage=function(){
@@ -248,9 +271,6 @@ import blanksType from '../components/blanksType.vue'
              * 点击第几页
              */
             pageClickEvent(index){
-
-
-
                 this.nowPage = index;
                 window.nowPage = index;
 //                $("#dealMenu .type-main").eq(this.nowPage).addClass("type-main-click");

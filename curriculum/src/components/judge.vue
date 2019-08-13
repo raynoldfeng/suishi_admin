@@ -50,7 +50,6 @@ export default {
         }
     },
     mounted:function(){
-
         this.initData();
     },
     methods:{

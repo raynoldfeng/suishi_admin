@@ -5,7 +5,7 @@
             <span>是否禁用</span>
             <el-select v-model="isUse" placeholder="是否禁用">
                 <el-option
-                        v-for="item in "
+                        v-for="item in isUseMenu"
                 :key="item.value"
                 :label="item.label"
                 :value="item.value">

@@ -29,5 +29,6 @@ export const api={
     "addTask":"admin/task",
     "user":"admin/user",
     "request":"admin/team/request",
-    "allot":"admin/team/request/allot"
+    "allot":"admin/team/request/allot",
+    "reject":"admin/team/request/reject"
 }

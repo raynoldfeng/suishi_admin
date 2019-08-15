@@ -63,8 +63,8 @@
                     label="操作"
                     >
                         <template slot-scope="scope">
-                            <el-button @click="teamListShow(scope.row.id)" type="text" size="small">分配队伍</el-button>
-                            <el-button type="text" size="small" @click="deleteEvent(scope.row.id)">删除</el-button>
+                            <el-button @click="teamListShow(scope.row)" type="text" size="small">分配队伍</el-button>
+                            <el-button type="text" size="small" @click="deleteEvent(scope.row.account)">删除</el-button>
                         </template>
                     </el-table-column>
                 </el-table>
@@ -81,7 +81,7 @@
                 <el-table-column
                         width="55">
                     <template slot-scope="scope">
-                        <div class="choice_btn" @click="choiceEvent(scope.row)">11</div>
+                        <div class="choice_btn" :class="{choice_clicked : nowTeam == scope.$index}" @click="selectEvent(scope)"></div>
                     </template>
 
                 </el-table-column>
@@ -148,13 +148,18 @@
                 teamTypeObj:{},
                 teamTypeData:"",
                 choiceUser:"",
-                choiceTeam:[]
+                choiceTeam:[],
+                nowTeam:"-1",
+                nowTeamData:"",
+                nowUser:"",
+                dialogVisible:false
             }
         },
         mounted:function(){
             this.userinfo = {"token":this.common.cookie.get("token"),"user_id":this.common.cookie.get("user_id")};
             this.requestUserJump();
             this.teamTypeList();
+
         },
         methods:{
             requestUserJump(){
@@ -164,8 +169,9 @@
                     self.allPage = data.last_page * 10;
                 })
             },
-            teamListShow(){
+            teamListShow(data){
                 this.dialogTableVisible = true;
+                this.nowUser = data;
                 this.getTeamList();
             },
             getTeamList(){
@@ -174,6 +180,7 @@
                     console.log(data);
                     self.teamList = data.data;
                     self.teamAllPage = data.last_page * 10;
+
                 })
             },
             teamTypeList(){
@@ -185,25 +192,68 @@
                     }
                 })
             },
-            choiceEvent(data){
-                this.choiceTeam = [];
-                this.choiceTeam = data;
-                console.log(data)
+            toggleSelection(){
+                var self=this;
+                var data = {"account":this.nowUser.account,"team_id":this.nowTeamData.id,role:this.nowUser.role};
+                if(this.nowTeam != "-1"){
+                    this.common.putEventToken(this.api.host+this.api.allot,data,this.userinfo,function(data){
+                        self.dialogTableVisible = false;
+                        self.getTeamList();
+                        self.$message({
+                            message: '分配成功',
+                            type: 'success'
+                        });
+                    })
+                }else{
+                    alert("选择队伍")
+                }
             },
+            selectEvent(data){
+                this.nowTeam = data.$index;
+                this.nowTeamData = data.row;
+            },
+            deleteEvent(account){
+                this.handleClose(account);
+            },
+            handleClose(account) {
+                var self=this;
+                this.$confirm('确认删除用户？')
+                                .then(_ => {
+                        this.common.putEventToken(this.api.host+this.api.reject,{"account":account},this.userinfo,function(data){
+                            console.log(data);
+                            self.getTeamList();
+                            self.$message({
+                                message: '删除成功',
+                                type: 'success'
+                            });
+                        })
+                    }).catch(_ => {
+                        this.$message({
+                                message: '删除失败',
+                                type: 'warning'
+                            });
+                    });
+            }
 
         },
         watch:{
             nowPage(){
                 this.requestUserJump();
+            },
+            dialogTableVisible(){
+                this.nowTeam = "-1";
+                this.nowTeamData = "";
             }
         },
     }
 </script>
 <style>
 .choice_btn{
-    width: 50px;
-    height: 50px;
+    width: 20px;
+    height: 20px;
     border: 1px solid #999999;
+    margin: 0 auto;
+    cursor: pointer;
 }
 .choice_clicked{
     background: deepskyblue;

@@ -1,6 +1,6 @@
 <template>
     <div id="teamAttribute">
-        <p class="title_main">新增游戏</p>
+        <p class="title_main">新增类型</p>
         <div class="view_main">
             <el-input
             placeholder="输入名称"

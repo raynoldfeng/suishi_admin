@@ -75,9 +75,17 @@
                 <el-table
                 :data="teamList"
                 border
-                style="width: 100%">
+                style="width: 100%"
+                tooltip-effect="dark"
+               >
                 <el-table-column
-                        fixed
+                        width="55">
+                    <template slot-scope="scope">
+                        <div class="choice_btn" @click="choiceEvent(scope.row)">11</div>
+                    </template>
+
+                </el-table-column>
+                <el-table-column
                         prop="name"
                         label="队伍名称"
                         >
@@ -106,7 +114,7 @@
                 </el-pagination>
                 </div>
             </div>
-            <el-button @click="">确认分配</el-button>
+            <el-button @click="toggleSelection">确认分配</el-button>
         </el-dialog>
         <div class="view_main page_main">
             <el-pagination
@@ -138,7 +146,9 @@
                 teamNowPage:1,
                 teamAllPage:0,
                 teamTypeObj:{},
-                teamTypeData:""
+                teamTypeData:"",
+                choiceUser:"",
+                choiceTeam:[]
             }
         },
         mounted:function(){
@@ -174,7 +184,13 @@
                         self.teamTypeObj[self.teamTypeData[index].id] = self.teamTypeData[index].name;
                     }
                 })
-            }
+            },
+            choiceEvent(data){
+                this.choiceTeam = [];
+                this.choiceTeam = data;
+                console.log(data)
+            },
+
         },
         watch:{
             nowPage(){
@@ -184,5 +200,13 @@
     }
 </script>
 <style>
-
+.choice_btn{
+    width: 50px;
+    height: 50px;
+    border: 1px solid #999999;
+}
+.choice_clicked{
+    background: deepskyblue;
+    border: 1px solid deepskyblue;
+}
 </style>

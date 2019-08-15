@@ -28,5 +28,6 @@ export const api={
     "taskList":"admin/task/list/",
     "addTask":"admin/task",
     "user":"admin/user",
-    "request":"admin/team/request"
+    "request":"admin/team/request",
+    "allot":"admin/team/request/allot"
 }

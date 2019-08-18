@@ -6,12 +6,14 @@
 
             <div class="idt-img-main">
                 <div class="white-r">
-                    <img class="idt-img" :src="datas.imgDisplayTypeImg">
+                    <img class="idt-img" @click="changeEvent" :src="datas.imgDisplayTypeImg">
                 </div>
             </div>
-            <ul class="sideEdgeBoxMenu ishide idp-type-menu">
-                <li v-for="(sdata,sindex) in datas.imgDisplayTypeTextMenu" v-html="Trim(sdata.imgDisplayTypeText)"></li>
-            </ul>
+            <transition name="fade">
+                <ul class="sideEdgeBoxMenu idp-type-menu" v-show="isShow">
+                    <li v-for="(sdata,sindex) in datas.imgDisplayTypeTextMenu" v-html="Trim(sdata.imgDisplayTypeText)"></li>
+                </ul>
+            </transition>
         </div>
     </div>
 </template>
@@ -21,20 +23,29 @@ import $ from 'jquery'
                 props:{
                     data:""
                 },
+                data(){
+                    return{
+                        isShow:false
+                    }
+                },
                methods:{
                    Trim(str) {
                        return str.replace(/\n|\r\n/g,"<br/>");
-                   }
+                   },
+                    changeEvent(){
+                        this.isShow = !this.isShow;
+    console.log(this.isShow)
+                    }
                },
                 mounted:function(){
-                    $(".idt-img").on("click",function(){
-                        if($(this).parents(".idt-main").find(".sideEdgeBoxMenu").is(":hidden")){
-                            $(this).parents(".idt-main").find(".sideEdgeBoxMenu").show();
-                        }else{
-                            $(this).parents(".idt-main").find(".sideEdgeBoxMenu").hide();
-                        }
-
-                    });
+//                    $(".idt-img").on("click",function(){
+//                        if($(this).parents(".idt-main").find(".sideEdgeBoxMenu").is(":hidden")){
+//                            $(this).parents(".idt-main").find(".sideEdgeBoxMenu").show();
+//                        }else{
+//                            $(this).parents(".idt-main").find(".sideEdgeBoxMenu").hide();
+//                        }
+//
+//                    });
 
                     $(".idt-img-main").height($(".idt-img-main").width());
                 }
@@ -48,16 +59,12 @@ import $ from 'jquery'
  .idt-main{
      margin-top: 4vw;
  }
- .idp-type-menu li{
-     margin-top: 3vw;
- }
-
  .idt-img-main{
-     width: 50%;
-     margin: 0 auto;
-     border: 1px solid #999999;
+     width: 34%;
+     margin: 0 auto 0;
+     border: 1px solid #d8d8d8;
      border-radius: 100%;
-     padding: 1%;
+     padding: 2%;
  }
 
 </style>

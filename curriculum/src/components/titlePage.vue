@@ -63,8 +63,8 @@
         width: 22%;
         margin: 14% auto 6%;
         border-radius:100%;
-        padding: 1%;
-        border:1px solid #999999;
+        padding: 2%;
+        border:1px solid #d8d8d8;
     }
     .tp-logo-main img{
         width: 100%;
@@ -82,13 +82,5 @@
         font-size: 5vw;
         color: #333333;
     }
-    .tp-start-btn{
-        min-width: 30%;
-        display: inline-block;
-        background: #019ccb;
-        margin: 10% auto 0;
-        padding: 2% 4%;
-        color: #ffffff;
-        font-size: 4vw;
-    }
+
 </style>

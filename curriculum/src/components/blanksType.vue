@@ -41,7 +41,7 @@ export default
                 html+= this.data.blanksMenu[i].blanksText;
             }else if(this.data.blanksMenu[i].blanksType == 2){
                 html+= '<div class="input-b-box"><div class="blanks-anw" contenteditable="true"  >'+this.data.blanksMenu[i].blanksInput+'</div>'+
-                        '<span class="show-abtn" key="'+this.data.blanksMenu[i].blanksAnswer+'"> > </span></div>'
+                        '<span class="show-abtn" key="'+this.data.blanksMenu[i].blanksAnswer+'"> ▼</span></div>'
             }
         }
         $(".btext-menu").html(html);
@@ -67,10 +67,11 @@ export default
         font-size:4vw;
     }
     .blanks-anw{
-        min-width:25vw;
-        border: 1px solid #999;
+        min-width:22vw;
+        border: 1px solid #dadada;
         float: left;
         font-size:4vw;
+        margin-left:2vw;
     }
     .input-b-box{
         display: inline-block;
@@ -78,7 +79,7 @@ export default
         top: 2px;
     }
     .show-abtn{
-        background: skyblue;
+        background: #f48335;
         color: #fff;
         float: left;
         font-size:4.5vw;

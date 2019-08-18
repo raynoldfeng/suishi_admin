@@ -243,4 +243,7 @@ import $ from 'jquery'
     .sm-q-box{
         position: relative;
     }
+    #selectmore{
+        margin-top:10%;
+    }
 </style>

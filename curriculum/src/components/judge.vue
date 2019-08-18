@@ -1,9 +1,10 @@
 <template>
     <div id="QuestMain" >
         <div id="QuestBox" class="judgebox" >
-            <p class="quest-text" id="judgeTitle" v-text="data.judgeTitle"></p>
+            <p class="quest-text" id="lodingtext"   v-show="data.judgeTitle==''">loding</p>
+            <p class="quest-text" id="judgeTitle" v-text="data.judgeTitle" v-show="data.judgeTitle!=''"></p>
             <div class="true-main">
-                <div class="true-logo">对</div>
+                <div class="true-logo"></div>
                 <ul class="anwer-menu yesm">
 
                 </ul>
@@ -12,7 +13,7 @@
                 </div>
             </div>
             <div class="false-main">
-                <div class="false-logo">错</div>
+                <div class="false-logo"></div>
                 <ul class="anwer-menu nom">
 
                 </ul>
@@ -20,9 +21,9 @@
                     <p></p>
                 </div>
             </div>
-
         </div>
         <div  class="animated judgebtn" v-show="jshow" v-html="Trim(data.judgeMenu[indexQ].judgeText)" @touchstart="touchStatus" :attr-all = "data.judgeMenu.length" attr-now="0" ></div>
+
     </div>
 </template>
 <script>
@@ -58,15 +59,12 @@ export default {
         },
         initData(){
             var self = this;
-            $(".judgebtn").css({top:window.innerHeight/1.5,left:(window.innerWidth-$(".judgebtn").width())/2});
+            $(".judgebtn").css({top:window.innerHeight/1.2,left:(window.innerWidth-$(".judgebtn").width())/2});
             var oBox = $(".judgebtn");
             var oBar = $(".judgebtn");
             this.drops.phoneStartDrag(oBar, oBox ,".judgebtn",function(data){
 
             },(all,now)=>{
-                $("#noteWin").show();
-                $("#noteText").show();
-console.log(now,all);
 
                 if(now >= all){
                     self.jshow = false;
@@ -76,17 +74,19 @@ console.log(now,all);
                     console.log("aaaaaaaaa",self.indexQ);
                     console.log("ffffffffffffffffffffffffffffffffff"+self.data.judgeMenu[self.indexQ].judgeAnswerText)
                     if(now >= all-1){
-                        $("#noteText").html(self.Trim(window.edit[nowPage].judgeMenu[window.jpage].judgeAnswerText));
+                        $("#noteText p").html(self.Trim(window.edit[nowPage].judgeMenu[window.jpage].judgeAnswerText));
                       $(".judgebtn").hide();
                     }else{
                         window.jpage++;
                         self.indexQ =  window.jpage;
-                        $("#noteText").html(self.Trim(window.edit[nowPage].judgeMenu[window.jpage-1].judgeAnswerText));
+                        $("#noteText p").html(self.Trim(window.edit[nowPage].judgeMenu[window.jpage-1].judgeAnswerText));
                     }
 
                     $(".judgebtn").html(self.Trim(window.edit[nowPage].judgeMenu[window.jpage].judgeText))
                 }
-
+                $("#noteWin").show().addClass("noteWin-play");
+                $("#noteText").css("bottom","-"+$("#noteText").height());
+                $("#noteText").show().addClass("noteText-play");
             });
         },
     touchStatus(){
@@ -125,11 +125,13 @@ console.log(now,all);
 }
 .true-logo{
     /*color: green;*/
-    background: #286b36;
+    background:url("./../img/true_btn.png") no-repeat 0 0;
+    background-size:100%;
 }
 .false-logo{
     /*color: red;*/
-    background: #bf374b;
+    background:url("./../img/false_btn.png") no-repeat 0 0;
+    background-size:100%;
 }
 .judgebtn{
     width: 100px;
@@ -157,15 +159,15 @@ console.log(now,all);
 }
 .kuang{
     margin: 10% auto 0;
-    width: 80%;
-    height: 40px;
+    width: 100%;
+    height: 54px;
     border: 1px solid #ddd;
 }
 .kuang p{
     margin: 0;
     float: left;
     width: 100%;
-    height: 40px;
+    height: 54px;
     line-height: 40px;
     color: #ffffff;
     text-align: center;
@@ -176,18 +178,26 @@ console.log(now,all);
     color: #666;
     padding-bottom: 10%;
 }
+#lodingtext{
+    font-size: 5vw;
+    margin-top: 10%;
+    color: #666;
+    padding-bottom: 10%;
+    opacity: 0;
+}
 .select-css{
     background: #efefef;
 }
 .anwer-menu{
-    width:100%
+    width:100%;
+    margin-top:10%;
 }
 .anwer-menu li{
         margin-top:4%;
         color:#fff;
         word-break:break-all;
         font-size: 4vw;
-        padding:0 1%;
+        padding:5% 4%;
     }
 .anwer-menu.yesm  li{
         background:#286b36;

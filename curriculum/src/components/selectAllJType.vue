@@ -12,8 +12,8 @@
 
             <!--</li>-->
                 <li v-for="(data,index) in data.selectAllJMenu">
-                    <div  class="answer-btn answer-css animated" :class="{yes:data.isAnswer == '1' ,no:data.isAnswer == '0'}" v-text="data.answerText"></div>
-                    <div class="explain-main" v-html="Trim(data.selectTextNote)"></div>
+                    <div  class="answer-btn answer-css animated" :class="{yes:data.isAnswer == '1' ,no:data.isAnswer == '0',colorfff:data.selectAllJSubtitleTitleColor == '1'}" v-text="data.answerText"></div>
+                    <div class="explain-main" :class="{colorfff:data.selectAllJSubtitleTitleColor == '1'}" v-html="Trim(data.selectTextNote)"></div>
                 </li>
                 <!--<li>-->
                    <!--<div  class="answer-btn answer-css no animated">  不是 </div>-->
@@ -49,8 +49,8 @@ export default {
     },
     mounted:function(){
         $("#selectBox li").on("touchstart",function(){
-            $(".explain-main").hide();
-            $(this).find(".explain-main").show();
+            $(".explain-main").hide().removeClass("explain-show");
+            $(this).find(".explain-main").show().addClass("explain-show");
             var answerBtn = $(this).find(".answer-btn");
             if(answerBtn.hasClass("yes")){
                 answerBtn.addClass("true-css");
@@ -89,24 +89,56 @@ export default {
     font-size: 4vw;
     background: #ffffff;
     word-break: break-all;
+    border-radius: 4px;
 }
 
 .optionall-menu li .true-css{
     color: #ffffff;
     background: #286b36;
+    border: 1px solid #286b36;
 }
 .optionall-menu li .false-css{
     color: #ffffff;
     background: #bf374b;
+    border: 1px solid #bf374b;
 }
+.optionall-menu li .true-css:before{
+    content: "√";
+    padding-right: .5em;
+    font-family: "iconfont";
+    vertical-align: middle;
+    display: inline-block;
+    }
+.optionall-menu li .false-css:before{
+    content: "×";
+    padding-right: .5em;
+    font-family: "iconfont";
+    vertical-align: middle;
+    display: inline-block;
+    margin-top:-2%;
+    }
 .none{
     display: none;
 }
 .optionall-menu li .explain-main{
     border: 0 solid transparent;
     font-size: 4vw;
-    color: #666;
-    display: none;
+    color: #304449;
+    opacity:0;
+    display:none;
+    margin-top:3%;
 }
 
+.explain-show{
+    animation: shows 0.5s linear 0s forwards;
+    -webkit-animation: shows 0.5s linear 0s forwards;
+}
+@keyframes shows{
+    0%{opacity:0}
+    100%{opacity:1}
+}
+@-webkit-keyframes shows{
+    0%{opacity:0}
+    100%{opacity:1}
+}
 </style>

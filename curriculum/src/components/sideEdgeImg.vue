@@ -59,10 +59,10 @@ import $ from 'jquery'
             width:49%;
         }
         .sideEdgeBoxImg-main{
-            width:66%;
+            width:64%;
             margin: 0 auto;
-            padding: 1%;
-            border: 1px solid #999999;
+            padding: 4%;
+            border: 1px solid #d8d8d8;
             border-radius: 100%;
         }
         .sideEdgeBoxImg img{

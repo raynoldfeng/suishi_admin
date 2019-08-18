@@ -7,9 +7,8 @@
                     <img :src="data.imgTextImg" />
                 </div>
             </div>
-            <ul class="it-text-menu">
-                <li v-for="textData in data.imgTextMenu" v-html="Trim(textData)">
-                </li>
+            <ul class="it-text-menu commonListStyle">
+                <li v-for="textData in data.imgTextMenu" v-html="Trim(textData)"></li>
 
             </ul>
         </div>
@@ -38,15 +37,15 @@ export default
         font-size: 5vw;
         color: #666666;
         width: 90%;
-        margin: 5% auto 0;
+        margin: 10% auto 0;
         word-break: break-all ;
         text-align: center;
     }
      .it-img-main{
         width: 28%;
          margin: 5% auto 0;
-         border: 1px solid #999999;
-         padding: 1%;
+         border: 1px solid #d8d8d8;
+         padding: 2%;
          border-radius: 100%;
      }
     .it-img-main img{

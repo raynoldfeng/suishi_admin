@@ -2,7 +2,7 @@
     <div id="QuestMain">
         <p class="quest-text" v-text="data.listTypeTitle"></p>
 
-        <div class="img-main simg-main" v-if="data.listTypeImg">
+        <div class="img-main simg-main simg-main-nobor" v-if="data.listTypeImg">
             <div class="white-r">
                 <img id="selectImg" :src="data.listTypeImg" @click="displayEvent(data.listTypeImg,'')" >
             </div>
@@ -92,11 +92,19 @@ export default {
     .ratelist li.clickbtned{
         background:#fd9800;
     }
-.list-type-menu li{
+    .list-type-menu li{
         font-size: 5vw;
         color: #333;
-        margin:1% 6% 0;
+        margin:3% 6% 0;
         text-align: left;
+    }
+.list-type-menu li:before{
+    content: "▶";
+    padding-right: .5em;
+    font-family: "iconfont";
+    vertical-align: middle;
+    display: inline-block;
+    margin-top:-1%;
     }
     .tp-next-btn{
         min-width: 30%;
@@ -108,16 +116,5 @@ export default {
         font-size: 4vw;
         position: relative;
     }
-.simg-main{
-    width:40%;
 
-    margin: 10% auto;
-    border-radius: 100%;
-    padding: 2%;
-    border:1px solid #999999;
-    }
-
-#selectImg{
-    width:200%;
-    }
 </style>

@@ -14,16 +14,18 @@
                         </div>
                     </div>
                 </div>
-                <div  class="isb-sideEdgeBoxMain" v-for="(datas,index) in data.imgselectDisplayMenu" v-show="nowshow == index">
-                    <div class="isb-imgmain">
-                        <div class="white-r">
-                            <img v-if="datas.imgselectDisplayImg != ''" :src="datas.imgselectDisplayImg" />
+                <transition name="fade">
+                    <div  class="isb-sideEdgeBoxMain" v-for="(datas,index) in data.imgselectDisplayMenu" v-show="nowshow == index">
+                        <div class="isb-imgmain">
+                            <div class="white-r">
+                                <img v-if="datas.imgselectDisplayImg != ''" :src="datas.imgselectDisplayImg" />
+                            </div>
                         </div>
+                        <ul  class="sideEdgeBoxMenu">
+                            <li v-for="(mdata,mindex) in datas.imgselectDisplayTextMenu" v-html="Trim(mdata.imgselectDisplayText)"></li>
+                        </ul>
                     </div>
-                    <ul  class="sideEdgeBoxMenu">
-                        <li v-for="(mdata,mindex) in datas.imgselectDisplayTextMenu" v-html="Trim(mdata.imgselectDisplayText)"></li>
-                    </ul>
-                </div>
+                </transition>
             </div>
         </div>
     </div>
@@ -100,13 +102,15 @@ import $ from 'jquery'
     font-size: 4vw;
 }
 .isb-imgmain{
-    width: 70%;
-    padding: 1%;
-    border: 1px solid #999999;
+    width: 62%;
+    padding: 4%;
+    border: 1px solid #d8d8d8;
     border-radius: 100%;
+    margin: 0 auto;
 }
 .isb-sideEdgeBoxMain img{
    width: 100%;
     height: 100%;
 }
+
 </style>

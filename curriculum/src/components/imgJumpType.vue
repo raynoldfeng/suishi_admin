@@ -7,7 +7,7 @@
             <p class="quest-text" :class="{colorfff:data.ImgJumpTypeTitleColor == '1'}" v-text="data.ImgJumpTypeTitle"></p>
             <p class="quest-info common-info" :class="{colorfff:data.ImgJumpTypeTitleColor == '1'}" v-text="data.ImgJumpTypeInfo"></p>
             <div class="tp-startBtn-main">
-                <div class="tp-start-btn" @click="jumpEvent" v-if="data.ImgJumpBtnText != ''"  v-text="data.ImgJumpBtnText"></div>
+                <div class="tp-start-btn nomargin" @click="jumpEvent" v-if="data.ImgJumpBtnText != ''"  v-text="data.ImgJumpBtnText"></div>
             </div>
 
         </div>
@@ -44,16 +44,7 @@ import $ from 'jquery'
             z-index: 1;
             color: #999999;
         }
-        .tp-start-btn{
-            min-width: 30%;
-            display: inline-block;
-            background: #019ccb;
-            margin: 0 auto 0;
-            padding: 2% 4%;
-            color: #ffffff;
-            font-size: 4vw;
-            position: relative;
-        }
+
         .tp-startBtn-main{
             width: 100%;
             position: absolute;

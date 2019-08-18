@@ -7,32 +7,13 @@
             <div id="nobtn" @click="studyEvent(2)">重新学习</div>
         </div>
         <swiper class="swiper_type_menu" ref="pages" :options="swiperOption" >
-            <!-- slides -->
 
-  <!--          <swiper-slide key="0" :style='{"height":windowHeight+"px"}' >
-               <v-titlePage v-on:isStart = "isStartEvent"></v-titlePage>
-            </swiper-slide>
-        <swiper-slide key="1">
-            <v-select></v-select>
-        </swiper-slide>
-        <swiper-slide key="2">
-            <v-imageText></v-imageText>
-        </swiper-slide>
-      <swiper-slide key="3">
-            <v-imageChange></v-imageChange>
-        </swiper-slide>
-        <swiper-slide key="4">
-            <v-judge></v-judge>
-        </swiper-slide>
-        <swiper-slide key="5">
-            <v-selectmore></v-selectmore>
-        </swiper-slide>-->
 
             <swiper-slide v-for="(data,index) in bookData" :key="index">
                 <v-titlePage v-if="data.testType == '0' && data.displayType == 't1'" v-on:isStart = "isStartEvent" :data="data"></v-titlePage>
                 <v-imageText v-else-if="data.testType == '1' && data.displayType == 'it1'" :data="data"></v-imageText>
                 <v-imageChange v-else-if="data.testType == '2' && data.displayType == 'ic1'" :data="data"></v-imageChange>
-                <v-judge  v-else-if="data.testType == '3' && data.displayType == 'j1'" :data="data" :index = "index" :nowPage="nowPage" ></v-judge>
+                <v-judge  v-else-if="data.testType == '3' && data.displayType == 'j1'" :data="data" :index = "index" :nowPage="nowPage" v-on:isJump = "isJumpEvent"></v-judge>
                 <v-select v-else-if="data.testType == '4' && data.displayType == 's1'" :data="data" :nowyes="nowyesEvent(data)" v-on:imgShow = "imgShowEvent"></v-select>
                 <v-selectmore  v-else-if="data.testType == '5' && data.displayType == 'sm1'" :data="data"></v-selectmore>
                 <v-selectAllJType   v-else-if="data.testType == '6' && data.displayType == 'sm2'" :data="data"></v-selectAllJType>
@@ -44,9 +25,7 @@
                 <v-imgDisplayType v-else-if="data.testType == '12' && data.displayType == 'idp'" :data="data"></v-imgDisplayType>
                 <v-lastPage  v-else-if="data.testType == '1111' && data.displayType == 'oooo'" :data="data"></v-lastPage>
             </swiper-slide>
-            <!--<swiper-slide :key="bookData.length">-->
-                <!---->
-            <!--</swiper-slide>-->
+
         </swiper>
 <div id="swiper-button-prev" class="swiper-button-prev" slot="button-prev" @click="pageTurn('left')"></div>
 <div id="swiper-button-next" class="swiper-button-next" slot="button-next" @click="pageTurn('right')"></div>
@@ -55,25 +34,7 @@
             <div id="displayBtn" @click="pageMenuDisplay">☰</div>
             <div id="dealMenu">
                 <swiper class="swiper-menu" ref="pageMenu" :options="swiperSmooth" >
-                <!-- slides -->
-                    <!--     <swiper-slide  :key="0">
-                         <div class="type-main">第1页</div>
-                      </swiper-slide>
-                     <swiper-slide  :key="1">
-                         <div class="type-main">第2页</div>
-                     </swiper-slide>
-                     <swiper-slide  :key="2">
-                         <div class="type-main">第3页</div>
-                     </swiper-slide>
-                     <swiper-slide  :key="3">
-                         <div class="type-main">第4页</div>
-                     </swiper-slide>
-                     <swiper-slide  :key="4">
-                         <div class="type-main">第5页</div>
-                     </swiper-slide>
-                     <swiper-slide  :key="5">
-                         <div class="type-main">第6页</div>
-                     </swiper-slide>-->
+
                     <swiper-slide  v-for="(data,index) in bookData" :key="index">
                         <div v-if="index == bookData.length-1" class="type-main" @click="pageClickEvent(index)"  :class="{typemainclick:nowPage == index}">最后一页</div>
                         <div v-else class="type-main" @click="pageClickEvent(index)"  :class="{typemainclick:nowPage == index}">第{{index+1}}页</div>
@@ -84,14 +45,24 @@
                 </swiper>
             </div>
         </div>
-        <div id="imgWin"  @click="imgHiddenEvnet"  :class="{showBox:displayImg != ''}"></div>
-        <div id="imgBox"   :class="{showBox:displayImg != ''}">
-            <div @click="imgHiddenEvnet" class="closeBtn">x</div>
-            <img :src="displayImg" />
-            <p v-if="displayText != ''" v-html="Trim(displayText)"></p>
-        </div>
+        <transition name="img">
+        <div id="imgWin"  @click="imgHiddenEvnet"  :class="{showBox:displayImg != ''}" v-show="displayImg != ''"></div>
+        </transition>
+        <transition name="fade">
+            <div id="imgBox"   :class="{showBox:displayImg != ''}" v-show="displayImg != ''">
+                <div @click="imgHiddenEvnet" class="closeBtn">
+                    <img src="./../img/close_btn.png" />
+                </div>
+                <img :src="displayImg" />
+                <p v-if="displayText != ''" v-html="Trim(displayText)"></p>
+            </div>
+        </transition>
+
         <div id="noteWin" @click="hideNoteEvent"></div>
-        <p id="noteText" v-html="noteTexts"></p>
+        <div id="noteText">
+            <img id="jtBtn" dis="0" src="./../img/jt.png" />
+            <p  v-html="noteTexts"></p>
+        </div>
     </div>
 </template>
  <script>
@@ -237,9 +208,22 @@ import blanksType from '../components/blanksType.vue'
                 }
             }
 
-
+            this.jqEvent();
         },
         methods:{
+            jqEvent(){
+              $("#jtBtn").on("click",function(){
+                  var dis = $(this).attr("dis");
+                  if(dis == "0"){
+                      $(this).attr("dis","1");
+                      $("#noteText").animate({"height":"84%"},800);
+                  }else{
+                      $(this).attr("dis","0");
+                      $("#noteText").animate({"height":"12%"},800)
+                  }
+
+              })
+            },
             Trim(str) {
                 console.log(str)
                 return str.replace(/\n|\r\n/g,"<br/>");
@@ -365,8 +349,10 @@ import blanksType from '../components/blanksType.vue'
                 this.displayText = "";
             },
             hideNoteEvent(){
-                $("#noteWin").hide();
-                $("#noteText").hide();
+                $("#noteWin").hide().removeClass("noteWin-play");
+                $("#noteText").hide().removeClass("noteText-play");
+                $("#noteText").css({"height":"12%"});
+                $("#jtBtn").attr("dis","0");
                 this.noteTexts = "";
             }
         },
@@ -390,10 +376,10 @@ import blanksType from '../components/blanksType.vue'
     left: 0;
     z-index: 100;
     width: 100%;
-    background-color: #ffffff;
 
 }
 #dealMenu{
+      background:#fff;
     border-top: 1px solid #ddd;
 }
 #displayBtn{
@@ -462,9 +448,11 @@ import blanksType from '../components/blanksType.vue'
       color: #ffffff;
   }
   #swiper-button-prev, .swiper-container-rtl .swiper-button-next{
+      display:none;
        background-image:url("./../img/left.png");
    }
   #swiper-button-next, .swiper-container-rtl .swiper-button-prev{
+      display:none;
       background-image:url("./../img/right.png");
   }
   #imgBox{
@@ -473,8 +461,7 @@ import blanksType from '../components/blanksType.vue'
           top: 0;
           left: 50%;
           width: 80%;
-          opacity: 0;
-          display: none;
+
             margin:25% 0 0 -40%;
       }
       #imgBox img{
@@ -490,10 +477,8 @@ import blanksType from '../components/blanksType.vue'
       font-size:4vw;
       }
   #imgBox.showBox{
-      transition:opacity 2s ;
-      -webkit-transition:opacity 2s ;
-      opacity: 1;
-      display: block;
+
+
       z-index:100;
       }
       #imgWin{
@@ -503,20 +488,21 @@ import blanksType from '../components/blanksType.vue'
           left: 0;
           width: 100%;
           height: 100%;
-          opacity: 0.3;
+            opacity: 0.3;
           background-color: #333333;
-          display: none;
+
       }
+
   #imgWin.showBox{
-      transition:opacity 2s ;
-      -webkit-transition:opacity 2s ;
-      display: block;
+
+
       z-index:99;
       }
       .closeBtn{
+          width:8%;
           position: absolute;
-          top:0;
-          right:0;
+          top: -4%;
+          right: -3%;
       }
 
   </style>

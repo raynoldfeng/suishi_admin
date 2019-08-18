@@ -52,16 +52,18 @@ export const drop = {
 
 
         document.addEventListener("touchend",function(){
-            params.flag = false;
+
 //        target.style.left = 100 + "px";
 //        target.style.top = 300 + "px";
 
-            $(".kuang").removeClass("select-css");
 
 
+            if(!params.flag){
+                return false;
+            }
             if(isSelection(".true-main", target.css("top"), target.css("left")) || isSelection(".false-main", target.css("top"), target.css("left"))){
                 target.css("left",(window.innerWidth - $(id).width())/2 + "px");
-                target.css("top",window.innerHeight/1.5 + "px");
+                target.css("top",window.innerHeight/1.2 + "px");
               //  params.self.hide();
                 //$(id).hide();
                 if(getCss(target, "left") !== "auto"){
@@ -75,7 +77,7 @@ export const drop = {
             }else{
                 $(id).removeClass("shake");
                 var left = (window.innerWidth - $(id).width())/2 + "px";
-                var top =window.innerHeight/1.5 + "px";
+                var top =window.innerHeight/1.2 + "px";
                 $(id).animate({left:left,top:top},function(){
                     if(getCss(target, "left") !== "auto"){
                         params.left = getCss(target, "left");
@@ -88,8 +90,8 @@ export const drop = {
             }
 
 
-
-
+            $(".kuang").removeClass("select-css");
+            params.flag = false;
         });
         document.addEventListener("touchmove",function(event){
             var e = event ? event: window.event;

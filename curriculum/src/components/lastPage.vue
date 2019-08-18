@@ -21,7 +21,7 @@
 </script>
 <style>
 #lastPage{
-    padding-top: 25%;
+    padding-top: 54%;
     font-size: 5vw;
 }
 .tp-start-btn{

@@ -22,7 +22,7 @@
                 </div>
             </div>
         </div>
-        <div  class="animated judgebtn" v-show="jshow" v-html="Trim(data.judgeMenu[indexQ].judgeText)" @touchstart="touchStatus" :attr-all = "data.judgeMenu.length" attr-now="0" ></div>
+        <div  class="animated judgebtn" v-show="jshow" v-html="Trim(data.judgeMenu[indexQ].judgeText)" :attr="data.judgeMenu[indexQ].judgeAnswerText"  @touchstart="touchStatus" :attr-all = "data.judgeMenu.length" attr-now="0" ></div>
 
     </div>
 </template>
@@ -82,7 +82,8 @@ export default {
                         $("#noteText p").html(self.Trim(window.edit[nowPage].judgeMenu[window.jpage-1].judgeAnswerText));
                     }
 
-                    $(".judgebtn").html(self.Trim(window.edit[nowPage].judgeMenu[window.jpage].judgeText))
+                    $(".judgebtn").html(self.Trim(window.edit[nowPage].judgeMenu[window.jpage].judgeText));
+                    $(".judgebtn").attr("attr",self.Trim(window.edit[nowPage].judgeMenu[window.jpage].judgeAnswerText));
                 }
                 $("#noteWin").show().addClass("noteWin-play");
                 $("#noteText").css("bottom","-"+$("#noteText").height());
@@ -137,7 +138,7 @@ export default {
     width: 100px;
     height: auto;
     text-align: center;
-    color: #333;
+    color: #666;
     background: #fff;
     padding: 2% 0;
     position:absolute;

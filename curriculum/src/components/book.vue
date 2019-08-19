@@ -60,7 +60,6 @@
 
         <div id="noteWin" @click="hideNoteEvent"></div>
         <div id="noteText">
-            <img id="jtBtn" dis="0" src="./../img/jt.png" />
             <p  v-html="noteTexts"></p>
         </div>
     </div>
@@ -351,8 +350,8 @@ import blanksType from '../components/blanksType.vue'
             hideNoteEvent(){
                 $("#noteWin").hide().removeClass("noteWin-play");
                 $("#noteText").hide().removeClass("noteText-play");
-                $("#noteText").css({"height":"12%"});
-                $("#jtBtn").attr("dis","0");
+//                $("#noteText").css({"height":"12%"});
+//                $("#jtBtn").attr("dis","0");
                 this.noteTexts = "";
             }
         },

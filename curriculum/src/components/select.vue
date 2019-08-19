@@ -187,7 +187,7 @@
         .option-menu li{
             width: 100%;
             margin-top: 5%;
-            padding: 3% 2%;
+            padding: 4% 2%;
             /*position: absolute;*/
             /*position: relative;*/
             border: 1px solid #cbcbcb;
@@ -195,6 +195,7 @@
             background: #ffffff;
             word-break: break-all;
             overflow:hidden;
+            border-radius: 4px;
         }
 
          .option-menu li.anwdisplay{

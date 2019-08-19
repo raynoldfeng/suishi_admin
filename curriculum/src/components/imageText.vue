@@ -60,6 +60,7 @@ export default
     }
     .it-text-menu li{
         margin-top: 4%;
+        color: #666666;
     }
     .it-text-menu li:before {
         margin-left: -1.3em;

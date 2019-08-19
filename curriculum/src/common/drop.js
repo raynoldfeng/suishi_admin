@@ -127,8 +127,14 @@ export const drop = {
 //                    $(id).find(".kuang").addClass("answer-css");  //给答案添加样式
 //                    $(id).find(".kuang").find("p").text(target.innerHTML);
                         //    params.self.prev(".judgebox").find(id).find(".kuang").addClass("answer-css");  //给答案添加样式
-                        var html = "<li>"+ params.self.text() +"</li>";
+                        var html = "<li class='li-main' attr='"+params.self.attr("attr")+"'>"+ params.self.text() +"</li>";
                         params.self.prev(".judgebox").find(id).find(".anwer-menu").append(html);
+                        $(".li-main").on("click",function(){
+                            $("#noteWin").show().addClass("noteWin-play");
+                            $("#noteText").css("bottom","-"+$("#noteText").height());
+                            $("#noteText").show().addClass("noteText-play");
+                            $("#noteText p").html(Trim($(this).attr("attr")));
+                        });
                         // params.self.prev(".judgebox").find(id).find(".kuang").find("p").text(target.innerHTML);
                         return true;
                     }else{
@@ -138,11 +144,15 @@ export const drop = {
                     return false;
                 }
             }
+           function Trim(str) {
+                return str.replace(/\n|\r\n/g,"<br/>");
+            }
 
+        };
 
-        }
     },
     getNow(nowQ){
         now = nowQ;
-    }
+    },
+
 }

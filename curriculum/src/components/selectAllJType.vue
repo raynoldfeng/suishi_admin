@@ -84,7 +84,7 @@ export default {
 .optionall-menu li .answer-btn{
     width: 100%;
     margin-top: 5%;
-    padding: 3% 2%;
+    padding: 4% 2%;
     border: 1px solid #cbcbcb;
     font-size: 4vw;
     background: #ffffff;

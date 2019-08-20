@@ -135,7 +135,7 @@ export default {
     background-size:100%;
 }
 .judgebtn{
-    width: 100px;
+    width: 80%;
     height: auto;
     text-align: center;
     color: #666;
@@ -144,7 +144,7 @@ export default {
     position:absolute;
     left:100px;
     top:300px;
-    font-size:12px;
+    font-size: 0.65em;
     -moz-box-shadow:0px 2px 4px #999;
     -webkit-box-shadow:0px 2px 4px #999;
 }

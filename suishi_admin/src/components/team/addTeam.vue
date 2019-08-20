@@ -4,9 +4,9 @@
             <div class="fraction">
             得分：{{total_score}}
             </div>
-            <p class="title_main">专业列表</p>
+            <p class="title_main">编辑队伍</p>
         </div>
-        <div class="view_main">
+        <div class="view_main2">
             <span>队伍名称</span>
             <el-input v-model="teamName" class="input_type" readonly></el-input>
             <span>组队类型</span>
@@ -15,7 +15,7 @@
             <el-input readonly v-model="statusValue"  class="input_type"></el-input>
             <el-button type="primary" @click="LabelDialog(0,true)">编辑</el-button>
         </div>
-        <div class="view_main view_main2">
+        <div class=" view_main2">
          <!--   <span>队友名称</span>
             <el-input v-model="userName" class="input_type" readonly></el-input>
             <el-button @click="LabelDialog(2,true)">选择用户</el-button>-->
@@ -111,6 +111,16 @@
                 label="打分"
                 >
                 </el-table-column>
+            <el-table-column
+                    prop="score"
+                    label="任务地址"
+                    >
+            </el-table-column>
+            <el-table-column
+                    prop="score"
+                    label="作业地址"
+                    >
+            </el-table-column>
                 <el-table-column
                 label="操作"
                 >
@@ -169,6 +179,14 @@
                     :value="item.value">
                     </el-option>
                 </el-select>
+            </div>
+            <div class="view_main">
+                <span>任务地址</span>
+                <el-input  class="input_type" v-model="mission" />
+            </div>
+            <div class="view_main">
+                <span>作业地址</span>
+                <el-input  class="input_type" v-model="homework" />
             </div>
             <el-button @click="addTask">添加</el-button>
         </el-dialog>
@@ -261,6 +279,8 @@
                 }],
                 roleValue:"",
                 taskScore:"",
+                homework:"",
+                mission:"",
                 taskStatus:"0",
                 taskName:"",
                 editTaskVisible:false,

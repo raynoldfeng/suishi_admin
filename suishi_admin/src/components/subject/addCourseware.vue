@@ -369,12 +369,7 @@
             .input_type{
                 width: 200px;
             }
-        .view_main{
-            margin-top:10px
-            }
-        .view_main2{
-            overflow:inherit;
-            }
+
         .textarea_type{
             width: 500px;
             }

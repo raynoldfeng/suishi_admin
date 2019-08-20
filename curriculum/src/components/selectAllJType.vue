@@ -11,9 +11,9 @@
             <!--<li class="explain" v-html="Trim(data.imgTextNote)">-->
 
             <!--</li>-->
-                <li v-for="(data,index) in data.selectAllJMenu">
-                    <div  class="answer-btn answer-css animated" :class="{yes:data.isAnswer == '1' ,no:data.isAnswer == '0',colorfff:data.selectAllJSubtitleTitleColor == '1'}" v-text="data.answerText"></div>
-                    <div class="explain-main" :class="{colorfff:data.selectAllJSubtitleTitleColor == '1'}" v-html="Trim(data.selectTextNote)"></div>
+                <li v-for="(datas,index) in data.selectAllJMenu">
+                    <div  class="answer-btn answer-css animated" :class="{yes:datas.isAnswer == '1' ,no:datas.isAnswer == '0'}" v-text="datas.answerText"></div>
+                    <div class="explain-main" :class="{colorfff:data.selectAllJSubtitleTitleColor == '1'}" v-html="Trim(datas.selectTextNote)"></div>
                 </li>
                 <!--<li>-->
                    <!--<div  class="answer-btn answer-css no animated">  不是 </div>-->
@@ -127,6 +127,10 @@ export default {
     opacity:0;
     display:none;
     margin-top:3%;
+}
+
+.optionall-menu li .colorfff{
+    color: #fff;
 }
 
 .explain-show{

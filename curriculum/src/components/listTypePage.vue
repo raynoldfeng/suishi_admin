@@ -13,7 +13,7 @@
             <ul class="ratelist">
                 <li  v-for="(idata,index) in listMenu" @click="reShow(index)" :class="{clickbtned:listLen == index}"></li>
             </ul>
-            <div class="tp-next-btn" @click="listShowEvent" v-show="data.listTypeBtnText != ''"  v-text="data.listTypeBtnText"></div>
+            <div class="tp-next-btn" @click="listShowEvent" v-show="data.listTypeBtnText != '' && listLen != (data.listTypeMenu.length-1)"  v-text="data.listTypeBtnText"></div>
 
     </div>
 </template>

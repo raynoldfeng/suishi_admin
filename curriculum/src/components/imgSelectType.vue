@@ -14,7 +14,7 @@
                         </div>
                     </div>
                 </div>
-                <transition name="fade">
+
                     <div  class="isb-sideEdgeBoxMain" v-for="(datas,index) in data.imgselectDisplayMenu" v-show="nowshow == index">
                         <div class="isb-imgmain">
                             <div class="white-r">
@@ -25,7 +25,6 @@
                             <li v-for="(mdata,mindex) in datas.imgselectDisplayTextMenu" v-html="Trim(mdata.imgselectDisplayText)"></li>
                         </ul>
                     </div>
-                </transition>
             </div>
         </div>
     </div>
@@ -50,7 +49,9 @@ import $ from 'jquery'
             }
         },
         mounted:function(){
+            console.log(this.data.imgselectDisplayMenu)
             $(".isb-btn").on("click",function(){
+
                 $(this).parents(".isd-leftMenu").find(".isb-btn").removeClass("isb-clicked");
                 $(this).addClass("isb-clicked");
             });

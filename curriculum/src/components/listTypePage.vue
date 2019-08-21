@@ -2,7 +2,7 @@
     <div id="QuestMain">
         <p class="quest-text" v-text="data.listTypeTitle"></p>
 
-        <div class="img-main simg-main simg-main-nobor" v-if="data.listTypeImg">
+        <div class="img-main simg-main" v-if="data.listTypeImg">
             <div class="white-r">
                 <img id="selectImg" :src="data.listTypeImg" @click="displayEvent(data.listTypeImg,'')" >
             </div>

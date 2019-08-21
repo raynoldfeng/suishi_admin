@@ -3,7 +3,7 @@
         <p class="quest-text" v-text="data.listTypeTitle"></p>
         <div class="sideEdgeBox">
             <div class="sideEdgeBoxImg" :class="{sideEdgeBoxLeft:data.sideEdgeImgLRType == '0', sideEdgeBoxRight:data.sideEdgeImgLRType == '1'}">
-                <div class="sideEdgeBoxImg-main">
+                <div class="sideEdgeBoxImg-main simg-main-nobor">
                     <div class="white-r">
                         <img @click="displayEvent(data.sideEdgeImg,'')" :src="data.sideEdgeImg">
                     </div>

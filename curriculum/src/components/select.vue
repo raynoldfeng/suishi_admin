@@ -3,7 +3,7 @@
         <div id="QuestBox">
             <div v-for="(sdata,sindex) in data.selectQMenu" class="padd-css">
                 <p class="quest-text" v-text="sdata.selectTitle"></p>
-                <div class="img-main simg-main simg-main-nobor" v-if="sdata.selectImg">
+                <div class="img-main simg-main" v-if="sdata.selectImg">
                     <div class="white-r">
                         <img id="selectImgs" :src="sdata.selectImg" @click="displayEvent(sdata.selectImg,sdata.imgNoteNode)">
                     </div>

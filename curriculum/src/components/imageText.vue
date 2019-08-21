@@ -2,7 +2,7 @@
     <div id="QuestMain">
         <div id="imageText">
             <p class="it-title" v-text="data.imgTextTitle"></p>
-            <div class="it-img-main">
+            <div class="it-img-main simg-main-nobor">
                 <div class="white-r">
                     <img :src="data.imgTextImg" />
                 </div>

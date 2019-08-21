@@ -1,10 +1,10 @@
 <template>
     <div id="QuestMain">
-        <div id="titlePage" :style="{'margin-top':marginTop}">
+        <div id="titlePage" >
             <p class="tp-title" v-text="data.courseTitle">
 
             </p>
-            <div class="tp-logo-main">
+            <div class="tp-logo-main simg-main-nobor">
                 <div class="white-r">
                     <img :src="data.authorImg">
                 </div>
@@ -40,16 +40,18 @@
             },
         },
         mounted:function(){
-            this.marginTop = "-"+document.getElementById("titlePage").clientHeight/2 + "px";
+            //this.marginTop = "-"+document.getElementById("titlePage").clientHeight/2 + "px";
             $(".tp-logo-main").height($(".tp-logo-main").width());
         }
     }
 </script>
 <style>
     #titlePage{
-        position: absolute;
+        /*position: absolute;*/
         width: 100%;
-        top: 42%;
+        margin-top: 30%;
+        padding-bottom: 14%;
+        /*top: 42%;*/
     }
     .tp-title{
         font-size: 6vw;

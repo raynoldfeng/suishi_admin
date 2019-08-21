@@ -16,7 +16,7 @@
                 </div>
 
                     <div  class="isb-sideEdgeBoxMain" v-for="(datas,index) in data.imgselectDisplayMenu" v-show="nowshow == index">
-                        <div class="isb-imgmain">
+                        <div class="isb-imgmain simg-main-nobor">
                             <div class="white-r">
                                 <img v-if="datas.imgselectDisplayImg != ''" :src="datas.imgselectDisplayImg" />
                             </div>

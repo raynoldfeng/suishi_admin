@@ -112,12 +112,12 @@
                 >
                 </el-table-column>
             <el-table-column
-                    prop="score"
+                    prop="task_url"
                     label="任务地址"
                     >
             </el-table-column>
             <el-table-column
-                    prop="score"
+                    prop="assignment_url"
                     label="作业地址"
                     >
             </el-table-column>
@@ -182,11 +182,11 @@
             </div>
             <div class="view_main">
                 <span>任务地址</span>
-                <el-input  class="input_type" v-model="mission" />
+                <el-input  class="input_type" v-model="task_url" />
             </div>
             <div class="view_main">
                 <span>作业地址</span>
-                <el-input  class="input_type" v-model="homework" />
+                <el-input  class="input_type" v-model="assignment_url" />
             </div>
             <el-button @click="addTask">添加</el-button>
         </el-dialog>
@@ -211,6 +211,14 @@
             <div class="view_main">
                 <span>分数</span>
                 <el-input  class="input_type" v-model="taskDataSingle.taskScore" />
+            </div>
+            <div class="view_main">
+                <span>任务地址</span>
+                <el-input  class="input_type" v-model="taskDataSingle.task_url" />
+            </div>
+            <div class="view_main">
+                <span>作业地址</span>
+                <el-input  class="input_type" v-model="taskDataSingle.assignment_url" />
             </div>
             <div class="view_main">
                 <span>是否禁用</span>
@@ -279,8 +287,8 @@
                 }],
                 roleValue:"",
                 taskScore:"",
-                homework:"",
-                mission:"",
+                assignment_url:"",
+                task_url:"",
                 taskStatus:"0",
                 taskName:"",
                 editTaskVisible:false,
@@ -298,7 +306,9 @@
                     taskName:"",
                     taskScore:"0",
                     taskStatus:"0",
-                    team_id:""
+                    team_id:"",
+                    assignment_url:"",
+                    task_url:""
                 },
                 userDataSingle:{
                     team_id:"",
@@ -409,7 +419,8 @@
                     return
                 }
                 if(this.isedits()) {
-                    this.common.postEventToken(this.api.host + this.api.addTask, {"team_id": this.$route.query.id, "name": this.taskName, "score": this.taskScore, "status": this.taskStatus}, this.userinfo, function (data) {
+                    this.common.postEventToken(this.api.host + this.api.addTask, {"team_id": this.$route.query.id, "name": this.taskName, "score": this.taskScore, "status": this.taskStatus,"assignment_url":this.assignment_url
+                        ,"task_url":this.task_url}, this.userinfo, function (data) {
                         console.log(data);
                         self.editTaskVisible = false;
                         self.taskList();
@@ -446,6 +457,8 @@
                     self.taskDataSingle.taskScore = data.score;
                     self.taskDataSingle.taskStatus = data.status;
                     self.taskDataSingle.team_id = data.team_id;
+                    self.taskDataSingle.assignment_url = data.assignment_url;
+                    self.taskDataSingle.task_url = data.task_url;
                 })
             },
             editTaskEvent(){
@@ -458,7 +471,9 @@
                     alert("输入分数");
                     return;
                 }
-                this.common.putEventToken(this.api.host+this.api.addTask+"/"+ self.taskDataSingle.taskId,{"team_id":this.taskDataSingle.team_id, "name":this.taskDataSingle.taskName, "score":this.taskDataSingle.taskScore,  "status":this.taskDataSingle.taskStatus},this.userinfo,function(data){
+                this.common.putEventToken(this.api.host+this.api.addTask+"/"+ self.taskDataSingle.taskId,{"team_id":this.taskDataSingle.team_id, "name":this.taskDataSingle.taskName,
+                    "score":this.taskDataSingle.taskScore,  "status":this.taskDataSingle.taskStatus,"assignment_url":this.taskDataSingle.assignment_url
+                    ,"task_url":this.taskDataSingle.task_url},this.userinfo,function(data){
                     console.log(data);
                     self.taskList();
                 })

@@ -67,7 +67,7 @@
                 >
                     <template slot-scope="scope">
                         <el-button type="text" size="small" @click="seeUserEvemt(scope.row.id,scope.row.accountNick)">编辑</el-button>
-                        <el-button @click="handleClick(scope.row)" type="text" size="small">删除</el-button>
+                        <el-button @click="deleteUserEvent(scope.row.id)" type="text" size="small">删除</el-button>
                     </template>
                 </el-table-column>
             </el-table>
@@ -126,7 +126,7 @@
                 >
                     <template slot-scope="scope">
                         <el-button type="text" size="small" @click="seeTaskEvemt(scope.row.id)">编辑</el-button>
-                        <el-button @click="handleClick(scope.row)" type="text" size="small">删除</el-button>
+                        <el-button @click="deleteTaskEvemt(scope.row.id)" type="text" size="small">删除</el-button>
                     </template>
                 </el-table-column>
             </el-table>
@@ -249,7 +249,7 @@
                     </el-option>
                 </el-select>
             </div>
-            <el-button @click="editUserEvemt">修改</el-button>
+            <el-button @click="editUserEvent">修改</el-button>
         </el-dialog>
     </div>
 </template>
@@ -446,6 +446,16 @@
                     self.accountList();
                 })
             },
+            deleteTaskEvemt(id){
+                var self = this;
+                this.$confirm('确认删除任务？')
+                        .then(_ => {
+                    this.common.deleteEventToken(this.api.host+this.api.addTask+"/"+id,{},this.userinfo,function(data){
+                            self.taskList();
+                     })
+            }).catch(_ => {});
+
+            },
             //查看任务
             seeTaskEvemt(id){
                 var self = this;
@@ -489,13 +499,22 @@
                     self.userDataSingle.userNick = accountNick
                 })
             },
-            editUserEvemt(){
+            editUserEvent(){
                 var self = this;
                 this.common.putEventToken(this.api.host+this.api.account+"/"+this.userDataSingle.id,{"team_id":this.userDataSingle.team_id, "account":this.userDataSingle.account, "role":this.userDataSingle.role},this.userinfo,function(data){
                     console.log(data);
                     self.editUserInfoVisible = false;
                     self.accountList();
                 })
+            },
+            deleteUserEvent(id){
+                var self = this;
+                this.$confirm('确认删除队友？')
+                        .then(_ => {
+                        this.common.deleteEventToken(this.api.host+this.api.account+"/"+id,{},this.userinfo,function(data){
+                            self.accountList();
+                        })
+                }).catch(_ => {});
             },
             changeEvent(id,name){
                 this.userId = id;

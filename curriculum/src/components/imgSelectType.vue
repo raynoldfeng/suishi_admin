@@ -87,7 +87,7 @@ import $ from 'jquery'
     border: 1px solid #d9d9d9;
     padding: 4% 2%;
     margin: 6% 0 0 12%;
-    font-size: 4vw;
+    font-size: 4.5vw;
     border-radius: 5px;
     color: #666;
 }
@@ -101,6 +101,7 @@ import $ from 'jquery'
     width: 90%;
     text-align: left;
     font-size: 4vw;
+    padding-bottom: 28%;
 }
 .isb-imgmain{
     width: 62%;

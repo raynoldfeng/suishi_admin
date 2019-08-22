@@ -78,7 +78,7 @@
         margin: 2% auto 0;
         text-align: center;
         color: #acafb2;
-        font-size: 4vw;
+        font-size: 4.5vw;
     }
     .tp-info-title{
         font-size: 5vw;

@@ -86,7 +86,7 @@ export default {
     margin-top: 5%;
     padding: 4% 2%;
     border: 1px solid #cbcbcb;
-    font-size: 4vw;
+    font-size: 4.5vw;
     background: #ffffff;
     word-break: break-all;
     border-radius: 4px;
@@ -122,7 +122,7 @@ export default {
 }
 .optionall-menu li .explain-main{
     border: 0 solid transparent;
-    font-size: 4vw;
+    font-size: 4.5vw;
     color: #304449;
     opacity:0;
     display:none;

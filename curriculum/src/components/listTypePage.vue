@@ -1,20 +1,21 @@
 <template>
     <div id="QuestMain">
-        <p class="quest-text" v-text="data.listTypeTitle"></p>
-
-        <div class="img-main simg-main" v-if="data.listTypeImg">
-            <div class="white-r">
-                <img id="selectImg" :src="data.listTypeImg" @click="displayEvent(data.listTypeImg,'')" >
+        <div class="padd-bottom">
+            <p class="quest-text" v-text="data.listTypeTitle"></p>
+            <div class="img-main simg-main" v-if="data.listTypeImg">
+                <div class="white-r">
+                    <img id="selectImg" :src="data.listTypeImg" @click="displayEvent(data.listTypeImg,'')" >
+                </div>
             </div>
-        </div>
-        <ul class="list-type-menu">
-            <li v-for="(idata,index) in listMenu" v-html="Trim(idata.text)" v-show="idata.show"></li>
-        </ul>
+            <ul class="list-type-menu">
+                <li v-for="(idata,index) in listMenu" v-html="Trim(idata.text)" v-show="idata.show"></li>
+            </ul>
             <ul class="ratelist">
                 <li  v-for="(idata,index) in listMenu" @click="reShow(index)" :class="{clickbtned:listLen == index}"></li>
             </ul>
             <div class="tp-next-btn" @click="listShowEvent" v-show="data.listTypeBtnText != '' && listLen != (data.listTypeMenu.length-1)"  v-text="data.listTypeBtnText"></div>
 
+        </div>
     </div>
 </template>
 <script>
@@ -93,7 +94,7 @@ export default {
         background:#fd9800;
     }
     .list-type-menu li{
-        font-size: 5vw;
+        font-size: 4.5vw;
         color: #666;
         margin:3% 6% 0;
         text-align: left;
@@ -106,15 +107,6 @@ export default {
     display: inline-block;
     margin-top:-1%;
     }
-    .tp-next-btn{
-        min-width: 30%;
-        display: inline-block;
-        background: #f48335;
-        margin: 2% auto 0;
-        padding: 2% 4%;
-        color: #fff;
-        font-size: 4vw;
-        position: relative;
-    }
+
 
 </style>

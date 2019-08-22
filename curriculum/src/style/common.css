@@ -24,6 +24,7 @@ ul li{
 }
 #QuestBox{
     text-align: center;
+    padding-bottom: 15%;
 }
 .QuestMain1{
     overflow: auto;
@@ -89,8 +90,8 @@ ul li{
     /*border-bottom-right-radius: 5px;*/
 }
 .common-info{
-    font-size: 4vw;
-    color: #666;
+    font-size: 4.5vw;
+    color: #acafb2;
     z-index: 1;
     margin: 4vw auto 0;
     width: 80%;
@@ -99,7 +100,8 @@ ul li{
 .sideEdgeBoxMenu li{
     margin:5% 0 0 0;
     word-break: break-all;
-    font-size: 4vw;
+    font-size: 4.5vw;
+    color: #666;
 }
 .sideEdgeBoxMenu li:before{
     content: "▶";
@@ -120,9 +122,11 @@ ul li{
 .ishide{
     display: none;
 }
-
+#imageText{
+    padding-bottom: 15%;
+}
 #selectImgBg{
-    height: 100%;
+    min-height: 100%;
     position: absolute;
     top: 0;
     left: 0;
@@ -148,16 +152,28 @@ ul li{
 }
 .tp-start-btn{
     min-width: 25%;
+    max-width: 80%;
     display: inline-block;
     background: #f48335;
     margin: 10% auto 0;
     padding: 2% 4%;
     color: #ffffff;
-    font-size: 4vw;
+    font-size: 4.5vw;
     position: relative;
     border-radius: 4px;
 }
-
+.tp-next-btn{
+    min-width: 30%;
+    max-width: 80%;
+    display: inline-block;
+    background: #f48335;
+    margin: 2% auto 0;
+    padding: 2% 4%;
+    color: #fff;
+    font-size: 4.5vw;
+    position: relative;
+    border-radius: 4px;
+}
 .nomargin:{
     margin: 0 auto 0;
 }
@@ -203,4 +219,7 @@ ul li{
 }
 .img-enter, .img-leave-to /* .fade-leave-active below version 2.1.8 */ {
     opacity: 0;
+}
+.padd-bottom{
+    padding-bottom: 15%;
 }

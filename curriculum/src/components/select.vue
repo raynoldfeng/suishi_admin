@@ -191,7 +191,7 @@
             /*position: absolute;*/
             /*position: relative;*/
             border: 1px solid #cbcbcb;
-            font-size: 4vw;
+            font-size: 4.5vw;
             background: #ffffff;
             word-break: break-all;
             overflow:hidden;
@@ -241,7 +241,7 @@
         }
         .option-menu li.explain{
             border: 0 solid transparent;
-            font-size: 4vw;
+            font-size: 4.5vw;
             color: #666;
             opacity: 0;
             /*display: none;*/

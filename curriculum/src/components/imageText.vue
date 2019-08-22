@@ -55,7 +55,7 @@ export default
     .it-text-menu{
         width: 75%;
         margin: 5% auto;
-        font-size: 4vw;
+        font-size: 4.5vw;
         text-align: left;
     }
     .it-text-menu li{

@@ -196,7 +196,7 @@ import $ from 'jquery'
     }
     .operation-text{
         width: 90%;
-        font-size: 4vw;
+        font-size: 4.5vw;
         text-align: center;
         word-break: break-all ;
         color: #acafb2;

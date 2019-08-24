@@ -330,10 +330,15 @@ import blanksType from '../components/blanksType.vue'
                 window.nowPage = index;
             },
             imgShowEvent(data){
+                console.log(data)
                 if(data.url == null || data.url == undefined){
                     this.displayImg = "";
                 }else{
-                    this.displayImg = data.url;
+                    if(data.urlbig != null || data.urlbig != undefined){
+                        this.displayImg = data.urlbig;
+                    }else{
+                        this.displayImg = data.url;
+                    }
                 }
                 if(data.text == null || data.text == undefined){
                     this.displayText = "";

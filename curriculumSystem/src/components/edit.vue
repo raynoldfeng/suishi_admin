@@ -13,6 +13,7 @@
                     第{{index+1}}节
                 </div>
                 <i class="delete_btn el-icon-close"  @click="deleteEvent(index)"></i>
+                <i class="add_btn el-icon-circle-plus" @click="addPage('add',index)"></i>
         </div>
 
     </div>
@@ -29,9 +30,11 @@
                     <input id="imgtext-selector" type="file" >
                     <input id="file-selector3" multiple="multiple" type="file">
                     <input id="select-selector" type="file" >
+                    <input id="select-selector-big" type="file" >
                     <input id="selectAllJ-selector" type="file" >
                     <input id="selectImgJ-selector" type="file" >
                     <input id="selectLt-selector" type="file" >
+                    <input id="selectLt-selector-big" type="file" >
                     <input id="sideEdgeImg-upload" type="file" >
                     <input id="selectR-selector" type="file" >
                     <input id="img-selector" type="file" >
@@ -324,12 +327,25 @@
             <el-input class="input_type" v-model="selectData.selectTitle"></el-input>
         </div>
         <div class="view_main">
+            <span>副标题:</span>
+            <el-input class="input_type" v-model="selectData.selectInfo"></el-input>
+        </div>
+        <div class="view_main">
             <div class="type_title">图片:</div>
             <div class="avatar-uploader" @click="uploadClick('select-selector',selectIndex)">
                 <img v-if="selectData.selectImg" :src="selectData.selectImg" class="avatar">
                 <i v-else class="el-icon-plus avatar-uploader-icon"></i>
             </div>
-            <i class="el-icon-close" @click="deleteImg('selectImg')"></i>
+            <i class="el-icon-close" @click="deleteMenuImg(selectIndex,'selectQMenu','selectImg')"></i>
+        </div>
+        <div class="view_main">
+            <div class="type_title">大图片:</div>
+            <div class="avatar-uploader" @click="uploadClick('select-selector-big',selectIndex)">
+                <div></div>
+                <img v-if="selectData.selectImgBig" :src="selectData.selectImgBig" class="avatar">
+                    <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+           </div>
+            <i class="el-icon-close" @click="deleteMenuImg(selectIndex,'selectQMenu','selectImgBig')"></i>
         </div>
 
         <div class="view_main">
@@ -517,7 +533,7 @@ v-model="nowData.selectTextNoteR">
                     <img v-if="nowData.selectAllJImg" :src="nowData.selectAllJImg" class="avatar">
                     <i v-else class="el-icon-plus avatar-uploader-icon"></i>
                 </div>
-                <!--<i class="el-icon-close" @click="deleteImg('selectAllJImg')"></i>-->
+                <i class="el-icon-close" @click="deleteImg('selectAllJImg')"></i>
             </div>
             <div class="view_main">
                 <span>答案选项</span>
@@ -608,8 +624,17 @@ v-model="nowData.selectTextNoteR">
                     <img v-if="nowData.listTypeImg" :src="nowData.listTypeImg" class="avatar">
                     <i v-else class="el-icon-plus avatar-uploader-icon"></i>
                 </div>
-                <!--<i class="el-icon-close" @click="deleteImg('listTypeImg')"></i>-->
+                <i class="el-icon-close" @click="deleteImg('listTypeImg')"></i>
             </div>
+                <div class="view_main">
+                    <div class="type_title">大图片:</div>
+
+                    <div class="avatar-uploader" @click="uploadClick('selectLt-selector-big')">
+                        <img v-if="nowData.listTypeImgBig" :src="nowData.listTypeImgBig" class="avatar">
+                            <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+                        </div>
+                        <i class="el-icon-close" @click="deleteImg('listTypeImgBig')"></i>
+                    </div>
             <div class="view_main">
                 <span>按钮文案:</span>
                 <el-input class="input_type" v-model="nowData.listTypeBtnText"></el-input>
@@ -658,7 +683,7 @@ v-model="nowData.selectTextNoteR">
                     <img v-if="nowData.sideEdgeImg" :src="nowData.sideEdgeImg" class="avatar">
                     <i v-else class="el-icon-plus avatar-uploader-icon"></i>
                 </div>
-                    <!--<i class="el-icon-close" @click="deleteImg('listTypeImg')"></i>-->
+                    <i class="el-icon-close" @click="deleteImg('sideEdgeImg')"></i>
             </div>
             <div>
                 <el-button @click="sideEdgeImgTypeAddEvent">添加段落</el-button>
@@ -725,7 +750,6 @@ v-model="nowData.selectTextNoteR">
                     <div class="avatar-uploader" @click="uploadClick('mimg-selector')">
                         <img v-if="nowData.imgselectDisplayMImg" :src="nowData.imgselectDisplayMImg" class="avatar">
                         <i v-else class="el-icon-plus avatar-uploader-icon"></i>
-
                     </div>
                 <div class="view_main">
                     <el-button @click="imgselectDisplayMImgEvent">删除</el-button>
@@ -790,6 +814,7 @@ v-model="nowData.selectTextNoteR">
                                 <img v-if="data.imgDisplayTypeImg" :src="data.imgDisplayTypeImg" class="avatar">
                                 <i v-else class="el-icon-plus avatar-uploader-icon"></i>
                             </div>
+                                <i class="el-icon-close" @click="deleteMenuImg(index,'imgDisplayTypeMenu','imgDisplayTypeImg')"></i>
                         </div>
                         <div class="view_main">
                             <span>段落:</span>
@@ -851,8 +876,10 @@ v-model="nowData.selectTextNoteR">
  * 4
  * selectQMenu 选择类型菜单
  * selectTitle 选择类型题目 (selectQMenu)
- * selectImg  选择类型图片 (selectQMenu)
- * selectMenu 选择类型选项 (selectQMenu)
+ * selectInfo 选择类型副标题 (selectQMenu)
+  * selectImg  选择类型图片 (selectQMenu)
+ * selectImgBig  选择类型大图片 (selectQMenu)
+  * selectMenu 选择类型选项 (selectQMenu)
  *answerText 答案选项 (selectMenu内)
  * isAnswer 是不是正确 (selectMenu内)
  *imgTextNote 答案注释
@@ -891,7 +918,8 @@ v-model="nowData.selectTextNoteR">
  * listTypeTitle 列表类型标题
  * listTypeTitleColor 标题背景
  * listTypeImg 列表类型图片
- * listTypeBtnText 列表类型按钮文案
+ * listTypeImgBig 列表类型大图片
+  * listTypeBtnText 列表类型按钮文案
  * listTypeMenu 列表类型段落集合
  * listTypeText 列表类型段落(listTypeMenu内)
  *
@@ -1100,6 +1128,8 @@ export default {
 
                 selectQMenu:[{
                     selectTitle:"",
+                    selectImgBig:"",
+                    selectInfo:"",
                     selectImg:"",
                     selectMenu:[
                         {answerText:"",isAnswer:"0" , isClick:false ,isShow:true}
@@ -1147,6 +1177,7 @@ export default {
                 listTypeTitle:"",
                 listTypeTitleColor:"0",
                 listTypeImg:"",
+                listTypeImgBig:"",
                 listTypeBtnText:"",
                 listTypeMenu:[
                     {listTypeText:""}
@@ -1226,6 +1257,8 @@ export default {
 
                 selectQMenu:[{
                         selectTitle: "",
+                        selectImgBig:"",
+                        selectInfo:"",
                         selectImg: "",
                         selectMenu: [
                             {answerText:"",isAnswer:"0" , isClick:false ,isShow:true}
@@ -1271,6 +1304,7 @@ export default {
                 listTypeTitle:"",
                 listTypeTitleColor:"0",
                 listTypeImg:"",
+                listTypeImgBig:"",
                 listTypeBtnText:"",
                 listTypeMenu:[
                     {listTypeText:""}
@@ -1333,7 +1367,7 @@ export default {
         displayTypeReset(){
            this.nowData.displayType = "";
         },
-        addPage(){
+        addPage(type,index){
             console.log(this.dataMenu.length)
             if(this.dataMenu.length > 0){
                 this.dataMenu[this.nowData.page] = this.nowData;
@@ -1372,6 +1406,8 @@ export default {
 
                 selectQMenu:[{
                         selectTitle: "",
+                        selectImgBig:"",
+                        selectInfo:"",
                         selectImg: "",
                         selectMenu: [
                             {answerText:"",isAnswer:"0" , isClick:false ,isShow:true}
@@ -1418,6 +1454,7 @@ export default {
                 listTypeTitle:"",
                 listTypeTitleColor:"0",
                 listTypeImg:"",
+                listTypeImgBig:"",
                 listTypeBtnText:"",
                 listTypeMenu:[
                     {listTypeText:""}
@@ -1461,15 +1498,28 @@ export default {
                     }]
                 }]
             };
-            //    this.nowData = this.copyData;
-            console.log(this.nowData)
-            this.nowData.page = this.dataMenu.length;
-            console.log(this.dataMenu)
-            this.dataMenu.push(this.nowData);
-            console.log(this.dataMenu.length)
-            this.nowpage = this.dataMenu.length-1;
+            if(type == "add"){
+                this.nowData.page = index;
+                this.dataMenu.splice(index,0,this.nowData);
+                this.nowpage = index;
+    console.log(this.dataMenu)
+                for(var i = index;i < this.dataMenu.length ; i++){
+                    this.dataMenu[i].page = i;
+                }
+
+            }else{
+                this.nowData.page = this.dataMenu.length;
+                console.log(this.dataMenu)
+                this.dataMenu.push(this.nowData);
+                console.log(this.dataMenu.length)
+                this.nowpage = this.dataMenu.length-1;
+            }
+
+
+
 
         },
+
         goUpLoad(){
             this.$router.push("/upload")
         },
@@ -1589,7 +1639,17 @@ export default {
                         });
                     }
                 }
-
+            };
+            document.getElementById('selectLt-selector-big').onchange = function () {
+                var file = this.files[0];
+                if (!file) return;
+                if(self.SecretId != "" && self.SecretKey !="" ){
+                    if(file){
+                        self.cosjs(self.SecretId,self.SecretKey,file,self.XCosSecurityToken,self.expiredTime,function(img){
+                            self.nowData.listTypeImgBig = img;
+                        });
+                    }
+                }
             };
             document.getElementById('file-selector3').onchange = function () {
                 var files = this.files;
@@ -1620,6 +1680,17 @@ export default {
                     if(file){
                         self.cosjs(self.SecretId,self.SecretKey,file,self.XCosSecurityToken,self.expiredTime,function(img){
                             self.nowData.selectQMenu[self.selectImgIndex].selectImg = img;
+                        });
+                    }
+                }
+            };
+            document.getElementById('select-selector-big').onchange = function () {
+                var file = this.files[0];
+                if (!file) return;
+                if(self.SecretId != "" && self.SecretKey !="" ){
+                    if(file){
+                        self.cosjs(self.SecretId,self.SecretKey,file,self.XCosSecurityToken,self.expiredTime,function(img){
+                         self.nowData.selectQMenu[self.selectImgIndex].selectImgBig = img;
                         });
                     }
                 }
@@ -1728,6 +1799,12 @@ export default {
                         self.nowData = json[0];
                         for(let i = 0 ; i < json.length;i++){
                             var odata = self.copyData;
+                            //类型4选择类型大图片key特殊兼容处理
+                            if(json[i]["selectQMenu"].length > 0 && !json[i]["selectQMenu"][0].hasOwnProperty["selectImgBig"]){
+                                    for(let a = 0 ;a <  json[i]["selectQMenu"].length ; a++){
+                                         json[i]["selectQMenu"][a]["selectImgBig"]="";
+                                    }
+                            }
                             var obj = $.extend({},odata,json[i])
                                 self.dataMenu.push(obj);
                         }
@@ -1758,6 +1835,8 @@ export default {
         selectAddQEvent(){
               var newData = {
                   selectTitle: "",
+                  selectImgBig:"",
+                  selectInfo:"",
                   selectImg: "",
                   selectMenu: [
                       {answerText:"",isAnswer:"0" , isClick:false ,isShow:true}
@@ -1805,6 +1884,9 @@ export default {
         },
         deleteImg(type){
             this.nowData[type] = "";
+        },
+        deleteMenuImg(index,key1,key2){
+             this.nowData[key1][index][key2] = "";
         },
         /**
          * 选项带解释 选择
@@ -1964,6 +2046,12 @@ export default {
 .delete_btn{
     position: absolute;
     top: 0;
+    right: 0;
+    cursor: pointer;
+}
+.add_btn{
+    position: absolute;
+    top: 13%;
     right: 0;
     cursor: pointer;
 }

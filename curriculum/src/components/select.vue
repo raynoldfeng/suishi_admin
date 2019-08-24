@@ -3,9 +3,10 @@
         <div id="QuestBox">
             <div v-for="(sdata,sindex) in data.selectQMenu" class="padd-css">
                 <p class="quest-text" v-text="sdata.selectTitle"></p>
+                <p class="common-info" v-if="sdata.selectInfo != ''" v-text="sdata.selectInfo"></p>
                 <div class="img-main simg-main" v-if="sdata.selectImg">
                     <div class="white-r">
-                        <img id="selectImgs" :src="sdata.selectImg" @click="displayEvent(sdata.selectImg,sdata.imgNoteNode)">
+                        <img id="selectImgs" :src="sdata.selectImg" @click="displayEvent(sdata.selectImg,sdata.imgNoteNode,sdata.selectImgBig)">
                     </div>
                 </div>
                 <ul class="option-menu selectBox">
@@ -16,7 +17,7 @@
                 <!--     <li class="answer-css no animated">
                 <!-     <li class="answer-css no animated">
                          不是
-                     </li>
+                     </li>.operation-text
                      <li class="answer-css yes animated">
                          是
                      </li>
@@ -165,8 +166,8 @@
                     $(this).addClass("shake")
                 });
             },
-            displayEvent(url,text){
-                var data = {url:url,text:text};
+            displayEvent(url,text,urlbig){
+                var data = {url:url,text:text,urlbig:urlbig};
                 this.$emit("imgShow",data);
             }
         }

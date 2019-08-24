@@ -4,7 +4,7 @@
             <p class="quest-text" v-text="data.listTypeTitle"></p>
             <div class="img-main simg-main" v-if="data.listTypeImg">
                 <div class="white-r">
-                    <img id="selectImg" :src="data.listTypeImg" @click="displayEvent(data.listTypeImg,'')" >
+                    <img id="selectImg" :src="data.listTypeImg" @click="displayEvent(data.listTypeImg,'',data.listTypeImgBig)" >
                 </div>
             </div>
             <ul class="list-type-menu">
@@ -47,8 +47,8 @@ export default {
             Trim(str) {
                   return str.replace(/\n|\r\n/g,"<br/>");
             },
-            displayEvent(url,text){
-                var data = {url:url,text:text};
+            displayEvent(url,text,urlbig){
+                var data = {url:url,text:text,urlbig:urlbig};
                 this.$emit("imgShow",data);
             },
             listShowEvent(){

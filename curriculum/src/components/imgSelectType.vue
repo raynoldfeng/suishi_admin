@@ -8,7 +8,7 @@
             </div>
             <div class="isd-rightMenu">
                 <div  class="isb-sideEdgeBoxMain" v-show="nowshow == '-1'">
-                    <div class="isb-imgmain">
+                    <div class="isb-imgmain simg-main-nobor">
                         <div class="white-r">
                             <img v-if="data.imgselectDisplayMImg != ''" :src="data.imgselectDisplayMImg" />
                         </div>

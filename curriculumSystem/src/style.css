@@ -21,7 +21,8 @@ ul li {
 #file-selector,#file-selector2,#file-selector3,#img-selector,
 #video-selector,#imgtext-selector,#select-selector,#selectL-selector,
 #selectR-selector,#selectAllJ-selector,#selectImgJ-selector,#selectLt-selector,
-#sideEdgeImg-upload,#img-selector,#img-display,#mimg-selector,#fileId{
+#sideEdgeImg-upload,#img-selector,#img-display,#mimg-selector,#fileId,#select-selector-big,
+#selectLt-selector-big{
     display: none;
 }
 .avatar-uploader{

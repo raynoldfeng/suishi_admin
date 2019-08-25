@@ -116,7 +116,7 @@ export const drop = {
         });
         function isSelection(id,top,left){
             if(params.self!= ""){
-                var left_s =params.self.prev(".judgebox").find(id).offset().left - params.self.prev(".judgebox").find(id).width()/2;
+                var left_s =params.self.prev(".judgebox").find(id).offset().left - params.self.prev(".judgebox").find(id).width();
                 var left_e = params.self.prev(".judgebox").find(id).offset().left + params.self.prev(".judgebox").find(id).width()/2;
                 var top_s = params.self.prev(".judgebox").find(id).offset().top -  params.self.prev(".judgebox").find(id).height()/2;
                 var top_e =  params.self.prev(".judgebox").find(id).offset().top + params.self.prev(".judgebox").find(id).height();

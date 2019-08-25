@@ -3,7 +3,9 @@
         <div id="QuestBox" class="judgebox" >
             <p class="quest-text" id="lodingtext"   v-show="data.judgeTitle==''">loding</p>
             <p class="quest-text" id="judgeTitle" v-text="data.judgeTitle" v-show="data.judgeTitle!=''"></p>
+            <p class="common-info" v-if="data.judgeInfo !='' " v-text="data.judgeInfo"></p>
             <div class="true-main">
+                <p class="common-info css-bla" v-if="data.judgeTitleTrue !='' " v-text="data.judgeTitleTrue"></p>
                 <div class="true-logo"></div>
                 <ul class="anwer-menu yesm">
 
@@ -13,6 +15,7 @@
                 </div>
             </div>
             <div class="false-main">
+                <p class="common-info css-bla" v-if="data.judgeTitleFalse !='' " v-text="data.judgeTitleFalse"></p>
                 <div class="false-logo"></div>
                 <ul class="anwer-menu nom">
 
@@ -114,14 +117,12 @@ export default {
 }
 
 .true-logo,.false-logo{
-    /*width: 100px;*/
-    /*height: 30px;*/
     width: 60px;
     height: 60px;
     color: #ffffff;
     text-align: center;
     line-height: 60px;
-    margin: 0 auto;
+    margin: 5% auto 0;
     border-radius: 100%;
 }
 .true-logo{
@@ -177,7 +178,6 @@ export default {
     font-size: 5vw;
     margin-top: 10%;
     color: #666;
-    padding-bottom: 10%;
 }
 #lodingtext{
     font-size: 5vw;

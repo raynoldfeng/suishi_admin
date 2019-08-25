@@ -160,11 +160,8 @@ import blanksType from '../components/blanksType.vue'
              "v-imgDisplayType":imgDisplayType
      },
         mounted:function(){
-
             window.jpage = 0;
             window.jshow = true;
-
-
             var self = this;
             this.bookData = window.edit;
             this.bookData.push(this.lastData);
@@ -173,8 +170,6 @@ import blanksType from '../components/blanksType.vue'
             this.nowPage = this.$refs.pages.swiper.realIndex;
             window.nowPage =  this.$refs.pages.swiper.realIndex;
             this.windowHeight = window.innerHeight;
-
-
          //   this.pageClickEvent();
             window.getAllPage=function(){
                 try{
@@ -312,7 +307,8 @@ import blanksType from '../components/blanksType.vue'
                     $("#page-menu").animate({"bottom":0})
                 }else{
                     this.isPageMenuShow = false;
-                    $("#page-menu").animate({"bottom":(-55)})
+                    var bottom = $("#dealMenu").outerHeight(true);
+                    $("#page-menu").animate({"bottom":("-"+bottom)})
                 }
             },
             isStartEvent(boolean){
@@ -376,7 +372,7 @@ import blanksType from '../components/blanksType.vue'
   }
 #page-menu{
     position: fixed;
-    bottom: -55px;
+    bottom: -56px;
     left: 0;
     z-index: 100;
     width: 100%;
@@ -403,16 +399,17 @@ import blanksType from '../components/blanksType.vue'
       text-align: center;
       float: left;
       line-height: 50px;
-      color: #ff6077;
+      color: #333;
       overflow: hidden;
-      background-color: #feeae8;
+      background-color: #fff;
       padding: 2% 3%;
-      margin: 0 5%;
+      margin: 0 0;
+      font-size: 4.5vw;
   }
   .typemainclick ,.type-main-click{
-      background-color: skyblue;
-      color: steelblue;
-      font-size: 5vw;
+      background-color: #f48335;
+      color: #ffffff;
+      font-size: 4.5vw;
   }
       #book, .swiper_type_menu{
         position:fixed;

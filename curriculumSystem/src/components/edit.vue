@@ -273,10 +273,22 @@
         </div>
         </div>
 <div v-if="nowData.testType == 3 && nowData.displayType == 'j1'">
-<div class="view_main">
-    <span>题目:</span>
-    <el-input class="input_type" v-model="nowData.judgeTitle"></el-input>
-</div>
+    <div class="view_main">
+        <span>题目:</span>
+        <el-input class="input_type" v-model="nowData.judgeTitle"></el-input>
+    </div>
+    <div class="view_main">
+        <span>副题目:</span>
+        <el-input class="input_type" v-model="nowData.judgeInfo"></el-input>
+    </div>
+    <div class="view_main">
+        <span>正确标题:</span>
+        <el-input class="input_type" v-model="nowData.judgeTitleTrue"></el-input>
+    </div>
+    <div class="view_main">
+        <span>错误标题:</span>
+        <el-input class="input_type" v-model="nowData.judgeTitleFalse"></el-input>
+    </div>
     <div class="view_main">
         <el-button @click="addJudgeEvent">添加问题</el-button>
     </div>
@@ -286,6 +298,7 @@
             <span>答案文本:</span>
             <el-input class="input_type" v-model="data.judgeText"></el-input>
         </div>
+
         <div class="view_main">
             <span>正确选项:</span>
 
@@ -868,7 +881,10 @@ v-model="nowData.selectTextNoteR">
  *
  * 3
  * judgeTitle 判断类型题目
-*    judgeMenu 判断类型菜单
+ *   judgeInfo 判断类型副标题
+ *   judgeTitleTrue 判断类型正确标题
+ *    judgeTitleFalse 判断类型错误标题
+ *    judgeMenu 判断类型菜单
   * judgeText 判断类型答案
  * judgeAnswer 正确选项
  * judgeAnswerText 答案注释
@@ -1117,8 +1133,12 @@ export default {
 
 
                 judgeTitle:"",
+                judgeInfo:"",
+                judgeTitleTrue:"",
+                judgeTitleFalse:"",
                 judgeMenu:[{
                     judgeText:"",
+
                     judgeAnswer:"0",
                     judgeAnswerText:""
                 }],
@@ -1247,8 +1267,12 @@ export default {
 
 
                 judgeTitle:"",
+                    judgeInfo:"",
+                judgeTitleTrue:"",
+                judgeTitleFalse:"",
                 judgeMenu:[{
                     judgeText:"",
+
                     judgeAnswer:"0",
                     judgeAnswerText:""
                 }],
@@ -1396,8 +1420,12 @@ export default {
 
 
                 judgeTitle:"",
+                judgeInfo:"",
+                judgeTitleTrue:"",
+                judgeTitleFalse:"",
                 judgeMenu:[{
                     judgeText:"",
+
                     judgeAnswer:"0",
                     judgeAnswerText:""
                 }],
@@ -1800,11 +1828,12 @@ export default {
                         for(let i = 0 ; i < json.length;i++){
                             var odata = self.copyData;
                             //类型4选择类型大图片key特殊兼容处理
-                            if(json[i]["selectQMenu"].length > 0 && !json[i]["selectQMenu"][0].hasOwnProperty["selectImgBig"]){
+                            if(json[i]["selectQMenu"].length > 0 && !json[i]["selectQMenu"][0].hasOwnProperty("selectImgBig")){
                                     for(let a = 0 ;a <  json[i]["selectQMenu"].length ; a++){
                                          json[i]["selectQMenu"][a]["selectImgBig"]="";
                                     }
                             }
+
                             var obj = $.extend({},odata,json[i])
                                 self.dataMenu.push(obj);
                         }
@@ -2004,109 +2033,5 @@ export default {
 }
 </script>
 <style>
-.head_main{
-    position: fixed;
-    top: 0;
-    z-index: 1000;
-    background: skyblue;
-    width: 100%;
-    height: 60px;
-    left: 0;
-}
-.blues{
-    background:skyblue;
-}
-.input_type{
-    width: 200px;
-}
-.textarea_type{
-    width: 500px;
-}
-.pagebtn{
-    width: 150px;
-    height: 150px;
-    margin: 15px auto;
-    border: 1px solid #d0d0d0;
-    position: relative;
-    background:#d8d8d8;
-    font-size:25px;
-    line-height: 150px;
-}
-.pageboxclick{
-    background:#9cd7ef;
-    color:#fff;
-}
-.page_menu{
-    max-height:80%;
-    overflow: auto;
-}
-.pagebtnBox{
-    position: relative;
-}
-.delete_btn{
-    position: absolute;
-    top: 0;
-    right: 0;
-    cursor: pointer;
-}
-.add_btn{
-    position: absolute;
-    top: 13%;
-    right: 0;
-    cursor: pointer;
-}
-.avatar {
-    width: 178px;
-    height: 178px;
-    display: block;
-}
-.view_main{
-    overflow:hidden;
-}
-.type_title{
-    float:left;
-}
-.head-title {
-    line-height: 300%;
-    color: #fff;
-    font-size: 20px;
-    font-weight: bold;
-}
-#leftMenu{
-    text-align: center;
-    width:200px;
-    height:100%;
-    background:#efefef;
-    position: fixed;
-    top: 60px;
-}
-.add_page{
-    width:80%;
-}
-#testMedolBox{
-    width: 150px;
-    background: #ffffff;
-    position: fixed;
-    top: 10%;
-    right: 0;
-    z-index: 1000;
-    cursor: pointer;
-    border: 1px solid #999999;
-}
-#testMedolBox img{
-    width: 100%;
-}
-#testMedolBox.big_size{
-    animation:bigs 0.3s linear 0s forwards;
-}
-.select-css{
-    margin-right: 10px;;
-}
-.avatar-uploader-icon{
-    background: #ffffff;
-}
-@keyframes bigs{
-    0%{width: 150px}
-    100%{width: 350px}
-}
+
 </style>

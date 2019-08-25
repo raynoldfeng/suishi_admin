@@ -226,3 +226,11 @@ ul li{
 .css-bla{
     color:#333333;
 }
+
+#QuestMain .commonMenu li{
+
+}
+#QuestMain .commonMenu li:before{
+    content: "";
+    padding-right: 1.5em;
+}

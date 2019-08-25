@@ -21,7 +21,7 @@
                                 <img v-if="datas.imgselectDisplayImg != ''" :src="datas.imgselectDisplayImg" />
                             </div>
                         </div>
-                        <ul  class="sideEdgeBoxMenu">
+                        <ul  class="sideEdgeBoxMenu" :class = "{commonMenu:data.imgselectDisplayValue == '0'}">
                             <li v-for="(mdata,mindex) in datas.imgselectDisplayTextMenu" v-html="Trim(mdata.imgselectDisplayText)"></li>
                         </ul>
                     </div>

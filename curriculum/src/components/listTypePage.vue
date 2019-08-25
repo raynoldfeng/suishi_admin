@@ -7,7 +7,7 @@
                     <img id="selectImg" :src="data.listTypeImg" @click="displayEvent(data.listTypeImg,'',data.listTypeImgBig)" >
                 </div>
             </div>
-            <ul class="list-type-menu">
+            <ul class="list-type-menu" :class = "{commonMenu:data.listTypeValue == '0'}">
                 <li v-for="(idata,index) in listMenu" v-html="Trim(idata.text)" v-show="idata.show"></li>
             </ul>
             <ul class="ratelist">
@@ -98,6 +98,7 @@ export default {
         color: #666;
         margin:3% 6% 0;
         text-align: left;
+        word-break: break-all;
     }
 .list-type-menu li:before{
     content: "▶";

@@ -10,7 +10,7 @@
                 </div>
             </div>
             <transition name="fade">
-                <ul class="sideEdgeBoxMenu idp-type-menu" v-show="isShow">
+                <ul class="sideEdgeBoxMenu idp-type-menu" v-show="isShow" :class = "{commonMenu:data.imgDisplayTypeValue == '0'}">
                     <li v-for="(sdata,sindex) in datas.imgDisplayTypeTextMenu" v-html="Trim(sdata.imgDisplayTypeText)"></li>
                 </ul>
             </transition>

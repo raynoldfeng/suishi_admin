@@ -50,6 +50,9 @@ style="width: 100%">
         prop="name"
         label="试题题目"
         >
+    <template slot-scope="scope">
+        <p v-text="ellipsisEvent(scope.row.name)"></p>
+    </template>
 </el-table-column>
 <el-table-column
         prop="course_id"
@@ -118,7 +121,9 @@ export default
         }
     },
     methods:{
-
+        ellipsisEvent(text){
+            return this.common.ellipsisEvent(text);
+        },
         addEvent(){
             this.$router.push("/addTest");
         },

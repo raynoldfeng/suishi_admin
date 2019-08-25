@@ -67,6 +67,9 @@
                     prop="content"
                     label="内容"
                     >
+                        <template slot-scope="scope">
+                            <p v-text="ellipsisEvent(scope.row.content)"></p>
+                        </template>
                     </el-table-column>
                     <el-table-column
                     label="是否有图"
@@ -169,6 +172,9 @@
             }
     },
     methods:{
+        ellipsisEvent(text){
+            return this.common.ellipsisEvent(text);
+        },
         addEvent(){
             this.$router.push("/addPost");
         },

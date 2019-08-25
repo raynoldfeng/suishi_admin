@@ -234,6 +234,21 @@
         </div>
         <i class="el-icon-close" @click="deleteImg('imgTextImg')"></i>
 </div>
+
+            <div class="view_main">
+                <span>是否添加段落样式:</span>
+
+                <el-select v-model="nowData.imgTextValue" class="select-css" placeholder="段落样式">
+                    <el-option
+                    v-for="item in judgeAnswerMenu"
+                    :key="item.value"
+                    :label="item.label"
+                    :value="item.value">
+                    </el-option>
+                </el-select>
+            </div>
+
+
 <div  class="view_main">
 
     <p>文本</p>
@@ -652,8 +667,21 @@ v-model="nowData.selectTextNoteR">
                 <span>按钮文案:</span>
                 <el-input class="input_type" v-model="nowData.listTypeBtnText"></el-input>
             </div>
-            <div>
-            <el-button @click="selectListTypeAddEvent">添加段落</el-button>
+                    <div class="view_main">
+                        <span>是否添加段落样式:</span>
+
+                        <el-select v-model="nowData.listTypeValue" class="select-css" placeholder="段落样式">
+                            <el-option
+                            v-for="item in judgeAnswerMenu"
+                            :key="item.value"
+                            :label="item.label"
+                            :value="item.value">
+                            </el-option>
+                        </el-select>
+                    </div>
+            <div class="view_main">
+                <span>段落:</span>
+                <el-button @click="selectListTypeAddEvent">添加段落</el-button>
                 <ul>
                     <li v-for="(data,index) in nowData.listTypeMenu" class="view_main" >
                         <el-input
@@ -769,6 +797,18 @@ v-model="nowData.selectTextNoteR">
 
                 </div>
                 </div>
+                    <div class="view_main">
+                        <span>是否添加段落样式:</span>
+
+                        <el-select v-model="nowData.imgselectDisplayValue" class="select-css" placeholder="段落样式">
+                            <el-option
+                            v-for="item in judgeAnswerMenu"
+                            :key="item.value"
+                            :label="item.label"
+                            :value="item.value">
+                            </el-option>
+                        </el-select>
+                    </div>
                 <div class="view_main">
                     <el-button @click="imgSelectAddEvent" type="primary" >添加图片选项</el-button>
                     <div class="view_main box-css" v-for="(data,index) in nowData.imgselectDisplayMenu">
@@ -829,6 +869,18 @@ v-model="nowData.selectTextNoteR">
                             </div>
                                 <i class="el-icon-close" @click="deleteMenuImg(index,'imgDisplayTypeMenu','imgDisplayTypeImg')"></i>
                         </div>
+                            <div class="view_main">
+                                <span>是否添加段落样式:</span>
+
+                                <el-select v-model="nowData.imgDisplayTypeValue" class="select-css" placeholder="段落样式">
+                                    <el-option
+                                    v-for="item in judgeAnswerMenu"
+                                    :key="item.value"
+                                    :label="item.label"
+                                    :value="item.value">
+                                    </el-option>
+                                </el-select>
+                            </div>
                         <div class="view_main">
                             <span>段落:</span>
                             <el-button @click="imgDisplayTextAddEvent(index)">添加段落</el-button>
@@ -873,7 +925,8 @@ v-model="nowData.selectTextNoteR">
  * courseInfo 课程介绍
  * 1
  * imgTextTitle 图文类型标题
- * imgTextImg  图文类型图片
+ * imgTextValue 图文类型段落样式
+  * imgTextImg  图文类型图片
  * imgTextMenu  图文类型段落
  *
  * 2
@@ -936,7 +989,8 @@ v-model="nowData.selectTextNoteR">
  * listTypeImg 列表类型图片
  * listTypeImgBig 列表类型大图片
   * listTypeBtnText 列表类型按钮文案
- * listTypeMenu 列表类型段落集合
+* listTypeValue     列表类型段落样式
+  * listTypeMenu 列表类型段落集合
  * listTypeText 列表类型段落(listTypeMenu内)
  *
  * 9
@@ -961,9 +1015,10 @@ v-model="nowData.selectTextNoteR">
  * imgselectDisplayTitle 图片选项展示标题
  *imgselectDisplayInfo 图片选项展示副标题
  * imgselectDisplayMImg 默認圖片
- * imgselectDisplayMenu 图片选项展示菜单
+* imgselectDisplayValue 图片选项展示段落样式
+  * imgselectDisplayMenu 图片选项展示菜单
  * imgselectDisplayBtn 按钮文案
- * imgselectDisplayImg 图片
+  * imgselectDisplayImg 图片
  * imgselectDisplayTextMenu 段落菜单
  * imgselectDisplayText 段落
  *
@@ -972,7 +1027,8 @@ v-model="nowData.selectTextNoteR">
  * imgDisplayTypeInfo  图片展示副标题
  * imgDisplayTypeMenu 图片展示菜单
  *imgDisplayTypeImg 图片展示图片
- * imgDisplayTypeTextMenu 图片展示段落菜单
+ * imgDisplayTypeValue 图片展示段落样式
+* imgDisplayTypeTextMenu 图片展示段落菜单
  * imgDisplayTypeText 图片展示段落
  *
 *
@@ -1123,6 +1179,7 @@ export default {
 
 
                 imgTextTitle:"",
+                imgTextValue:"1",
                 imgTextImg:"",
                 imgTextMenu:[""],
 
@@ -1199,6 +1256,7 @@ export default {
                 listTypeImg:"",
                 listTypeImgBig:"",
                 listTypeBtnText:"",
+                listTypeValue:"1",
                 listTypeMenu:[
                     {listTypeText:""}
                 ],
@@ -1220,6 +1278,7 @@ export default {
                 imgselectDisplayTitle:"",
                 imgselectDisplayInfo:"",
                 imgselectDisplayMImg:"",
+                imgselectDisplayValue:"1",
                 imgselectDisplayMenu:[
                     {
                         imgselectDisplayBtn:"",
@@ -1236,6 +1295,7 @@ export default {
 
                  imgDisplayTypeTitle :"",
                  imgDisplayTypeInfo:"",
+                imgDisplayTypeValue:"1",
                 imgDisplayTypeMenu:[{
                     imgDisplayTypeImg:"",
                     imgDisplayTypeTextMenu:[{
@@ -1257,6 +1317,7 @@ export default {
 
 
                 imgTextTitle:"",
+                imgTextValue:"1",
                 imgTextImg:"",
                 imgTextMenu:[""],
 
@@ -1330,6 +1391,7 @@ export default {
                 listTypeImg:"",
                 listTypeImgBig:"",
                 listTypeBtnText:"",
+                listTypeValue:"1",
                 listTypeMenu:[
                     {listTypeText:""}
                 ],
@@ -1352,6 +1414,7 @@ export default {
                 imgselectDisplayTitle:"",
                 imgselectDisplayInfo:"",
                 imgselectDisplayMImg:"",
+                imgselectDisplayValue:"1",
                 imgselectDisplayMenu:[
                     {
                         imgselectDisplayBtn:"",
@@ -1368,6 +1431,7 @@ export default {
 
                 imgDisplayTypeTitle :"",
                 imgDisplayTypeInfo:"",
+                imgDisplayTypeValue:"1",
                 imgDisplayTypeMenu:[{
                     imgDisplayTypeImg:"",
                     imgDisplayTypeTextMenu:[{
@@ -1410,6 +1474,7 @@ export default {
 
 
                 imgTextTitle:"",
+                imgTextValue:"1",
                 imgTextImg:"",
                 imgTextMenu:[""],
 
@@ -1484,6 +1549,7 @@ export default {
                 listTypeImg:"",
                 listTypeImgBig:"",
                 listTypeBtnText:"",
+                listTypeValue:"1",
                 listTypeMenu:[
                     {listTypeText:""}
                 ],
@@ -1505,6 +1571,7 @@ export default {
                 imgselectDisplayTitle:"",
                 imgselectDisplayInfo:"",
                 imgselectDisplayMImg:"",
+                imgselectDisplayValue:"1",
                 imgselectDisplayMenu:[
                     {
                         imgselectDisplayBtn:"",
@@ -1519,6 +1586,7 @@ export default {
 
                 imgDisplayTypeTitle :"",
                 imgDisplayTypeInfo:"",
+                imgDisplayTypeValue:"1",
                 imgDisplayTypeMenu:[{
                     imgDisplayTypeImg:"",
                     imgDisplayTypeTextMenu:[{

@@ -7,7 +7,7 @@
                     <img :src="data.imgTextImg" />
                 </div>
             </div>
-            <ul class="it-text-menu commonListStyle">
+            <ul class="it-text-menu commonListStyle" :class = "{commonMenu:data.imgTextValue == '0'}">
                 <li v-for="textData in data.imgTextMenu" v-html="Trim(textData)"></li>
 
             </ul>

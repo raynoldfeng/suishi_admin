@@ -222,5 +222,13 @@ commonDeleteEvent(self,userinfo,url,id,callback){
         });
     });
 },
+ellipsisEvent(text){
+    if(text.length > 50){
+        var content =  text.slice(0,50)+"...";
+        return content;
+    }else{
+        return text
+    }
+}
 
 }

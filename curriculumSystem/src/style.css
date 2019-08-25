@@ -158,6 +158,14 @@ ul li {
     right: 0;
     cursor: pointer;
 }
+.icon_btn{
+    width: 20px;
+    height: 20px;
+}
+.addi-icon{
+    width: 30px;
+    height: 30px;
+}
 .avatar {
     width: 178px;
     height: 178px;

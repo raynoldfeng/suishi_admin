@@ -12,8 +12,12 @@
                     <div class="pagebtn" @click="nowPageEvent(index)" :class="{pageboxclick:nowpage == index}">
                     第{{index+1}}节
                 </div>
-                <i class="delete_btn el-icon-close"  @click="deleteEvent(index)"></i>
-                <i class="add_btn el-icon-circle-plus" @click="addPage('add',index)"></i>
+                <i class="delete_btn"  @click="deleteEvent(index)">
+                    <img  class="icon_btn" src="./../image/close.png" />
+                </i>
+                <i class="add_btn " @click="addPage('add',index)">
+                    <img class="icon_btn" src="./../image/add.png" />
+                </i>
         </div>
 
     </div>
@@ -189,18 +193,26 @@
 
                             <div class="avatar-uploader" @click="uploadClick('file-selector')">
                             <img v-if="nowData.courseImg" :src="nowData.courseImg" class="avatar">
-                            <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+                            <div v-else class=" avatar-uploader-icon">
+                                <img class="addi-icon" src="./../image/addi.png">
+                            </div>
                         </div>
-                        <i class="el-icon-close" @click="deleteImg('courseImg')"></i>
+                        <i @click="deleteImg('courseImg')">
+                            <img  class="icon_btn" src="./../image/close.png" />
+                        </i>
                 </div>
                 <div  class="view_main">
                     <span  class="type_title">作者图:</span>
 
                     <div class="avatar-uploader" @click="uploadClick('file-selector2')">
                     <img v-if="nowData.authorImg" :src="nowData.authorImg" class="avatar">
-                    <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+                     <div v-else class=" avatar-uploader-icon">
+                        <img class="addi-icon" src="./../image/addi.png">
+                     </div>
                 </div>
-                <i class="el-icon-close" @click="deleteImg('authorImg')"></i>
+                <i  @click="deleteImg('authorImg')">
+                    <img  class="icon_btn" src="./../image/close.png" />
+                </i>
         </div>
         <div  class="view_main">
             <span >作者名字:</span>
@@ -230,9 +242,13 @@
 
             <div class="avatar-uploader" @click="uploadClick('imgtext-selector')">
             <img v-if="nowData.imgTextImg" :src="nowData.imgTextImg" class="avatar">
-            <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+                <div v-else class=" avatar-uploader-icon">
+                    <img class="addi-icon" src="./../image/addi.png">
+               </div>
         </div>
-        <i class="el-icon-close" @click="deleteImg('imgTextImg')"></i>
+        <i  @click="deleteImg('imgTextImg')">
+            <img  class="icon_btn" src="./../image/close.png" />
+        </i>
 </div>
 
             <div class="view_main">
@@ -276,7 +292,9 @@
         <div  class="view_main" v-for="(data,index) in nowData.imageChange">
             <div class="avatar-uploader">
                 <img v-if="nowData.imageChange[index]" :src="nowData.imageChange[index]" class="avatar">
-                <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+                    <div v-else class=" avatar-uploader-icon">
+                        <img class="addi-icon" src="./../image/addi.png">
+                     </div>
             </div>
             <el-button @click="imageChangeDelete(index)">删除</el-button>
         </div>
@@ -362,18 +380,26 @@
             <div class="type_title">图片:</div>
             <div class="avatar-uploader" @click="uploadClick('select-selector',selectIndex)">
                 <img v-if="selectData.selectImg" :src="selectData.selectImg" class="avatar">
-                <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+                    <div v-else class=" avatar-uploader-icon">
+                        <img class="addi-icon" src="./../image/addi.png">
+                    </div>
             </div>
-            <i class="el-icon-close" @click="deleteMenuImg(selectIndex,'selectQMenu','selectImg')"></i>
+            <i  @click="deleteMenuImg(selectIndex,'selectQMenu','selectImg')">
+                <img  class="icon_btn" src="./../image/close.png" />
+            </i>
         </div>
         <div class="view_main">
             <div class="type_title">大图片:</div>
             <div class="avatar-uploader" @click="uploadClick('select-selector-big',selectIndex)">
                 <div></div>
                 <img v-if="selectData.selectImgBig" :src="selectData.selectImgBig" class="avatar">
-                    <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+                    <div v-else class=" avatar-uploader-icon">
+                        <img class="addi-icon" src="./../image/addi.png">
+                    </div>
            </div>
-            <i class="el-icon-close" @click="deleteMenuImg(selectIndex,'selectQMenu','selectImgBig')"></i>
+            <i  @click="deleteMenuImg(selectIndex,'selectQMenu','selectImgBig')">
+                <img  class="icon_btn" src="./../image/close.png" />
+            </i>
         </div>
 
         <div class="view_main">
@@ -451,9 +477,13 @@ model="nowData.selectTitle"></el-input>-->
         <div class="type_title">左侧图片:</div>
         <div class="avatar-uploader" @click="uploadClick('selectL-selector')">
             <img v-if="nowData.selectMoreImgL" :src="nowData.selectMoreImgL" class="avatar">
-            <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+                <div v-else class=" avatar-uploader-icon">
+                    <img class="addi-icon" src="./../image/addi.png">
+                </div>
         </div>
-        <i class="el-icon-close" @click="deleteImg('selectMoreImgL')"></i>
+        <i  @click="deleteImg('selectMoreImgL')">
+            <img  class="icon_btn" src="./../image/close.png" />
+        </i>
 
        </div>
     <div class="view_main" >
@@ -497,9 +527,13 @@ model="nowData.selectTitle"></el-input>-->
 <div class="type_title">右侧图片:</div>
 <div class="avatar-uploader" @click="uploadClick('selectR-selector')">
     <img v-if="nowData.selectMoreImgR" :src="nowData.selectMoreImgR" class="avatar">
-    <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+        <div v-else class=" avatar-uploader-icon">
+            <img class="addi-icon" src="./../image/addi.png">
+        </div>
 </div>
-<i class="el-icon-close" @click="deleteImg('selectMoreImgR')"></i>
+<i  @click="deleteImg('selectMoreImgR')">
+    <img  class="icon_btn" src="./../image/close.png" />
+</i>
         </div>
     <div class="view_main" >
           <span>右侧选项:</span><el-button  @click="selectMoreAddEvent('r')">添加选项</el-button>
@@ -559,9 +593,13 @@ v-model="nowData.selectTextNoteR">
 
                 <div class="avatar-uploader" @click="uploadClick('selectAllJ-selector')">
                     <img v-if="nowData.selectAllJImg" :src="nowData.selectAllJImg" class="avatar">
-                    <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+                        <div v-else class=" avatar-uploader-icon">
+                            <img class="addi-icon" src="./../image/addi.png">
+                        </div>
                 </div>
-                <i class="el-icon-close" @click="deleteImg('selectAllJImg')"></i>
+                <i @click="deleteImg('selectAllJImg')">
+                    <img  class="icon_btn" src="./../image/close.png" />
+                </i>
             </div>
             <div class="view_main">
                 <span>答案选项</span>
@@ -629,9 +667,13 @@ v-model="nowData.selectTextNoteR">
 
                 <div class="avatar-uploader" @click="uploadClick('selectImgJ-selector')">
                     <img v-if="nowData.ImgJumpTypeBg" :src="nowData.ImgJumpTypeBg" class="avatar">
-                    <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+                        <div v-else class=" avatar-uploader-icon">
+                            <img class="addi-icon" src="./../image/addi.png">
+                        </div>
                 </div>
-                <i class="el-icon-close" @click="deleteImg('ImgJumpTypeBg')"></i>
+                <i  @click="deleteImg('ImgJumpTypeBg')">
+                    <img  class="icon_btn" src="./../image/close.png" />
+                </i>
             </div>
             <div class="view_main">
                 <span>跳转按钮文本:</span>
@@ -650,18 +692,26 @@ v-model="nowData.selectTextNoteR">
 
                 <div class="avatar-uploader" @click="uploadClick('selectLt-selector')">
                     <img v-if="nowData.listTypeImg" :src="nowData.listTypeImg" class="avatar">
-                    <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+                        <div v-else class=" avatar-uploader-icon">
+                            <img class="addi-icon" src="./../image/addi.png">
+                        </div>
                 </div>
-                <i class="el-icon-close" @click="deleteImg('listTypeImg')"></i>
+                <i  @click="deleteImg('listTypeImg')">
+                    <img  class="icon_btn" src="./../image/close.png" />
+                </i>
             </div>
                 <div class="view_main">
                     <div class="type_title">大图片:</div>
 
                     <div class="avatar-uploader" @click="uploadClick('selectLt-selector-big')">
                         <img v-if="nowData.listTypeImgBig" :src="nowData.listTypeImgBig" class="avatar">
-                            <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+                            <div v-else class=" avatar-uploader-icon">
+                                <img class="addi-icon" src="./../image/addi.png">
+                            </div>
                         </div>
-                        <i class="el-icon-close" @click="deleteImg('listTypeImgBig')"></i>
+                        <i  @click="deleteImg('listTypeImgBig')">
+                            <img  class="icon_btn" src="./../image/close.png" />
+                        </i>
                     </div>
             <div class="view_main">
                 <span>按钮文案:</span>
@@ -722,9 +772,13 @@ v-model="nowData.selectTextNoteR">
                 <div class="type_title">图片:</div>
                 <div class="avatar-uploader" @click="uploadClick('sideEdgeImg-upload')">
                     <img v-if="nowData.sideEdgeImg" :src="nowData.sideEdgeImg" class="avatar">
-                    <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+                        <div v-else class=" avatar-uploader-icon">
+                            <img class="addi-icon" src="./../image/addi.png">
+                        </div>
                 </div>
-                    <i class="el-icon-close" @click="deleteImg('sideEdgeImg')"></i>
+                    <i  @click="deleteImg('sideEdgeImg')">
+                        <img  class="icon_btn" src="./../image/close.png" />
+                    </i>
             </div>
             <div>
                 <el-button @click="sideEdgeImgTypeAddEvent">添加段落</el-button>
@@ -790,7 +844,9 @@ v-model="nowData.selectTextNoteR">
                     <div class="type_title">默認图片:</div>
                     <div class="avatar-uploader" @click="uploadClick('mimg-selector')">
                         <img v-if="nowData.imgselectDisplayMImg" :src="nowData.imgselectDisplayMImg" class="avatar">
-                        <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+                            <div v-else class=" avatar-uploader-icon">
+                                <img class="addi-icon" src="./../image/addi.png">
+                            </div>
                     </div>
                 <div class="view_main">
                     <el-button @click="imgselectDisplayMImgEvent">删除</el-button>
@@ -823,7 +879,9 @@ v-model="nowData.selectTextNoteR">
                             <div class="type_title">图片:</div>
                             <div class="avatar-uploader" @click="uploadClick('img-selector',index)">
                                 <img v-if="data.imgselectDisplayImg" :src="data.imgselectDisplayImg" class="avatar">
-                                <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+                                    <div v-else class=" avatar-uploader-icon">
+                                        <img class="addi-icon" src="./../image/addi.png">
+                                    </div>
                             </div>
                         </div>
                         <div class="view_main">
@@ -865,9 +923,13 @@ v-model="nowData.selectTextNoteR">
                             <div class="type_title">图片:</div>
                             <div class="avatar-uploader" @click="uploadClick('img-display',index)">
                                 <img v-if="data.imgDisplayTypeImg" :src="data.imgDisplayTypeImg" class="avatar">
-                                <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+                                    <div v-else class=" avatar-uploader-icon">
+                                        <img class="addi-icon" src="./../image/addi.png">
+                                    </div>
                             </div>
-                                <i class="el-icon-close" @click="deleteMenuImg(index,'imgDisplayTypeMenu','imgDisplayTypeImg')"></i>
+                                <i  @click="deleteMenuImg(index,'imgDisplayTypeMenu','imgDisplayTypeImg')">
+                                    <img class="icon_btn" src="./../image/close.png" />
+                                </i>
                         </div>
                             <div class="view_main">
                                 <span>是否添加段落样式:</span>

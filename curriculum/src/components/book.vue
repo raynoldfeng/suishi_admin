@@ -7,7 +7,9 @@
             <div id="nobtn" @click="studyEvent(2)">重新学习</div>
         </div>
         <swiper class="swiper_type_menu" ref="pages" :options="swiperOption" >
-
+            <swiper-slide>
+                <v-dragMore></v-dragMore>
+            </swiper-slide>
 
             <swiper-slide v-for="(data,index) in bookData" :key="index">
                 <v-titlePage v-if="data.testType == '0' && data.displayType == 't1'" v-on:isStart = "isStartEvent" :data="data"></v-titlePage>
@@ -80,6 +82,7 @@ import sideEdgeImg from "../components/sideEdgeImg.vue"
 import blanksType from '../components/blanksType.vue'
  import imgSelectType from  '../components/imgSelectType.vue'
  import imgDisplayType from '../components/imgDisplayType.vue'
+ import dragMore from '../components/dragmore.vue'
  import $ from 'jquery'
     export default{
         data(){
@@ -157,7 +160,8 @@ import blanksType from '../components/blanksType.vue'
              'v-sideEdgeImg':sideEdgeImg,
              "v-blanksType":blanksType,
              "v-imgSelectType":imgSelectType,
-             "v-imgDisplayType":imgDisplayType
+             "v-imgDisplayType":imgDisplayType,
+             'v-dragMore':dragMore
      },
         mounted:function(){
             window.jpage = 0;

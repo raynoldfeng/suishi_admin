@@ -9,6 +9,7 @@ import imageChange from '@/components/imageChange'
 import titlePage from '@/components/titlePage'
 import selectmore from '@/components/selectmore'
 import lastPage from '@/components/lastPage'
+import dragMore from '@/components/dragmore'
 
 import book from '@/components/book'
 
@@ -65,6 +66,11 @@ export default new Router({
           path:'/lastPage',
           name:lastPage,
           component:lastPage
+      },
+      {
+          path:'/dragMore',
+          name:dragMore,
+          component:dragMore
       }
   ]
 })

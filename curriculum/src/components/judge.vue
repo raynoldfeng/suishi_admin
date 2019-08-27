@@ -74,8 +74,8 @@ export default {
                 }else{
                     window.jpage = now;
                     self.indexQ =  window.jpage;
-                    console.log("aaaaaaaaa",self.indexQ);
-                    console.log("ffffffffffffffffffffffffffffffffff"+self.data.judgeMenu[self.indexQ].judgeAnswerText)
+//                    console.log("aaaaaaaaa",self.indexQ);
+//                    console.log("ffffffffffffffffffffffffffffffffff"+self.data.judgeMenu[self.indexQ].judgeAnswerText)
                     if(now >= all-1){
                         $("#noteText p").html(self.Trim(window.edit[nowPage].judgeMenu[window.jpage].judgeAnswerText));
                       $(".judgebtn").hide();

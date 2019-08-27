@@ -1,9 +1,7 @@
 <template>
     <div id="QuestMain">
         <div id="titlePage" >
-            <p class="tp-title" v-text="data.courseTitle">
-
-            </p>
+            <p class="tp-title" v-text="data.courseTitle"></p>
             <div class="tp-logo-main simg-main-nobor">
                 <div class="white-r">
                     <img :src="data.authorImg">

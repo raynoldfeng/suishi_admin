@@ -13,6 +13,9 @@ Vue.config.productionTip = false
 const drop = require("./common/drop.js");
 Vue.prototype.drops = drop.drop;
 
+const dropmore = require("./common/dropmore.js");
+Vue.prototype.dropmore = dropmore.dropmore;
+
 Vue.use(vueSwiper);
 
 /* eslint-disable no-new */

@@ -331,16 +331,16 @@ import blanksType from '../components/blanksType.vue'
             },
             imgShowEvent(data){
                 console.log(data)
-                if(data.url == null || data.url == undefined){
+                if(data.url == ""){
                     this.displayImg = "";
                 }else{
-                    if(data.urlbig != null || data.urlbig != undefined){
+                    if(data.urlbig != ""){
                         this.displayImg = data.urlbig;
                     }else{
                         this.displayImg = data.url;
                     }
                 }
-                if(data.text == null || data.text == undefined){
+                if(data.text == "" || data.text == undefined){
                     this.displayText = "";
                 }else{
                     this.displayText = data.text;

@@ -1,5 +1,6 @@
 <template>
     <div >
+        <input id="imgtext-selector" type="file" >
         <div class="view_main">
             <div class="view_main">
                 <span>标题:</span>
@@ -31,7 +32,6 @@
                         </el-option>
                     </el-select>
                 </div>
-
 
                 <div  class="view_main">
 
@@ -68,13 +68,49 @@ export default {
     props:{
         nowData:"",
         cosData:"",
-
+        judgeAnswerMenu:"",
     },
     mounted:function(){
+        var self = this;
+        self.SecretId= self.cosData.SecretId;
+        self.SecretKey= self.cosData.SecretKey;
+        self.XCosSecurityToken = self.cosData.XCosSecurityToken;
+        self.expiredTime = self.cosData.expiredTime;
+        document.getElementById('imgtext-selector').onchange = function () {
+            var file = this.files[0];
+            if (!file) return;
+            //                console.log(file.name);
+            //                console.log(file)
+            if(self.SecretId != "" && self.SecretKey !="" ){
+                if(file){
+                    self.cosjs(self.SecretId,self.SecretKey,file,self.XCosSecurityToken,self.expiredTime,function(img){
+                        self.nowData.imgTextImg = img;
+                    });
+                }
+            }
 
+        };
     },
     methods:{
-
+        uploadClick(id,index){
+            document.getElementById(id).click();
+            if(index > (-1)){
+                this.selectImgIndex = index;
+            }
+        },
+        deleteImg(type){
+            this.nowData[type] = "";
+        },
+        /**
+         * 1
+         * 添加段落
+         */
+        addImgText(){
+            this.nowData.imgTextMenu.push("");
+        },
+        deleteImgText(index){
+            this.nowData.imgTextMenu.splice(index,1);
+        },
     }
 }
 </script>

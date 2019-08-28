@@ -31,10 +31,9 @@
     <input type="file" name = "file" id = "fileId" />
 
                     <input id="selectL-selector" type="file" >
-                    <input id="imgtext-selector" type="file" >
+
                     <input id="file-selector3" multiple="multiple" type="file">
-                    <input id="select-selector" type="file" >
-                    <input id="select-selector-big" type="file" >
+
                     <input id="selectAllJ-selector" type="file" >
                     <input id="selectImgJ-selector" type="file" >
                     <input id="selectLt-selector" type="file" >
@@ -44,6 +43,7 @@
                     <input id="img-selector" type="file" >
                     <input id="img-display" type="file" >
                     <input id="mimg-selector" type="file" >
+
                             <div  v-if=" dataMenu.length > 0">
                                 <div id="testMedolBox" :class="{big_size:isbig}" @click="bigEvent">
                                     <img  v-if="nowData.testType == 0 && nowData.displayType == 't1'" src="./../image/01.png" />
@@ -188,66 +188,11 @@
 
                     <titlePage v-if="nowData.testType == 0 && nowData.displayType == 't1'" :nowData="nowData" :cosData="cosData"></titlePage>
 
-        <imgText v-if="nowData.testType == 1 && nowData.displayType == 'it1'" :nowData="nowData" :cosData="cosData"></imgText>
+        <imgText v-if="nowData.testType == 1 && nowData.displayType == 'it1'" :nowData="nowData" :cosData="cosData" :judgeAnswerMenu="judgeAnswerMenu"></imgText>
 
 
 
 
-
-
-<div v-if="nowData.testType == 1 && nowData.displayType == 'it1'">
-    <div class="view_main">
-        <div class="view_main">
-            <span>标题:</span>
-            <el-input class="input_type" v-model="nowData.imgTextTitle"></el-input>
-        </div>
-        <div class="view_main">
-            <div class="type_title">图片:</div>
-
-            <div class="avatar-uploader" @click="uploadClick('imgtext-selector')">
-            <img v-if="nowData.imgTextImg" :src="nowData.imgTextImg" class="avatar">
-                <div v-else class=" avatar-uploader-icon">
-                    <img class="addi-icon" src="./../image/addi.png">
-               </div>
-        </div>
-        <i  @click="deleteImg('imgTextImg')">
-            <img  class="icon_btn" src="./../image/close.png" />
-        </i>
-</div>
-
-            <div class="view_main">
-                <span>是否添加段落样式:</span>
-
-                <el-select v-model="nowData.imgTextValue" class="select-css" placeholder="段落样式">
-                    <el-option
-                    v-for="item in judgeAnswerMenu"
-                    :key="item.value"
-                    :label="item.label"
-                    :value="item.value">
-                    </el-option>
-                </el-select>
-            </div>
-
-
-<div  class="view_main">
-
-    <p>文本</p>
-    <div  class="view_main"  v-for="(data,index) in nowData.imgTextMenu">
-        <el-input   v-if="nowData.imgTextMenu.length>0"
-                    class="textarea_type"
-                    type="textarea"
-        :autosize="{ minRows: 2, maxRows: 4}"
-        placeholder="请输入内容"
-        v-model="nowData.imgTextMenu[index]">
-    </el-input>
-    <span  @click="deleteImgText(index)">删除</span>
-</div>
-<div  class="view_main">
-<el-button @click="addImgText">添加段落</el-button>
-        </div>
-        </div>
-        </div>
-        </div>
 
 <div v-if="nowData.testType == 2 && nowData.displayType == 'ic1'">
 <div class="view_main">
@@ -269,152 +214,12 @@
 
         </div>
         </div>
-<div v-if="nowData.testType == 3 && nowData.displayType == 'j1'">
-    <div class="view_main">
-        <span>题目:</span>
-        <el-input class="input_type" v-model="nowData.judgeTitle"></el-input>
-    </div>
-    <div class="view_main">
-        <span>副题目:</span>
-        <el-input class="input_type" v-model="nowData.judgeInfo"></el-input>
-    </div>
-    <div class="view_main">
-        <span>正确标题:</span>
-        <el-input class="input_type" v-model="nowData.judgeTitleTrue"></el-input>
-    </div>
-    <div class="view_main">
-        <span>错误标题:</span>
-        <el-input class="input_type" v-model="nowData.judgeTitleFalse"></el-input>
-    </div>
-    <div class="view_main">
-        <el-button @click="addJudgeEvent">添加问题</el-button>
-    </div>
-    <div class="view_main" v-for="(data,index) in nowData.judgeMenu">
-        <el-button @click="deleteJudgeEvent(index)">删除问题</el-button>
-        <div class="view_main">
-            <span>答案文本:</span>
-            <el-input class="input_type" v-model="data.judgeText"></el-input>
-        </div>
 
-        <div class="view_main">
-            <span>正确选项:</span>
+<judgeType v-if="nowData.testType == 3 && nowData.displayType == 'j1'" :nowData="nowData" :cosData="cosData" :judgeAnswerMenu="judgeAnswerMenu"></judgeType>
 
-            <el-select v-model="data.judgeAnswer" class="select-css" placeholder="正确选项">
-                <el-option
-                v-for="item in judgeAnswerMenu"
-                :key="item.value"
-                :label="item.label"
-                :value="item.value">
-                </el-option>
-            </el-select>
-        </div>
-        <div class="view_main">
-            <span>答案注释:</span>
-            <el-input
-            class="textarea_type"
-            type="textarea"
-            :autosize="{ minRows: 2, maxRows: 4}"
-            placeholder="请输入内容"
-            v-model="data.judgeAnswerText">
-            </el-input>
-        </div>
-
-    </div>
-
-</div>
-
-<div v-if="nowData.testType == 4 && nowData.displayType == 's1'">
-    <div class="view_main">
-        <el-button @click="selectAddQEvent">添加题目</el-button>
-    </div>
-    <div v-for="(selectData,selectIndex) in nowData.selectQMenu"  class="padd-bottom">
-        <div class="view_main">
-            <span>第{{selectIndex+1}}题</span>
-            <el-button @click="selectDeleteQEvent(selectIndex)">删除</el-button>
-        </div>
-        <div class="view_main">
-            <span>题目:</span>
-            <el-input class="input_type" v-model="selectData.selectTitle"></el-input>
-        </div>
-        <div class="view_main">
-            <span>副标题:</span>
-            <el-input class="input_type" v-model="selectData.selectInfo"></el-input>
-        </div>
-        <div class="view_main">
-            <div class="type_title">图片:</div>
-            <div class="avatar-uploader" @click="uploadClick('select-selector',selectIndex)">
-                <img v-if="selectData.selectImg" :src="selectData.selectImg" class="avatar">
-                    <div v-else class=" avatar-uploader-icon">
-                        <img class="addi-icon" src="./../image/addi.png">
-                    </div>
-            </div>
-            <i  @click="deleteMenuImg(selectIndex,'selectQMenu','selectImg')">
-                <img  class="icon_btn" src="./../image/close.png" />
-            </i>
-        </div>
-        <div class="view_main">
-            <div class="type_title">大图片:</div>
-            <div class="avatar-uploader" @click="uploadClick('select-selector-big',selectIndex)">
-                <div></div>
-                <img v-if="selectData.selectImgBig" :src="selectData.selectImgBig" class="avatar">
-                    <div v-else class=" avatar-uploader-icon">
-                        <img class="addi-icon" src="./../image/addi.png">
-                    </div>
-           </div>
-            <i  @click="deleteMenuImg(selectIndex,'selectQMenu','selectImgBig')">
-                <img  class="icon_btn" src="./../image/close.png" />
-            </i>
-        </div>
-
-        <div class="view_main">
-            <span class="type_title">图片文字介绍:</span>
-            <el-input
-            class="textarea_type"
-            type="textarea"
-            :autosize="{ minRows: 2, maxRows: 4}"
-            placeholder="请输入内容"
-            v-model="selectData.imgNoteNode">
-            </el-input>
-        </div>
-
-        <div class="view_main">
-            <span>答案选项</span>
-            <el-button @click="selectAddEvent(selectIndex)">添加选项</el-button>
-            <div class="">
-                <ul>
-                    <li v-for="(data,index) in selectData.selectMenu" class="view_main" >
-                        <span>选项{{index+1}}</span>
-                        <el-input class="input_type" v-model="selectData.selectMenu[index].answerText"></el-input>
-                        <el-select v-model="data.isAnswer" class="select-css" placeholder="是否正确">
-                            <el-option
-                                    v-for="item in judgeAnswerMenu"
-                                :key="item.value"
-                                :label="item.label"
-                                :value="item.value">
-                            </el-option>
-                        </el-select>
-                        <span @click="selectDeleteEvent(index,selectIndex)">删除</span>
-                    </li>
-                 </ul>
-            </div>
-         </div>
-        <div class="view_main">
-            <span class="type_title">答案注释:</span>
-            <el-input
-                    class="textarea_type"
-                    type="textarea"
-            :autosize="{ minRows: 2, maxRows: 4}"
-            placeholder="请输入内容"
-            v-model="selectData.imgTextNote">
-            </el-input>
-        </div>
-
-    </div>
+<selectType v-if="nowData.testType == 4 && nowData.displayType == 's1'" :nowData="nowData" :cosData="cosData" :judgeAnswerMenu="judgeAnswerMenu"></selectType>
 
 
-
-
-</div>
 
 
 <div v-if="nowData.testType == 5 && nowData.displayType == 'sm1'">
@@ -432,11 +237,6 @@
         v-model="nowData.selectMoreInfo">
         </el-input>
     </div>
-        <!--<div>-->
-        <!--<span>文本1</span>-->
-        <!--<el-input class="input_type" v-
-model="nowData.selectTitle"></el-input>-->
-        <!--</div>-->
     <div class="view_main" >
         <div class="type_title">左侧图片:</div>
         <div class="avatar-uploader" @click="uploadClick('selectL-selector')">
@@ -482,11 +282,6 @@ model="nowData.selectTitle"></el-input>-->
                 </div>
         </div>
         </div>
-        <!--<div>-->
-        <!--<span>文本2</span>-->
-        <!--<el-input class="input_type" v-
-model="nowData.selectTitle"></el-input>-->
-        <!--</div>-->
 <div class="view_main" >
 <div class="type_title">右侧图片:</div>
 <div class="avatar-uploader" @click="uploadClick('selectR-selector')">
@@ -531,6 +326,8 @@ v-model="nowData.selectTextNoteR">
         </div>
         </div>
         </div>
+
+
         <div v-if="nowData.testType == 6 && nowData.displayType == 'sm2'">
 
             <div class="view_main">
@@ -1062,6 +859,8 @@ v-model="nowData.selectTextNoteR">
 import $ from 'jquery'
 import titlePage from './com/titlePage.vue'
 import imgText from './com/imgText.vue'
+import judgeType from './com/judgeType.vue'
+import selectType from './com/selectType.vue'
 export default {
     data(){
         return {
@@ -1478,7 +1277,9 @@ export default {
     },
     components:{
         "titlePage":titlePage,
-        "imgText":imgText
+        "imgText":imgText,
+        "judgeType":judgeType,
+        "selectType":selectType
     },
     methods:{
         bigEvent(){
@@ -1701,20 +1502,7 @@ export default {
             var self = this
 
 
-            document.getElementById('imgtext-selector').onchange = function () {
-                var file = this.files[0];
-                if (!file) return;
-                //                console.log(file.name);
-                //                console.log(file)
-                if(self.SecretId != "" && self.SecretKey !="" ){
-                    if(file){
-                        self.cosjs(self.SecretId,self.SecretKey,file,self.XCosSecurityToken,self.expiredTime,function(img){
-                            self.nowData.imgTextImg = img;
-                        });
-                    }
-                }
 
-            };
 
             document.getElementById('selectImgJ-selector').onchange = function () {
                 var file = this.files[0];
@@ -1777,28 +1565,7 @@ export default {
             };
 
 
-            document.getElementById('select-selector').onchange = function () {
-                var file = this.files[0];
-                if (!file) return;
-                if(self.SecretId != "" && self.SecretKey !="" ){
-                    if(file){
-                        self.cosjs(self.SecretId,self.SecretKey,file,self.XCosSecurityToken,self.expiredTime,function(img){
-                            self.nowData.selectQMenu[self.selectImgIndex].selectImg = img;
-                        });
-                    }
-                }
-            };
-            document.getElementById('select-selector-big').onchange = function () {
-                var file = this.files[0];
-                if (!file) return;
-                if(self.SecretId != "" && self.SecretKey !="" ){
-                    if(file){
-                        self.cosjs(self.SecretId,self.SecretKey,file,self.XCosSecurityToken,self.expiredTime,function(img){
-                         self.nowData.selectQMenu[self.selectImgIndex].selectImgBig = img;
-                        });
-                    }
-                }
-            };
+
 
             document.getElementById('selectL-selector').onchange = function () {
                 var file = this.files[0];
@@ -1924,44 +1691,9 @@ export default {
                 this.selectImgIndex = index;
             }
         },
-        /**
-         * 1
-         * 添加段落
-         */
-        addImgText(){
-            this.nowData.imgTextMenu.push("");
-        },
-        deleteImgText(index){
-            this.nowData.imgTextMenu.splice(index,1);
-        },
-        /**
-         * 选择类型 (可添加多个题目)
-         */
-        selectAddQEvent(){
-              var newData = {
-                  selectTitle: "",
-                  selectImgBig:"",
-                  selectInfo:"",
-                  selectImg: "",
-                  selectMenu: [
-                      {answerText:"",isAnswer:"0" , isClick:false ,isShow:true}
-                  ],
-                  imgTextNote: "",
-                  imgTextNoteShow:false,
-                  imgNoteNode:""
-              };
-            this.nowData.selectQMenu.push(newData);
-        },
-        selectDeleteQEvent(index){
-            this.nowData.selectQMenu.splice(index,1);
-        },
-        selectAddEvent(index){
-            var newData =  {answerText:"",isAnswer:"0"}
-            this.nowData.selectQMenu[index].selectMenu.push(newData);
-        },
-        selectDeleteEvent(index,pIndex){
-            this.nowData.selectQMenu[pIndex].selectMenu.splice(index,1);
-        },
+
+
+
 
         /**
          * 选择类型 (多题)
@@ -2085,20 +1817,7 @@ export default {
             this.nowData.imgDisplayTypeMenu[index].imgDisplayTypeTextMenu.splice(sindex,1);
         },
 
-        /**
-         * 判断题
-         */
-        addJudgeEvent(){
-            var newData={
-                 judgeText:"",
-                 judgeAnswer:"0",
-                 judgeAnswerText:""
-            }
-            this.nowData.judgeMenu.push(newData)
-        },
-        deleteJudgeEvent(index){
-            this.nowData.judgeMenu.splice(index,1);
-        }
+
     },
     mounted:function(){
         this.userinfo = {"token":this.common.cookie.get("token"),"user_id":this.common.cookie.get("user_id")};

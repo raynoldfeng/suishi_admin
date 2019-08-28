@@ -104,7 +104,10 @@ v-model="nowData.courseInfo">
                     if(index > (-1)){
                         this.selectImgIndex = index;
                     }
-                }
+                },
+                deleteImg(type){
+                    this.nowData[type] = "";
+                },
             }
         }
        </script>

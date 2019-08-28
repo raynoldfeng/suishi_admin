@@ -27,9 +27,9 @@
         </el-aside>
 <el-main >
 <el-button class="view_main" type="primary" @click="uploadClick('fileId')">导入文件</el-button>
-
+<input id="file-selector" type="file" >
     <input type="file" name = "file" id = "fileId" />
-
+                    <input id="file-selector2" type="file" >
                     <input id="selectL-selector" type="file" >
                     <input id="imgtext-selector" type="file" >
                     <input id="file-selector3" multiple="multiple" type="file">
@@ -183,17 +183,53 @@
                         </div>
                     </div>
 
+                    <div v-if="nowData.testType == 0 && nowData.displayType == 't1'">
+                        <div  class="view_main">
+                            <span>课程标题:</span>
+                            <el-input class="input_type" v-model="nowData.courseTitle"></el-input>
+                        </div>
+                        <div  class="view_main">
+                            <span class="type_title">封面图:</span>
 
+                            <div class="avatar-uploader" @click="uploadClick('file-selector')">
+                            <img v-if="nowData.courseImg" :src="nowData.courseImg" class="avatar">
+                            <div v-else class=" avatar-uploader-icon">
+                                <img class="addi-icon" src="./../image/addi.png">
+                            </div>
+                        </div>
+                        <i @click="deleteImg('courseImg')">
+                            <img  class="icon_btn" src="./../image/close.png" />
+                        </i>
+                </div>
+                <div  class="view_main">
+                    <span  class="type_title">作者图:</span>
 
+                    <div class="avatar-uploader" @click="uploadClick('file-selector2')">
+                    <img v-if="nowData.authorImg" :src="nowData.authorImg" class="avatar">
+                     <div v-else class=" avatar-uploader-icon">
+                        <img class="addi-icon" src="./../image/addi.png">
+                     </div>
+                </div>
+                <i  @click="deleteImg('authorImg')">
+                    <img  class="icon_btn" src="./../image/close.png" />
+                </i>
+        </div>
+        <div  class="view_main">
+            <span >作者名字:</span>
+            <el-input class="input_type" v-model="nowData.authorInfo"></el-input>
 
-                    <titlePage v-if="nowData.testType == 0 && nowData.displayType == 't1'" :nowData="nowData" :cosData="cosData"></titlePage>
-
-        <imgText v-if="nowData.testType == 1 && nowData.displayType == 'it1'" :nowData="nowData" :cosData="cosData"></imgText>
-
-
-
-
-
+        </div>
+        <div  class="view_main">
+            <span class="type_title">介绍:</span>
+            <el-input
+                    class="textarea_type"
+                    type="textarea"
+            :autosize="{ minRows: 2, maxRows: 4}"
+            placeholder="请输入内容"
+            v-model="nowData.courseInfo">
+        </el-input>
+    </div>
+</div>
 
 <div v-if="nowData.testType == 1 && nowData.displayType == 'it1'">
     <div class="view_main">
@@ -1060,8 +1096,6 @@ v-model="nowData.selectTextNoteR">
 *
  */
 import $ from 'jquery'
-import titlePage from './com/titlePage.vue'
-import imgText from './com/imgText.vue'
 export default {
     data(){
         return {
@@ -1471,14 +1505,9 @@ export default {
             SecretKey:"",
             XCosSecurityToken:"",
             expiredTime:"",
-            cosData:{SecretId:"",SecretKey:"",XCosSecurityToken:"",expiredTime:""},
             userinfo:"",
             selectImgIndex:""      //模板需要多个带图片的问题时
         }
-    },
-    components:{
-        "titlePage":titlePage,
-        "imgText":imgText
     },
     methods:{
         bigEvent(){
@@ -1693,13 +1722,38 @@ export default {
                 self.XCosSecurityToken = data.credentials.sessionToken;
                 self.expiredTime = data.expiredTime;
                 console.log(self.SecretId)
-                self.cosData ={SecretId:self.SecretId,SecretKey:self.SecretKey,XCosSecurityToken:self.XCosSecurityToken,expiredTime:self.expiredTime};
             })
 
         },
         uploadEvent(){
             var self = this
+            document.getElementById('file-selector').onchange = function () {
+                var file = this.files[0];
+                if (!file) return;
+                //                console.log(file.name);
+                //                console.log(file)
+                if(self.SecretId != "" && self.SecretKey !="" ){
+                    if(file){
+                        self.cosjs(self.SecretId,self.SecretKey,file,self.XCosSecurityToken,self.expiredTime,function(img){
+                            self.nowData.courseImg = img;
+                        });
+                    }
+                }
 
+            };
+
+            document.getElementById('file-selector2').onchange = function () {
+                var file = this.files[0];
+                if (!file) return;
+                if(self.SecretId != "" && self.SecretKey !="" ){
+                    if(file){
+                        self.cosjs(self.SecretId,self.SecretKey,file,self.XCosSecurityToken,self.expiredTime,function(img){
+                            self.nowData.authorImg = img;
+                        });
+                    }
+                }
+
+            };
 
             document.getElementById('imgtext-selector').onchange = function () {
                 var file = this.files[0];

@@ -50,7 +50,6 @@
             self.SecretKey = data.credentials.tmpSecretKey;
             self.XCosSecurityToken = data.credentials.sessionToken;
             self.expiredTime = data.expiredTime;
-
             })
 
             },

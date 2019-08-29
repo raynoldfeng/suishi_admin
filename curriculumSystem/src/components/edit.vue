@@ -220,112 +220,12 @@
 <selectType v-if="nowData.testType == 4 && nowData.displayType == 's1'" :nowData="nowData" :cosData="cosData" :judgeAnswerMenu="judgeAnswerMenu"></selectType>
 
 
+<selectMore  v-if="nowData.testType == 5 && nowData.displayType == 'sm1'" :nowData="nowData" :cosData="cosData" :judgeAnswerMenu="judgeAnswerMenu"></selectMore>
 
 
-<div v-if="nowData.testType == 5 && nowData.displayType == 'sm1'">
-    <div class="view_main" >
-        <span>问题:</span>
-        <el-input class="input_type" v-model="nowData.selectMoreTitle"></el-input>
-    </div>
-    <div class="view_main" >
-        <span class="type_title">问题描述:</span>
-        <el-input
-            class="textarea_type"
-            type="textarea"
-        :autosize="{ minRows: 2, maxRows: 4}"
-        placeholder="请输入内容"
-        v-model="nowData.selectMoreInfo">
-        </el-input>
-    </div>
-    <div class="view_main" >
-        <div class="type_title">左侧图片:</div>
-        <div class="avatar-uploader" @click="uploadClick('selectL-selector')">
-            <img v-if="nowData.selectMoreImgL" :src="nowData.selectMoreImgL" class="avatar">
-                <div v-else class=" avatar-uploader-icon">
-                    <img class="addi-icon" src="./../image/addi.png">
-                </div>
         </div>
-        <i  @click="deleteImg('selectMoreImgL')">
-            <img  class="icon_btn" src="./../image/close.png" />
-        </i>
 
-       </div>
-    <div class="view_main" >
-        <span>左侧选项:</span><el-button @click="selectMoreAddEvent('l')">添加选项</el-button>
-        <div class="">
 
-        <ul>
-            <li v-for="(data,index) in nowData.selectMoreMenuL" class="view_main">
-                <span>选项{{index+1}}</span>
-                <el-input class="input_type" v-model="data.answerText"></el-input>
-                <el-select class="select-css" v-model="data.isAnswer"
-                           placeholder="是否正确">
-                    <el-option
-                            v-for="item in judgeAnswerMenu"
-                    :key="item.value"
-                    :label="item.label"
-                    :value="item.value">
-                </el-option>
-            </el-select>
-            <span @click="selectMoreDeleteEvent('l',index)">删除</span>
-        </li>
-                </ul>
-        <div class="view_main">
-        <span class="type_title">答案注释</span>
-        <el-input
-                class="textarea_type"
-                type="textarea"
-        :autosize="{ minRows: 2, maxRows: 4}"
-        placeholder="请输入内容"
-        v-model="nowData.selectTextNoteL">
-        </el-input>
-                </div>
-        </div>
-        </div>
-<div class="view_main" >
-<div class="type_title">右侧图片:</div>
-<div class="avatar-uploader" @click="uploadClick('selectR-selector')">
-    <img v-if="nowData.selectMoreImgR" :src="nowData.selectMoreImgR" class="avatar">
-        <div v-else class=" avatar-uploader-icon">
-            <img class="addi-icon" src="./../image/addi.png">
-        </div>
-</div>
-<i  @click="deleteImg('selectMoreImgR')">
-    <img  class="icon_btn" src="./../image/close.png" />
-</i>
-        </div>
-    <div class="view_main" >
-          <span>右侧选项:</span><el-button  @click="selectMoreAddEvent('r')">添加选项</el-button>
-    <div>
-<ul>
-    <li v-for="(data,index) in nowData.selectMoreMenuR" class="view_main">
-        <span>选项{{index+1}}</span>
-        <el-input class="input_type" v-model="data.answerText"></el-input>
-        <el-select v-model="data.isAnswer" class="select-css" placeholder="正确选项">
-            <el-option
-                    v-for="item in judgeAnswerMenu"
-            :key="item.value"
-            :label="item.label"
-            :value="item.value">
-        </el-option>
-    </el-select>
-    <span  @click="selectMoreDeleteEvent('r',index)">删除</span>
-</li>
-        </ul>
-        </div>
-<div class="view_main">
-<span class="type_title">答案注释:</span>
-<el-input
-        class="textarea_type"
-        type="textarea"
-:autosize="{ minRows: 2, maxRows: 4}"
-placeholder="请输入内容"
-v-model="nowData.selectTextNoteR">
-</el-input>
-        </div>
-        </div>
-        </div>
-        </div>
 
 
         <div v-if="nowData.testType == 6 && nowData.displayType == 'sm2'">
@@ -861,6 +761,7 @@ import titlePage from './com/titlePage.vue'
 import imgText from './com/imgText.vue'
 import judgeType from './com/judgeType.vue'
 import selectType from './com/selectType.vue'
+//import selectMore from './nouse/selectMore.vue'
 export default {
     data(){
         return {
@@ -896,7 +797,7 @@ export default {
                 {value: "4",
                     label: "选择"},
                 {value: "5",
-                    label: "多题选泽"},
+                    label: "多题选泽(废弃)"},
                 {value:"6",
                 label:"选择(带解释)"},
                 {value:"7",
@@ -1695,17 +1596,7 @@ export default {
 
 
 
-        /**
-         * 选择类型 (多题)
-         */
-        selectMoreAddEvent(type){
-            var newData =  {answerText:"",isAnswer:"0"}
-            if(type=="l"){
-                this.nowData.selectMoreMenuL.push(newData);
-            }else if(type == "r"){
-                this.nowData.selectMoreMenuR.push(newData);
-            }
-        },
+
         selectMoreDeleteEvent(type,index){
             if(type == "l"){
                 this.nowData.selectMoreMenuL.splice(index,1);

@@ -34,10 +34,6 @@
 
                     <input id="file-selector3" multiple="multiple" type="file">
 
-
-
-                    <input id="selectLt-selector" type="file" >
-                    <input id="selectLt-selector-big" type="file" >
                     <input id="sideEdgeImg-upload" type="file" >
                     <input id="selectR-selector" type="file" >
                     <input id="img-selector" type="file" >
@@ -231,74 +227,9 @@
 
 <imgJumpType  v-if="nowData.testType == 7 && nowData.displayType == 'imt'" :nowData="nowData" :cosData="cosData" :titleColor="titleColor"></imgJumpType>
 
+<listType  v-if="nowData.testType == 8 && nowData.displayType == 'lt'"  :nowData="nowData" :cosData="cosData" :judgeAnswerMenu="judgeAnswerMenu" ></listType>
 
 
-        <div v-if="nowData.testType == 8 && nowData.displayType == 'lt'">
-            <div class="view_main">
-                <span>标题:</span>
-                <el-input class="input_type" v-model="nowData.listTypeTitle"></el-input>
-            </div>
-
-            <div class="view_main">
-                <div class="type_title">图片:</div>
-
-                <div class="avatar-uploader" @click="uploadClick('selectLt-selector')">
-                    <img v-if="nowData.listTypeImg" :src="nowData.listTypeImg" class="avatar">
-                        <div v-else class=" avatar-uploader-icon">
-                            <img class="addi-icon" src="./../image/addi.png">
-                        </div>
-                </div>
-                <i  @click="deleteImg('listTypeImg')">
-                    <img  class="icon_btn" src="./../image/close.png" />
-                </i>
-            </div>
-                <div class="view_main">
-                    <div class="type_title">大图片:</div>
-
-                    <div class="avatar-uploader" @click="uploadClick('selectLt-selector-big')">
-                        <img v-if="nowData.listTypeImgBig" :src="nowData.listTypeImgBig" class="avatar">
-                            <div v-else class=" avatar-uploader-icon">
-                                <img class="addi-icon" src="./../image/addi.png">
-                            </div>
-                        </div>
-                        <i  @click="deleteImg('listTypeImgBig')">
-                            <img  class="icon_btn" src="./../image/close.png" />
-                        </i>
-                    </div>
-            <div class="view_main">
-                <span>按钮文案:</span>
-                <el-input class="input_type" v-model="nowData.listTypeBtnText"></el-input>
-            </div>
-                    <div class="view_main">
-                        <span>是否添加段落样式:</span>
-
-                        <el-select v-model="nowData.listTypeValue" class="select-css" placeholder="段落样式">
-                            <el-option
-                            v-for="item in judgeAnswerMenu"
-                            :key="item.value"
-                            :label="item.label"
-                            :value="item.value">
-                            </el-option>
-                        </el-select>
-                    </div>
-            <div class="view_main">
-                <span>段落:</span>
-                <el-button @click="selectListTypeAddEvent">添加段落</el-button>
-                <ul>
-                    <li v-for="(data,index) in nowData.listTypeMenu" class="view_main" >
-                        <el-input
-                                class="textarea_type"
-                                type="textarea"
-                        :autosize="{ minRows: 2, maxRows: 4}"
-                        placeholder="请输入内容"
-                        v-model="data.listTypeText"></el-input>
-                        <span @click="selectListTypeDeleteEvent(index)">删除</span>
-                    </li>
-                </ul>
-
-            </div>
-
-        </div>
 
         <div v-if="nowData.testType == 9 && nowData.displayType == 'ct'">
             <div class="view_main">
@@ -655,6 +586,7 @@ import selectType from './com/selectType.vue'
 //import selectMore from './nouse/selectMore.vue'
 import selectAllJType from './com/selectAllJType.vue'
 import imgJumpType from './com/imgJumpType.vue'
+import listType from './com/listType.vue'
 export default {
     data(){
         return {
@@ -1075,7 +1007,8 @@ export default {
         "judgeType":judgeType,
         "selectType":selectType,
         "selectAllJType":selectAllJType,
-        "imgJumpType":imgJumpType
+        "imgJumpType":imgJumpType,
+        "listType":listType
     },
     methods:{
         bigEvent(){
@@ -1302,30 +1235,8 @@ export default {
 
 
 
-            document.getElementById('selectLt-selector').onchange = function () {
-                var file = this.files[0];
-                if (!file) return;
-                //                console.log(file.name);
-                //                console.log(file)
-                if(self.SecretId != "" && self.SecretKey !="" ){
-                    if(file){
-                        self.cosjs(self.SecretId,self.SecretKey,file,self.XCosSecurityToken,self.expiredTime,function(img){
-                            self.nowData.listTypeImg = img;
-                        });
-                    }
-                }
-            };
-            document.getElementById('selectLt-selector-big').onchange = function () {
-                var file = this.files[0];
-                if (!file) return;
-                if(self.SecretId != "" && self.SecretKey !="" ){
-                    if(file){
-                        self.cosjs(self.SecretId,self.SecretKey,file,self.XCosSecurityToken,self.expiredTime,function(img){
-                            self.nowData.listTypeImgBig = img;
-                        });
-                    }
-                }
-            };
+
+
             document.getElementById('file-selector3').onchange = function () {
                 var files = this.files;
                 //                console.log(file.name);
@@ -1489,16 +1400,8 @@ export default {
              this.nowData[key1][index][key2] = "";
         },
 
-        /**
-         * 列表类型
-         */
-        selectListTypeAddEvent(){
-            var newData = {listTypeText:""};
-            this.nowData.listTypeMenu.push(newData);
-        },
-        selectListTypeDeleteEvent(index){
-            this.nowData.listTypeMenu.splice(index,1);
-        },
+
+
         /**
          * 侧边图片
          */

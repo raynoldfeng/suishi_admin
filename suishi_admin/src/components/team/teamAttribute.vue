@@ -33,7 +33,7 @@
                     >
                         <template slot-scope="scope">
                             <el-button @click="editType(scope.row)" type="text" size="small">编辑</el-button>
-                            <el-button @click="handleClick(scope.row)" type="text" size="small">删除</el-button>
+                            <el-button @click="deleteEvent(scope.row.id)" type="text" size="small">删除</el-button>
                         </template>
                     </el-table-column>
                 </el-table>
@@ -96,6 +96,16 @@
                         console.log(data);
                         self.teamTypeList();
                     })
+                },
+                deleteEvent(id){
+                    var self = this;
+                    this.$confirm('确认删除任务？')
+                            .then(_ => {
+                        this.common.deleteEventToken(this.api.host+this.api.teamType+"/"+id,{},this.userinfo,function(data){
+                                self.teamTypeList();
+                            })
+                }).catch(_ => {});
+
                 },
                 editType(info){
                     this.dialogTableVisible = true;

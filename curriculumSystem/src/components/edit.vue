@@ -35,7 +35,7 @@
                     <input id="file-selector3" multiple="multiple" type="file">
 
 
-                    <input id="selectImgJ-selector" type="file" >
+
                     <input id="selectLt-selector" type="file" >
                     <input id="selectLt-selector-big" type="file" >
                     <input id="sideEdgeImg-upload" type="file" >
@@ -229,51 +229,9 @@
         </selectAllJType>
 
 
+<imgJumpType  v-if="nowData.testType == 7 && nowData.displayType == 'imt'" :nowData="nowData" :cosData="cosData" :titleColor="titleColor"></imgJumpType>
 
 
-        <div v-if="nowData.testType == 7 && nowData.displayType == 'imt'">
-            <div class="view_main">
-                <span>标题:</span>
-                <el-input class="input_type" v-model="nowData.ImgJumpTypeTitle"></el-input>
-            </div>
-            <div class="view_main">
-                <span>介绍文字:</span>
-                <el-input
-                        class="textarea_type"
-                        type="textarea"
-                :autosize="{ minRows: 2, maxRows: 4}"
-                placeholder="请输入内容"
-                v-model="nowData.ImgJumpTypeInfo"></el-input>
-            </div>
-            <div class="view_main">
-                <span>标题颜色:</span>
-                <el-select v-model="nowData.ImgJumpTypeTitleColor" class="select-css" placeholder="标题颜色">
-                    <el-option
-                            v-for="item in titleColor"
-                        :key="item.value"
-                        :label="item.label"
-                        :value="item.value">
-                    </el-option>
-                </el-select>
-            </div>
-            <div class="view_main">
-                <div class="type_title">背景图片:</div>
-
-                <div class="avatar-uploader" @click="uploadClick('selectImgJ-selector')">
-                    <img v-if="nowData.ImgJumpTypeBg" :src="nowData.ImgJumpTypeBg" class="avatar">
-                        <div v-else class=" avatar-uploader-icon">
-                            <img class="addi-icon" src="./../image/addi.png">
-                        </div>
-                </div>
-                <i  @click="deleteImg('ImgJumpTypeBg')">
-                    <img  class="icon_btn" src="./../image/close.png" />
-                </i>
-            </div>
-            <div class="view_main">
-                <span>跳转按钮文本:</span>
-                <el-input class="input_type" v-model="nowData.ImgJumpBtnText"></el-input>
-            </div>
-        </div>
 
         <div v-if="nowData.testType == 8 && nowData.displayType == 'lt'">
             <div class="view_main">
@@ -696,6 +654,7 @@ import judgeType from './com/judgeType.vue'
 import selectType from './com/selectType.vue'
 //import selectMore from './nouse/selectMore.vue'
 import selectAllJType from './com/selectAllJType.vue'
+import imgJumpType from './com/imgJumpType.vue'
 export default {
     data(){
         return {
@@ -1115,7 +1074,8 @@ export default {
         "imgText":imgText,
         "judgeType":judgeType,
         "selectType":selectType,
-        "selectAllJType":selectAllJType
+        "selectAllJType":selectAllJType,
+        "imgJumpType":imgJumpType
     },
     methods:{
         bigEvent(){
@@ -1340,20 +1300,7 @@ export default {
 
 
 
-            document.getElementById('selectImgJ-selector').onchange = function () {
-                var file = this.files[0];
-                if (!file) return;
-                //                console.log(file.name);
-                //                console.log(file)
-                if(self.SecretId != "" && self.SecretKey !="" ){
-                    if(file){
-                        self.cosjs(self.SecretId,self.SecretKey,file,self.XCosSecurityToken,self.expiredTime,function(img){
-                            self.nowData.ImgJumpTypeBg = img;
-                        });
-                    }
-                }
 
-            };
 
             document.getElementById('selectLt-selector').onchange = function () {
                 var file = this.files[0];

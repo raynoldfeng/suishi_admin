@@ -67,7 +67,7 @@
                 >
                     <template slot-scope="scope">
                         <el-button type="text" size="small" @click="seeUserEvemt(scope.row.account,scope.row.accountNick)">编辑</el-button>
-                        <el-button @click="deleteUserEvent(scope.row.id)" type="text" size="small">删除</el-button>
+                        <el-button @click="deleteUserEvent(scope.row.account)" type="text" size="small">删除</el-button>
                     </template>
                 </el-table-column>
             </el-table>
@@ -513,11 +513,11 @@
                     });
                 })
             },
-            deleteUserEvent(id){
+            deleteUserEvent(account){
                 var self = this;
                 this.$confirm('确认删除队友？')
                         .then(_ => {
-                        this.common.deleteEventToken(this.api.host+this.api.account+"/"+id,{},this.userinfo,function(data){
+                        this.common.deleteEventToken(this.api.host+this.api.account+"/"+account,{},this.userinfo,function(data){
                             self.accountList();
                         })
                 }).catch(_ => {});

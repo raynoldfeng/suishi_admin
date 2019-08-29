@@ -34,7 +34,7 @@
 
                     <input id="file-selector3" multiple="multiple" type="file">
 
-                    <input id="selectAllJ-selector" type="file" >
+
                     <input id="selectImgJ-selector" type="file" >
                     <input id="selectLt-selector" type="file" >
                     <input id="selectLt-selector-big" type="file" >
@@ -225,78 +225,11 @@
 
         </div>
 
+<selectAllJType v-if="nowData.testType == 6 && nowData.displayType == 'sm2'" :nowData="nowData" :cosData="cosData" :judgeAnswerMenu="judgeAnswerMenu" :titleColor="titleColor">
+        </selectAllJType>
 
 
 
-        <div v-if="nowData.testType == 6 && nowData.displayType == 'sm2'">
-
-            <div class="view_main">
-                <span>题目:</span>
-                <el-input class="input_type" v-model="nowData.selectAllJTitle"></el-input>
-            </div>
-            <div class="view_main">
-                <span>副标题:</span>
-                <el-input class="input_type" v-model="nowData.selectAllJSubtitleTitle"></el-input>
-            </div>
-            <div class="view_main">
-                <span>标题颜色:</span>
-                <el-select v-model="nowData.selectAllJSubtitleTitleColor" class="select-css" placeholder="标题颜色">
-                    <el-option
-                            v-for="item in titleColor"
-                        :key="item.value"
-                        :label="item.label"
-                        :value="item.value">
-                    </el-option>
-                </el-select>
-            </div>
-            <div class="view_main">
-                <div class="type_title">背景图片:</div>
-
-                <div class="avatar-uploader" @click="uploadClick('selectAllJ-selector')">
-                    <img v-if="nowData.selectAllJImg" :src="nowData.selectAllJImg" class="avatar">
-                        <div v-else class=" avatar-uploader-icon">
-                            <img class="addi-icon" src="./../image/addi.png">
-                        </div>
-                </div>
-                <i @click="deleteImg('selectAllJImg')">
-                    <img  class="icon_btn" src="./../image/close.png" />
-                </i>
-            </div>
-            <div class="view_main">
-                <span>答案选项</span>
-                <el-button @click="selectAllJAddEvent">添加选项</el-button>
-                <div class="">
-                    <ul>
-                        <li v-for="(data,index) in nowData.selectAllJMenu" class="view_main" >
-                            <span>选项{{index+1}}</span>
-                            <el-input class="input_type" v-model="nowData.selectAllJMenu[index].answerText"></el-input>
-                            <el-select v-model="data.isAnswer" class="select-css" placeholder="是否正确">
-                                <el-option
-                                        v-for="item in judgeAnswerMenu"
-                                :key="item.value"
-                                :label="item.label"
-                                :value="item.value">
-                            </el-option>
-                        </el-select>
-                        <span @click="selectAllJDeleteEvent(index)">删除</span>
-                    <div class="view_main">
-                        <span class="type_title">答案解释:</span>
-                        <el-input
-                                class="textarea_type"
-                                type="textarea"
-                        :autosize="{ minRows: 2, maxRows: 4}"
-                        placeholder="请输入内容"
-                        v-model="data.selectTextNote">
-                    </el-input>
-                </div>
-
-                        </li>
-                     </ul>
-                  </div>
-                </div>
-
-
-        </div>
 
         <div v-if="nowData.testType == 7 && nowData.displayType == 'imt'">
             <div class="view_main">
@@ -762,6 +695,7 @@ import imgText from './com/imgText.vue'
 import judgeType from './com/judgeType.vue'
 import selectType from './com/selectType.vue'
 //import selectMore from './nouse/selectMore.vue'
+import selectAllJType from './com/selectAllJType.vue'
 export default {
     data(){
         return {
@@ -1180,7 +1114,8 @@ export default {
         "titlePage":titlePage,
         "imgText":imgText,
         "judgeType":judgeType,
-        "selectType":selectType
+        "selectType":selectType,
+        "selectAllJType":selectAllJType
     },
     methods:{
         bigEvent(){
@@ -1479,17 +1414,7 @@ export default {
                     }
                 }
             };
-            document.getElementById('selectAllJ-selector').onchange = function () {
-                var file = this.files[0];
-                if (!file) return;
-                if(self.SecretId != "" && self.SecretKey !="" ){
-                    if(file){
-                        self.cosjs(self.SecretId,self.SecretKey,file,self.XCosSecurityToken,self.expiredTime,function(img){
-                            self.nowData.selectAllJImg = img;
-                        });
-                    }
-                }
-            };
+
 
 
             document.getElementById('selectR-selector').onchange = function () {
@@ -1616,16 +1541,7 @@ export default {
         deleteMenuImg(index,key1,key2){
              this.nowData[key1][index][key2] = "";
         },
-        /**
-         * 选项带解释 选择
-         */
-        selectAllJAddEvent(){
-            var newData =  {answerText:"",isAnswer:"0",selectTextNote:""};
-            this.nowData.selectAllJMenu.push(newData);
-        },
-        selectAllJDeleteEvent(index){
-            this.nowData.selectAllJMenu.splice(index,1);
-        },
+
         /**
          * 列表类型
          */

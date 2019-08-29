@@ -43,7 +43,7 @@
             border
             style="width: 100%">
                 <el-table-column
-                prop="id"
+                prop="account"
                 label="用户ID"
                 >
                 </el-table-column>
@@ -66,7 +66,7 @@
                 label="操作"
                 >
                     <template slot-scope="scope">
-                        <el-button type="text" size="small" @click="seeUserEvemt(scope.row.id,scope.row.accountNick)">编辑</el-button>
+                        <el-button type="text" size="small" @click="seeUserEvemt(scope.row.account,scope.row.accountNick)">编辑</el-button>
                         <el-button @click="deleteUserEvent(scope.row.id)" type="text" size="small">删除</el-button>
                     </template>
                 </el-table-column>
@@ -315,7 +315,8 @@
                     role:"0",
                     account:"",
                     id:"",
-                    userNick:""
+                    userNick:"",
+                    status:""
                 },
                 nickSelect:"",
                 saveNickSelect:"",
@@ -488,23 +489,28 @@
                     self.taskList();
                 })
             },
-            seeUserEvemt(id,accountNick){
+            seeUserEvemt(account,accountNick){
                 var self = this;
                 this.editUserInfoVisible = true;
-                this.common.getEventToken(this.api.host+this.api.account+"/"+id,{},this.userinfo,function(data){
+                this.common.getEventToken(this.api.host+this.api.account+"/"+account,{},this.userinfo,function(data){
                     self.userDataSingle.team_id = data.team_id;
                     self.userDataSingle.role = data.role;
                     self.userDataSingle.account = data.account;
                     self.userDataSingle.id = data.id;
                     self.userDataSingle.userNick = accountNick
+                    self.userDataSingle.status = data.status;
                 })
             },
             editUserEvent(){
                 var self = this;
-                this.common.putEventToken(this.api.host+this.api.account+"/"+this.userDataSingle.id,{"team_id":this.userDataSingle.team_id, "account":this.userDataSingle.account, "role":this.userDataSingle.role},this.userinfo,function(data){
+                this.common.putEventToken(this.api.host+this.api.account+"/"+this.userDataSingle.account,{"status":this.userDataSingle.status,"team_id":this.userDataSingle.team_id, "account":this.userDataSingle.account, "role":this.userDataSingle.role},this.userinfo,function(data){
                     console.log(data);
                     self.editUserInfoVisible = false;
                     self.accountList();
+                    self.$message({
+                        message: '修改成功',
+                        type: 'success'
+                    });
                 })
             },
             deleteUserEvent(id){

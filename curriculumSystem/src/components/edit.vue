@@ -34,7 +34,7 @@
 
                     <input id="file-selector3" multiple="multiple" type="file">
 
-                    <input id="sideEdgeImg-upload" type="file" >
+
                     <input id="selectR-selector" type="file" >
                     <input id="img-selector" type="file" >
                     <input id="img-display" type="file" >
@@ -216,7 +216,7 @@
 <selectType v-if="nowData.testType == 4 && nowData.displayType == 's1'" :nowData="nowData" :cosData="cosData" :judgeAnswerMenu="judgeAnswerMenu"></selectType>
 
 
-<selectMore  v-if="nowData.testType == 5 && nowData.displayType == 'sm1'" :nowData="nowData" :cosData="cosData" :judgeAnswerMenu="judgeAnswerMenu"></selectMore>
+<!--<selectMore  v-if="nowData.testType == 5 && nowData.displayType == 'sm1'" :nowData="nowData" :cosData="cosData" :judgeAnswerMenu="judgeAnswerMenu"></selectMore>-->
 
 
         </div>
@@ -230,89 +230,11 @@
 <listType  v-if="nowData.testType == 8 && nowData.displayType == 'lt'"  :nowData="nowData" :cosData="cosData" :judgeAnswerMenu="judgeAnswerMenu" ></listType>
 
 
+        <!--<sideEdgeImgType v-if="nowData.testType == 9 && nowData.displayType == 'ct'"></sideEdgeImgType>-->
 
-        <div v-if="nowData.testType == 9 && nowData.displayType == 'ct'">
-            <div class="view_main">
-                <span>标题:</span>
-                <el-input class="input_type" v-model="nowData.sideEdgeImgTypeTitle"></el-input>
-            </div>
-            <div class="view_main">
-                <span>展示方式:</span>
-                <el-select v-model="nowData.sideEdgeImgLRType" class="select-css" placeholder="是否正确">
-                    <el-option
-                            v-for="item in sideEdgeImgDisplayType"
-                    :key="item.value"
-                    :label="item.label"
-                    :value="item.value">
-                    </el-option>
-                </el-select>
-            </div>
-            <div class="view_main">
-                <span>副标题:</span>
-                <el-input class="input_type" v-model="nowData.sideEdgeImgTypeInfo"></el-input>
-            </div>
-            <div class="view_main">
-                <div class="type_title">图片:</div>
-                <div class="avatar-uploader" @click="uploadClick('sideEdgeImg-upload')">
-                    <img v-if="nowData.sideEdgeImg" :src="nowData.sideEdgeImg" class="avatar">
-                        <div v-else class=" avatar-uploader-icon">
-                            <img class="addi-icon" src="./../image/addi.png">
-                        </div>
-                </div>
-                    <i  @click="deleteImg('sideEdgeImg')">
-                        <img  class="icon_btn" src="./../image/close.png" />
-                    </i>
-            </div>
-            <div>
-                <el-button @click="sideEdgeImgTypeAddEvent">添加段落</el-button>
-                <ul>
-                    <li v-for="(data,index) in nowData.sideEdgeImgMenu" class="view_main" >
-                        <el-input
-                                class="textarea_type"
-                                type="textarea"
-                        :autosize="{ minRows: 2, maxRows: 4}"
-                        placeholder="请输入内容"
-                        v-model="data.sideEdgeImgTypeText"></el-input>
-                         <span @click="sideEdgeImgTypeDeleteEvent(index)">删除</span>
-                      </li>
-                 </ul>
-            </div>
-
-        </div>
-
-            <div v-if="nowData.testType == 10 && nowData.displayType == 'bl'">
-                <div class="view_main">
-                    <span>标题:</span>
-                    <el-input class="input_type" v-model="nowData.blanksTitle"></el-input>
-                </div>
-                <div class="view_main">
-                    <span>副标题:</span>
-                    <el-input class="input_type" v-model="nowData.blanksInfo"></el-input>
-                </div>
-                <div class="view_main">
-                    <el-button @click="blanksAddEvent(1)">添加段落</el-button>
-                    <el-button @click="blanksAddEvent(2)">添加填空</el-button>
-                </div>
-                <div class="view_main">
-                    <ul>
-                        <li v-for="(data,index) in nowData.blanksMenu "  class="view_main">
-                            <span v-if="data.blanksType == 1">段落:</span>
-                            <el-input
-                            class="textarea_type"
-                            type="textarea"
-                            v-if="data.blanksType == 1"
-                            :autosize="{ minRows: 2, maxRows: 4}"
-                            placeholder="请输入内容"
-                            v-model="data.blanksText"></el-input>
-                            <span v-if="data.blanksType == 2">答案:</span>
-                            <el-input class="input_type" v-if="data.blanksType == 2" v-model="data.blanksAnswer"></el-input>
-                            <span @click="blanksDeleteEvent(index)">删除</span>
-                        </li>
-                    </ul>
-                </div>
+        <blanksType  v-if="nowData.testType == 10 && nowData.displayType == 'bl'" :nowData="nowData"></blanksType>
 
 
-            </div>
 
             <div v-if="nowData.testType == 11 && nowData.displayType == 'isd'">
                 <div class="view_main">
@@ -587,6 +509,8 @@ import selectType from './com/selectType.vue'
 import selectAllJType from './com/selectAllJType.vue'
 import imgJumpType from './com/imgJumpType.vue'
 import listType from './com/listType.vue'
+//import sideEdgeImgType from './nouse/sideEdgeImgType.vue'
+import blanksType from './com/blanksType.vue'
 export default {
     data(){
         return {
@@ -598,12 +522,7 @@ export default {
                 {value: "1",
                     label: "true"},
             ],
-            sideEdgeImgDisplayType:[
-                {value: "0",
-                    label: "left"},
-                {value: "1",
-                    label: "right"},
-            ],
+
             titleColor:[
                 {value: "0",
                     label: "黑色"},
@@ -630,7 +549,7 @@ export default {
                 {value:"8",
                     label:"列表类型"},
                 {value:"9",
-                    label:"侧边图片"},
+                    label:"侧边图片(废弃)"},
                 {value:"10",
                     label:"填空"},
                 {value:"11",
@@ -1008,7 +927,8 @@ export default {
         "selectType":selectType,
         "selectAllJType":selectAllJType,
         "imgJumpType":imgJumpType,
-        "listType":listType
+        "listType":listType,
+        "blanksType":blanksType
     },
     methods:{
         bigEvent(){
@@ -1287,17 +1207,6 @@ export default {
                 }
             };
 
-            document.getElementById('sideEdgeImg-upload').onchange = function () {
-                var file = this.files[0];
-                if (!file) return;
-                if(self.SecretId != "" && self.SecretKey !="" ){
-                    if(file){
-                        self.cosjs(self.SecretId,self.SecretKey,file,self.XCosSecurityToken,self.expiredTime,function(img){
-                            self.nowData.sideEdgeImg = img;
-                        });
-                    }
-                }
-            };
 
 
             document.getElementById('img-selector').onchange = function () {
@@ -1402,30 +1311,6 @@ export default {
 
 
 
-        /**
-         * 侧边图片
-         */
-        sideEdgeImgTypeAddEvent(){
-            var newData = {sideEdgeImgTypeText:""};
-            this.nowData.sideEdgeImgMenu.push(newData);
-        },
-        sideEdgeImgTypeDeleteEvent(index){
-            this.nowData.sideEdgeImgMenu.splice(index,1);
-        },
-        /**
-         * 填空
-         */
-        blanksAddEvent(type){
-            if(type == 1){
-                var data = {blanksType:1,blanksText:""};
-            }else if(type == 2){
-                var data ={blanksType:2,blanksInput:"",blanksAnswer:"",isShow:false};
-            }
-            this.nowData.blanksMenu.push(data);
-        },
-        blanksDeleteEvent(index){
-            this.nowData.blanksMenu.splice(index,1);
-        },
         /**
          * 图片选项展示
          */

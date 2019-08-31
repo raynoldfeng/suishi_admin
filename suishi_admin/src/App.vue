@@ -9,7 +9,7 @@
                   :default-openeds="openeds"
                   @close="handleClose">
 
-                      <el-submenu v-for="(data,index) in dataMenu" index="index">
+                      <el-submenu v-for="(data,index) in dataMenu" :index="index">
                           <!--<el-menu-item v-if="index == 0"  index="/home" >home</el-menu-item>-->
                           <template slot="title">{{data.title}}</template>
                           <el-menu-item v-for="cdata in data.children" :index="linkMenu[cdata.id]"  @click="jumpEvent(cdata.id)">{{cdata.title}}</el-menu-item>

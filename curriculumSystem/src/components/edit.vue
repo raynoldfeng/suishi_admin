@@ -30,16 +30,6 @@
 
     <input type="file" name = "file" id = "fileId" />
 
-                    <input id="selectL-selector" type="file" >
-
-                    <input id="file-selector3" multiple="multiple" type="file">
-
-
-                    <input id="selectR-selector" type="file" >
-                    <input id="img-selector" type="file" >
-                    <input id="img-display" type="file" >
-                    <input id="mimg-selector" type="file" >
-
                             <div  v-if=" dataMenu.length > 0">
                                 <div id="testMedolBox" :class="{big_size:isbig}" @click="bigEvent">
                                     <img  v-if="nowData.testType == 0 && nowData.displayType == 't1'" src="./../image/01.png" />
@@ -186,37 +176,18 @@
 
         <imgText v-if="nowData.testType == 1 && nowData.displayType == 'it1'" :nowData="nowData" :cosData="cosData" :judgeAnswerMenu="judgeAnswerMenu"></imgText>
 
+        <imageChange  v-if="nowData.testType == 2 && nowData.displayType == 'ic1'" :nowData="nowData" :cosData="cosData"></imageChange>
 
 
 
 
-<div v-if="nowData.testType == 2 && nowData.displayType == 'ic1'">
-<div class="view_main">
-    <div>图片</div>
-
-        <div  class="view_main" v-for="(data,index) in nowData.imageChange">
-            <div class="avatar-uploader">
-                <img v-if="nowData.imageChange[index]" :src="nowData.imageChange[index]" class="avatar">
-                    <div v-else class=" avatar-uploader-icon">
-                        <img class="addi-icon" src="./../image/addi.png">
-                     </div>
-            </div>
-            <el-button @click="imageChangeDelete(index)">删除</el-button>
-        </div>
-        <div class="view_main">
-            <el-button @click="uploadClick('file-selector3')">添加图片</el-button>
-         </div>
-
-
-        </div>
-        </div>
 
 <judgeType v-if="nowData.testType == 3 && nowData.displayType == 'j1'" :nowData="nowData" :cosData="cosData" :judgeAnswerMenu="judgeAnswerMenu"></judgeType>
 
 <selectType v-if="nowData.testType == 4 && nowData.displayType == 's1'" :nowData="nowData" :cosData="cosData" :judgeAnswerMenu="judgeAnswerMenu"></selectType>
 
 
-<!--<selectMore  v-if="nowData.testType == 5 && nowData.displayType == 'sm1'" :nowData="nowData" :cosData="cosData" :judgeAnswerMenu="judgeAnswerMenu"></selectMore>-->
+<selectMore  v-if="nowData.testType == 5 && nowData.displayType == 'sm1'" :nowData="nowData" :cosData="cosData" :judgeAnswerMenu="judgeAnswerMenu"></selectMore>
 
 
         </div>
@@ -230,142 +201,19 @@
 <listType  v-if="nowData.testType == 8 && nowData.displayType == 'lt'"  :nowData="nowData" :cosData="cosData" :judgeAnswerMenu="judgeAnswerMenu" ></listType>
 
 
-        <!--<sideEdgeImgType v-if="nowData.testType == 9 && nowData.displayType == 'ct'"></sideEdgeImgType>-->
+        <sideEdgeImgType v-if="nowData.testType == 9 && nowData.displayType == 'ct'" :nowData="nowData" :cosData="cosData"></sideEdgeImgType>
 
         <blanksType  v-if="nowData.testType == 10 && nowData.displayType == 'bl'" :nowData="nowData"></blanksType>
 
 
 
-            <div v-if="nowData.testType == 11 && nowData.displayType == 'isd'">
-                <div class="view_main">
-                    <span>标题:</span>
-                    <el-input class="input_type" v-model="nowData.imgselectDisplayTitle"></el-input>
-                </div>
-                <div class="view_main">
-                    <span>副标题:</span>
-                    <el-input class="input_type" v-model="nowData.imgselectDisplayInfo"></el-input>
-                </div>
-                <div class="view_main">
-                    <div class="type_title">默認图片:</div>
-                    <div class="avatar-uploader" @click="uploadClick('mimg-selector')">
-                        <img v-if="nowData.imgselectDisplayMImg" :src="nowData.imgselectDisplayMImg" class="avatar">
-                            <div v-else class=" avatar-uploader-icon">
-                                <img class="addi-icon" src="./../image/addi.png">
-                            </div>
-                    </div>
-                <div class="view_main">
-                    <el-button @click="imgselectDisplayMImgEvent">删除</el-button>
+        <imgselectDisplayType v-if="nowData.testType == 11 && nowData.displayType == 'isd'" :nowData="nowData" :cosData="cosData" :judgeAnswerMenu="judgeAnswerMenu"></imgselectDisplayType>
 
-                </div>
-                </div>
-                    <div class="view_main">
-                        <span>是否添加段落样式:</span>
-
-                        <el-select v-model="nowData.imgselectDisplayValue" class="select-css" placeholder="段落样式">
-                            <el-option
-                            v-for="item in judgeAnswerMenu"
-                            :key="item.value"
-                            :label="item.label"
-                            :value="item.value">
-                            </el-option>
-                        </el-select>
-                    </div>
-                <div class="view_main">
-                    <el-button @click="imgSelectAddEvent" type="primary" >添加图片选项</el-button>
-                    <div class="view_main box-css" v-for="(data,index) in nowData.imgselectDisplayMenu">
-                        <div class="view_main">
-                            <el-button @click="imgSelectDeleteEvent(index)">删除</el-button>
-                        </div>
-                        <div class="view_main">
-                            <span>按钮内容:</span>
-                            <el-input class="input_type" v-model="data.imgselectDisplayBtn"></el-input>
-                        </div>
-                        <div class="view_main">
-                            <div class="type_title">图片:</div>
-                            <div class="avatar-uploader" @click="uploadClick('img-selector',index)">
-                                <img v-if="data.imgselectDisplayImg" :src="data.imgselectDisplayImg" class="avatar">
-                                    <div v-else class=" avatar-uploader-icon">
-                                        <img class="addi-icon" src="./../image/addi.png">
-                                    </div>
-                            </div>
-                        </div>
-                        <div class="view_main">
-                            <span>段落:</span>
-                            <el-button @click="imgSelectTextAddEvent(index)">添加段落</el-button>
-                            <ul class="view_main">
-                                <li v-for="(sdata,sindex) in data.imgselectDisplayTextMenu"  class="view_main">
-                                    <el-input
-                                            class="textarea_type"
-                                            type="textarea"
-                                    :autosize="{ minRows: 2, maxRows: 4}"
-                                    placeholder="请输入内容"
-                                    v-model="sdata.imgselectDisplayText"></el-input>
-                                    <span @click="imgSelectTextDeleteEvent(index,sindex)">删除</span>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <imgDisplayType v-if="nowData.testType == 12 && nowData.displayType == 'idp'" :nowData="nowData" :cosData="cosData" :judgeAnswerMenu="judgeAnswerMenu"></imgDisplayType>
 
 
-            <div v-if="nowData.testType == 12 && nowData.displayType == 'idp'">
-                <div class="view_main">
-                    <span>标题:</span>
-                    <el-input class="input_type" v-model="nowData.imgDisplayTypeTitle"></el-input>
-                </div>
-                <div class="view_main">
-                    <span>副标题:</span>
-                    <el-input class="input_type" v-model="nowData.imgDisplayTypeInfo"></el-input>
-                </div>
-                <div class="view_main">
-                    <el-button @click="imgDisplayAddEvent" type="primary" >添加图片展示</el-button>
-                    <div class="view_main" v-for="(data,index) in nowData.imgDisplayTypeMenu">
-                        <div class="view_main">
-                            <el-button @click="imgDisplayDeleteEvent(index)">删除</el-button>
-                        </div>
-                        <div class="view_main">
-                            <div class="type_title">图片:</div>
-                            <div class="avatar-uploader" @click="uploadClick('img-display',index)">
-                                <img v-if="data.imgDisplayTypeImg" :src="data.imgDisplayTypeImg" class="avatar">
-                                    <div v-else class=" avatar-uploader-icon">
-                                        <img class="addi-icon" src="./../image/addi.png">
-                                    </div>
-                            </div>
-                                <i  @click="deleteMenuImg(index,'imgDisplayTypeMenu','imgDisplayTypeImg')">
-                                    <img class="icon_btn" src="./../image/close.png" />
-                                </i>
-                        </div>
-                            <div class="view_main">
-                                <span>是否添加段落样式:</span>
 
-                                <el-select v-model="nowData.imgDisplayTypeValue" class="select-css" placeholder="段落样式">
-                                    <el-option
-                                    v-for="item in judgeAnswerMenu"
-                                    :key="item.value"
-                                    :label="item.label"
-                                    :value="item.value">
-                                    </el-option>
-                                </el-select>
-                            </div>
-                        <div class="view_main">
-                            <span>段落:</span>
-                            <el-button @click="imgDisplayTextAddEvent(index)">添加段落</el-button>
-                            <ul class="view_main">
-                                <li v-for="(sdata,sindex) in data.imgDisplayTypeTextMenu"  class="view_main">
-                                    <el-input
-                                            class="textarea_type"
-                                            type="textarea"
-                                    :autosize="{ minRows: 2, maxRows: 4}"
-                                    placeholder="请输入内容"
-                                    v-model="sdata.imgDisplayTypeText"></el-input>
-                                    <span @click="imgDisplayTextDeleteEvent(index,sindex)">删除</span>
-                               </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
+
 
         </el-main>
         </el-container>
@@ -505,12 +353,15 @@ import titlePage from './com/titlePage.vue'
 import imgText from './com/imgText.vue'
 import judgeType from './com/judgeType.vue'
 import selectType from './com/selectType.vue'
-//import selectMore from './nouse/selectMore.vue'
+import selectMore from './nouse/selectMore.vue'
 import selectAllJType from './com/selectAllJType.vue'
 import imgJumpType from './com/imgJumpType.vue'
 import listType from './com/listType.vue'
-//import sideEdgeImgType from './nouse/sideEdgeImgType.vue'
+import sideEdgeImgType from './nouse/sideEdgeImgType.vue'
 import blanksType from './com/blanksType.vue'
+    import imgselectDisplayType from './com/imgselectDisplayType.vue'
+    import imgDisplayType from './com//imgDisplayType.vue'
+    import imageChange from './nouse/imageChange.vue'
 export default {
     data(){
         return {
@@ -535,7 +386,7 @@ export default {
                 {value: "1",
                     label: "图文"},
                 {value: "2",
-                    label: "图片轮播"},
+                    label: "图片轮播(废弃)"},
                 {value: "3",
                     label: "判断"},
                 {value: "4",
@@ -928,7 +779,12 @@ export default {
         "selectAllJType":selectAllJType,
         "imgJumpType":imgJumpType,
         "listType":listType,
-        "blanksType":blanksType
+        "blanksType":blanksType,
+        "imgselectDisplayType":imgselectDisplayType,
+        "imgDisplayType":imgDisplayType,
+        "selectMore":selectMore,
+        "sideEdgeImgType":sideEdgeImgType,
+        "imageChange":imageChange
     },
     methods:{
         bigEvent(){
@@ -1155,99 +1011,6 @@ export default {
 
 
 
-
-
-            document.getElementById('file-selector3').onchange = function () {
-                var files = this.files;
-                //                console.log(file.name);
-                //                console.log(file)
-                if(files.length>0){
-                    self.pptUrl = [];
-                }
-                if(self.SecretId != "" && self.SecretKey !="" ){
-                    for(let i = 0 ;i<files.length;i++){
-                        var file = files[i];
-                        if (!file) return;
-                        if(file){
-                            self.cosjs(self.SecretId,self.SecretKey,file,self.XCosSecurityToken,self.expiredTime,function(url){
-                                self.nowData.imageChange.push(url);
-                            });
-                        }
-                    }
-                }
-
-            };
-
-
-
-
-            document.getElementById('selectL-selector').onchange = function () {
-                var file = this.files[0];
-                if (!file) return;
-                if(self.SecretId != "" && self.SecretKey !="" ){
-                    if(file){
-                        self.cosjs(self.SecretId,self.SecretKey,file,self.XCosSecurityToken,self.expiredTime,function(img){
-                            self.nowData.selectMoreImgL = img;
-                        });
-                    }
-                }
-            };
-
-
-
-            document.getElementById('selectR-selector').onchange = function () {
-                var file = this.files[0];
-                if (!file) return;
-                if(self.SecretId != "" && self.SecretKey !="" ){
-                    if(file){
-                        self.cosjs(self.SecretId,self.SecretKey,file,self.XCosSecurityToken,self.expiredTime,function(img){
-                            self.nowData.selectMoreImgR = img;
-                        });
-                    }
-                }
-            };
-
-
-
-            document.getElementById('img-selector').onchange = function () {
-                var file = this.files[0];
-                if (!file) return;
-                if(self.SecretId != "" && self.SecretKey !="" ){
-                    if(file){
-                        self.cosjs(self.SecretId,self.SecretKey,file,self.XCosSecurityToken,self.expiredTime,function(img){
-                            self.nowData.imgselectDisplayMenu[self.selectImgIndex].imgselectDisplayImg = img;
-                        });
-                    }
-                }
-            };
-
-            document.getElementById('img-display').onchange = function () {
-                var file = this.files[0];
-                if (!file) return;
-                if(self.SecretId != "" && self.SecretKey !="" ){
-                    if(file){
-                        self.cosjs(self.SecretId,self.SecretKey,file,self.XCosSecurityToken,self.expiredTime,function(img){
-                            self.nowData.imgDisplayTypeMenu[self.selectImgIndex].imgDisplayTypeImg = img;
-                            console.log(111111111111)
-                            console.log(img)
-                            console.log( self.nowData.imgDisplayTypeMenu)
-                        });
-                    }
-                }
-            };
-
-            document.getElementById('mimg-selector').onchange = function () {
-                var file = this.files[0];
-                if (!file) return;
-                if(self.SecretId != "" && self.SecretKey !="" ){
-                    if(file){
-                        self.cosjs(self.SecretId,self.SecretKey,file,self.XCosSecurityToken,self.expiredTime,function(img){
-                            self.nowData.imgselectDisplayMImg = img;
-                        });
-                    }
-                }
-            };
-
             document.getElementById('fileId').onchange = function () {
                 var file = this.files[0];
                 if (!file) return;
@@ -1297,11 +1060,7 @@ export default {
             }
 
         },
-        imageChangeDelete(index){
-            if(this.nowData.imageChange.length > 0){
-                this.nowData.imageChange.splice(index,1);
-            }
-        },
+
         deleteImg(type){
             this.nowData[type] = "";
         },
@@ -1311,53 +1070,9 @@ export default {
 
 
 
-        /**
-         * 图片选项展示
-         */
-        imgSelectAddEvent(){
-            var newdata = { imgselectDisplayBtn:"",
-                imgselectDisplayImg:"",
-                imgselectDisplayTextMenu:[{
-                    imgselectDisplayText:""
-                }]
-            };
-            this.nowData.imgselectDisplayMenu.push(newdata);
-        },
-        imgSelectDeleteEvent(index){
-            this.nowData.imgselectDisplayMenu.splice(index,1);
-        },
-        imgSelectTextAddEvent(index){
-            var newdata = {imgselectDisplayText:""};
-            this.nowData.imgselectDisplayMenu[index].imgselectDisplayTextMenu.push(newdata);
-        },
-        imgSelectTextDeleteEvent(index,sindex){
-            this.nowData.imgselectDisplayMenu[index].imgselectDisplayTextMenu.splice(sindex,1);
-        },
-        imgselectDisplayMImgEvent(){
-            this.nowData.imgselectDisplayMImg = "";
-        },
-        /**
-         * 图片展示类型
-         */
-        imgDisplayAddEvent(){
-            var newdata = {
-                imgDisplayTypeImg:"",
-                imgDisplayTypeTextMenu:[{
-                    imgDisplayTypeText:""
-                }]
-            };
-            this.nowData.imgDisplayTypeMenu.push(newdata);
-        },
-        imgDisplayDeleteEvent(index){
-            this.nowData.imgDisplayTypeMenu.splice(index,1);
-        },
-        imgDisplayTextAddEvent(index){
-            var newdata = {imgDisplayTypeText:""}
-            this.nowData.imgDisplayTypeMenu[index].imgDisplayTypeTextMenu.push(newdata);
-        },
-        imgDisplayTextDeleteEvent(index,sindex){
-            this.nowData.imgDisplayTypeMenu[index].imgDisplayTypeTextMenu.splice(sindex,1);
-        },
+
+
+
 
 
     },

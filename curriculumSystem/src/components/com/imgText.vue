@@ -20,29 +20,30 @@
                          </i>
                     </div>
 
-                    <div class="view_main">
-                        <span>是否添加段落样式:</span>
-
-                        <el-select v-model="nowData.imgTextValue" class="select-css" placeholder="段落样式">
-                            <el-option
-                                    v-for="item in judgeAnswerMenu"
-                            :key="item.value"
-                            :label="item.label"
-                            :value="item.value">
-                        </el-option>
-                    </el-select>
-                </div>
-
                 <div  class="view_main">
 
                      <p>文本</p>
+
                     <div  class="view_main"  v-for="(data,index) in nowData.imgTextMenu">
+                        <div class="view_main">
+                            <span>段落样式:</span>
+
+                            <el-select v-model="nowData.imgTextMenu[index].imgTextValue" class="select-css" placeholder="段落样式">
+                                <el-option
+                                v-for="item in listSysleList"
+                                :key="item.value"
+                                :label="item.label"
+                                :value="item.value">
+                                </el-option>
+                            </el-select>
+                        </div>
+
                         <el-input   v-if="nowData.imgTextMenu.length>0"
                                     class="textarea_type"
                                     type="textarea"
                         :autosize="{ minRows: 2, maxRows: 4}"
                         placeholder="请输入内容"
-                        v-model="nowData.imgTextMenu[index]">
+                        v-model="nowData.imgTextMenu[index].text">
                         </el-input>
                          <span  @click="deleteImgText(index)">删除</span>
                      </div>
@@ -68,7 +69,7 @@ export default {
     props:{
         nowData:"",
         cosData:"",
-        judgeAnswerMenu:"",
+        listSysleList:"",
     },
     mounted:function(){
         var self = this;
@@ -106,7 +107,8 @@ export default {
          * 添加段落
          */
         addImgText(){
-            this.nowData.imgTextMenu.push("");
+            var newdata = { text:"",imgTextValue:"0"};
+            this.nowData.imgTextMenu.push(newdata);
         },
         deleteImgText(index){
             this.nowData.imgTextMenu.splice(index,1);

@@ -230,7 +230,27 @@ ul li{
 #QuestMain .commonMenu li{
 
 }
-#QuestMain .commonMenu li:before{
+#QuestMain li.commonMenuN:before{
     content: "";
-    padding-right: 1.5em;
+    padding-right: .5em;
+}
+#QuestMain  li.commonMenuS:before{
+    content: "▶";
+    padding-right: .5em;
+}
+#QuestMain li.commonMenuC:before{
+    content: "•";
+    padding-right: .5em;
+}
+#QuestMain li.commonMenuF:before{
+    content: "■";
+    padding-right: .5em;
+}
+#QuestMain li.commonMenuTC:before{
+    content: "◎";
+    padding-right: .5em;
+}
+#QuestMain li.commonMenuX:before{
+    content: "※";
+    padding-right: .5em;
 }

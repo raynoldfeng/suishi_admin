@@ -7,8 +7,9 @@
                     <img id="selectImg" :src="data.listTypeImg" @click="displayEvent(data.listTypeImg,'',data.listTypeImgBig)" >
                 </div>
             </div>
-            <ul class="list-type-menu" :class = "{commonMenu:data.listTypeValue == '0'}">
-                <li v-for="(idata,index) in listMenu" v-html="Trim(idata.text)" v-show="idata.show"></li>
+            <ul class="list-type-menu" >
+                <li v-for="(idata,index) in listMenu" v-html="Trim(idata.text)" :class = "{commonMenuN:idata.listTypeValue == '0',commonMenuS:idata.listTypeValue == '1',commonMenuC:idata.listTypeValue == '2'
+            ,commonMenuF:idata.listTypeValue == '3',commonMenuTC:idata.listTypeValue == '4',commonMenuX:idata.listTypeValue == '5'}" v-show="idata.show"></li>
             </ul>
             <ul class="ratelist">
                 <li  v-for="(idata,index) in listMenu" @click="reShow(index)" :class="{clickbtned:listLen == index}"></li>
@@ -35,11 +36,10 @@ export default {
             this.listMenu = [];
             for(let i = 0 ; i < this.data.listTypeMenu.length; i++){
                 if(i == 0){
-                    this.listMenu.push({text:this.data.listTypeMenu[i].listTypeText,show:true})
+                    this.listMenu.push({text:this.data.listTypeMenu[i].listTypeText,listTypeValue:this.data.listTypeMenu[i].listTypeValue,show:true})
                 }else{
-                    this.listMenu.push({text:this.data.listTypeMenu[i].listTypeText,show:false})
+                    this.listMenu.push({text:this.data.listTypeMenu[i].listTypeText,listTypeValue:this.data.listTypeMenu[i].listTypeValue,show:false})
                 }
-
             }
 
         },
@@ -101,7 +101,6 @@ export default {
         word-break: break-all;
     }
 .list-type-menu li:before{
-    content: "▶";
     padding-right: .5em;
     font-family: "iconfont";
     vertical-align: middle;

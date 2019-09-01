@@ -28,29 +28,30 @@
                             </i>
                         </div>
                         <div class="view_main">
-                            <span>是否添加段落样式:</span>
-
-                            <el-select v-model="nowData.imgDisplayTypeValue" class="select-css" placeholder="段落样式">
-                                <el-option
-                                v-for="item in judgeAnswerMenu"
-                                :key="item.value"
-                                :label="item.label"
-                                :value="item.value">
-                                </el-option>
-                            </el-select>
-                        </div>
-                        <div class="view_main">
                             <span>段落:</span>
                             <el-button @click="imgDisplayTextAddEvent(index)">添加段落</el-button>
                             <ul class="view_main">
                                 <li v-for="(sdata,sindex) in data.imgDisplayTypeTextMenu"  class="view_main">
-                                    <el-input
-                                    class="textarea_type"
-                                    type="textarea"
-                                    :autosize="{ minRows: 2, maxRows: 4}"
-                                    placeholder="请输入内容"
-                                    v-model="sdata.imgDisplayTypeText"></el-input>
-                                    <span @click="imgDisplayTextDeleteEvent(index,sindex)">删除</span>
+                                    <div class="view_main">
+                                        <span>段落样式:</span>
+                                        <el-select v-model="sdata.imgDisplayTypeValue" class="select-css" placeholder="段落样式">
+                                            <el-option
+                                            v-for="item in listSysleList"
+                                            :key="item.value"
+                                            :label="item.label"
+                                            :value="item.value">
+                                            </el-option>
+                                        </el-select>
+                                    </div>
+                                    <div class="view_main">
+                                        <el-input
+                                        class="textarea_type"
+                                        type="textarea"
+                                        :autosize="{ minRows: 2, maxRows: 4}"
+                                        placeholder="请输入内容"
+                                        v-model="sdata.imgDisplayTypeText"></el-input>
+                                        <span @click="imgDisplayTextDeleteEvent(index,sindex)">删除</span>
+                                    </div>
                                 </li>
                             </ul>
                         </div>
@@ -72,7 +73,7 @@
             props:{
             nowData:"",
             cosData:"",
-            judgeAnswerMenu:"",
+            listSysleList:"",
             },
             mounted:function(){
             var self = this;
@@ -119,7 +120,8 @@
             var newdata = {
             imgDisplayTypeImg:"",
             imgDisplayTypeTextMenu:[{
-            imgDisplayTypeText:""
+                imgDisplayTypeValue:"0",
+                imgDisplayTypeText:""
             }]
             };
             this.nowData.imgDisplayTypeMenu.push(newdata);
@@ -128,7 +130,7 @@
             this.nowData.imgDisplayTypeMenu.splice(index,1);
             },
             imgDisplayTextAddEvent(index){
-            var newdata = {imgDisplayTypeText:""}
+            var newdata = {imgDisplayTypeValue:"0",imgDisplayTypeText:""}
             this.nowData.imgDisplayTypeMenu[index].imgDisplayTypeTextMenu.push(newdata);
             },
             imgDisplayTextDeleteEvent(index,sindex){

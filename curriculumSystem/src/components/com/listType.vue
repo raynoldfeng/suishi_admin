@@ -37,31 +37,34 @@
 <span>按钮文案:</span>
 <el-input class="input_type" v-model="nowData.listTypeBtnText"></el-input>
 </div>
-<div class="view_main">
-<span>是否添加段落样式:</span>
 
-<el-select v-model="nowData.listTypeValue" class="select-css" placeholder="段落样式">
-    <el-option
-            v-for="item in judgeAnswerMenu"
-    :key="item.value"
-    :label="item.label"
-    :value="item.value">
-</el-option>
-</el-select>
-        </div>
 <div class="view_main">
 <span>段落:</span>
 <el-button @click="selectListTypeAddEvent">添加段落</el-button>
 <ul>
-<li v-for="(data,index) in nowData.listTypeMenu" class="view_main" >
-    <el-input
+    <li v-for="(data,index) in nowData.listTypeMenu" class="view_main" >
+        <div class="view_main">
+            <span>段落样式:</span>
+
+            <el-select v-model="data.listTypeValue" class="select-css" placeholder="段落样式">
+                <el-option
+                v-for="item in listSysleList"
+                :key="item.value"
+                :label="item.label"
+                :value="item.value">
+                </el-option>
+            </el-select>
+        </div>
+        <div class="view_main">
+            <el-input
             class="textarea_type"
             type="textarea"
-    :autosize="{ minRows: 2, maxRows: 4}"
-    placeholder="请输入内容"
-    v-model="data.listTypeText"></el-input>
-<span @click="selectListTypeDeleteEvent(index)">删除</span>
-        </li>
+            :autosize="{ minRows: 2, maxRows: 4}"
+            placeholder="请输入内容"
+            v-model="data.listTypeText"></el-input>
+            <span @click="selectListTypeDeleteEvent(index)">删除</span>
+        </div>
+    </li>
         </ul>
 
         </div>
@@ -83,7 +86,8 @@ export default{
     props:{
         nowData:"",
                 cosData:"",
-                judgeAnswerMenu:""
+                judgeAnswerMenu:"",
+                listSysleList:""
     },
     mounted:function(){
         var self =this;
@@ -129,7 +133,7 @@ export default{
          * 列表类型
          */
         selectListTypeAddEvent(){
-            var newData = {listTypeText:""};
+            var newData = {listTypeText:"",listTypeValue:"0"};
             this.nowData.listTypeMenu.push(newData);
         },
         selectListTypeDeleteEvent(index){

@@ -23,18 +23,7 @@
 
                     </div>
                 </div>
-                <div class="view_main">
-                    <span>是否添加段落样式:</span>
 
-                    <el-select v-model="nowData.imgselectDisplayValue" class="select-css" placeholder="段落样式">
-                        <el-option
-                        v-for="item in judgeAnswerMenu"
-                        :key="item.value"
-                        :label="item.label"
-                        :value="item.value">
-                        </el-option>
-                    </el-select>
-                </div>
                 <div class="view_main">
                     <el-button @click="imgSelectAddEvent" type="primary" >添加图片选项</el-button>
                     <div class="view_main box-css" v-for="(data,index) in nowData.imgselectDisplayMenu">
@@ -62,13 +51,26 @@
                                     <el-button @click="imgSelectTextAddEvent(index)">添加段落</el-button>
                                     <ul class="view_main">
                                         <li v-for="(sdata,sindex) in data.imgselectDisplayTextMenu"  class="view_main">
-                                            <el-input
-                                            class="textarea_type"
-                                            type="textarea"
-                                            :autosize="{ minRows: 2, maxRows: 4}"
-                                            placeholder="请输入内容"
-                                            v-model="sdata.imgselectDisplayText"></el-input>
-                                            <span @click="imgSelectTextDeleteEvent(index,sindex)">删除</span>
+                                            <div class="view_main">
+                                                <span>段落样式:</span>
+                                                <el-select v-model="sdata.imgselectDisplayValue" class="select-css" placeholder="段落样式">
+                                                    <el-option
+                                                    v-for="item in listSysleList"
+                                                    :key="item.value"
+                                                    :label="item.label"
+                                                    :value="item.value">
+                                                    </el-option>
+                                                </el-select>
+                                            </div>
+                                            <div class="view_main">
+                                                <el-input
+                                                class="textarea_type"
+                                                type="textarea"
+                                                :autosize="{ minRows: 2, maxRows: 4}"
+                                                placeholder="请输入内容"
+                                                v-model="sdata.imgselectDisplayText"></el-input>
+                                                <span @click="imgSelectTextDeleteEvent(index,sindex)">删除</span>
+                                            </div>
                                         </li>
                                     </ul>
                                 </div>
@@ -90,7 +92,7 @@
                     props:{
                     nowData:"",
                     cosData:"",
-                    judgeAnswerMenu:"",
+                    listSysleList:""
                     },
                     mounted:function(){
                     var self = this;
@@ -147,6 +149,7 @@
                     var newdata = { imgselectDisplayBtn:"",
                     imgselectDisplayImg:"",
                     imgselectDisplayTextMenu:[{
+                    imgselectDisplayValue:"0",
                     imgselectDisplayText:""
                     }]
                     };
@@ -156,7 +159,7 @@
                     this.nowData.imgselectDisplayMenu.splice(index,1);
                     },
                     imgSelectTextAddEvent(index){
-                    var newdata = {imgselectDisplayText:""};
+                    var newdata = {imgselectDisplayValue:"0",imgselectDisplayText:""};
                     this.nowData.imgselectDisplayMenu[index].imgselectDisplayTextMenu.push(newdata);
                     },
                     imgSelectTextDeleteEvent(index,sindex){

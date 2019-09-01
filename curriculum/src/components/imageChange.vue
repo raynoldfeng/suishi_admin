@@ -1,64 +1,74 @@
 <template>
     <div id="QuestMain">
         <div id="imageChange" :style = '{"height":imageChangeHeight+"px"}'>
-            <swiper class="swiper_type_menu" :options="imageChangeOption" >
-            <!-- slides -->
-                <swiper-slide v-for="(data,index) in data.imageChange" :key="index" >
-                   <img :src="data">
-                </swiper-slide>
-             <!--   <swiper-slide key="1">
-                    <img src="https://mohivecontents-jp.crossknowledge.com/staticcoursecontent/en-gb/bsfi633/medias/07FFDC33-D863-4B12-8C71-B4D49AA21F30/Q3_07FFDC33-D863-4B12-8C71-B4D49AA21F30.jpg">
-                </swiper-slide>
-                <swiper-slide key="2">
-                    <img src="https://mohivecontents-jp.crossknowledge.com/staticcoursecontent/en-gb/bsfi633/medias/07FFDC33-D863-4B12-8C71-B4D49AA21F30/Q3_07FFDC33-D863-4B12-8C71-B4D49AA21F30.jpg">
-                </swiper-slide>-->
-            </swiper>
-
+            <ul class="imgChange-menu">
+                <li  v-for="(datas,index) in data.imageChange" v-show="nowImgIndex == index">
+                    <img :src="datas.img">
+                    <div class="imageChange-text" v-if="datas.text" v-html="Trim(datas.text)"></div>
+                      <div class="tp-next-btn" @click="jumpEvent" v-if="index ==  data.imageChange.length-1" v-show="nowImgIndex == data.imageChange.length-1 && data.imageChangeJump !=''" v-text="data.imageChangeJump"></div>
+                </li>
+            </ul>
         </div>
-        <div class="ic-swiper-pagination swiper-pagination-clickable swiper-pagination-bullets" slot="progressbar"></div>
+        <ul class="ic-swiper-pagination" >
+            <li  v-for="(data,index) in data.imageChange" @click="imgChangeEvent(index)" :class="{clickbtned:nowImgIndex == index}"></li>
+        </ul>
+
     </div>
 </template>
  <script>
     export default{
      props:{
-     data:""
+         data:"",
+         page:0
      },
         data(){
             return{
                 imageChangeHeight:0,
-                imageChangeOption: {
-                    direction: 'vertical',
-                    pagination: {
-                        el: '.ic-swiper-pagination',
-                        clickable: true
-                    }
-                },
-
+                nowImgIndex:0
             }
         },
         mounted:function(){
             this.imageChangeHeight = document.getElementById("QuestMain").scrollHeight;
-        }
+        },
+        methods:{
+             Trim(str) {
+                return str.replace(/\n|\r\n/g,"<br/>");
+             },
+             imgChangeEvent(index){
+                this.nowImgIndex = index
+             },
+             jumpEvent(){
+                this.$emit("isJump",this.page+1);
+             }
+         }
     }
  </script>
         <style>
         #imageChange{
-
             overflow: hidden;
         }
             #imageChange img{
                 width: 100%;
             }
         .ic-swiper-pagination{
-            width: 8px;
+            width: 12px;
             float: right;
-            margin-top: 30%;
-            margin-right: 2%;
+            margin-top: 28%;
+            margin-left: 2%;
             position: absolute;
-            right: 0;
+            left: 0;
             z-index: 100;
             top: 50%;
-
+        }
+        .ic-swiper-pagination li{
+            width:12px;
+            height:12px;
+            background:#999999;
+            margin-top:60%;
+            border-radius:100px;
+         }
+        .ic-swiper-pagination li.clickbtned{
+            background:#fd9800;
         }
             #imageChange  .swiper-pagination-bullets {
                 right: 10px;
@@ -66,4 +76,30 @@
                 -webkit-transform: translate3d(0,-50%,0);
                 transform: translate3d(0,-50%,0);
             }
+
+        .imgChange-menu{
+            width: 84%;
+            height: 100%;
+            margin: 0 auto;
+            position: relative;
+            }
+        .imgChange-menu li {
+            position: absolute;
+            top: 50%;
+            margin-top: -50%;
+            }
+        .imgChange-menu img{
+            width:100%;
+            }
+            .imageChange-text{
+                padding:4%;
+                border: 2px solid #333;
+                color: #666;
+                font-size:4.5vw;
+                margin-top:4%;
+                text-align:left;
+                margin-bottom:5%;
+            }
+
+
         </style>

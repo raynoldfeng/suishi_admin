@@ -10,8 +10,9 @@
                 </div>
             </div>
             <transition name="fade">
-                <ul class="sideEdgeBoxMenu idp-type-menu" v-show="isShow" :class = "{commonMenu:data.imgDisplayTypeValue == '0'}">
-                    <li v-for="(sdata,sindex) in datas.imgDisplayTypeTextMenu" v-html="Trim(sdata.imgDisplayTypeText)"></li>
+                <ul class="sideEdgeBoxMenu idp-type-menu" v-show="isShow">
+                    <li v-for="(sdata,sindex) in datas.imgDisplayTypeTextMenu" v-html="Trim(sdata.imgDisplayTypeText)" :class = "{commonMenuN:sdata.imgDisplayTypeValue == '0',commonMenuS:sdata.imgDisplayTypeValue == '1',commonMenuC:sdata.imgDisplayTypeValue == '2'
+            ,commonMenuF:sdata.imgDisplayTypeValue == '3',commonMenuTC:sdata.imgDisplayTypeValue == '4',commonMenuX:sdata.imgDisplayTypeValue == '5'}" ></li>
                 </ul>
             </transition>
         </div>
@@ -21,7 +22,7 @@
 import $ from 'jquery'
            export default{
                 props:{
-                    data:""
+                    data:"",
                 },
                 data(){
                     return{

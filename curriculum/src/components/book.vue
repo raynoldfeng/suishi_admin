@@ -14,7 +14,7 @@
             <swiper-slide v-for="(data,index) in bookData" :key="index">
                 <v-titlePage v-if="data.testType == '0' && data.displayType == 't1'" v-on:isStart = "isStartEvent" :data="data"></v-titlePage>
                 <v-imageText v-else-if="data.testType == '1' && data.displayType == 'it1'" :data="data"></v-imageText>
-                <v-imageChange v-else-if="data.testType == '2' && data.displayType == 'ic1'" :data="data"></v-imageChange>
+                <v-imageChange v-else-if="data.testType == '2' && data.displayType == 'ic1'" :data="data" :page="index" v-on:isJump = "isJumpEvent"></v-imageChange>
                 <v-judge  v-else-if="data.testType == '3' && data.displayType == 'j1'" :data="data" :index = "index" :nowPage="nowPage" v-on:isJump = "isJumpEvent"></v-judge>
                 <v-select v-else-if="data.testType == '4' && data.displayType == 's1'" :data="data" :nowyes="nowyesEvent(data)" v-on:imgShow = "imgShowEvent"></v-select>
                 <v-selectmore  v-else-if="data.testType == '5' && data.displayType == 'sm1'" :data="data"></v-selectmore>
@@ -422,23 +422,23 @@ import blanksType from '../components/blanksType.vue'
       }
   #saveBox{
       width: 100%;
-  height: 100%;
-  position: fixed;
+        height: 100%;
+    position: fixed;
       z-index: 1000;
       top: 0;
       left: 0;
       background-color: #000000;
-      opacity: 0.4;
+      opacity: 0.6;
   }
   #saveMain p{
       color: #ffffff;
-      font-size: 6vw;
-      padding-bottom: 2%;
+      font-size: 5vw;
+      padding-bottom: 39%;
   }
   #saveMain{
       width: 80%;
       position: fixed;
-      top: 20%;
+      top: 29%;
       left: 50%;
       margin-left: -40%;
       z-index: 1002;
@@ -446,11 +446,12 @@ import blanksType from '../components/blanksType.vue'
   #yesbtn,#nobtn{
       width: 60%;
       padding: 3% 0;
-      margin: 4% auto;
-      font-size: 5vw;
+      margin: 6% auto;
+      font-size: 4.5vw;
       text-align: center;
       background-color: #019ccb;
-      color: #ffffff;
+      color: #fff;
+      border-radius: 4px;
   }
   #swiper-button-prev, .swiper-container-rtl .swiper-button-next{
       display:none;

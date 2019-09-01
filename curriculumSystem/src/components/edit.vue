@@ -174,7 +174,7 @@
 
                     <titlePage v-if="nowData.testType == 0 && nowData.displayType == 't1'" :nowData="nowData" :cosData="cosData"></titlePage>
 
-        <imgText v-if="nowData.testType == 1 && nowData.displayType == 'it1'" :nowData="nowData" :cosData="cosData" :judgeAnswerMenu="judgeAnswerMenu"></imgText>
+        <imgText v-if="nowData.testType == 1 && nowData.displayType == 'it1'" :nowData="nowData" :cosData="cosData" :listSysleList="listSysleList"></imgText>
 
         <imageChange  v-if="nowData.testType == 2 && nowData.displayType == 'ic1'" :nowData="nowData" :cosData="cosData"></imageChange>
 
@@ -198,7 +198,7 @@
 
 <imgJumpType  v-if="nowData.testType == 7 && nowData.displayType == 'imt'" :nowData="nowData" :cosData="cosData" :titleColor="titleColor"></imgJumpType>
 
-<listType  v-if="nowData.testType == 8 && nowData.displayType == 'lt'"  :nowData="nowData" :cosData="cosData" :judgeAnswerMenu="judgeAnswerMenu" ></listType>
+<listType  v-if="nowData.testType == 8 && nowData.displayType == 'lt'"  :nowData="nowData" :cosData="cosData" :judgeAnswerMenu="judgeAnswerMenu" :listSysleList="listSysleList"></listType>
 
 
         <sideEdgeImgType v-if="nowData.testType == 9 && nowData.displayType == 'ct'" :nowData="nowData" :cosData="cosData"></sideEdgeImgType>
@@ -207,9 +207,9 @@
 
 
 
-        <imgselectDisplayType v-if="nowData.testType == 11 && nowData.displayType == 'isd'" :nowData="nowData" :cosData="cosData" :judgeAnswerMenu="judgeAnswerMenu"></imgselectDisplayType>
+        <imgselectDisplayType v-if="nowData.testType == 11 && nowData.displayType == 'isd'" :nowData="nowData" :cosData="cosData" :listSysleList="listSysleList"></imgselectDisplayType>
 
-        <imgDisplayType v-if="nowData.testType == 12 && nowData.displayType == 'idp'" :nowData="nowData" :cosData="cosData" :judgeAnswerMenu="judgeAnswerMenu"></imgDisplayType>
+        <imgDisplayType v-if="nowData.testType == 12 && nowData.displayType == 'idp'" :nowData="nowData" :cosData="cosData" :listSysleList="listSysleList"></imgDisplayType>
 
 
 
@@ -246,6 +246,7 @@
  *
  * 2
  * imageChange 图片轮播
+ *   imageChangeJump 跳转按钮文案
  *
  * 3
  * judgeTitle 判断类型题目
@@ -367,6 +368,20 @@ export default {
         return {
             isbig:false,
             nowpage:0,
+            listSysleList:[
+                {value: "0",
+                    label: "无"},
+                {value: "1",
+                    label: "三角"},
+                {value: "2",
+                    label: "圆点"},
+                {value: "3",
+                    label: "方块"},
+                {value: "4",
+                    label: "同心圆"},
+                {value: "5",
+                    label: "星"}
+            ],
             judgeAnswerMenu:[
                 {value: "0",
                     label: "false"},
@@ -386,7 +401,7 @@ export default {
                 {value: "1",
                     label: "图文"},
                 {value: "2",
-                    label: "图片轮播(废弃)"},
+                    label: "图片轮播"},
                 {value: "3",
                     label: "判断"},
                 {value: "4",
@@ -502,14 +517,14 @@ export default {
 
 
                 imgTextTitle:"",
-                imgTextValue:"1",
+
                 imgTextImg:"",
-                imgTextMenu:[""],
+                imgTextMenu:[{text:"",imgTextValue:"0"}],
 
 
 
-                imageChange:[],
-
+                imageChange:[{img:"",text:""}],
+                imageChangeJump:"",
 
 
                 judgeTitle:"",
@@ -579,9 +594,8 @@ export default {
                 listTypeImg:"",
                 listTypeImgBig:"",
                 listTypeBtnText:"",
-                listTypeValue:"1",
                 listTypeMenu:[
-                    {listTypeText:""}
+                    {listTypeText:"",listTypeValue:"0"}
                 ],
 
 
@@ -601,12 +615,13 @@ export default {
                 imgselectDisplayTitle:"",
                 imgselectDisplayInfo:"",
                 imgselectDisplayMImg:"",
-                imgselectDisplayValue:"1",
+
                 imgselectDisplayMenu:[
                     {
                         imgselectDisplayBtn:"",
                         imgselectDisplayImg:"",
                         imgselectDisplayTextMenu:[{
+                            imgselectDisplayValue:"0",
                             imgselectDisplayText:""
                         }]
                     }
@@ -618,10 +633,11 @@ export default {
 
                  imgDisplayTypeTitle :"",
                  imgDisplayTypeInfo:"",
-                imgDisplayTypeValue:"1",
+
                 imgDisplayTypeMenu:[{
                     imgDisplayTypeImg:"",
                     imgDisplayTypeTextMenu:[{
+                        imgDisplayTypeValue:"0",
                         imgDisplayTypeText:""
                     }]
                 }]
@@ -640,14 +656,16 @@ export default {
 
 
                 imgTextTitle:"",
-                imgTextValue:"1",
                 imgTextImg:"",
-                imgTextMenu:[""],
+                imgTextMenu:[{
+                    text:"",
+                    imgTextValue:"0"
+                }],
 
 
 
-                imageChange:[],
-
+                imageChange:[{img:"",text:""}],
+                imageChangeJump:"",
 
 
                 judgeTitle:"",
@@ -714,9 +732,8 @@ export default {
                 listTypeImg:"",
                 listTypeImgBig:"",
                 listTypeBtnText:"",
-                listTypeValue:"1",
                 listTypeMenu:[
-                    {listTypeText:""}
+                    {listTypeText:"",listTypeValue:"0"}
                 ],
 
 
@@ -737,12 +754,12 @@ export default {
                 imgselectDisplayTitle:"",
                 imgselectDisplayInfo:"",
                 imgselectDisplayMImg:"",
-                imgselectDisplayValue:"1",
                 imgselectDisplayMenu:[
                     {
                         imgselectDisplayBtn:"",
                         imgselectDisplayImg:"",
                         imgselectDisplayTextMenu:[{
+                            imgselectDisplayValue:"0",
                             imgselectDisplayText:""
                         }]
                     }
@@ -754,10 +771,11 @@ export default {
 
                 imgDisplayTypeTitle :"",
                 imgDisplayTypeInfo:"",
-                imgDisplayTypeValue:"1",
                 imgDisplayTypeMenu:[{
+
                     imgDisplayTypeImg:"",
                     imgDisplayTypeTextMenu:[{
+                        imgDisplayTypeValue:"0",
                         imgDisplayTypeText:""
                     }]
                 }]
@@ -813,13 +831,16 @@ export default {
 
 
                 imgTextTitle:"",
-                imgTextValue:"1",
                 imgTextImg:"",
-                imgTextMenu:[""],
+                imgTextMenu:[{
+                    text:"",
+                    imgTextValue:"0"
+                }],
 
 
 
-                imageChange:[],
+                imageChange:[{img:"",text:""}],
+                imageChangeJump:"",
 
 
 
@@ -888,9 +909,8 @@ export default {
                 listTypeImg:"",
                 listTypeImgBig:"",
                 listTypeBtnText:"",
-                listTypeValue:"1",
                 listTypeMenu:[
-                    {listTypeText:""}
+                    {listTypeText:"",listTypeValue:"0"}
                 ],
 
 
@@ -907,15 +927,14 @@ export default {
 
 
 
-                imgselectDisplayTitle:"",
                 imgselectDisplayInfo:"",
                 imgselectDisplayMImg:"",
-                imgselectDisplayValue:"1",
                 imgselectDisplayMenu:[
                     {
                         imgselectDisplayBtn:"",
                         imgselectDisplayImg:"",
                         imgselectDisplayTextMenu:[{
+                            imgselectDisplayValue:"0",
                             imgselectDisplayText:""
                         }]
                     }
@@ -925,10 +944,11 @@ export default {
 
                 imgDisplayTypeTitle :"",
                 imgDisplayTypeInfo:"",
-                imgDisplayTypeValue:"1",
+
                 imgDisplayTypeMenu:[{
                     imgDisplayTypeImg:"",
                     imgDisplayTypeTextMenu:[{
+                        imgDisplayTypeValue:"0",
                         imgDisplayTypeText:""
                     }]
                 }]
@@ -1007,10 +1027,6 @@ export default {
             var self = this
 
 
-
-
-
-
             document.getElementById('fileId').onchange = function () {
                 var file = this.files[0];
                 if (!file) return;
@@ -1047,8 +1063,6 @@ export default {
                 this.selectImgIndex = index;
             }
         },
-
-
 
 
 

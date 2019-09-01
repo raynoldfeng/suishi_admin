@@ -21,8 +21,9 @@
                                 <img v-if="datas.imgselectDisplayImg != ''" :src="datas.imgselectDisplayImg" />
                             </div>
                         </div>
-                        <ul  class="sideEdgeBoxMenu" :class = "{commonMenu:data.imgselectDisplayValue == '0'}">
-                            <li v-for="(mdata,mindex) in datas.imgselectDisplayTextMenu" v-html="Trim(mdata.imgselectDisplayText)"></li>
+                        <ul  class="sideEdgeBoxMenu" >
+                            <li v-for="(mdata,mindex) in datas.imgselectDisplayTextMenu" :class = "{commonMenuN:mdata.imgselectDisplayValue == '0',commonMenuS:mdata.imgselectDisplayValue == '1',commonMenuC:mdata.imgselectDisplayValue == '2'
+            ,commonMenuF:mdata.imgselectDisplayValue == '3',commonMenuTC:mdata.imgselectDisplayValue == '4',commonMenuX:mdata.imgselectDisplayValue == '5'}" v-html="Trim(mdata.imgselectDisplayText)"></li>
                         </ul>
                     </div>
             </div>

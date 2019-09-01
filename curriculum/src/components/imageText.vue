@@ -7,15 +7,15 @@
                     <img :src="data.imgTextImg" />
                 </div>
             </div>
-            <ul class="it-text-menu commonListStyle" :class = "{commonMenu:data.imgTextValue == '0'}">
-                <li v-for="textData in data.imgTextMenu" v-html="Trim(textData)"></li>
-
+            <ul class="it-text-menu commonListStyle" >
+                <li v-for="textData in data.imgTextMenu" :class = "{commonMenuN:textData.imgTextValue == '0',commonMenuS:textData.imgTextValue == '1',commonMenuC:textData.imgTextValue == '2'
+            ,commonMenuF:textData.imgTextValue == '3',commonMenuTC:textData.imgTextValue == '4',commonMenuX:textData.imgTextValue == '5'}" v-html="Trim(textData.text)"></li>
             </ul>
         </div>
     </div>
 </template>
  <script>
-
+import $ from 'jquery'
 export default
 {
     props:{

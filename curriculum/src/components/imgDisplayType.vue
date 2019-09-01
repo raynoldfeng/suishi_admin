@@ -11,8 +11,11 @@
             </div>
             <transition name="fade">
                 <ul class="sideEdgeBoxMenu idp-type-menu" v-show="isShow">
-                    <li v-for="(sdata,sindex) in datas.imgDisplayTypeTextMenu" v-html="Trim(sdata.imgDisplayTypeText)" :class = "{commonMenuN:sdata.imgDisplayTypeValue == '0',commonMenuS:sdata.imgDisplayTypeValue == '1',commonMenuC:sdata.imgDisplayTypeValue == '2'
-            ,commonMenuF:sdata.imgDisplayTypeValue == '3',commonMenuTC:sdata.imgDisplayTypeValue == '4',commonMenuX:sdata.imgDisplayTypeValue == '5'}" ></li>
+                    <li v-for="(sdata,sindex) in datas.imgDisplayTypeTextMenu" :class = "{commonMenuN:sdata.imgDisplayTypeValue == '0',commonMenuS:sdata.imgDisplayTypeValue == '1',commonMenuC:sdata.imgDisplayTypeValue == '2'
+            ,commonMenuF:sdata.imgDisplayTypeValue == '3',commonMenuTC:sdata.imgDisplayTypeValue == '4',commonMenuX:sdata.imgDisplayTypeValue == '5',commonMenu:sdata.imgDisplayTypeValue == '6'}" >
+                        <span v-show="sdata.imgDisplayTypeValue == '6'" v-text="numEvent(sdata.imgDisplayTypeNum)"></span>
+                        <span v-html="Trim(sdata.imgDisplayTypeText)" ></span>
+                    </li>
                 </ul>
             </transition>
         </div>
@@ -35,7 +38,9 @@ import $ from 'jquery'
                    },
                     changeEvent(){
                         this.isShow = !this.isShow;
-    console.log(this.isShow)
+                    },
+                    numEvent(str){
+                        return str+".";
                     }
                },
                 mounted:function(){

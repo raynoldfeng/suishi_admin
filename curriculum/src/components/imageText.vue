@@ -2,14 +2,17 @@
     <div id="QuestMain">
         <div id="imageText">
             <p class="it-title" v-text="data.imgTextTitle"></p>
-            <div class="it-img-main simg-main-nobor">
+            <div class="it-img-main simg-main-nobor" v-show="data.imgTextImg !=''">
                 <div class="white-r">
                     <img :src="data.imgTextImg" />
                 </div>
             </div>
             <ul class="it-text-menu commonListStyle" >
                 <li v-for="textData in data.imgTextMenu" :class = "{commonMenuN:textData.imgTextValue == '0',commonMenuS:textData.imgTextValue == '1',commonMenuC:textData.imgTextValue == '2'
-            ,commonMenuF:textData.imgTextValue == '3',commonMenuTC:textData.imgTextValue == '4',commonMenuX:textData.imgTextValue == '5'}" v-html="Trim(textData.text)"></li>
+            ,commonMenuF:textData.imgTextValue == '3',commonMenuTC:textData.imgTextValue == '4',commonMenuX:textData.imgTextValue == '5',commonMenu:textData.imgTextValue == '6'}" >
+                <span v-show="textData.imgTextValue == '6'" v-text="numEvent(textData.imgTextNum)"></span>
+                <span v-html="Trim(textData.text)"></span>
+                </li>
             </ul>
         </div>
     </div>
@@ -24,6 +27,9 @@ export default
     methods:{
         Trim(str) {
             return str.replace(/\n|\r\n/g,"<br/>");
+        },
+        numEvent(str){
+            return str+".";
         }
     },
     mounted:function(){

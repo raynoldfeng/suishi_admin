@@ -380,7 +380,9 @@ export default {
                 {value: "4",
                     label: "同心圆"},
                 {value: "5",
-                    label: "星"}
+                    label: "星"},
+                {value: "6",
+                    label: "数字"}
             ],
             judgeAnswerMenu:[
                 {value: "0",
@@ -519,7 +521,8 @@ export default {
                 imgTextTitle:"",
 
                 imgTextImg:"",
-                imgTextMenu:[{text:"",imgTextValue:"0"}],
+                imgTextMenu:[{text:"",imgTextValue:"0",
+                    imgTextNum:""}],
 
 
 
@@ -595,7 +598,7 @@ export default {
                 listTypeImgBig:"",
                 listTypeBtnText:"",
                 listTypeMenu:[
-                    {listTypeText:"",listTypeValue:"0"}
+                    {listTypeText:"",listTypeValue:"0",listTypeNum:""}
                 ],
 
 
@@ -622,6 +625,7 @@ export default {
                         imgselectDisplayImg:"",
                         imgselectDisplayTextMenu:[{
                             imgselectDisplayValue:"0",
+                            imgselectDisplayNum:"",
                             imgselectDisplayText:""
                         }]
                     }
@@ -638,6 +642,7 @@ export default {
                     imgDisplayTypeImg:"",
                     imgDisplayTypeTextMenu:[{
                         imgDisplayTypeValue:"0",
+                        imgDisplayTypeNum:"",
                         imgDisplayTypeText:""
                     }]
                 }]
@@ -659,7 +664,8 @@ export default {
                 imgTextImg:"",
                 imgTextMenu:[{
                     text:"",
-                    imgTextValue:"0"
+                    imgTextValue:"0",
+                    imgTextNum:""
                 }],
 
 
@@ -733,7 +739,7 @@ export default {
                 listTypeImgBig:"",
                 listTypeBtnText:"",
                 listTypeMenu:[
-                    {listTypeText:"",listTypeValue:"0"}
+                    {listTypeText:"",listTypeValue:"0",listTypeNum:""}
                 ],
 
 
@@ -760,6 +766,7 @@ export default {
                         imgselectDisplayImg:"",
                         imgselectDisplayTextMenu:[{
                             imgselectDisplayValue:"0",
+                            imgselectDisplayNum:"",
                             imgselectDisplayText:""
                         }]
                     }
@@ -776,6 +783,7 @@ export default {
                     imgDisplayTypeImg:"",
                     imgDisplayTypeTextMenu:[{
                         imgDisplayTypeValue:"0",
+                        imgDisplayTypeNum:"",
                         imgDisplayTypeText:""
                     }]
                 }]
@@ -834,7 +842,8 @@ export default {
                 imgTextImg:"",
                 imgTextMenu:[{
                     text:"",
-                    imgTextValue:"0"
+                    imgTextValue:"0",
+                    imgTextNum:""
                 }],
 
 
@@ -910,7 +919,7 @@ export default {
                 listTypeImgBig:"",
                 listTypeBtnText:"",
                 listTypeMenu:[
-                    {listTypeText:"",listTypeValue:"0"}
+                    {listTypeText:"",listTypeValue:"0",listTypeNum:""}
                 ],
 
 
@@ -935,6 +944,7 @@ export default {
                         imgselectDisplayImg:"",
                         imgselectDisplayTextMenu:[{
                             imgselectDisplayValue:"0",
+                            imgselectDisplayNum:"",
                             imgselectDisplayText:""
                         }]
                     }
@@ -949,6 +959,7 @@ export default {
                     imgDisplayTypeImg:"",
                     imgDisplayTypeTextMenu:[{
                         imgDisplayTypeValue:"0",
+                        imgDisplayTypeNum:"",
                         imgDisplayTypeText:""
                     }]
                 }]

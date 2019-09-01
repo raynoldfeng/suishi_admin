@@ -23,7 +23,10 @@
                         </div>
                         <ul  class="sideEdgeBoxMenu" >
                             <li v-for="(mdata,mindex) in datas.imgselectDisplayTextMenu" :class = "{commonMenuN:mdata.imgselectDisplayValue == '0',commonMenuS:mdata.imgselectDisplayValue == '1',commonMenuC:mdata.imgselectDisplayValue == '2'
-            ,commonMenuF:mdata.imgselectDisplayValue == '3',commonMenuTC:mdata.imgselectDisplayValue == '4',commonMenuX:mdata.imgselectDisplayValue == '5'}" v-html="Trim(mdata.imgselectDisplayText)"></li>
+            ,commonMenuF:mdata.imgselectDisplayValue == '3',commonMenuTC:mdata.imgselectDisplayValue == '4',commonMenuX:mdata.imgselectDisplayValue == '5',commonMenu:mdata.imgselectDisplayValue == '6'}">
+                                <span v-show="mdata.imgselectDisplayValue == '6'" v-text="numEvent(mdata.imgselectDisplayNum)"></span>
+                                <span  v-html="Trim(mdata.imgselectDisplayText)"></span>
+                            </li>
                         </ul>
                     </div>
             </div>
@@ -47,6 +50,9 @@ import $ from 'jquery'
             },
             Trim(str) {
                 return str.replace(/\n|\r\n/g,"<br/>");
+            },
+            numEvent(str){
+                return str+".";
             }
         },
         mounted:function(){

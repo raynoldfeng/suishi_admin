@@ -230,6 +230,11 @@ ul li{
 #QuestMain .commonMenu li{
 
 }
+#QuestMain li.commonMenu:before{
+    content: "";
+    padding-right: 0;
+}
+
 #QuestMain li.commonMenuN:before{
     content: "";
     padding-right: .5em;

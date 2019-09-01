@@ -42,6 +42,11 @@
                                             :value="item.value">
                                             </el-option>
                                         </el-select>
+
+                                    </div>
+                                    <div class="view_main" v-show="sdata.imgDisplayTypeValue == '6'">
+                                        <span>输入段落序号</span>
+                                        <el-input class="input_type"   v-model="sdata.imgDisplayTypeNum"></el-input>
                                     </div>
                                     <div class="view_main">
                                         <el-input
@@ -121,6 +126,7 @@
             imgDisplayTypeImg:"",
             imgDisplayTypeTextMenu:[{
                 imgDisplayTypeValue:"0",
+                imgDisplayTypeNum:"",
                 imgDisplayTypeText:""
             }]
             };
@@ -130,7 +136,7 @@
             this.nowData.imgDisplayTypeMenu.splice(index,1);
             },
             imgDisplayTextAddEvent(index){
-            var newdata = {imgDisplayTypeValue:"0",imgDisplayTypeText:""}
+            var newdata = {imgDisplayTypeValue:"0",imgDisplayTypeNum:"",imgDisplayTypeText:""}
             this.nowData.imgDisplayTypeMenu[index].imgDisplayTypeTextMenu.push(newdata);
             },
             imgDisplayTextDeleteEvent(index,sindex){

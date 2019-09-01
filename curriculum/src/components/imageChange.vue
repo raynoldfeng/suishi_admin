@@ -4,102 +4,107 @@
             <ul class="imgChange-menu">
                 <li  v-for="(datas,index) in data.imageChange" v-show="nowImgIndex == index">
                     <img :src="datas.img">
-                    <div class="imageChange-text" v-if="datas.text" v-html="Trim(datas.text)"></div>
-                      <div class="tp-next-btn" @click="jumpEvent" v-if="index ==  data.imageChange.length-1" v-show="nowImgIndex == data.imageChange.length-1 && data.imageChangeJump !=''" v-text="data.imageChangeJump"></div>
-                </li>
+                        <div class="imageChange-text" v-if="datas.text" v-html="Trim(datas.text)"></div>
+                        <div class="tp-next-btn" @click="NextEvent(index, data.imageChange.length-1)"  v-show="data.imageChangeJump !=''" v-text="data.imageChangeJump"></div>
+                    </li>
+                </ul>
+            </div>
+            <ul class="ic-swiper-pagination" >
+                <li  v-for="(data,index) in data.imageChange" @click="imgChangeEvent(index)" :class="{clickbtned:nowImgIndex == index}"></li>
             </ul>
-        </div>
-        <ul class="ic-swiper-pagination" >
-            <li  v-for="(data,index) in data.imageChange" @click="imgChangeEvent(index)" :class="{clickbtned:nowImgIndex == index}"></li>
-        </ul>
 
-    </div>
-</template>
- <script>
+        </div>
+    </template>
+    <script>
     export default{
-     props:{
-         data:"",
-         page:0
-     },
+        props:{
+        data:"",
+        page:0
+        },
         data(){
-            return{
-                imageChangeHeight:0,
-                nowImgIndex:0
-            }
+        return{
+        imageChangeHeight:0,
+        nowImgIndex:0
+        }
         },
         mounted:function(){
-            this.imageChangeHeight = document.getElementById("QuestMain").scrollHeight;
+        this.imageChangeHeight = document.getElementById("QuestMain").scrollHeight;
         },
         methods:{
-             Trim(str) {
-                return str.replace(/\n|\r\n/g,"<br/>");
-             },
-             imgChangeEvent(index){
-                this.nowImgIndex = index
-             },
-             jumpEvent(){
-                this.$emit("isJump",this.page+1);
-             }
-         }
-    }
- </script>
-        <style>
-        #imageChange{
-            overflow: hidden;
+        Trim(str) {
+        return str.replace(/\n|\r\n/g,"<br/>");
+        },
+        imgChangeEvent(index){
+        this.nowImgIndex = index
+        },
+        NextEvent(index,len){
+        if(index<len){
+        this.nowImgIndex = index+1;
+        }else{
+        this.$emit("isJump",this.page+1);
         }
-            #imageChange img{
-                width: 100%;
-            }
-        .ic-swiper-pagination{
-            width: 12px;
-            float: right;
-            margin-top: 28%;
-            margin-left: 2%;
-            position: absolute;
-            left: 0;
-            z-index: 100;
-            top: 50%;
+
         }
-        .ic-swiper-pagination li{
-            width:12px;
-            height:12px;
-            background:#999999;
-            margin-top:60%;
-            border-radius:100px;
-         }
-        .ic-swiper-pagination li.clickbtned{
-            background:#fd9800;
         }
-            #imageChange  .swiper-pagination-bullets {
-                right: 10px;
-                top: 50%;
-                -webkit-transform: translate3d(0,-50%,0);
-                transform: translate3d(0,-50%,0);
-            }
+        }
+    </script>
+    <style>
+    #imageChange{
+        overflow: hidden;
+        }
+    #imageChange img{
+        width: 100%;
+        }
+    .ic-swiper-pagination{
+        width: 12px;
+        float: right;
+        margin-top: 28%;
+        margin-left: 2%;
+        position: absolute;
+        left: 0;
+        z-index: 100;
+        top: 50%;
+        }
+    .ic-swiper-pagination li{
+        width:12px;
+        height:12px;
+        background:#999999;
+        margin-top:60%;
+        border-radius:100px;
+        }
+    .ic-swiper-pagination li.clickbtned{
+        background:#fd9800;
+        }
+    #imageChange  .swiper-pagination-bullets {
+        right: 10px;
+        top: 50%;
+        -webkit-transform: translate3d(0,-50%,0);
+        transform: translate3d(0,-50%,0);
+        }
 
-        .imgChange-menu{
-            width: 84%;
-            height: 100%;
-            margin: 0 auto;
-            position: relative;
-            }
-        .imgChange-menu li {
-            position: absolute;
-            top: 50%;
-            margin-top: -50%;
-            }
-        .imgChange-menu img{
-            width:100%;
-            }
-            .imageChange-text{
-                padding:4%;
-                border: 2px solid #333;
-                color: #666;
-                font-size:4.5vw;
-                margin-top:4%;
-                text-align:left;
-                margin-bottom:5%;
-            }
+    .imgChange-menu{
+        width: 84%;
+        height: 100%;
+        margin: 0 auto;
+        position: relative;
+        }
+    .imgChange-menu li {
+        position: absolute;
+        top: 50%;
+        margin-top: -50%;
+        }
+    .imgChange-menu img{
+        width:100%;
+        }
+    .imageChange-text{
+        padding:4%;
+        border: 2px solid #333;
+        color: #666;
+        font-size:4.5vw;
+        margin-top:4%;
+        text-align:left;
+        margin-bottom:5%;
+        }
 
 
-        </style>
+    </style>

@@ -54,6 +54,11 @@
                 :value="item.value">
                 </el-option>
             </el-select>
+
+        </div>
+        <div class="view_main" v-show="data.listTypeValue == '6'" >
+            <span>输入段落序号</span>
+            <el-input class="input_type"  v-model="data.listTypeNum"></el-input>
         </div>
         <div class="view_main">
             <el-input
@@ -133,7 +138,7 @@ export default{
          * 列表类型
          */
         selectListTypeAddEvent(){
-            var newData = {listTypeText:"",listTypeValue:"0"};
+            var newData = {listTypeText:"",listTypeValue:"0",listTypeNum:""};
             this.nowData.listTypeMenu.push(newData);
         },
         selectListTypeDeleteEvent(index){

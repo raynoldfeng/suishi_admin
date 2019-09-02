@@ -8,9 +8,9 @@
                 </div>
             </div>
             <ul class="it-text-menu commonListStyle" >
-                <li v-for="textData in data.imgTextMenu" :class = "{commonMenuN:textData.imgTextValue == '0',commonMenuS:textData.imgTextValue == '1',commonMenuC:textData.imgTextValue == '2'
-            ,commonMenuF:textData.imgTextValue == '3',commonMenuTC:textData.imgTextValue == '4',commonMenuX:textData.imgTextValue == '5',commonMenu:textData.imgTextValue == '6'}" >
-                <span v-show="textData.imgTextValue == '6'" v-text="numEvent(textData.imgTextNum)"></span>
+                <li v-for="textData in data.imgTextMenu" :class = "{commonMenuN:textData.typeValue == '0',commonMenuS:textData.typeValue == '1',commonMenuC:textData.typeValue == '2'
+            ,commonMenuF:textData.typeValue == '3',commonMenuTC:textData.typeValue == '4',commonMenuX:textData.typeValue == '5',commonMenu:textData.typeValue == '6'}" >
+                <span v-show="textData.typeValue == '6'" v-text="numEvent(textData.typeNum)"></span>
                 <span v-html="Trim(textData.text)"></span>
                 </li>
             </ul>

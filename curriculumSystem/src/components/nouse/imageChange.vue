@@ -25,9 +25,38 @@
 
                  </div>
                         <div class="view_main">
-                            <span>解释:</span>
-                            <el-input class="input_type" v-model="nowData.imageChange[index].text"></el-input>
+                            <p>解释:</p>
+
+                            <div class="view_main"  v-for="(sdata,tindex) in nowData.imageChange[index].textMenu">
+                                <div class="view_main">
+                                    <span>段落样式:</span>
+                                        <el-select v-model="sdata.typeValue" class="select-css" placeholder="段落样式">
+                                            <el-option
+                                                v-for="item in listSysleList"
+                                                :key="item.value"
+                                                :label="item.label"
+                                                :value="item.value">
+                                            </el-option>
+                                        </el-select>
+                                </div>
+                                <div class="view_main" v-show="sdata.typeValue == '6'">
+                                    <span>输入段落序号</span>
+                                    <el-input class="input_type"   v-model="sdata.typeNum"></el-input>
+                                </div>
+                                <el-input
+
+                                          class="textarea_type"
+                                          type="textarea"
+                                :autosize="{ minRows: 2, maxRows: 4}"
+                                placeholder="请输入内容"
+                                          v-model="sdata.text"></el-input>
+                                <span  @click="deleteTextEvent(index,tindex)">删除</span>
+                            </div>
+                            <div  class="view_main">
+                                <el-button @click="addTextEvent(index)">添加段落</el-button>
+                             </div>
                         </div>
+
              </div>
 
                 </div>
@@ -35,6 +64,7 @@
 </template>
 
         <script>
+
         export default {
             data(){
             return {
@@ -46,8 +76,9 @@
             }
             },
             props:{
-            nowData:"",
-            cosData:"",
+                  nowData:"",
+                  cosData:"",
+                  listSysleList:""
             },
             mounted:function(){
             var self = this;
@@ -97,8 +128,16 @@
                 },
 
                 addEvent(){
-                    var newdata = {"img":"","text":""};
+                    var newdata = {img:"",textMenu:[{text:"",typeValue:"0",typeNum:""}]};
                     this.nowData.imageChange.push(newdata);
+                },
+                addTextEvent(index){
+                    var newText = {text:"",typeValue:"0",typeNum:""};
+                    this.nowData.imageChange[index].textMenu.push(newText);
+
+                },
+                deleteTextEvent(index,tindex){
+                    this.nowData.imageChange[index].textMenu.splice(tindex,1);
                 }
             }
             }

@@ -46,7 +46,7 @@
         <div class="view_main">
             <span>段落样式:</span>
 
-            <el-select v-model="data.listTypeValue" class="select-css" placeholder="段落样式">
+            <el-select v-model="data.typeValue" class="select-css" placeholder="段落样式">
                 <el-option
                 v-for="item in listSysleList"
                 :key="item.value"
@@ -56,9 +56,9 @@
             </el-select>
 
         </div>
-        <div class="view_main" v-show="data.listTypeValue == '6'" >
+        <div class="view_main" v-show="data.typeValue == '6'" >
             <span>输入段落序号</span>
-            <el-input class="input_type"  v-model="data.listTypeNum"></el-input>
+            <el-input class="input_type"  v-model="data.typeNum"></el-input>
         </div>
         <div class="view_main">
             <el-input
@@ -138,7 +138,7 @@ export default{
          * 列表类型
          */
         selectListTypeAddEvent(){
-            var newData = {listTypeText:"",listTypeValue:"0",listTypeNum:""};
+            var newData = {listTypeText:"",typeValue:"0",typeNum:""};
             this.nowData.listTypeMenu.push(newData);
         },
         selectListTypeDeleteEvent(index){

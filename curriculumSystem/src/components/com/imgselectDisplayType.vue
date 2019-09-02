@@ -53,7 +53,7 @@
                                         <li v-for="(sdata,sindex) in data.imgselectDisplayTextMenu"  class="view_main">
                                             <div class="view_main">
                                                 <span>段落样式:</span>
-                                                <el-select v-model="sdata.imgselectDisplayValue" class="select-css" placeholder="段落样式">
+                                                <el-select v-model="sdata.typeValue" class="select-css" placeholder="段落样式">
                                                     <el-option
                                                     v-for="item in listSysleList"
                                                     :key="item.value"
@@ -63,9 +63,9 @@
                                                 </el-select>
 
                                             </div>
-                                            <div class="view_main" v-show="sdata.imgselectDisplayValue == '6'" >
+                                            <div class="view_main" v-show="sdata.typeValue == '6'" >
                                                 <span>输入段落序号</span>
-                                                <el-input class="input_type" v-model="sdata.imgselectDisplayNum"></el-input>
+                                                <el-input class="input_type" v-model="sdata.typeNum"></el-input>
                                             </div>
                                             <div class="view_main">
                                                 <el-input
@@ -154,8 +154,8 @@
                     var newdata = { imgselectDisplayBtn:"",
                     imgselectDisplayImg:"",
                     imgselectDisplayTextMenu:[{
-                    imgselectDisplayValue:"0",
-                    imgselectDisplayNum:"",
+                        typeValue:"0",
+                        typeNum:"",
                     imgselectDisplayText:""
                     }]
                     };
@@ -165,7 +165,7 @@
                     this.nowData.imgselectDisplayMenu.splice(index,1);
                     },
                     imgSelectTextAddEvent(index){
-                    var newdata = {imgselectDisplayValue:"0", imgselectDisplayNum:"",imgselectDisplayText:""};
+                    var newdata = {typeValue:"0", typeNum:"",imgselectDisplayText:""};
                     this.nowData.imgselectDisplayMenu[index].imgselectDisplayTextMenu.push(newdata);
                     },
                     imgSelectTextDeleteEvent(index,sindex){

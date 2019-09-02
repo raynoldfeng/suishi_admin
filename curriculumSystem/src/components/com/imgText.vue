@@ -27,7 +27,7 @@
                     <div  class="view_main"  v-for="(data,index) in nowData.imgTextMenu">
                         <div class="view_main">
                             <span>段落样式:</span>
-                            <el-select v-model="nowData.imgTextMenu[index].imgTextValue" class="select-css" placeholder="段落样式">
+                            <el-select v-model="nowData.imgTextMenu[index].typeValue" class="select-css" placeholder="段落样式">
                                 <el-option
                                 v-for="item in listSysleList"
                                 :key="item.value"
@@ -37,9 +37,9 @@
                             </el-select>
 
                         </div>
-                        <div class="view_main" v-show="nowData.imgTextMenu[index].imgTextValue == '6'">
+                        <div class="view_main" v-show="nowData.imgTextMenu[index].typeValue == '6'">
                             <span>输入段落序号</span>
-                            <el-input class="input_type"   v-model="nowData.imgTextMenu[index].imgTextNum"></el-input>
+                            <el-input class="input_type"   v-model="nowData.imgTextMenu[index].typeNum"></el-input>
                         </div>
                         <div class="view_main">
                             <el-input   v-if="nowData.imgTextMenu.length>0"
@@ -112,8 +112,8 @@ export default {
          * 添加段落
          */
         addImgText(){
-            var newdata = { text:"",imgTextValue:"0",
-    imgTextNum:""};
+            var newdata = { text:"",typeValue:"0",
+                typeNum:""};
             this.nowData.imgTextMenu.push(newdata);
         },
         deleteImgText(index){

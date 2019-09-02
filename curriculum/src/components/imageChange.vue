@@ -5,6 +5,15 @@
                 <li  v-for="(datas,index) in data.imageChange" v-show="nowImgIndex == index">
                     <img :src="datas.img">
                         <div class="imageChange-text" v-if="datas.text" v-html="Trim(datas.text)"></div>
+
+                        <ul class="list-type-menu imageChange-menu imageChange-text" >
+                            <li  v-for="(idata,index) in datas.textMenu"  :class = "{commonMenuN:idata.typeValue == '0',commonMenuS:idata.typeValue == '1',commonMenuC:idata.typeValue == '2'
+                                ,commonMenuF:idata.typeValue == '3',commonMenuTC:idata.typeValue == '4',commonMenuX:idata.typeValue == '5',commonMenu:idata.typeValue == '6'}">
+                                <span v-show="idata.typeValue == '6'" v-text="numEvent(idata.typeNum)"></span>
+                                <span v-html="Trim(idata.text)"></span>
+                            </li>
+                        </ul>
+
                         <div class="tp-next-btn" @click="NextEvent(index, data.imageChange.length-1)"  v-show="data.imageChangeJump !=''" v-text="data.imageChangeJump"></div>
                     </li>
                 </ul>
@@ -44,7 +53,10 @@
         this.$emit("isJump",this.page+1);
         }
 
-        }
+        },
+            numEvent(str){
+                return str+".";
+            }
         }
         }
     </script>
@@ -105,6 +117,9 @@
         text-align:left;
         margin-bottom:5%;
         }
-
+.imageChange-menu li{
+    position: relative;
+    top: 0;;
+}
 
     </style>

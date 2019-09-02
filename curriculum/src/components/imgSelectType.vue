@@ -22,9 +22,9 @@
                             </div>
                         </div>
                         <ul  class="sideEdgeBoxMenu" >
-                            <li v-for="(mdata,mindex) in datas.imgselectDisplayTextMenu" :class = "{commonMenuN:mdata.imgselectDisplayValue == '0',commonMenuS:mdata.imgselectDisplayValue == '1',commonMenuC:mdata.imgselectDisplayValue == '2'
-            ,commonMenuF:mdata.imgselectDisplayValue == '3',commonMenuTC:mdata.imgselectDisplayValue == '4',commonMenuX:mdata.imgselectDisplayValue == '5',commonMenu:mdata.imgselectDisplayValue == '6'}">
-                                <span v-show="mdata.imgselectDisplayValue == '6'" v-text="numEvent(mdata.imgselectDisplayNum)"></span>
+                            <li v-for="(mdata,mindex) in datas.imgselectDisplayTextMenu" :class = "{commonMenuN:mdata.typeValue == '0',commonMenuS:mdata.typeValue == '1',commonMenuC:mdata.typeValue == '2'
+            ,commonMenuF:mdata.typeValue == '3',commonMenuTC:mdata.typeValue == '4',commonMenuX:mdata.typeValue == '5',commonMenu:mdata.typeValue == '6'}">
+                                <span v-show="mdata.typeValue == '6'" v-text="numEvent(mdata.typeNum)"></span>
                                 <span  v-html="Trim(mdata.imgselectDisplayText)"></span>
                             </li>
                         </ul>

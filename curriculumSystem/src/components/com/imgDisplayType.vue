@@ -34,7 +34,7 @@
                                 <li v-for="(sdata,sindex) in data.imgDisplayTypeTextMenu"  class="view_main">
                                     <div class="view_main">
                                         <span>段落样式:</span>
-                                        <el-select v-model="sdata.imgDisplayTypeValue" class="select-css" placeholder="段落样式">
+                                        <el-select v-model="sdata.typeValue" class="select-css" placeholder="段落样式">
                                             <el-option
                                             v-for="item in listSysleList"
                                             :key="item.value"
@@ -44,9 +44,9 @@
                                         </el-select>
 
                                     </div>
-                                    <div class="view_main" v-show="sdata.imgDisplayTypeValue == '6'">
+                                    <div class="view_main" v-show="sdata.typeValue == '6'">
                                         <span>输入段落序号</span>
-                                        <el-input class="input_type"   v-model="sdata.imgDisplayTypeNum"></el-input>
+                                        <el-input class="input_type"   v-model="sdata.typeNum"></el-input>
                                     </div>
                                     <div class="view_main">
                                         <el-input
@@ -125,8 +125,8 @@
             var newdata = {
             imgDisplayTypeImg:"",
             imgDisplayTypeTextMenu:[{
-                imgDisplayTypeValue:"0",
-                imgDisplayTypeNum:"",
+                typeValue:"0",
+                typeNum:"",
                 imgDisplayTypeText:""
             }]
             };
@@ -136,7 +136,7 @@
             this.nowData.imgDisplayTypeMenu.splice(index,1);
             },
             imgDisplayTextAddEvent(index){
-            var newdata = {imgDisplayTypeValue:"0",imgDisplayTypeNum:"",imgDisplayTypeText:""}
+            var newdata = {typeValue:"0",typeNum:"",imgDisplayTypeText:""}
             this.nowData.imgDisplayTypeMenu[index].imgDisplayTypeTextMenu.push(newdata);
             },
             imgDisplayTextDeleteEvent(index,sindex){

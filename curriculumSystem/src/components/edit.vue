@@ -176,7 +176,7 @@
 
         <imgText v-if="nowData.testType == 1 && nowData.displayType == 'it1'" :nowData="nowData" :cosData="cosData" :listSysleList="listSysleList"></imgText>
 
-        <imageChange  v-if="nowData.testType == 2 && nowData.displayType == 'ic1'" :nowData="nowData" :cosData="cosData"></imageChange>
+        <imageChange  v-if="nowData.testType == 2 && nowData.displayType == 'ic1'" :nowData="nowData" :cosData="cosData"  :listSysleList="listSysleList"></imageChange>
 
 
 
@@ -240,7 +240,7 @@
  * courseInfo 课程介绍
  * 1
  * imgTextTitle 图文类型标题
- * imgTextValue 图文类型段落样式
+ * typeValue 图文类型段落样式
   * imgTextImg  图文类型图片
  * imgTextMenu  图文类型段落
  *
@@ -305,7 +305,7 @@
  * listTypeImg 列表类型图片
  * listTypeImgBig 列表类型大图片
   * listTypeBtnText 列表类型按钮文案
-* listTypeValue     列表类型段落样式
+* typeValue     列表类型段落样式
   * listTypeMenu 列表类型段落集合
  * listTypeText 列表类型段落(listTypeMenu内)
  *
@@ -331,7 +331,7 @@
  * imgselectDisplayTitle 图片选项展示标题
  *imgselectDisplayInfo 图片选项展示副标题
  * imgselectDisplayMImg 默認圖片
-* imgselectDisplayValue 图片选项展示段落样式
+* typeValue 图片选项展示段落样式
   * imgselectDisplayMenu 图片选项展示菜单
  * imgselectDisplayBtn 按钮文案
   * imgselectDisplayImg 图片
@@ -343,7 +343,7 @@
  * imgDisplayTypeInfo  图片展示副标题
  * imgDisplayTypeMenu 图片展示菜单
  *imgDisplayTypeImg 图片展示图片
- * imgDisplayTypeValue 图片展示段落样式
+ * typeValue 图片展示段落样式
 * imgDisplayTypeTextMenu 图片展示段落菜单
  * imgDisplayTypeText 图片展示段落
  *
@@ -521,12 +521,12 @@ export default {
                 imgTextTitle:"",
 
                 imgTextImg:"",
-                imgTextMenu:[{text:"",imgTextValue:"0",
-                    imgTextNum:""}],
+                imgTextMenu:[{text:"",typeValue:"0",
+                    typeNum:""}],
 
 
 
-                imageChange:[{img:"",text:""}],
+                imageChange:[{img:"",textMenu:[{text:"",typeValue:"0",typeNum:""}]}],
                 imageChangeJump:"",
 
 
@@ -598,7 +598,7 @@ export default {
                 listTypeImgBig:"",
                 listTypeBtnText:"",
                 listTypeMenu:[
-                    {listTypeText:"",listTypeValue:"0",listTypeNum:""}
+                    {listTypeText:"",typeValue:"0",typeNum:""}
                 ],
 
 
@@ -624,8 +624,8 @@ export default {
                         imgselectDisplayBtn:"",
                         imgselectDisplayImg:"",
                         imgselectDisplayTextMenu:[{
-                            imgselectDisplayValue:"0",
-                            imgselectDisplayNum:"",
+                            typeValue:"0",
+                            typeNum:"",
                             imgselectDisplayText:""
                         }]
                     }
@@ -641,8 +641,8 @@ export default {
                 imgDisplayTypeMenu:[{
                     imgDisplayTypeImg:"",
                     imgDisplayTypeTextMenu:[{
-                        imgDisplayTypeValue:"0",
-                        imgDisplayTypeNum:"",
+                        typeValue:"0",
+                        typeNum:"",
                         imgDisplayTypeText:""
                     }]
                 }]
@@ -664,13 +664,13 @@ export default {
                 imgTextImg:"",
                 imgTextMenu:[{
                     text:"",
-                    imgTextValue:"0",
-                    imgTextNum:""
+                    typeValue:"0",
+                    typeNum:""
                 }],
 
 
 
-                imageChange:[{img:"",text:""}],
+                imageChange:[{img:"",textMenu:[{text:"",typeValue:"0",typeNum:""}]}],
                 imageChangeJump:"",
 
 
@@ -739,7 +739,7 @@ export default {
                 listTypeImgBig:"",
                 listTypeBtnText:"",
                 listTypeMenu:[
-                    {listTypeText:"",listTypeValue:"0",listTypeNum:""}
+                    {listTypeText:"",typeValue:"0",typeNum:""}
                 ],
 
 
@@ -765,8 +765,8 @@ export default {
                         imgselectDisplayBtn:"",
                         imgselectDisplayImg:"",
                         imgselectDisplayTextMenu:[{
-                            imgselectDisplayValue:"0",
-                            imgselectDisplayNum:"",
+                            typeValue:"0",
+                            typeNum:"",
                             imgselectDisplayText:""
                         }]
                     }
@@ -782,8 +782,8 @@ export default {
 
                     imgDisplayTypeImg:"",
                     imgDisplayTypeTextMenu:[{
-                        imgDisplayTypeValue:"0",
-                        imgDisplayTypeNum:"",
+                        typeValue:"0",
+                        typeNum:"",
                         imgDisplayTypeText:""
                     }]
                 }]
@@ -842,13 +842,13 @@ export default {
                 imgTextImg:"",
                 imgTextMenu:[{
                     text:"",
-                    imgTextValue:"0",
-                    imgTextNum:""
+                    typeValue:"0",
+                    typeNum:""
                 }],
 
 
 
-                imageChange:[{img:"",text:""}],
+                imageChange:[{img:"",textMenu:[{text:"",typeValue:"0",typeNum:""}]}],
                 imageChangeJump:"",
 
 
@@ -919,7 +919,7 @@ export default {
                 listTypeImgBig:"",
                 listTypeBtnText:"",
                 listTypeMenu:[
-                    {listTypeText:"",listTypeValue:"0",listTypeNum:""}
+                    {listTypeText:"",typeValue:"0",typeNum:""}
                 ],
 
 
@@ -943,8 +943,8 @@ export default {
                         imgselectDisplayBtn:"",
                         imgselectDisplayImg:"",
                         imgselectDisplayTextMenu:[{
-                            imgselectDisplayValue:"0",
-                            imgselectDisplayNum:"",
+                            typeValue:"0",
+                            typeNum:"",
                             imgselectDisplayText:""
                         }]
                     }
@@ -958,8 +958,8 @@ export default {
                 imgDisplayTypeMenu:[{
                     imgDisplayTypeImg:"",
                     imgDisplayTypeTextMenu:[{
-                        imgDisplayTypeValue:"0",
-                        imgDisplayTypeNum:"",
+                        typeValue:"0",
+                        typeNum:"",
                         imgDisplayTypeText:""
                     }]
                 }]

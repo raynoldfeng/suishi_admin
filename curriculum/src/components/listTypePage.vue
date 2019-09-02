@@ -8,9 +8,9 @@
                 </div>
             </div>
             <ul class="list-type-menu" >
-                <li v-for="(idata,index) in listMenu"  :class = "{commonMenuN:idata.listTypeValue == '0',commonMenuS:idata.listTypeValue == '1',commonMenuC:idata.listTypeValue == '2'
-            ,commonMenuF:idata.listTypeValue == '3',commonMenuTC:idata.listTypeValue == '4',commonMenuX:idata.listTypeValue == '5',commonMenu:idata.listTypeValue == '6'}" v-show="idata.show">
-                    <span v-show="idata.listTypeValue == '6'" v-text="numEvent(idata.listTypeNum)"></span>
+                <li v-for="(idata,index) in listMenu"  :class = "{commonMenuN:idata.typeValue == '0',commonMenuS:idata.typeValue == '1',commonMenuC:idata.typeValue == '2'
+            ,commonMenuF:idata.typeValue == '3',commonMenuTC:idata.typeValue == '4',commonMenuX:idata.typeValue == '5',commonMenu:idata.typeValue == '6'}" v-show="idata.show">
+                    <span v-show="idata.typeValue == '6'" v-text="numEvent(idata.typeNum)"></span>
                     <span v-html="Trim(idata.text)"></span>
                 </li>
             </ul>

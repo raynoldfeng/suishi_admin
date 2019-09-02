@@ -11,9 +11,9 @@
             </div>
             <transition name="fade">
                 <ul class="sideEdgeBoxMenu idp-type-menu" v-show="isShow">
-                    <li v-for="(sdata,sindex) in datas.imgDisplayTypeTextMenu" :class = "{commonMenuN:sdata.imgDisplayTypeValue == '0',commonMenuS:sdata.imgDisplayTypeValue == '1',commonMenuC:sdata.imgDisplayTypeValue == '2'
-            ,commonMenuF:sdata.imgDisplayTypeValue == '3',commonMenuTC:sdata.imgDisplayTypeValue == '4',commonMenuX:sdata.imgDisplayTypeValue == '5',commonMenu:sdata.imgDisplayTypeValue == '6'}" >
-                        <span v-show="sdata.imgDisplayTypeValue == '6'" v-text="numEvent(sdata.imgDisplayTypeNum)"></span>
+                    <li v-for="(sdata,sindex) in datas.imgDisplayTypeTextMenu" :class = "{commonMenuN:sdata.typeValue == '0',commonMenuS:sdata.typeValue == '1',commonMenuC:sdata.typeValue == '2'
+            ,commonMenuF:sdata.typeValue == '3',commonMenuTC:sdata.typeValue == '4',commonMenuX:sdata.typeValue == '5',commonMenu:sdata.typeValue == '6'}" >
+                        <span v-show="sdata.typeValue == '6'" v-text="numEvent(sdata.typeNum)"></span>
                         <span v-html="Trim(sdata.imgDisplayTypeText)" ></span>
                     </li>
                 </ul>

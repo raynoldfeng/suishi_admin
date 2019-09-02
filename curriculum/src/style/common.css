@@ -253,7 +253,7 @@ ul li{
 }
 #QuestMain li.commonMenuTC:before{
     content: "◎";
-    padding-right: .5em;
+    padding-right: 0em;
 }
 #QuestMain li.commonMenuX:before{
     content: "※";

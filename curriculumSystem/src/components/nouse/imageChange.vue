@@ -89,24 +89,32 @@
 
 
             document.getElementById('file-selector3').onchange = function () {
-                var files = this.files;
+             //   var files = this.files;
                 //                console.log(file.name);
                 //                console.log(file)
-                if(files.length>0){
-                    self.pptUrl = [];
-                }
+//                if(files.length>0){
+//                    self.pptUrl = [];
+//                }
+//                if(self.SecretId != "" && self.SecretKey !="" ){
+//                    for(let i = 0 ;i<files.length;i++){
+//                        var file = files[i];
+//                        if (!file) return;
+//                        if(file){
+//                            self.cosjs(self.SecretId,self.SecretKey,file,self.XCosSecurityToken,self.expiredTime,function(url){
+//                                self.nowData.imageChange[self.selectImgIndex].img = url;
+//                            });
+//                        }
+//                    }
+//                }
+                var file = this.files[0];
+                if (!file) return;
                 if(self.SecretId != "" && self.SecretKey !="" ){
-                    for(let i = 0 ;i<files.length;i++){
-                        var file = files[i];
-                        if (!file) return;
-                        if(file){
-                            self.cosjs(self.SecretId,self.SecretKey,file,self.XCosSecurityToken,self.expiredTime,function(url){
-                                self.nowData.imageChange[self.selectImgIndex].img = url;
-                            });
-                        }
+                    if(file){
+                        self.cosjsFile3(self.SecretId,self.SecretKey,file,self.XCosSecurityToken,self.expiredTime,function(img){
+                            self.nowData.imageChange[self.selectImgIndex].img ="https://suishi-1256985330.cos.ap-guangzhou.myqcloud.com/" + img;
+                        });
                     }
                 }
-
             };
 
             },

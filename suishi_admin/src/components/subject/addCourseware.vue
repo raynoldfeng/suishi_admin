@@ -330,8 +330,6 @@
 //                        alert("选择专业");
 //                        return ;
 //                    }
-                    var path = "test/";
-                    var fileurl = "courseware/"+path;
                     //   this.cpath = "https://suishi-1256985330.cos.ap-guangzhou.myqcloud.com/courseware/"+ path + ""
                     if (!file) return;
                     //                console.log(file.name);
@@ -340,7 +338,7 @@
                         if(file){
                             var lens = this.files.length;
                             for(let i =0 ;i<lens;i++){
-                                self.cosjsFile2(self.SecretId,self.SecretKey,fileurl,file[i],self.XCosSecurityToken,self.expiredTime,function(url,err){
+                                self.cosjsFile2(self.SecretId,self.SecretKey,file[i],self.XCosSecurityToken,self.expiredTime,function(url,err){
                                     // self.coverImg = img;
                                     if(err){
                                         alert(url+"上传失败")

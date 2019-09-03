@@ -131,10 +131,11 @@ export default {
         document.getElementById('selectL-selector').onchange = function () {
             var file = this.files[0];
             if (!file) return;
+
             if(self.SecretId != "" && self.SecretKey !="" ){
                 if(file){
-                    self.cosjs(self.SecretId,self.SecretKey,file,self.XCosSecurityToken,self.expiredTime,function(img){
-                        self.nowData.selectMoreImgL = img;
+                    self.cosjsFile3(self.SecretId,self.SecretKey,file,self.XCosSecurityToken,self.expiredTime,function(img){
+                        self.nowData.selectMoreImgL ="https://suishi-1256985330.cos.ap-guangzhou.myqcloud.com/" + img;
                     });
                 }
             }
@@ -142,10 +143,11 @@ export default {
         document.getElementById('selectR-selector').onchange = function () {
             var file = this.files[0];
             if (!file) return;
+
             if(self.SecretId != "" && self.SecretKey !="" ){
                 if(file){
-                    self.cosjs(self.SecretId,self.SecretKey,file,self.XCosSecurityToken,self.expiredTime,function(img){
-                        self.nowData.selectMoreImgR = img;
+                    self.cosjsFile3(self.SecretId,self.SecretKey,file,self.XCosSecurityToken,self.expiredTime,function(img){
+                        self.nowData.selectMoreImgR ="https://suishi-1256985330.cos.ap-guangzhou.myqcloud.com/" + img;
                     });
                 }
             }

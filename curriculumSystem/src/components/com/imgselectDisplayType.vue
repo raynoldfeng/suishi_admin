@@ -109,24 +109,25 @@
                             var file = this.files[0];
                             if (!file) return;
                             if(self.SecretId != "" && self.SecretKey !="" ){
-                            if(file){
-                            self.cosjs(self.SecretId,self.SecretKey,file,self.XCosSecurityToken,self.expiredTime,function(img){
-                            self.nowData.imgselectDisplayMImg = img;
-                            });
-                            }
+                                if(file){
+                                    self.cosjsFile3(self.SecretId,self.SecretKey,file,self.XCosSecurityToken,self.expiredTime,function(img){
+                                        self.nowData.imgselectDisplayMImg ="https://suishi-1256985330.cos.ap-guangzhou.myqcloud.com/" + img;
+                                    });
+                                }
                             }
                         };
 
                         document.getElementById('img-selector').onchange = function () {
                         var file = this.files[0];
                         if (!file) return;
-                        if(self.SecretId != "" && self.SecretKey !="" ){
-                        if(file){
-                        self.cosjs(self.SecretId,self.SecretKey,file,self.XCosSecurityToken,self.expiredTime,function(img){
-                        self.nowData.imgselectDisplayMenu[self.selectImgIndex].imgselectDisplayImg = img;
-                        });
-                        }
-                        }
+
+                            if(self.SecretId != "" && self.SecretKey !="" ){
+                                if(file){
+                                    self.cosjsFile3(self.SecretId,self.SecretKey,file,self.XCosSecurityToken,self.expiredTime,function(img){
+                                        self.nowData.imgselectDisplayMenu[self.selectImgIndex].imgselectDisplayImg ="https://suishi-1256985330.cos.ap-guangzhou.myqcloud.com/" + img;
+                                    });
+                                }
+                            }
                         };
                     },
                     methods:{

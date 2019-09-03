@@ -70,12 +70,11 @@ export default{
         document.getElementById('selectImgJ-selector').onchange = function () {
             var file = this.files[0];
             if (!file) return;
-            //                console.log(file.name);
-            //                console.log(file)
+
             if(self.SecretId != "" && self.SecretKey !="" ){
                 if(file){
-                    self.cosjs(self.SecretId,self.SecretKey,file,self.XCosSecurityToken,self.expiredTime,function(img){
-                        self.nowData.ImgJumpTypeBg = img;
+                    self.cosjsFile3(self.SecretId,self.SecretKey,file,self.XCosSecurityToken,self.expiredTime,function(img){
+                        self.nowData.ImgJumpTypeBg ="https://suishi-1256985330.cos.ap-guangzhou.myqcloud.com/" + img;
                     });
                 }
             }

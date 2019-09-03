@@ -154,8 +154,9 @@ var cosjsFile2 = function newCos(SecretId,SecretKey,fileurl,file,XCosSecurityTok
 };
 
 
-var cosjsFile3 = function newCos(SecretId,SecretKey,fileurl,file,XCosSecurityToken,expiredTime,callback ){
-
+var cosjsFile3 = function newCos(SecretId,SecretKey,file,XCosSecurityToken,expiredTime,callback ){
+    var date = new Date();
+    var fileurl = "courseware/a/"+date.getFullYear()+(date.getMonth()+1)+date.getDate()+"/"+date.getTime()+file.name;
     var cos = new COS({ SecretId: SecretId,SecretKey: SecretKey,XCosSecurityToken:XCosSecurityToken,expiredTime:expiredTime});
     var url = "";
 console.log(file)
@@ -174,6 +175,9 @@ console.log(file)
         },
         onFileFinish: function (err, data, options) {
             console.log(options.Key + '上传' + (err ? '失败' : '完成'));
+            if(err){
+                alert("上传失败")
+            }
             callback(options.Key);
         },
     }, function (err, data) {

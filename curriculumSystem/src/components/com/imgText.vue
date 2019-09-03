@@ -84,13 +84,18 @@ export default {
         self.expiredTime = self.cosData.expiredTime;
         document.getElementById('imgtext-selector').onchange = function () {
             var file = this.files[0];
+            var date = new Date().getTime();
+            var fileurl = "courseware/a/"+date.getFullYear()+(date.getMonth()+1)+date.getDate()+"/"+date+file.name;
             if (!file) return;
             //                console.log(file.name);
             //                console.log(file)
             if(self.SecretId != "" && self.SecretKey !="" ){
                 if(file){
-                    self.cosjs(self.SecretId,self.SecretKey,file,self.XCosSecurityToken,self.expiredTime,function(img){
-                        self.nowData.imgTextImg = img;
+//                    self.cosjs(self.SecretId,self.SecretKey,file,self.XCosSecurityToken,self.expiredTime,function(img){
+//                        self.nowData.imgTextImg = img;
+//                    });
+                    self.cosjsFile3(self.SecretId,self.SecretKey,fileurl,file,self.XCosSecurityToken,self.expiredTime,function(img){
+                        self.nowData.imgTextImg ="https://suishi-1256985330.cos.ap-guangzhou.myqcloud.com/" + img;
                     });
                 }
             }

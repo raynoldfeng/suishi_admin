@@ -62,7 +62,7 @@
     </script>
     <style>
     #imageChange{
-        overflow: hidden;
+        overflow: auto;
         }
     #imageChange img{
         width: 100%;

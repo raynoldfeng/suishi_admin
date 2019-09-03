@@ -1,22 +1,25 @@
 <template>
     <div id="QuestMain">
-        <p class="quest-text" >loding</p>
-        <p class="common-info" >sadasdas</p>
-        <ul class="question-menu">
-            <li>
-                <p class="drag-text">hsdfjsdfjsdfsdbfhsg</p>
-                <div class="drag-box"></div>
-            </li>
-            <li>
-                <p class="drag-text">hsdfjsdfjsdfsdbfhsg</p>
-                <div class="drag-box"></div>
-            </li>
-            <li>
-                <p class="drag-text">hsdfjsdfjsdfsdbfhsg</p>
-                <div class="drag-box"></div>
-            </li>
-        </ul>
-        <div  class="animated dragboxbtn">adsd</div>
+        <div class="drag-main">
+            <p class="quest-text" >loding</p>
+            <p class="common-info" >sadasdas</p>
+            <ul class="question-menu">
+                <li>
+                    <p class="drag-text">hsdfjsdfjsdfsdbfhsg</p>
+                    <div class="drag-box"></div>
+                </li>
+                <li>
+                    <p class="drag-text">hsdfjsdfjsdfsdbfhsg</p>
+                    <div class="drag-box"></div>
+                </li>
+
+            </ul>
+        </div>
+
+        <div class="answer-menu">☰
+            <div  class="animated dragboxbtn shake">adsd</div>
+        </div>
+
 </div>
 </template>
 <script></script>
@@ -24,6 +27,7 @@
     .question-menu{
         width: 94%;
         margin: 5% auto 0;
+        padding-bottom: 15%;
     }
     .question-menu li{
             margin-top: 3%;
@@ -49,12 +53,27 @@
         text-align: center;
         color: #666;
         background: #fff;
-        padding: 2% 0;
-        position: absolute;
-        left: 100px;
-        top: 300px;
-        font-size: .65em;
+        margin: 0 auto;
+        padding: 3% 0;
+        /*position: absolute;*/
+        /*left: 100px;*/
+        /*top: 300px;*/
+        font-size: 4vw;
         -moz-box-shadow: 0 2px 4px #999;
         -webkit-box-shadow: 0 2px 4px #999;
     }
+.answer-menu{
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 20%;
+    background-color: #999999;
+    padding: 2% 0;
+}
+.drag-main{
+    width: 100%;
+    height: 80%;
+    overflow: auto;
+}
 </style>

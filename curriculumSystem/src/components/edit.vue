@@ -260,6 +260,7 @@
   *
  * 4
  * selectQMenu 选择类型菜单
+ * selectImgTitle 选择类型图片标题
  * selectTitle 选择类型题目 (selectQMenu)
  * selectInfo 选择类型副标题 (selectQMenu)
   * selectImg  选择类型图片 (selectQMenu)
@@ -546,6 +547,7 @@ export default {
 
                 selectQMenu:[{
                     selectTitle:"",
+                    selectImgTitle:"",
                     selectImgBig:"",
                     selectInfo:"",
                     selectImg:"",
@@ -689,6 +691,7 @@ export default {
 
                 selectQMenu:[{
                         selectTitle: "",
+                    selectImgTitle:"",
                         selectImgBig:"",
                         selectInfo:"",
                         selectImg: "",
@@ -868,6 +871,7 @@ export default {
 
                 selectQMenu:[{
                         selectTitle: "",
+                    selectImgTitle:"",
                         selectImgBig:"",
                         selectInfo:"",
                         selectImg: "",

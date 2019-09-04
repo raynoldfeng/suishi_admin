@@ -4,6 +4,7 @@
             <div v-for="(sdata,sindex) in data.selectQMenu" class="padd-css">
                 <p class="quest-text" v-text="sdata.selectTitle"></p>
                 <p class="common-info" v-if="sdata.selectInfo != ''" v-text="sdata.selectInfo"></p>
+                <p class="common-info" v-if="sdata.selectImgTitle != ''" v-text="sdata.selectImgTitle"></p>
                 <div class="img-main simg-main" v-if="sdata.selectImg">
                     <div class="white-r">
                         <img id="selectImgs" :src="sdata.selectImg" @click="displayEvent(sdata.selectImg,sdata.imgNoteNode,sdata.selectImgBig)">

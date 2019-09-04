@@ -96,21 +96,20 @@
 
     .imgChange-menu{
         width: 84%;
-        height: 100%;
         margin: 0 auto;
         position: relative;
+        padding-bottom: 15%;
         }
     .imgChange-menu li {
-        position: absolute;
-        top: 50%;
-        margin-top: -50%;
+        /*position: absolute;*/
+        /*top: 50%;*/
+        margin-top: 15%;
         }
     .imgChange-menu img{
         width:100%;
         }
     .imageChange-text{
         padding:4%;
-        border: 2px solid #333;
         color: #666;
         font-size:4.5vw;
         margin-top:4%;

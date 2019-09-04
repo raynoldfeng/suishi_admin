@@ -19,6 +19,10 @@
         <el-input class="input_type" v-model="selectData.selectInfo"></el-input>
     </div>
     <div class="view_main">
+        <span>图片标题:</span>
+        <el-input class="input_type" v-model="selectData.selectImgTitle"></el-input>
+    </div>
+    <div class="view_main">
         <div class="type_title">图片:</div>
         <div class="avatar-uploader" @click="uploadClick('select-selector',selectIndex)">
         <img v-if="selectData.selectImg" :src="selectData.selectImg" class="avatar">

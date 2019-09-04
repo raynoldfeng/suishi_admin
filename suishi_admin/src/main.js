@@ -86,14 +86,13 @@ var cosjsFile = function newCos(SecretId,SecretKey,fileurl,file,XCosSecurityToke
 };
 
 
-var cosjsFile2 = function newCos(SecretId,SecretKey,file,XCosSecurityToken,expiredTime,callback ){
+var cosjsFile2 = function newCos(SecretId,SecretKey,fileurl,file,XCosSecurityToken,expiredTime,callback ){
 //    console.log(2545454);
 //    console.log(SecretId);
 //    console.log(SecretKey);
 //    console.log(file);
 //    console.log(file.name);
-    var date = new Date();
-    var fileurl = "courseware/test/"+date.getFullYear()+(date.getMonth()+1)+date.getDate()+"/"+date.getTime()+file.name;
+
     var cos = new COS({ SecretId: SecretId,SecretKey: SecretKey,XCosSecurityToken:XCosSecurityToken,expiredTime:expiredTime});
 //    cos.sliceUploadFile({
 //        Bucket: "suishi-1256985330",

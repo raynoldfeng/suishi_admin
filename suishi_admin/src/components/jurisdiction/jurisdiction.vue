@@ -70,6 +70,10 @@
                 <span>姓名</span>
                 <el-input v-model="nickname" class="input_type"></el-input>
             </div>
+            <div class="view_main">
+                <span>密码</span>
+                <el-input v-model="password" class="input_type"></el-input>
+            </div>
             <!--<div class="view_main">
                 <span>密码</span>
                 <el-input v-model="password" class="input_type"></el-input>
@@ -124,7 +128,7 @@ export default {
                 self.username = data.username;
                 self.nickname = data.name;
                 self.role_id = parseInt(data.role_id) ;
-                self.password = data.password;
+                self.password = "";
                 self.editDialogVisible = true;
                 self.editId = data.id;
             })
@@ -163,7 +167,12 @@ export default {
                 if(this.editId == ""){
                     alert("用户id为空");
                 }
-                var userinfo = {id:this.editId,"username":this.username, "password":this.password, "nickname":this.nickname,"role_id":this.role_id};
+                if(this.password == ""){
+                    var userinfo = {id:this.editId,"username":this.username, "nickname":this.nickname,"role_id":this.role_id};
+                }else{
+                    var userinfo = {id:this.editId,"username":this.username, "password":this.password, "nickname":this.nickname,"role_id":this.role_id};
+                }
+
                 this.common.putEventToken(this.api.host+this.api.adminUser,userinfo,this.userinfo,function(data){
                     console.log(data);
                     self.editDialogVisible = false;
@@ -173,7 +182,6 @@ export default {
                     self.nickname = "";
                     self.role_id = "";
                     self.editId = "";
-                    self.adminUserEvent();
                     alert("保存成功");
                 })
             }else{

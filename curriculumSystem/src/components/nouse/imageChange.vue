@@ -33,7 +33,7 @@
 
                  </div>
                 <div class="view_main">
-                    <span>是否显示大图:</span>
+                    <span>是否显示小图:</span>
                     <el-select v-model="nowData.imageChange[index].isBigImg" class="select-css" placeholder="是否显示大图">
                         <el-option
                                 v-for="item in judgeAnswerMenu"

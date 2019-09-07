@@ -51,7 +51,7 @@
         <div id="imgWin"  @click="imgHiddenEvnet"  :class="{showBox:displayImg != ''}" v-show="displayImg != ''"></div>
         </transition>
         <transition name="fade">
-            <div id="imgBox"   :class="{showBox:displayImg != '', bigImgs:isbig == '1'}" v-show="displayImg != ''">
+            <div id="imgBox"   :class="{showBox:displayImg != ''}" v-show="displayImg != ''">
                 <div @click="imgHiddenEvnet" class="closeBtn">
                     <img src="./../img/close_btn.png" />
                 </div>
@@ -482,14 +482,17 @@ import blanksType from '../components/blanksType.vue'
           position: absolute;
           z-index:0;
           top: 0;
-          left: 50%;
-          width: 80%;
-          margin:25% 0 0 -40%;
+          /*left: 50%;*/
+          /*width: 80%;*/
+          /*margin:25% 0 0 -40%;*/
+          width: 100%;
+          left: 0;
+          margin: 25% 0 0 0;
       }
   #imgBox.bigImgs{
       width: 100%;
       left: 0;
-      margin: 25% 0 0 0;;
+      margin: 25% 0 0 0;
   }
 
       #imgBox img{
@@ -529,8 +532,10 @@ import blanksType from '../components/blanksType.vue'
       .closeBtn{
           width:8%;
           position: absolute;
-          top: -4%;
-          right: -3%;
+          /*top: -4%;*/
+          /*right: -3%;*/
+          top: -6%;
+          right: 0;
       }
   #imgBox.bigImgs .closeBtn{
       top: -6%;

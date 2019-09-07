@@ -10,6 +10,10 @@
                 <span>跳转文案:</span>
                 <el-input class="input_type" v-model="nowData.imageChangeJump"></el-input>
             </div>
+        <div class="view_main">
+            <span>最后一页跳转文案:</span>
+            <el-input class="input_type" v-model="nowData.imageChangeJumpL"></el-input>
+        </div>
             <div  class="view_main" v-for="(data,index) in nowData.imageChange">
                 <el-button @click="imageChangeDelete(index)">删除</el-button>
                 <div class="view_main">

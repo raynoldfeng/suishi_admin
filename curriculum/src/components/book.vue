@@ -14,7 +14,7 @@
             <swiper-slide v-for="(data,index) in bookData" :key="index">
                 <v-titlePage v-if="data.testType == '0' && data.displayType == 't1'" v-on:isStart = "isStartEvent" :data="data"></v-titlePage>
                 <v-imageText v-else-if="data.testType == '1' && data.displayType == 'it1'" :data="data"></v-imageText>
-                <v-imageChange v-else-if="data.testType == '2' && data.displayType == 'ic1'" :data="data" :page="index" v-on:isJump = "isJumpEvent" v-on:imgShow = "imgShowEvent"></v-imageChange>
+                <v-imageChange v-else-if="data.testType == '2' && data.displayType == 'ic1'" :data="data" :page="index" v-on:isJump = "isJumpEvent" v-on:imgShow = "imgShowEvent2"></v-imageChange>
                 <v-judge  v-else-if="data.testType == '3' && data.displayType == 'j1'" :data="data" :index = "index" :nowPage="nowPage" v-on:isJump = "isJumpEvent"></v-judge>
                 <v-select v-else-if="data.testType == '4' && data.displayType == 's1'" :data="data" :nowyes="nowyesEvent(data)" v-on:imgShow = "imgShowEvent"></v-select>
                 <v-selectmore  v-else-if="data.testType == '5' && data.displayType == 'sm1'" :data="data"></v-selectmore>
@@ -51,7 +51,7 @@
         <div id="imgWin"  @click="imgHiddenEvnet"  :class="{showBox:displayImg != ''}" v-show="displayImg != ''"></div>
         </transition>
         <transition name="fade">
-            <div id="imgBox"   :class="{showBox:displayImg != ''}" v-show="displayImg != ''">
+            <div id="imgBox"   :class="{showBox:displayImg != '', bigImgs:isbig == '1'}" v-show="displayImg != ''">
                 <div @click="imgHiddenEvnet" class="closeBtn">
                     <img src="./../img/close_btn.png" />
                 </div>
@@ -131,6 +131,7 @@ import blanksType from '../components/blanksType.vue'
                 bookData:"",
                 hasSave:false,
                 displayImg:"",
+                isbig:'0',
                 displayText:"",
                 noteTexts:"",
                 lastData:{
@@ -330,7 +331,8 @@ import blanksType from '../components/blanksType.vue'
                 window.nowPage = index;
             },
             imgShowEvent(data){
-                console.log(data)
+                console.log(data);
+                this.isbig = '0';
                 if(data.url == ""){
                     this.displayImg = "";
                 }else{
@@ -345,8 +347,23 @@ import blanksType from '../components/blanksType.vue'
                 }else{
                     this.displayText = data.text;
                 }
-
-
+            },
+            imgShowEvent2(data){
+                this.isbig = '1';
+                if(data.url == ""){
+                    this.displayImg = "";
+                }else{
+                    if(data.urlbig != ""){
+                        this.displayImg = data.urlbig;
+                    }else{
+                        this.displayImg = data.url;
+                    }
+                }
+                if(data.text == "" || data.text == undefined){
+                    this.displayText = "";
+                }else{
+                    this.displayText = data.text;
+                }
             },
             imgHiddenEvnet(){
                 this.displayImg = "";
@@ -467,9 +484,14 @@ import blanksType from '../components/blanksType.vue'
           top: 0;
           left: 50%;
           width: 80%;
-
-            margin:25% 0 0 -40%;
+          margin:25% 0 0 -40%;
       }
+  #imgBox.bigImgs{
+      width: 100%;
+      left: 0;
+      margin: 25% 0 0 0;;
+  }
+
       #imgBox img{
           width: 100%;
           float:left;
@@ -510,5 +532,8 @@ import blanksType from '../components/blanksType.vue'
           top: -4%;
           right: -3%;
       }
-
+  #imgBox.bigImgs .closeBtn{
+      top: -6%;
+      right: 0;
+  }
   </style>

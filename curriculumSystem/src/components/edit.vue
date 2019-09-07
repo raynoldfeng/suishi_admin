@@ -530,6 +530,7 @@ export default {
 
                 imageChange:[{imgChangeTitle:"",isBigImg:"0",img:"",textMenu:[{text:"",typeValue:"0",typeNum:""}]}],
                 imageChangeJump:"",
+                imageChangeJumpL:"",
 
 
                 judgeTitle:"",
@@ -675,6 +676,7 @@ export default {
 
                 imageChange:[{imgChangeTitle:"",isBigImg:"0",img:"",textMenu:[{text:"",typeValue:"0",typeNum:""}]}],
                 imageChangeJump:"",
+                imageChangeJumpL:"",
 
 
                 judgeTitle:"",
@@ -854,6 +856,7 @@ export default {
 
                 imageChange:[{imgChangeTitle:"",isBigImg:"0",img:"",textMenu:[{text:"",typeValue:"0",typeNum:""}]}],
                 imageChangeJump:"",
+                imageChangeJumpL:"",
 
 
 

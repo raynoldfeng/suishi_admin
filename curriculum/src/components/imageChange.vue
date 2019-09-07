@@ -4,12 +4,14 @@
             <ul class="imgChange-menu">
                 <li  v-for="(datas,index) in data.imageChange" v-show="nowImgIndex == index">
                     <p class="common-info" v-text="datas.imgChangeTitle"></p>
-                    <div class="img-main simg-main" v-if="datas.img" :class="{simgnobor:datas.isBigImg == '0'}">
+                    <img  v-if="datas.isBigImg == '0'" :src="datas.img"  />
+                    <div class="img-main simg-main" v-if="datas.img && datas.isBigImg == '1'" >
                         <div class="white-r">
-                            <img class="idt-img" v-if="datas.isBigImg == '1'" :src="datas.img"  @click="displayEvent(datas.img)" />
-                            <img class="idt-img" v-if="datas.isBigImg == '0'" :src="datas.img"  />
+                            <img class="idt-img" v-if="" :src="datas.img"  @click="displayEvent(datas.img)" />
+
                         </div>
                     </div>
+
                         <div class="imageChange-text" v-if="datas.text" v-html="Trim(datas.text)"></div>
 
                         <ul class="list-type-menu imageChange-menu imageChange-text" >
@@ -20,11 +22,13 @@
                             </li>
                         </ul>
 
-                        <div class="tp-next-btn" @click="NextEvent(index, data.imageChange.length-1)"  v-show="data.imageChangeJump !=''" v-text="data.imageChangeJump"></div>
+                        <div class="tp-next-btn" v-if="index < data.imageChange.length-1" @click="NextEvent(index, data.imageChange.length-1)"  v-show="data.imageChangeJump !=''" v-text="data.imageChangeJump"></div>
+                        <div class="tp-next-btn" v-if="index == data.imageChange.length-1" @click="NextEvent(index, data.imageChange.length-1)"  v-show="data.imageChangeJumpL !=''" v-text="data.imageChangeJumpL"></div>
+                        <div class="tp-next-btn" v-if="index == data.imageChange.length-1" @click="NextEvent(index, data.imageChange.length-1)"  v-show="data.imageChangeJumpL ==''" v-text="data.imageChangeJump"></div>
                     </li>
                 </ul>
             </div>
-            <ul class="ic-swiper-pagination" >
+            <ul class="ic-swiper-pagination" v-show="data.imageChange > 0">
                 <li  v-for="(data,index) in data.imageChange" @click="imgChangeEvent(index)" :class="{clickbtned:nowImgIndex == index}"></li>
             </ul>
 
@@ -106,7 +110,7 @@
         }
 
     .imgChange-menu{
-        width: 84%;
+        width: 100%;
         margin: 0 auto;
         position: relative;
         padding-bottom: 15%;
@@ -114,7 +118,8 @@
     .imgChange-menu li {
         /*position: absolute;*/
         /*top: 50%;*/
-        margin-top: 15%;
+
+        margin: 15% 0 0;
         }
     .imgChange-menu img{
         width:100%;
@@ -123,9 +128,9 @@
         padding:4%;
         color: #666;
         font-size:4.5vw;
-        margin-top:4%;
         text-align:left;
-        margin-bottom:5%;
+        width: 84%;
+        margin: 4% auto 5%;
         }
 .imageChange-menu li{
     position: relative;

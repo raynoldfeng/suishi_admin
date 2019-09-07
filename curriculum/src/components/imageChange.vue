@@ -3,7 +3,13 @@
         <div id="imageChange" :style = '{"height":imageChangeHeight+"px"}'>
             <ul class="imgChange-menu">
                 <li  v-for="(datas,index) in data.imageChange" v-show="nowImgIndex == index">
-                    <img :src="datas.img">
+                    <p class="common-info" v-text="datas.imgChangeTitle"></p>
+                    <div class="img-main simg-main" v-if="datas.img" :class="{simgnobor:datas.isBigImg == '0'}">
+                        <div class="white-r">
+                            <img class="idt-img" v-if="datas.isBigImg == '1'" :src="datas.img"  @click="displayEvent(datas.img)" />
+                            <img class="idt-img" v-if="datas.isBigImg == '0'" :src="datas.img"  />
+                        </div>
+                    </div>
                         <div class="imageChange-text" v-if="datas.text" v-html="Trim(datas.text)"></div>
 
                         <ul class="list-type-menu imageChange-menu imageChange-text" >
@@ -38,6 +44,7 @@
         },
         mounted:function(){
         this.imageChangeHeight = document.getElementById("QuestMain").scrollHeight;
+            $(".img-main").height($(".img-main").width());
         },
         methods:{
         Trim(str) {
@@ -56,6 +63,10 @@
         },
             numEvent(str){
                 return str+".";
+            },
+            displayEvent(url){
+                var data = {url:url,text:"",urlbig:url};
+                this.$emit("imgShow",data);
             }
         }
         }

@@ -1,7 +1,7 @@
 <template>
     <div id="QuestMain">
         <div id="imageText">
-            <p class="it-title" v-text="data.imgTextTitle"></p>
+            <p class="it-title" :class="{paddcss5v:data.imgTextTitle == ''}" v-text="data.imgTextTitle"></p>
             <div class="it-img-main simg-main-nobor" v-show="data.imgTextImg !=''">
                 <div class="white-r">
                     <img :src="data.imgTextImg" />

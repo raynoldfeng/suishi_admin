@@ -13,10 +13,14 @@
             <div  class="view_main" v-for="(data,index) in nowData.imageChange">
                 <el-button @click="imageChangeDelete(index)">删除</el-button>
                 <div class="view_main">
+                    <span>图片标题:</span>
+                    <el-input class="input_type"   v-model="nowData.imageChange[index].imgChangeTitle"></el-input>
+                </div>
+                <div class="view_main">
                     <div class="avatar-uploader" @click="uploadClick('file-selector3',index)">
                         <img v-if="nowData.imageChange[index].img" :src="nowData.imageChange[index].img" class="avatar">
                             <div v-else class=" avatar-uploader-icon">
-                                <img class="addi-icon" src="./../../image/addi.png">
+                                <img class="addi-icon" src="./../../image/addi.png" />
                             </div>
                     </div>
                             <i  @click="deleteMenuImg(index,'imageChange','img')">
@@ -24,9 +28,19 @@
                             </i>
 
                  </div>
+                <div class="view_main">
+                    <span>是否显示大图:</span>
+                    <el-select v-model="nowData.imageChange[index].isBigImg" class="select-css" placeholder="是否显示大图">
+                        <el-option
+                                v-for="item in judgeAnswerMenu"
+                        :key="item.value"
+                        :label="item.label"
+                        :value="item.value">
+                        </el-option>
+                    </el-select>
+                </div>
                         <div class="view_main">
                             <p>解释:</p>
-
                             <div class="view_main"  v-for="(sdata,tindex) in nowData.imageChange[index].textMenu">
                                 <div class="view_main">
                                     <span>段落样式:</span>
@@ -72,13 +86,14 @@
             SecretKey:"",
             XCosSecurityToken:"",
             expiredTime:"",
-            selectImgIndex:""      //模板需要多个带图片的问题时
+            selectImgIndex:"",      //模板需要多个带图片的问题时
             }
             },
             props:{
                   nowData:"",
                   cosData:"",
-                  listSysleList:""
+                  listSysleList:"",
+                  judgeAnswerMenu:""
             },
             mounted:function(){
             var self = this;
@@ -136,7 +151,7 @@
                 },
 
                 addEvent(){
-                    var newdata = {img:"",textMenu:[{text:"",typeValue:"0",typeNum:""}]};
+                    var newdata = {imgChangeTitle:"",img:"",isBigImg:"0",textMenu:[{text:"",typeValue:"0",typeNum:""}]};
                     this.nowData.imageChange.push(newdata);
                 },
                 addTextEvent(index){

@@ -96,7 +96,12 @@ ul li{
     margin: 2vw auto 0;
     width: 80%;
 }
-
+.paddcss5v{
+    padding-top: 5vw;
+}
+.paddcss45v{
+    padding-top: 4.5vw;
+}
 .sideEdgeBoxMenu li{
     margin:5% 0 0 0;
     word-break: break-all;
@@ -185,7 +190,7 @@ ul li{
     padding: 2%;
     border:1px solid #999999;
 }
-.simg-main-nobor{
+.simg-main-nobor,.simgnobor{
     border:1px solid transparent;
 }
 

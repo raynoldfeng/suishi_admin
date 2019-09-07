@@ -4,33 +4,14 @@
             <div class="img-main">
                 <img id="selectImgBg" :src="data.selectAllJImg">
             </div>
-            <p class="quest-text" :class="{colorfff:data.selectAllJSubtitleTitleColor == '1'}" v-text="data.selectAllJTitle"></p>
-            <p class="quest-info common-info" :class="{colorfff:data.selectAllJSubtitleTitleColor == '1'}"  v-text="data.selectAllJSubtitleTitle"></p>
+            <p class="quest-text" :class="{colorfff:data.selectAllJSubtitleTitleColor == '1',paddcss5v:data.selectAllJTitle == ''}" v-text="data.selectAllJTitle"></p>
+            <p class="quest-info common-info" :class="{colorfff:data.selectAllJSubtitleTitleColor == '1',paddcss45v:data.selectAllJSubtitleTitle == '' }"  v-text="data.selectAllJSubtitleTitle"></p>
             <ul id="selectBox" class="optionall-menu">
-                <!--<li v-for="(data,index) in data.selectMenu" v-text="data.answerText"   class="answer-css animated" :class="{yes:data.isAnswer == '1' ,no:data.isAnswer == '0'}"></li>-->
-            <!--<li class="explain" v-html="Trim(data.imgTextNote)">-->
-
-            <!--</li>-->
                 <li v-for="(datas,index) in data.selectAllJMenu">
                     <div  class="answer-btn answer-css animated" :class="{yes:datas.isAnswer == '1' ,no:datas.isAnswer == '0'}" v-text="datas.answerText"></div>
                     <div class="explain-main" :class="{colorfff:data.selectAllJSubtitleTitleColor == '1'}" v-html="Trim(datas.selectTextNote)"></div>
                 </li>
-                <!--<li>-->
-                   <!--<div  class="answer-btn answer-css no animated">  不是 </div>-->
-                    <!--<div class="explain-main">谁看见爱上的啥快递会看见爱上对话框肯定是发货款收到回复及时的死快点哈肯定会可接受的拉速度</div>-->
-                 <!--</li>-->
-                 <!--<li >-->
-                     <!--<div  class="answer-btn answer-css yes animated">  不是 </div>-->
-                     <!--<div class="explain-main">谁看见爱上的啥快递会看见爱上对话框肯定是发货款收到回复及时的死快点哈肯定会可接受的拉速度</div>-->
-                 <!--</li>-->
-                 <!--<li>-->
-                     <!--<div  class="answer-btn answer-css yes animated">  不是 </div>-->
-                     <!--<div class="explain-main">谁看见爱上的啥快递会看见爱上对话框肯定是发货款收到回复及时的死快点哈肯定会可接受的拉速度</div>-->
-                 <!--</li>-->
-                 <!--<li >-->
-                     <!--<div  class="answer-btn answer-css no animated">  不是 </div>-->
-                     <!--<div class="explain-main">谁看见爱上的啥快递会看见爱上对话框肯定是发货款收到回复及时的死快点哈肯定会可接受的拉速度</div>-->
-                 <!--</li>-->
+
         </ul>
 
     </div>

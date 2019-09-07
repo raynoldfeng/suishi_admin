@@ -176,7 +176,7 @@
 
         <imgText v-if="nowData.testType == 1 && nowData.displayType == 'it1'" :nowData="nowData" :cosData="cosData" :listSysleList="listSysleList"></imgText>
 
-        <imageChange  v-if="nowData.testType == 2 && nowData.displayType == 'ic1'" :nowData="nowData" :cosData="cosData"  :listSysleList="listSysleList"></imageChange>
+        <imageChange  v-if="nowData.testType == 2 && nowData.displayType == 'ic1'" :nowData="nowData" :cosData="cosData" :judgeAnswerMenu="judgeAnswerMenu" :listSysleList="listSysleList"></imageChange>
 
 
 
@@ -247,6 +247,7 @@
  * 2
  * imageChange 图片轮播
  *   imageChangeJump 跳转按钮文案
+ *   imgChangeTitle 图片标题
  *
  * 3
  * judgeTitle 判断类型题目
@@ -527,7 +528,7 @@ export default {
 
 
 
-                imageChange:[{img:"",textMenu:[{text:"",typeValue:"0",typeNum:""}]}],
+                imageChange:[{imgChangeTitle:"",isBigImg:"0",img:"",textMenu:[{text:"",typeValue:"0",typeNum:""}]}],
                 imageChangeJump:"",
 
 
@@ -672,7 +673,7 @@ export default {
 
 
 
-                imageChange:[{img:"",textMenu:[{text:"",typeValue:"0",typeNum:""}]}],
+                imageChange:[{imgChangeTitle:"",isBigImg:"0",img:"",textMenu:[{text:"",typeValue:"0",typeNum:""}]}],
                 imageChangeJump:"",
 
 
@@ -851,7 +852,7 @@ export default {
 
 
 
-                imageChange:[{img:"",textMenu:[{text:"",typeValue:"0",typeNum:""}]}],
+                imageChange:[{imgChangeTitle:"",isBigImg:"0",img:"",textMenu:[{text:"",typeValue:"0",typeNum:""}]}],
                 imageChangeJump:"",
 
 

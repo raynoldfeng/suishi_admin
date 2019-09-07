@@ -1,8 +1,8 @@
 <template>
     <div id="QuestMain">
         <div class="padd-bottom">
-            <p class="quest-text common-text" v-text="data.blanksTitle"></p>
-            <p class="common-info" v-text="data.blanksInfo"></p>
+            <p class="quest-text common-text" :class="{paddcss5v:data.blanksTitle == ''}" v-text="data.blanksTitle"></p>
+            <p class="common-info" :class="{paddcss45v:data.blanksInfo == ''}" v-text="data.blanksInfo"></p>
             <div class="btext-menu">
                 <!--<div class="btext-main" v-for="(idata,index) in data.blanksMenu">-->
                 <!--<span v-if="idata.blanksType == 1"  class="blanks-text" v-text="idata.blanksText"></span>-->

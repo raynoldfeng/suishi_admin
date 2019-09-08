@@ -96,6 +96,13 @@ ul li{
     margin: 2vw auto 0;
     width: 80%;
 }
+.image-titles{
+    font-size: 4.5vw;
+    color: #333333;
+    z-index: 1;
+    margin: 2vw auto 0;
+    width: 80%;
+}
 .paddcss5v{
     padding-top: 5vw;
 }

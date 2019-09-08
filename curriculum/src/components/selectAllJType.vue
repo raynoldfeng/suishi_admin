@@ -1,9 +1,7 @@
 <template>
     <div id="QuestMain" class="QuestMain1">
         <div id="QuestBox">
-            <div class="img-main">
-                <img id="selectImgBg" :src="data.selectAllJImg">
-            </div>
+            <img id="selectImgBg" :src="data.selectAllJImg">
             <p class="quest-text" :class="{colorfff:data.selectAllJSubtitleTitleColor == '1',paddcss5v:data.selectAllJTitle == ''}" v-text="data.selectAllJTitle"></p>
             <p class="quest-info common-info" :class="{colorfff:data.selectAllJSubtitleTitleColor == '1',paddcss45v:data.selectAllJSubtitleTitle == '' }"  v-text="data.selectAllJSubtitleTitle"></p>
             <ul id="selectBox" class="optionall-menu">

@@ -3,8 +3,8 @@
         <div id="QuestBox">
             <div v-for="(sdata,sindex) in data.selectQMenu" class="padd-css">
                 <p class="quest-text" :class="{paddcss5v:sdata.selectTitle == ''}" v-text="sdata.selectTitle"></p>
-                <p class="common-info" :class="{paddcss45v:sdata.selectInfo == ''}"  v-text="sdata.selectInfo"></p>
-                <p class="common-info" :class="{paddcss45v:sdata.selectImgTitle == ''}"  v-text="sdata.selectImgTitle"></p>
+                <p class="common-info"  v-text="sdata.selectInfo"></p>
+                <p class="common-info"   v-text="sdata.selectImgTitle"></p>
                 <div class="img-main simg-main" v-if="sdata.selectImg">
                     <div class="white-r">
                         <img id="selectImgs" :src="sdata.selectImg" @click="displayEvent(sdata.selectImg,sdata.imgNoteNode,sdata.selectImgBig)">

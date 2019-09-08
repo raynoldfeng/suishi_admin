@@ -3,9 +3,9 @@
         <div id="imageChange" :style = '{"height":imageChangeHeight+"px"}'>
             <ul class="imgChange-menu">
                 <li :class="{smargin:datas.isBigImg == '0'}"  v-for="(datas,index) in data.imageChange" v-show="nowImgIndex == index">
-                    <p class="common-info" v-text="datas.imgChangeTitle"></p>
+                    <p class="image-titles" v-text="datas.imgChangeTitle"></p>
                     <img class="bigimgs"  v-if="datas.isBigImg == '0'" :src="datas.img"  />
-                    <div class="img-main simg-main simgnobor" v-if="datas.img && datas.isBigImg == '1'" >
+                    <div class="img-main simg-main simgnobor imgchange-img" v-if="datas.img && datas.isBigImg == '1'" >
                         <div class="white-r">
                             <img class="idt-img" v-if="" :src="datas.img"  />
                         </div>
@@ -47,7 +47,7 @@
         },
         mounted:function(){
         this.imageChangeHeight = document.getElementById("QuestMain").scrollHeight;
-            $(".img-main").height($(".img-main").width());
+            $(".imgchange-img").height($(".imgchange-img").width());
         },
         methods:{
         Trim(str) {

@@ -38,14 +38,20 @@ export default
     },
     mounted:function(){
          var html = "";
-        for(let i = 0;i < this.data.blanksMenu.length;i++){
-            if(this.data.blanksMenu[i].blanksType == 1){
-                html+= this.data.blanksMenu[i].blanksText;
-            }else if(this.data.blanksMenu[i].blanksType == 2){
-                html+= '<div class="input-b-box"><div class="blanks-anw" contenteditable="true"  >'+this.data.blanksMenu[i].blanksInput+'</div>'+
-                        '<span class="show-abtn" key="'+this.data.blanksMenu[i].blanksAnswer+'"> ▼</span></div>'
+        console.log(this.data.blanksMenu);
+        for(let a = 0;a < this.data.blanksMenu.length;a++){
+            html+="<div class='ttt'>";
+            for(let i = 0;i < this.data.blanksMenu.length;i++){
+                if(this.data.blanksMenu[a][i].blanksType == 1){
+                    html+= this.data.blanksMenu[a][i].blanksText;
+                }else if(this.data.blanksMenu[a][i].blanksType == 2){
+                    html+= '<div class="input-b-box"><div class="blanks-anw" contenteditable="true"  >'+this.data.blanksMenu[a][i].blanksInput+'</div>'+
+                            '<span class="show-abtn" key="'+this.data.blanksMenu[a][i].blanksAnswer+'"> ▼</span></div>'
+                }
             }
+            html+="</div>";
         }
+
         $(".btext-menu").html(html);
         $(".show-abtn").on("click",function(){
             $(this).prev().text($(this).attr("key"));
@@ -79,7 +85,7 @@ export default
     .input-b-box{
         display: inline-block;
         position: relative;
-        top: 2px;
+        top: 2.3vw;
     }
     .show-abtn{
         background: #f48335;

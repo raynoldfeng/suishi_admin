@@ -166,6 +166,14 @@
                                     :value="item.value">
                                 </el-option>
                             </el-select>
+                            <el-select v-show="nowData.testType == 13" class="select-css" v-model="nowData.displayType" placeholder="类型">
+                                <el-option
+                                        v-for="item in pairTypeMenus"
+                                :key="item.value"
+                                :label="item.label"
+                                :value="item.value">
+                                </el-option>
+                            </el-select>
                         </div>
                     </div>
 
@@ -211,7 +219,7 @@
 
         <imgDisplayType v-if="nowData.testType == 12 && nowData.displayType == 'idp'" :nowData="nowData" :cosData="cosData" :listSysleList="listSysleList"></imgDisplayType>
 
-
+        <pairTypeMenus v-if="nowData.testType == 13 && nowData.displayType == 'pp'" :nowData="nowData" :cosData="cosData"></pairTypeMenus>
 
 
 
@@ -349,6 +357,19 @@
 * imgDisplayTypeTextMenu 图片展示段落菜单
  * imgDisplayTypeText 图片展示段落
  *
+ *
+ * 13
+ * pairTypeTitle 匹配类型标题
+ * pairTypeInfo  匹配类型副标题
+ * pairTypeMenu 匹配类型问题答案菜单
+ * pairTypeQtitle 匹配类型问题(pairTypeMenu内)
+ * pairTypeQindex 匹配类型问题索引(pairTypeMenu内)
+ * pairTypeAmenu 匹配类型答案菜单(pairTypeMenu内)
+ * pairTypeAtitle 匹配类型答案名称
+ * pairTypeAcontext 匹配类型答案解释
+ * pairTypeAindex 匹配类型答案索引
+ *
+ *
 *
  */
 import $ from 'jquery'
@@ -365,6 +386,7 @@ import blanksType from './com/blanksType.vue'
     import imgselectDisplayType from './com/imgselectDisplayType.vue'
     import imgDisplayType from './com//imgDisplayType.vue'
     import imageChange from './nouse/imageChange.vue'
+import pairTypeMenus from './com/pairTypeMenus.vue'
 export default {
     data(){
         return {
@@ -427,6 +449,10 @@ export default {
                 {
                     value:"12",
                     label:"图片展示"
+                },
+                {
+                    value:'13',
+                    label:"匹配类型"
                 }
             ],
             titleInfoTypeMenu:[
@@ -504,6 +530,12 @@ export default {
             imgDisplayTypeMenu:[
                 {
                     value:"idp",
+                    label:"点击"
+                }
+            ],
+            pairTypeMenus:[
+                {
+                    value:"pp",
                     label:"点击"
                 }
             ],
@@ -649,7 +681,24 @@ export default {
                         typeNum:"",
                         imgDisplayTypeText:""
                     }]
-                }]
+                }],
+
+
+                pairTypeTitle:"",
+                pairTypeInfo:"",
+                pairTypeMenu:[
+                    {
+                        pairTypeQtitle:"",
+                        pairTypeQindex:0,
+                        pairTypeAmenu:[
+                            {
+                                pairTypeAtitle:"",
+                                pairTypeAcontext:"",
+                                pairTypeAindex:0
+                            }
+                        ]
+                    }
+                ]
 
             },
             copyData:{
@@ -792,7 +841,24 @@ export default {
                         typeNum:"",
                         imgDisplayTypeText:""
                     }]
-                }]
+                }],
+
+
+                pairTypeTitle:"",
+                pairTypeInfo:"",
+                pairTypeMenu:[
+                    {
+                        pairTypeQtitle:"",
+                        pairTypeQindex:0,
+                        pairTypeAmenu:[
+                            {
+                                pairTypeAtitle:"",
+                                pairTypeAcontext:"",
+                                pairTypeAindex:0
+                            }
+                        ]
+                    }
+                ]
             },
             SecretId:"",
             SecretKey:"",
@@ -816,7 +882,8 @@ export default {
         "imgDisplayType":imgDisplayType,
         "selectMore":selectMore,
         "sideEdgeImgType":sideEdgeImgType,
-        "imageChange":imageChange
+        "imageChange":imageChange,
+        "pairTypeMenus":pairTypeMenus
     },
     methods:{
         bigEvent(){
@@ -970,7 +1037,23 @@ export default {
                         typeNum:"",
                         imgDisplayTypeText:""
                     }]
-                }]
+                }],
+
+                pairTypeTitle:"",
+                pairTypeInfo:"",
+                pairTypeMenu:[
+                    {
+                        pairTypeQtitle:"",
+                        pairTypeQindex:0,
+                        pairTypeAmenu:[
+                            {
+                                pairTypeAtitle:"",
+                                pairTypeAcontext:"",
+                                pairTypeAindex:0
+                            }
+                        ]
+                    }
+                ]
             };
             if(type == "add"){
                 this.nowData.page = index;

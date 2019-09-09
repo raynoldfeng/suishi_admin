@@ -40,10 +40,11 @@ export default
          var html = "";
         console.log(this.data.blanksMenu);
         for(let a = 0;a < this.data.blanksMenu.length;a++){
-            html+="<div class='ttt'>";
-            for(let i = 0;i < this.data.blanksMenu.length;i++){
+            html+="<div>";
+            for(let i = 0;i < this.data.blanksMenu[a].length;i++){
                 if(this.data.blanksMenu[a][i].blanksType == 1){
                     html+= this.data.blanksMenu[a][i].blanksText;
+                    console.log(this.data.blanksMenu[a][i].blanksText)
                 }else if(this.data.blanksMenu[a][i].blanksType == 2){
                     html+= '<div class="input-b-box"><div class="blanks-anw" contenteditable="true"  >'+this.data.blanksMenu[a][i].blanksInput+'</div>'+
                             '<span class="show-abtn" key="'+this.data.blanksMenu[a][i].blanksAnswer+'"> ▼</span></div>'

@@ -1,8 +1,8 @@
 <template>
     <div id="QuestMain">
         <div class="drag-main">
-            <p class="quest-text" >loding</p>
-            <p class="common-info" >sadasdas</p>
+            <p class="quest-text" v-text="data.pairTypeTitle"></p>
+            <p class="common-info" v-text="data.pairTypeInfo"></p>
             <ul class="question-menu">
                 <li>
                     <p class="drag-text">hsdfjsdfjsdfsdbfhsg</p>
@@ -15,14 +15,38 @@
 
             </ul>
         </div>
-
-        <div class="answer-menu">☰
+        <!--☰-->
+        <div class="answer-menu">
             <div  class="animated dragboxbtn shake">adsd</div>
         </div>
 
 </div>
 </template>
-<script></script>
+<script>
+import $ from 'jquery'
+export default
+{
+    props:{
+        data:""
+    },
+    data(){
+        return{
+            newAMenu:[]
+        }
+    }
+    methods:{
+        Trim(str) {
+            return str.replace(/\n|\r\n/g,"<br/>");
+        }
+    },
+    mounted:function(){
+        this.newAMenu = [];
+        for(let i = 0; i < this.data.pairTypeMenu.length;i++){
+            this.newAMenu =  $.merge(this.newAMenu,this.data.pairTypeMenu[i].pairTypeAmenu);
+        }
+    }
+}
+</script>
 <style>
     .question-menu{
         width: 94%;

@@ -7,9 +7,6 @@
             <div id="nobtn" @click="studyEvent(2)">重新学习</div>
         </div>
         <swiper class="swiper_type_menu" ref="pages" :options="swiperOption" >
-            <!--<swiper-slide>-->
-                <!--<v-dragMore></v-dragMore>-->
-            <!--</swiper-slide>-->
 
             <swiper-slide v-for="(data,index) in bookData" :key="index">
                 <v-titlePage v-if="data.testType == '0' && data.displayType == 't1'" v-on:isStart = "isStartEvent" :data="data"></v-titlePage>
@@ -25,7 +22,9 @@
                 <v-blanksType v-else-if="data.testType == '10' && data.displayType == 'bl'" :data="data"></v-blanksType>
                 <v-imgSelectType v-else-if="data.testType == '11' && data.displayType == 'isd'" :data="data"></v-imgSelectType>
                 <v-imgDisplayType v-else-if="data.testType == '12' && data.displayType == 'idp'" :data="data"></v-imgDisplayType>
+                <v-dragMore v-else-if="data.testType == '13' && data.displayType == 'pp'" :data="data"></v-dragMore>
                 <v-lastPage  v-else-if="data.testType == '1111' && data.displayType == 'oooo'" :data="data"></v-lastPage>
+
             </swiper-slide>
 
         </swiper>

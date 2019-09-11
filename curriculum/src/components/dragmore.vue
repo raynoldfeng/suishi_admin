@@ -4,8 +4,8 @@
             <p class="quest-text" v-text="data.pairTypeTitle"></p>
             <p class="common-info" v-text="data.pairTypeInfo"></p>
             <ul class="question-menu">
-                <li>
-                    <p class="drag-text">hsdfjsdfjsdfsdbfhsg</p>
+                <li v-for="(sdata,index) in data.pairTypeMenu">
+                    <p class="drag-text" v-text="sdata.pairTypeQtitle"></p>
                     <div class="drag-box"></div>
                 </li>
                 <li>

@@ -6,18 +6,13 @@
             <ul class="question-menu">
                 <li v-for="(sdata,index) in data.pairTypeMenu">
                     <p class="drag-text" v-text="sdata.pairTypeQtitle"></p>
-                    <div class="drag-box"></div>
+                    <div class="drag-box" :class="{clicked:ispair}"  @click="pairEvent(sdata.pairTypeQindex)"></div>
                 </li>
-                <li>
-                    <p class="drag-text">hsdfjsdfjsdfsdbfhsg</p>
-                    <div class="drag-box"></div>
-                </li>
-
             </ul>
         </div>
         <!--☰-->
         <div class="answer-menu">
-            <div  class="animated dragboxbtn shake">adsd</div>
+            <div  class="animated dragboxbtn " :class="{clicked:ispair,shake:istrue == 'false'}" @click="pairChange" v-html="nowAnswerText"></div>
         </div>
 
 </div>
@@ -31,18 +26,43 @@ export default
     },
     data(){
         return{
-            newAMenu:[]
+            newAMenu:[],
+            nowAnswer:"",
+            ispair:false,
+            istrue:false,
+            nowAnswerText:""
         }
-    }
+    },
     methods:{
         Trim(str) {
             return str.replace(/\n|\r\n/g,"<br/>");
+        },
+        aShowEvent(){
+            console.log(this.newAMenu);
+            console.log(this.newAMenu[0].pairTypeAindex)
+            this.nowAnswer = this.newAMenu[0].pairTypeAindex;
+            this.nowAnswerText = this.newAMenu[0].pairTypeAtitle;
+        },
+        pairEvent(index){
+            if(this.nowAnswer == index){
+                alert(1);
+                this.istrue = "false";
+            }
+        },
+        pairChange(){
+            this.ispair = !this.ispair;
+            this.istrue = "";
         }
     },
     mounted:function(){
         this.newAMenu = [];
         for(let i = 0; i < this.data.pairTypeMenu.length;i++){
             this.newAMenu =  $.merge(this.newAMenu,this.data.pairTypeMenu[i].pairTypeAmenu);
+        }
+    },
+    watch:{
+        newAMenu(){
+            this.aShowEvent();
         }
     }
 }
@@ -70,6 +90,10 @@ export default
         float: left;
         border: 1px solid #ddd;
     }
+    .drag-box.clicked{
+        background: #efefef;
+        color: #ffffff;
+    }
     .dragboxbtn {
         max-width: 80%;
         min-width: 30%;
@@ -92,12 +116,16 @@ export default
     left: 0;
     width: 100%;
     height: 20%;
-    background-color: #999999;
+    background-color: #ebebeb;
     padding: 2% 0;
 }
 .drag-main{
     width: 100%;
     height: 80%;
     overflow: auto;
+}
+.dragboxbtn.clicked{
+    background: #999999;
+    color: #ffffff;
 }
 </style>

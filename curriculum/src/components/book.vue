@@ -22,7 +22,7 @@
                 <v-blanksType v-else-if="data.testType == '10' && data.displayType == 'bl'" :data="data"></v-blanksType>
                 <v-imgSelectType v-else-if="data.testType == '11' && data.displayType == 'isd'" :data="data"></v-imgSelectType>
                 <v-imgDisplayType v-else-if="data.testType == '12' && data.displayType == 'idp'" :data="data"></v-imgDisplayType>
-                <v-dragMore v-else-if="data.testType == '13' && data.displayType == 'pp'" :data="data"></v-dragMore>
+                <v-dragMore v-else-if="data.testType == '13' && data.displayType == 'pp'" :page="index" :data="data" v-on:imgShow = "imgShowEvent" v-on:isJump = "isJumpEvent"></v-dragMore>
                 <v-lastPage  v-else-if="data.testType == '1111' && data.displayType == 'oooo'" :data="data"></v-lastPage>
 
             </swiper-slide>

@@ -1,5 +1,6 @@
 <template>
     <div>
+        <input id="pair-img" type="file"  />
         <div class="view_main">
             <span>标题:</span>
             <el-input class="input_type" v-model="nowData.pairTypeTitle"></el-input>
@@ -7,6 +8,10 @@
         <div class="view_main">
             <span>副标题:</span>
             <el-input class="input_type" v-model="nowData.pairTypeInfo"></el-input>
+        </div>
+        <div class="view_main">
+            <span>按钮:</span>
+            <el-input class="input_type" v-model="nowData.pairTypeBtnText"></el-input>
         </div>
         <div class="view_main">
             <el-button @click="addQEvent">添加问题</el-button>
@@ -22,6 +27,19 @@
                         <span>问题标题:</span>
                         <el-input class="input_type" v-model="data.pairTypeQtitle"></el-input>
                     </div>
+                    <div class="view_main">
+                        <div class="type_title">图片:</div>
+
+                        <div class="avatar-uploader" @click="uploadClick('pair-img',index)">
+                            <img v-if="data.pairTypeQimg" :src="data.pairTypeQimg" class="avatar">
+                                <div v-else class=" avatar-uploader-icon">
+                                    <img class="addi-icon" src="./../../image/addi.png">
+                                    </div>
+                                </div>
+                                <i  @click="deleteImg(index)">
+                                    <img  class="icon_btn" src="./../../image/close.png" />
+                                </i>
+                            </div>
                     <ul class="padd_css">
                         <li v-for="(sdata,sindex) in data.pairTypeAmenu">
                             <div class="view_main">
@@ -66,14 +84,26 @@ export default {
         self.XCosSecurityToken = self.cosData.XCosSecurityToken;
         self.expiredTime = self.cosData.expiredTime;
 
-
+        document.getElementById('pair-img').onchange = function () {
+            var file = this.files[0];
+            if (!file) return;
+            if(self.SecretId != "" && self.SecretKey !="" ){
+                if(file){
+                    self.cosjsFile3(self.SecretId,self.SecretKey,file,self.XCosSecurityToken,self.expiredTime,function(img){
+                        self.nowData.pairTypeMenu[self.selectImgIndex].pairTypeQimg ="https://suishi-1256985330.cos.ap-guangzhou.myqcloud.com/" + img;
+                    });
+                }
+            }
+        };
     },
     methods:{
         addQEvent(){
 
             var index = this.nowData.pairTypeMenu.length;
             var newQdata = {
+                pairTypeBtnText:"",
                 pairTypeQtitle:"",
+                pairTypeQimg:"",
                 pairTypeQindex:index,
                 pairTypeAmenu:[
                     {
@@ -106,8 +136,16 @@ export default {
         deleteAEvent(index,sindex){
             console.log(index);
             this.nowData.pairTypeMenu[index].pairTypeAmenu.splice(sindex,1);
+        },
+        deleteImg(type){
+            this.nowData.pairTypeMenu[type].pairTypeQimg = "";
+        },
+        uploadClick(id,index){
+            document.getElementById(id).click();
+            if(index > (-1)){
+                 this.selectImgIndex = index;
+            }
         }
-
     }
 }
 </script>

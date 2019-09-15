@@ -688,7 +688,9 @@ export default {
                 pairTypeInfo:"",
                 pairTypeMenu:[
                     {
+                        pairTypeBtnText:"",
                         pairTypeQtitle:"",
+                        pairTypeQimg:"",
                         pairTypeQindex:0,
                         pairTypeAmenu:[
                             {
@@ -848,7 +850,9 @@ export default {
                 pairTypeInfo:"",
                 pairTypeMenu:[
                     {
+                        pairTypeBtnText:"",
                         pairTypeQtitle:"",
+                        pairTypeQimg:"",
                         pairTypeQindex:0,
                         pairTypeAmenu:[
                             {
@@ -1043,7 +1047,9 @@ export default {
                 pairTypeInfo:"",
                 pairTypeMenu:[
                     {
+                        pairTypeBtnText:"",
                         pairTypeQtitle:"",
+                        pairTypeQimg:"",
                         pairTypeQindex:0,
                         pairTypeAmenu:[
                             {

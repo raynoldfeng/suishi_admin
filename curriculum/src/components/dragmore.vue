@@ -5,10 +5,18 @@
             <p class="common-info" v-text="data.pairTypeInfo"></p>
             <ul class="question-menu">
                 <li v-for="(sdata,index) in data.pairTypeMenu">
-                    <p class="drag-text" v-text="sdata.pairTypeQtitle"></p>
+                    <div class="question-main">
+                        <p class="drag-text" v-text="sdata.pairTypeQtitle"></p>
+                       <div class="drag-img" v-if="sdata.pairTypeQimg">
+                            <div class="white-r">
+                                <img class="idt-img" @click="displayEvent(sdata.pairTypeQimg,'',sdata.pairTypeQimg)" :src="sdata.pairTypeQimg">
+                            </div>
+                       </div>
+
+                    </div>
                     <div class="drag-menu">
-                        <div class="finish-css" v-for="(adata,aindex) in readMenu" v-if="sdata.pairTypeQindex == adata.pairTypeAindex" v-text="adata.pairTypeAcontext"></div>
-                        <div class="drag-box" :class="{clicked:ispair}"  @click="pairEvent(sdata.pairTypeQindex)"></div>
+                        <div class="finish-css" v-for="(adata,aindex) in readMenu" v-if="sdata.pairTypeQindex == adata.pairTypeAindex" @click="contextShow(adata.pairTypeAcontext)" v-text="adata.pairTypeAtitle"></div>
+                        <div class="drag-box" :class="{clicked:ispair}" v-show="isfinish == false"  @click="pairEvent(sdata.pairTypeQindex)"></div>
                     </div>
 
                 </li>
@@ -17,6 +25,7 @@
         <!--☰-->
         <div class="answer-menu">
             <div  class="animated dragboxbtn " v-show="isfinish == false"  :class="{clicked:ispair,shake:istrue == 'false'}" @click="pairChange" v-html="nowAnswer.pairTypeAtitle"></div>
+            <div class="tp-start-btn nomargin" @click="jumpEvent" v-if="isfinish == true && data.pairTypeBtnText != ''"  v-text="data.pairTypeBtnText"></div>
         </div>
 
 </div>
@@ -26,7 +35,8 @@ import $ from 'jquery'
 export default
 {
     props:{
-        data:""
+        data:"",
+        page:0
     },
     data(){
         return{
@@ -59,6 +69,8 @@ export default
             if(this.ispair == true){
                 if(this.nowAnswer.pairTypeAindex == index){
                     this.readMenu.push(this.nowAnswer);
+                    this.contextShow(this.nowAnswer.pairTypeAcontext)
+                 //   this.drops.getNow(this.nowAnswer.pairTypeAcontext);
                     this.pairChange();
                     if(this.readMenu.length < this.allNum){
                         this.aShowEvent();
@@ -77,9 +89,23 @@ export default
         pairChange(){
             this.ispair = !this.ispair;
             this.istrue = "";
+        },
+        displayEvent(url,text,urlbig){
+            var data = {url:url,text:text,urlbig:urlbig};
+            this.$emit("imgShow",data);
+        },
+        contextShow(text){
+            $("#noteText p").html(this.Trim(text));
+            $("#noteWin").show().addClass("noteWin-play");
+            $("#noteText").css("bottom","-"+$("#noteText").height());
+            $("#noteText").show().addClass("noteText-play");
+        },
+        jumpEvent(){
+            this.$emit("isJump",this.page+1);
         }
     },
     mounted:function(){
+         $(".drag-img").height($(".drag-img").width());
         this.allAMenu = [];
         for(let i = 0; i < this.data.pairTypeMenu.length;i++){
             this.allAMenu =  $.merge(this.allAMenu,this.data.pairTypeMenu[i].pairTypeAmenu);
@@ -100,12 +126,12 @@ export default
     }
     .question-menu li{
             margin-top: 3%;
+            color:#666;
            overflow: hidden;
     }
     .drag-text{
-        width: 48%;
-        float: left;
         font-size: 4.5vw;
+        text-align:left;
         word-break:break-all;
     }
     .drag-menu{
@@ -166,5 +192,15 @@ export default
     background: #999999;
     color: #ffffff;
 }
-
+.question-main{
+    width: 48%;
+    float: left;
+ }
+ .drag-img{
+    width: 60%;
+    margin: 4% auto 0;
+    border: 1px solid #d8d8d8;
+    border-radius: 100%;
+    padding: 2%;
+    }
 </style>

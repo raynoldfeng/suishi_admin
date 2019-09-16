@@ -23,9 +23,11 @@
             </ul>
         </div>
         <!--☰-->
-        <div class="answer-menu">
+        <div class="answer-menu" v-if="isfinish == false">
             <div  class="animated dragboxbtn " v-show="isfinish == false"  :class="{clicked:ispair,shake:istrue == 'false'}" @click="pairChange" v-html="nowAnswer.pairTypeAtitle"></div>
-            <div class="tp-start-btn nomargin" @click="jumpEvent" v-if="isfinish == true && data.pairTypeBtnText != ''"  v-text="data.pairTypeBtnText"></div>
+        </div>
+        <div class="answer-menu" v-else-if="isfinish == true && data.pairTypeBtnText != ''">
+           <div class="tp-start-btn nomargin" @click="jumpEvent"   v-text="data.pairTypeBtnText"></div>
         </div>
 
 </div>
@@ -95,10 +97,12 @@ export default
             this.$emit("imgShow",data);
         },
         contextShow(text){
-            $("#noteText p").html(this.Trim(text));
-            $("#noteWin").show().addClass("noteWin-play");
-            $("#noteText").css("bottom","-"+$("#noteText").height());
-            $("#noteText").show().addClass("noteText-play");
+            if(text != ''){
+                $("#noteText p").html(this.Trim(text));
+                $("#noteWin").show().addClass("noteWin-play");
+                $("#noteText").css("bottom","-"+$("#noteText").height());
+                $("#noteText").show().addClass("noteText-play");
+            }
         },
         jumpEvent(){
             this.$emit("isJump",this.page+1);
@@ -133,6 +137,7 @@ export default
         font-size: 4.5vw;
         text-align:left;
         word-break:break-all;
+        margin-bottom: 4%;;
     }
     .drag-menu{
         width: 48%;
@@ -197,8 +202,8 @@ export default
     float: left;
  }
  .drag-img{
-    width: 60%;
-    margin: 4% auto 0;
+    width: 50%;
+    margin: 0 auto 0;
     border: 1px solid #d8d8d8;
     border-radius: 100%;
     padding: 2%;

@@ -26,7 +26,7 @@
             </div>
         </div>
         <div  class="animated judgebtn" v-show="jshow" v-html="Trim(data.judgeMenu[indexQ].judgeText)" :attr="data.judgeMenu[indexQ].judgeAnswerText"  @touchstart="touchStatus" :attr-all = "data.judgeMenu.length" attr-now="0" ></div>
-
+        <div class="tp-start-btn nextbtn_ab" @click="jumpEvent"  v-text="data.judgeBtn" ></div>
     </div>
 </template>
 <script>
@@ -35,7 +35,8 @@ export default {
     props:{
         data:"",
             isReset:"",
-            nowPage:""
+            nowPage:"",
+            page:""
     },
     data(){
       return{
@@ -47,6 +48,7 @@ export default {
         nowPage(){
             window.jpage = 0;
             $(".judgebtn").show();
+            $(".nextbtn_ab").hide();
             $(".anwer-menu").html("");
             this.indexQ = 0;
             this.data =  window.edit[nowPage];
@@ -55,6 +57,7 @@ export default {
     },
     mounted:function(){
         this.initData();
+        $(".nextbtn_ab").css({"margin-left": "-"+ (parseInt($(".nextbtn_ab").css("padding-left")) + $(".nextbtn_ab").width()/2)+"px"})
     },
     methods:{
         Trim(str) {
@@ -79,6 +82,7 @@ export default {
                     if(now >= all-1){
                         $("#noteText p").html(self.Trim(window.edit[nowPage].judgeMenu[window.jpage].judgeAnswerText));
                       $(".judgebtn").hide();
+                        $(".nextbtn_ab").show();
                     }else{
                         window.jpage++;
                         self.indexQ =  window.jpage;
@@ -93,18 +97,21 @@ export default {
                 $("#noteText").show().addClass("noteText-play");
             });
         },
-    touchStatus(){
+        touchStatus(){
 
-        var a = window.edit[nowPage].judgeMenu[window.jpage].judgeAnswer;
-        if(a == '0'){
-            $(".kuang").removeClass("yes");
-            $(".false-k").addClass("yes");
-        }else if(a == '1'){
-            $(".kuang").removeClass("yes");
-            $(".true-k").addClass("yes");
+            var a = window.edit[nowPage].judgeMenu[window.jpage].judgeAnswer;
+            if(a == '0'){
+                $(".kuang").removeClass("yes");
+                $(".false-k").addClass("yes");
+            }else if(a == '1'){
+                $(".kuang").removeClass("yes");
+                $(".true-k").addClass("yes");
+            }
+            this.drops.getNow( window.jpage)
+        },
+        jumpEvent(){
+            this.$emit("isJump",this.page+1);
         }
-        this.drops.getNow( window.jpage)
-    }
     }
 }
 </script>

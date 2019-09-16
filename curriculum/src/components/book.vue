@@ -12,7 +12,7 @@
                 <v-titlePage v-if="data.testType == '0' && data.displayType == 't1'" v-on:isStart = "isStartEvent" :data="data"></v-titlePage>
                 <v-imageText v-else-if="data.testType == '1' && data.displayType == 'it1'" :data="data"></v-imageText>
                 <v-imageChange v-else-if="data.testType == '2' && data.displayType == 'ic1'" :data="data" :page="index" v-on:isJump = "isJumpEvent" v-on:imgShow = "imgShowEvent2"></v-imageChange>
-                <v-judge  v-else-if="data.testType == '3' && data.displayType == 'j1'" :data="data" :index = "index" :nowPage="nowPage" v-on:isJump = "isJumpEvent"></v-judge>
+                <v-judge  v-else-if="data.testType == '3' && data.displayType == 'j1'" :data="data" :page="index" :index = "index" :nowPage="nowPage" v-on:isJump = "isJumpEvent"></v-judge>
                 <v-select v-else-if="data.testType == '4' && data.displayType == 's1'" :data="data" :nowyes="nowyesEvent(data)" v-on:imgShow = "imgShowEvent"></v-select>
                 <v-selectmore  v-else-if="data.testType == '5' && data.displayType == 'sm1'" :data="data"></v-selectmore>
                 <v-selectAllJType   v-else-if="data.testType == '6' && data.displayType == 'sm2'" :data="data"></v-selectAllJType>

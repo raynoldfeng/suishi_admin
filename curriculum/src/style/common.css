@@ -189,6 +189,12 @@ ul li{
 .nomargin:{
     margin: 0 auto 0;
 }
+.nextbtn_ab{
+    position: absolute;
+    bottom: 10%;
+    left: 50%;
+    display: none;
+}
 
 .simg-main{
     width:40%;

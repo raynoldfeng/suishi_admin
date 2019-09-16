@@ -569,6 +569,7 @@ export default {
                 judgeInfo:"",
                 judgeTitleTrue:"",
                 judgeTitleFalse:"",
+                judgeBtn:"",
                 judgeMenu:[{
                     judgeText:"",
 
@@ -734,6 +735,7 @@ export default {
                     judgeInfo:"",
                 judgeTitleTrue:"",
                 judgeTitleFalse:"",
+                judgeBtn:"",
                 judgeMenu:[{
                     judgeText:"",
 
@@ -935,6 +937,7 @@ export default {
                 judgeInfo:"",
                 judgeTitleTrue:"",
                 judgeTitleFalse:"",
+                judgeBtn:"",
                 judgeMenu:[{
                     judgeText:"",
 

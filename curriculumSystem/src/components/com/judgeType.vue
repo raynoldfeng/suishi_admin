@@ -17,6 +17,10 @@
             <el-input class="input_type" v-model="nowData.judgeTitleFalse"></el-input>
         </div>
         <div class="view_main">
+            <span>按钮:</span>
+            <el-input class="input_type" v-model="nowData.judgeBtn"></el-input>
+        </div>
+        <div class="view_main">
             <el-button @click="addJudgeEvent">添加问题</el-button>
     </div>
     <div class="view_main" v-for="(data,index) in nowData.judgeMenu">

@@ -82,7 +82,9 @@ export default {
                     if(now >= all-1){
                         $("#noteText p").html(self.Trim(window.edit[nowPage].judgeMenu[window.jpage].judgeAnswerText));
                       $(".judgebtn").hide();
-                        $(".nextbtn_ab").show();
+                        if(self.data.judgeBtn != ''){
+                            $(".nextbtn_ab").show();
+                        }
                     }else{
                         window.jpage++;
                         self.indexQ =  window.jpage;

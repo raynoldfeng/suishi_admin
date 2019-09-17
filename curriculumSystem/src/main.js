@@ -178,6 +178,7 @@ console.log(file)
             if(err){
                 alert("上传失败")
             }
+            console.log(err);
             callback(options.Key);
         },
     }, function (err, data) {

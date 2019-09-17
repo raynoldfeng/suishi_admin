@@ -23,7 +23,7 @@
 
                         <div class="tp-next-btn" v-if="index < data.imageChange.length-1" @click="NextEvent(index, data.imageChange.length-1)"  v-show="data.imageChangeJump !=''" v-text="data.imageChangeJump"></div>
                         <div class="tp-next-btn" v-if="index == data.imageChange.length-1" @click="NextEvent(index, data.imageChange.length-1)"  v-show="data.imageChangeJumpL !=''" v-text="data.imageChangeJumpL"></div>
-                        <div class="tp-next-btn" v-if="index == data.imageChange.length-1" @click="NextEvent(index, data.imageChange.length-1)"  v-show="data.imageChangeJumpL =='' && data.imageChangeJump !=''" v-text="data.imageChangeJump"></div>
+                        <!--<div class="tp-next-btn" v-if="index == data.imageChange.length-1" @click="NextEvent(index, data.imageChange.length-1)"  v-show="data.imageChangeJumpL =='' && data.imageChangeJump !=''" v-text="data.imageChangeJump"></div>-->
                     </li>
                 </ul>
             </div>
@@ -84,7 +84,6 @@
     .ic-swiper-pagination{
         width: 12px;
         float: right;
-        margin-top: 20%;
         margin-left: 2%;
         position: absolute;
         left: 0;

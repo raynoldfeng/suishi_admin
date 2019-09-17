@@ -174,46 +174,44 @@
                                 :value="item.value">
                                 </el-option>
                             </el-select>
+                            <el-select v-show="nowData.testType == 14" class="select-css" v-model="nowData.displayType" placeholder="类型">
+                                <el-option
+                                        v-for="item in videoTypeMenu"
+                                :key="item.value"
+                                :label="item.label"
+                                :value="item.value">
+                                </el-option>
+                            </el-select>
                         </div>
                     </div>
 
 
 
 
-                    <titlePage v-if="nowData.testType == 0 && nowData.displayType == 't1'" :nowData="nowData" :cosData="cosData"></titlePage>
+        <titlePage v-if="nowData.testType == 0 && nowData.displayType == 't1'" :nowData="nowData" :cosData="cosData"></titlePage>
 
         <imgText v-if="nowData.testType == 1 && nowData.displayType == 'it1'" :nowData="nowData" :cosData="cosData" :listSysleList="listSysleList"></imgText>
 
         <imageChange  v-if="nowData.testType == 2 && nowData.displayType == 'ic1'" :nowData="nowData" :cosData="cosData" :judgeAnswerMenu="judgeAnswerMenu" :listSysleList="listSysleList"></imageChange>
 
+        <judgeType v-if="nowData.testType == 3 && nowData.displayType == 'j1'" :nowData="nowData" :cosData="cosData" :judgeAnswerMenu="judgeAnswerMenu"></judgeType>
 
+        <selectType v-if="nowData.testType == 4 && nowData.displayType == 's1'" :nowData="nowData" :cosData="cosData" :judgeAnswerMenu="judgeAnswerMenu"></selectType>
 
-
-
-<judgeType v-if="nowData.testType == 3 && nowData.displayType == 'j1'" :nowData="nowData" :cosData="cosData" :judgeAnswerMenu="judgeAnswerMenu"></judgeType>
-
-<selectType v-if="nowData.testType == 4 && nowData.displayType == 's1'" :nowData="nowData" :cosData="cosData" :judgeAnswerMenu="judgeAnswerMenu"></selectType>
-
-
-<selectMore  v-if="nowData.testType == 5 && nowData.displayType == 'sm1'" :nowData="nowData" :cosData="cosData" :judgeAnswerMenu="judgeAnswerMenu"></selectMore>
-
+        <selectMore  v-if="nowData.testType == 5 && nowData.displayType == 'sm1'" :nowData="nowData" :cosData="cosData" :judgeAnswerMenu="judgeAnswerMenu"></selectMore>
 
         </div>
 
-<selectAllJType v-if="nowData.testType == 6 && nowData.displayType == 'sm2'" :nowData="nowData" :cosData="cosData" :judgeAnswerMenu="judgeAnswerMenu" :titleColor="titleColor">
+        <selectAllJType v-if="nowData.testType == 6 && nowData.displayType == 'sm2'" :nowData="nowData" :cosData="cosData" :judgeAnswerMenu="judgeAnswerMenu" :titleColor="titleColor">
         </selectAllJType>
 
+        <imgJumpType  v-if="nowData.testType == 7 && nowData.displayType == 'imt'" :nowData="nowData" :cosData="cosData" :titleColor="titleColor"></imgJumpType>
 
-<imgJumpType  v-if="nowData.testType == 7 && nowData.displayType == 'imt'" :nowData="nowData" :cosData="cosData" :titleColor="titleColor"></imgJumpType>
-
-<listType  v-if="nowData.testType == 8 && nowData.displayType == 'lt'"  :nowData="nowData" :cosData="cosData" :judgeAnswerMenu="judgeAnswerMenu" :listSysleList="listSysleList"></listType>
-
+        <listType  v-if="nowData.testType == 8 && nowData.displayType == 'lt'"  :nowData="nowData" :cosData="cosData" :judgeAnswerMenu="judgeAnswerMenu" :listSysleList="listSysleList"></listType>
 
         <sideEdgeImgType v-if="nowData.testType == 9 && nowData.displayType == 'ct'" :nowData="nowData" :cosData="cosData"></sideEdgeImgType>
 
         <blanksType  v-if="nowData.testType == 10 && nowData.displayType == 'bl'" :nowData="nowData"></blanksType>
-
-
 
         <imgselectDisplayType v-if="nowData.testType == 11 && nowData.displayType == 'isd'" :nowData="nowData" :cosData="cosData" :listSysleList="listSysleList"></imgselectDisplayType>
 
@@ -221,7 +219,7 @@
 
         <pairTypeMenus v-if="nowData.testType == 13 && nowData.displayType == 'pp'" :nowData="nowData" :cosData="cosData"></pairTypeMenus>
 
-
+        <videoType v-if="nowData.testType == 14 && nowData.displayType == 'vd'" :nowData="nowData" :cosData="cosData"></videoType>
 
         </el-main>
         </el-container>
@@ -369,6 +367,9 @@
  * pairTypeAcontext 匹配类型答案解释
  * pairTypeAindex 匹配类型答案索引
  *
+ * 14
+ * videoTitle 视频类型标题
+ * videoUrl 视频链接
  *
 *
  */
@@ -387,6 +388,7 @@ import blanksType from './com/blanksType.vue'
     import imgDisplayType from './com//imgDisplayType.vue'
     import imageChange from './nouse/imageChange.vue'
 import pairTypeMenus from './com/pairTypeMenus.vue'
+import videoType from './com/videoType.vue'
 export default {
     data(){
         return {
@@ -453,6 +455,10 @@ export default {
                 {
                     value:'13',
                     label:"匹配类型"
+                },
+                {
+                    value:'14',
+                    label:"视频类型"
                 }
             ],
             titleInfoTypeMenu:[
@@ -537,6 +543,12 @@ export default {
                 {
                     value:"pp",
                     label:"点击"
+                }
+            ],
+            videoTypeMenu:[
+                {
+                    value:"vd",
+                    label:"播放"
                 }
             ],
             dataMenu:[ ],
@@ -701,7 +713,10 @@ export default {
                             }
                         ]
                     }
-                ]
+                ],
+
+                videoTitle:"",
+                videoUrl:""
 
             },
             copyData:{
@@ -864,7 +879,10 @@ export default {
                             }
                         ]
                     }
-                ]
+                ],
+
+                videoTitle:"",
+                videoUrl:""
             },
             SecretId:"",
             SecretKey:"",
@@ -889,7 +907,8 @@ export default {
         "selectMore":selectMore,
         "sideEdgeImgType":sideEdgeImgType,
         "imageChange":imageChange,
-        "pairTypeMenus":pairTypeMenus
+        "pairTypeMenus":pairTypeMenus,
+        "videoType":videoType
     },
     methods:{
         bigEvent(){
@@ -1062,7 +1081,10 @@ export default {
                             }
                         ]
                     }
-                ]
+                ],
+
+                videoTitle:"",
+                videoUrl:""
             };
             if(type == "add"){
                 this.nowData.page = index;

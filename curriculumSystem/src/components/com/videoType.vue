@@ -38,15 +38,27 @@ export default {
         self.expiredTime = self.cosData.expiredTime;
 
         document.getElementById('video-up').onchange = function () {
+//            var file = this.files[0];
+//            if (!file) return;
+//            if(self.SecretId != "" && self.SecretKey !="" ){
+//                if(file){
+//                    self.cosjsFile3(self.SecretId,self.SecretKey,file,self.XCosSecurityToken,self.expiredTime,function(img){
+//                        self.nowData.videoUrl ="https://suishi-1256985330.cos.ap-guangzhou.myqcloud.com/" + img;
+//                    });
+//                }
+//            }
+
             var file = this.files[0];
             if (!file) return;
             if(self.SecretId != "" && self.SecretKey !="" ){
                 if(file){
-                    self.cosjsFile3(self.SecretId,self.SecretKey,file,self.XCosSecurityToken,self.expiredTime,function(img){
-                        self.nowData.videoUrl ="https://suishi-1256985330.cos.ap-guangzhou.myqcloud.com/" + img;
+                    self.cosjs(self.SecretId,self.SecretKey,file,self.XCosSecurityToken,self.expiredTime,function(video){
+                        self.nowData.videoUrl = video;
                     });
                 }
             }
+
+
         };
     },
     methods:{

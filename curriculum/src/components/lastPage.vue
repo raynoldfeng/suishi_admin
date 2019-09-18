@@ -1,6 +1,6 @@
 <template>
     <div id="lastPage">
-        <p>最后一页</p>
+        <p>完成本次学习</p>
         <div class="tp-start-btn" @click="finishEvent">
         退出
         </div>

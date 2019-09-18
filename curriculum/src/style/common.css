@@ -280,3 +280,9 @@ ul li{
     content: "※";
     padding-right: .5em;
 }
+.opacitycss{
+    opacity: 0;
+}
+.common-666{
+    color: #666666;
+}

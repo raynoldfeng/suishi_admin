@@ -2,14 +2,16 @@
     <div id="QuestMain">
         <div id="QuestBox">
             <div v-for="(sdata,sindex) in data.selectQMenu" class="padd-css">
-                <p class="quest-text" :class="{paddcss5v:sdata.selectTitle == ''}" v-text="sdata.selectTitle"></p>
-                <p class="common-info" :class="{paddcss4d5v:sdata.selectInfo == ''}"  v-text="sdata.selectInfo"></p>
+                <p class="quest-text" v-if="sdata.selectTitle != ''" v-text="sdata.selectTitle"></p>
+            <p class="quest-text opacitycss" v-else >22</p>
+                <p class="common-info" v-if="sdata.selectInfo != ''"  v-text="sdata.selectInfo"></p>
+            <p class="common-info opacitycss" v-else >22</p>
                 <div class="img-main simg-main" v-if="sdata.selectImg">
                     <div class="white-r">
                         <img id="selectImgs" :src="sdata.selectImg" @click="displayEvent(sdata.selectImg,sdata.imgNoteNode,sdata.selectImgBig)">
                     </div>
                 </div>
-                <p class="common-info"   v-text="sdata.selectImgTitle"></p>
+                <p class="common-info common-666"   v-text="sdata.selectImgTitle"></p>
                 <ul class="option-menu selectBox">
                     <li v-for="(data,index) in sdata.selectMenu"  v-text="data.answerText"   @click="test(sindex,index,data.isAnswer)" :indexQ = "sindex"   class="answer-css animated" :class="{yes:data.isAnswer == '1' ,no:data.isAnswer == '0' , clickcss:data.isClick,anwdisplay:data.isShow == false}">
 

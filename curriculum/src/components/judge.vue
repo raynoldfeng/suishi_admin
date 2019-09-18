@@ -48,6 +48,8 @@ export default {
         nowPage(){
             window.jpage = 0;
             $(".judgebtn").show();
+            $(".true-k").show();
+            $(".false-k").show();
             $(".nextbtn_ab").hide();
             $(".anwer-menu").html("");
             this.indexQ = 0;
@@ -82,6 +84,8 @@ export default {
                     if(now >= all-1){
                         $("#noteText p").html(self.Trim(window.edit[nowPage].judgeMenu[window.jpage].judgeAnswerText));
                       $(".judgebtn").hide();
+                        $(".true-k").hide();
+                        $(".false-k").hide();
                         if(self.data.judgeBtn != ''){
                             $(".nextbtn_ab").show();
                         }

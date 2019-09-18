@@ -26,8 +26,8 @@
         <div class="answer-menu" v-if="isfinish == false">
             <div  class="animated dragboxbtn " v-show="isfinish == false"  :class="{clicked:ispair,shake:istrue == 'false'}" @click="pairChange" v-html="nowAnswer.pairTypeAtitle"></div>
         </div>
-        <div class="answer-menu" v-else-if="isfinish == true && data.pairTypeBtnText != ''">
-           <div class="tp-start-btn nomargin" @click="jumpEvent"   v-text="data.pairTypeBtnText"></div>
+        <div class="answer-menu" v-if="isfinish == true" v-show="data.pairTypeBtnText.length > 0">
+           <div class="tp-start-btn nomargin" @click="jumpEvent" v-if="data.pairTypeBtnText.length > 0"   v-text="data.pairTypeBtnText"></div>
         </div>
 
 </div>
@@ -115,6 +115,7 @@ export default
             this.allAMenu =  $.merge(this.allAMenu,this.data.pairTypeMenu[i].pairTypeAmenu);
         }
         this.allNum = this.allAMenu.length;
+
         this.aShowEvent();
     },
     watch:{

@@ -699,9 +699,9 @@ export default {
 
                 pairTypeTitle:"",
                 pairTypeInfo:"",
+                pairTypeBtnText:"",
                 pairTypeMenu:[
                     {
-                        pairTypeBtnText:"",
                         pairTypeQtitle:"",
                         pairTypeQimg:"",
                         pairTypeQindex:0,
@@ -865,9 +865,9 @@ export default {
 
                 pairTypeTitle:"",
                 pairTypeInfo:"",
+                pairTypeBtnText:"",
                 pairTypeMenu:[
                     {
-                        pairTypeBtnText:"",
                         pairTypeQtitle:"",
                         pairTypeQimg:"",
                         pairTypeQindex:0,
@@ -1067,9 +1067,9 @@ export default {
 
                 pairTypeTitle:"",
                 pairTypeInfo:"",
+                pairTypeBtnText:"",
                 pairTypeMenu:[
                     {
-                        pairTypeBtnText:"",
                         pairTypeQtitle:"",
                         pairTypeQimg:"",
                         pairTypeQindex:0,

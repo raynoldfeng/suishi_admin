@@ -1,6 +1,6 @@
 <template>
     <div id="QuestMain">
-        <div class="drag-main">
+        <div class="drag-main" :class="{dragMheight:isfinish == true && data.pairTypeBtnText.length == 0}">
             <p class="quest-text" v-text="data.pairTypeTitle"></p>
             <p class="common-info" v-text="data.pairTypeInfo"></p>
             <ul class="question-menu">
@@ -193,6 +193,9 @@ export default
     width: 100%;
     height: 80%;
     overflow: auto;
+}
+.dragMheight{
+    height: 100%;
 }
 .dragboxbtn.clicked{
     background: #999999;

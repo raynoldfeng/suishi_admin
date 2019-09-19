@@ -1,5 +1,7 @@
 <template>
     <div>
+        <input id="true-img" type="file"  />
+        <input id="false-img" type="file"  />
         <div class="view_main">
             <span>题目:</span>
             <el-input class="input_type" v-model="nowData.judgeTitle"></el-input>
@@ -13,9 +15,35 @@
             <el-input class="input_type" v-model="nowData.judgeTitleTrue"></el-input>
         </div>
         <div class="view_main">
+            <div class="type_title">正确图片:</div>
+
+                <div class="avatar-uploader" @click="uploadClick('true-img')">
+                <img v-if="nowData.judgeTrueImg" :src="nowData.judgeTrueImg" class="avatar">
+                <div v-else class=" avatar-uploader-icon">
+                    <img class="addi-icon" src="./../../image/addi.png">
+                </div>
+            </div>
+            <i  @click="deleteImg('judgeTrueImg')">
+                <img  class="icon_btn" src="./../../image/close.png" />
+            </i>
+        </div>
+        <div class="view_main">
             <span>错误标题:</span>
             <el-input class="input_type" v-model="nowData.judgeTitleFalse"></el-input>
         </div>
+        <div class="view_main">
+            <div class="type_title">错误图片:</div>
+
+            <div class="avatar-uploader" @click="uploadClick('false-img')">
+                <img v-if="nowData.judgeFalseImg" :src="nowData.judgeFalseImg" class="avatar">
+                <div v-else class=" avatar-uploader-icon">
+                    <img class="addi-icon" src="./../../image/addi.png">
+                </div>
+            </div>
+            <i  @click="deleteImg('judgeFalseImg')">
+                <img  class="icon_btn" src="./../../image/close.png" />
+            </i>
+         </div>
         <div class="view_main">
             <span>按钮:</span>
             <el-input class="input_type" v-model="nowData.judgeBtn"></el-input>
@@ -74,7 +102,33 @@ v-model="data.judgeAnswerText">
                 judgeAnswerMenu:"",
             },
             mounted:function(){
-
+                var self = this;
+                self.SecretId= self.cosData.SecretId;
+                self.SecretKey= self.cosData.SecretKey;
+                self.XCosSecurityToken = self.cosData.XCosSecurityToken;
+                self.expiredTime = self.cosData.expiredTime;
+                document.getElementById('true-img').onchange = function () {
+                    var file = this.files[0];
+                    if (!file) return;
+                    if(self.SecretId != "" && self.SecretKey !="" ){
+                        if(file){
+                            self.cosjsFile3(self.SecretId,self.SecretKey,file,self.XCosSecurityToken,self.expiredTime,function(img){
+                                self.nowData.judgeTrueImg ="https://suishi-1256985330.cos.ap-guangzhou.myqcloud.com/" + img;
+                            });
+                        }
+                    }
+                };
+                document.getElementById('false-img').onchange = function () {
+                    var file = this.files[0];
+                    if (!file) return;
+                    if(self.SecretId != "" && self.SecretKey !="" ){
+                        if(file){
+                            self.cosjsFile3(self.SecretId,self.SecretKey,file,self.XCosSecurityToken,self.expiredTime,function(img){
+                                self.nowData.judgeFalseImg ="https://suishi-1256985330.cos.ap-guangzhou.myqcloud.com/" + img;
+                            });
+                        }
+                    }
+                };
             },
             methods:{
                 /**
@@ -91,7 +145,16 @@ v-model="data.judgeAnswerText">
 
                 deleteJudgeEvent(index){
                     this.nowData.judgeMenu.splice(index,1);
-                }
+                },
+                uploadClick(id,index){
+                    document.getElementById(id).click();
+                    if(index > (-1)){
+                        this.selectImgIndex = index;
+                    }
+                },
+                deleteImg(type){
+                    this.nowData[type] = "";
+                },
             }
         }
         </script>

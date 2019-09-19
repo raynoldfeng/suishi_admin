@@ -6,7 +6,8 @@
             <p class="common-info" v-if="data.judgeInfo !='' " v-text="data.judgeInfo"></p>
             <div class="true-main">
                 <p class="common-info css-bla" v-if="data.judgeTitleTrue !='' " v-text="data.judgeTitleTrue"></p>
-                <div class="true-logo"></div>
+                <div  class="judge-img" v-if="data.judgeTrueImg !=''"><img  :src="data.judgeTrueImg" /></div>
+                <div class="true-logo" v-else></div>
                 <ul class="anwer-menu yesm">
 
                 </ul>
@@ -16,7 +17,8 @@
             </div>
             <div class="false-main">
                 <p class="common-info css-bla" v-if="data.judgeTitleFalse !='' " v-text="data.judgeTitleFalse"></p>
-                <div class="false-logo"></div>
+                <div class="judge-img" v-if="data.judgeFalseImg !=''"><img   :src="data.judgeFalseImg" /></div>
+                <div class="false-logo" v-else ></div>
                 <ul class="anwer-menu nom">
 
                 </ul>
@@ -129,14 +131,19 @@ export default {
     float: left;
 }
 
-.true-logo,.false-logo{
+.true-logo,.false-logo,.judge-img{
     width: 60px;
     height: 60px;
     color: #ffffff;
     text-align: center;
     line-height: 60px;
     margin: 5% auto 0;
+    overflow: hidden;
     border-radius: 100%;
+}
+.judge-img img{
+    width: 100%;
+    height: 100%;
 }
 .true-logo{
     /*color: green;*/

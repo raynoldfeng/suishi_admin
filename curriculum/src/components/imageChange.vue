@@ -4,8 +4,8 @@
             <ul class="imgChange-menu">
                 <li :class="{smargin:datas.isBigImg == '0'}"  v-for="(datas,index) in data.imageChange" v-show="nowImgIndex == index">
                     <p class="image-titles" v-text="datas.imgChangeTitle"></p>
-                    <img class="bigimgs"  v-if="datas.isBigImg == '0'" :src="datas.img"  />
-                    <div class="img-main simg-main simgnobor imgchange-img" v-if="datas.img && datas.isBigImg == '1'" >
+                    <img class="bigimgs"  v-show="datas.isBigImg == '0'" :src="datas.img"  />
+                    <div class="img-main simg-main simgnobor imgchange-img" v-show="datas.img && datas.isBigImg == '1'" >
                         <div class="white-r">
                             <img class="idt-img" v-if="" :src="datas.img"  />
                         </div>
@@ -47,6 +47,7 @@
         },
         mounted:function(){
         this.imageChangeHeight = document.getElementById("QuestMain").scrollHeight;
+            alert($(".imgchange-img").width())
             $(".imgchange-img").height($(".imgchange-img").width());
         },
         methods:{
@@ -58,9 +59,9 @@
         },
         NextEvent(index,len){
         if(index<len){
-        this.nowImgIndex = index+1;
+            this.nowImgIndex = index+1;
         }else{
-        this.$emit("isJump",this.page+1);
+            this.$emit("isJump",this.page+1);
         }
 
         },

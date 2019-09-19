@@ -258,6 +258,8 @@
  * 3
  * judgeTitle 判断类型题目
  *   judgeInfo 判断类型副标题
+ *   judgeTrueImg 正确图片
+ *   judgeFalseImg 错误图片
  *   judgeTitleTrue 判断类型正确标题
  *    judgeTitleFalse 判断类型错误标题
  *    judgeMenu 判断类型菜单
@@ -579,6 +581,8 @@ export default {
 
                 judgeTitle:"",
                 judgeInfo:"",
+                judgeTrueImg:"",
+                judgeFalseImg:"",
                 judgeTitleTrue:"",
                 judgeTitleFalse:"",
                 judgeBtn:"",
@@ -748,6 +752,8 @@ export default {
 
                 judgeTitle:"",
                     judgeInfo:"",
+                judgeTrueImg:"",
+                judgeFalseImg:"",
                 judgeTitleTrue:"",
                 judgeTitleFalse:"",
                 judgeBtn:"",
@@ -954,6 +960,8 @@ export default {
 
                 judgeTitle:"",
                 judgeInfo:"",
+                judgeTrueImg:"",
+                judgeFalseImg:"",
                 judgeTitleTrue:"",
                 judgeTitleFalse:"",
                 judgeBtn:"",

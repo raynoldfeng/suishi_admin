@@ -124,6 +124,7 @@ ul li{
     font-family: "iconfont";
     vertical-align: middle;
     display: inline-block;
+    font-size: 4vw;
 }
 
 .commonListStyle li:before{
@@ -132,6 +133,7 @@ ul li{
     font-family: "iconfont";
     vertical-align: middle;
     display: inline-block;
+    font-size: 4vw;
 }
 
 .ishide{

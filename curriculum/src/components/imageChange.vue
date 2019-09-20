@@ -47,7 +47,6 @@
         },
         mounted:function(){
         this.imageChangeHeight = document.getElementById("QuestMain").scrollHeight;
-            alert($(".imgchange-img").width())
             $(".imgchange-img").height($(".imgchange-img").width());
         },
         methods:{

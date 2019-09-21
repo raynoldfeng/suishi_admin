@@ -13,9 +13,10 @@
 
                         <!--<div class="imageChange-text" v-if="datas.text" v-html="Trim(datas.text)"></div>-->
 
-                        <ul class="list-type-menu imageChange-menu imageChange-text" :class="{nobig:datas.isBigImg == '1'}">
+                        <ul class="list-type-menu imageChange-menu imageChange-text common-ul" :class="{nobig:datas.isBigImg == '1'}">
                             <li  v-for="(idata,index) in datas.textMenu"  :class = "{commonMenuN:idata.typeValue == '0',commonMenuS:idata.typeValue == '1',commonMenuC:idata.typeValue == '2'
-                                ,commonMenuF:idata.typeValue == '3',commonMenuTC:idata.typeValue == '4',commonMenuX:idata.typeValue == '5',commonMenu:idata.typeValue == '6'}">
+                                ,commonMenuF:idata.typeValue == '3',commonMenuTC:idata.typeValue == '4',commonMenuX:idata.typeValue == '5',commonMenu:idata.typeValue == '6'
+                                ,blue:idata.textColor == '1'}">
                                 <span v-show="idata.typeValue == '6'" v-text="numEvent(idata.typeNum)"></span>
                                 <span v-html="Trim(idata.text)"></span>
                             </li>
@@ -54,10 +55,20 @@
         return str.replace(/\n|\r\n/g,"<br/>");
         },
         imgChangeEvent(index){
-        this.nowImgIndex = index
+                var QuestMain = document.getElementById("imageChange");
+                QuestMain.scrollTop = 0;
+                QuestMain.scrollTop = 0;
+                document.body.scrollTop = 0;
+                document.documentElement.scrollTop = 0;
+            this.nowImgIndex = index;
         },
         NextEvent(index,len){
         if(index<len){
+            var QuestMain = document.getElementById("imageChange");
+            QuestMain.scrollTop = 0;
+            QuestMain.scrollTop = 0;
+            document.body.scrollTop = 0;
+            document.documentElement.scrollTop = 0;
             this.nowImgIndex = index+1;
         }else{
             this.$emit("isJump",this.page+1);
@@ -130,7 +141,6 @@
         }
     .imageChange-text{
         padding:4%;
-        color: #666;
         font-size:4.5vw;
         text-align:left;
         width: 84%;

@@ -182,6 +182,14 @@
                                 :value="item.value">
                                 </el-option>
                             </el-select>
+                            <el-select v-show="nowData.testType == 15" class="select-css" v-model="nowData.displayType" placeholder="类型">
+                                <el-option
+                                v-for="item in selectDisplayMenu"
+                                :key="item.value"
+                                :label="item.label"
+                                :value="item.value">
+                                </el-option>
+                            </el-select>
                         </div>
                     </div>
 
@@ -190,9 +198,9 @@
 
         <titlePage v-if="nowData.testType == 0 && nowData.displayType == 't1'" :nowData="nowData" :cosData="cosData"></titlePage>
 
-        <imgText v-if="nowData.testType == 1 && nowData.displayType == 'it1'" :nowData="nowData" :cosData="cosData" :listSysleList="listSysleList"></imgText>
+        <imgText v-if="nowData.testType == 1 && nowData.displayType == 'it1'" :nowData="nowData" :cosData="cosData" :listSysleList="listSysleList" :paragraphMenu="paragraphMenu"></imgText>
 
-        <imageChange  v-if="nowData.testType == 2 && nowData.displayType == 'ic1'" :nowData="nowData" :cosData="cosData" :judgeAnswerMenu="judgeAnswerMenu" :listSysleList="listSysleList"></imageChange>
+        <imageChange  v-if="nowData.testType == 2 && nowData.displayType == 'ic1'" :nowData="nowData" :cosData="cosData" :judgeAnswerMenu="judgeAnswerMenu" :listSysleList="listSysleList" :paragraphMenu="paragraphMenu"></imageChange>
 
         <judgeType v-if="nowData.testType == 3 && nowData.displayType == 'j1'" :nowData="nowData" :cosData="cosData" :judgeAnswerMenu="judgeAnswerMenu"></judgeType>
 
@@ -207,19 +215,21 @@
 
         <imgJumpType  v-if="nowData.testType == 7 && nowData.displayType == 'imt'" :nowData="nowData" :cosData="cosData" :titleColor="titleColor"></imgJumpType>
 
-        <listType  v-if="nowData.testType == 8 && nowData.displayType == 'lt'"  :nowData="nowData" :cosData="cosData" :judgeAnswerMenu="judgeAnswerMenu" :listSysleList="listSysleList"></listType>
+        <listType  v-if="nowData.testType == 8 && nowData.displayType == 'lt'"  :nowData="nowData" :cosData="cosData" :judgeAnswerMenu="judgeAnswerMenu" :listSysleList="listSysleList" :paragraphMenu="paragraphMenu"></listType>
 
         <sideEdgeImgType v-if="nowData.testType == 9 && nowData.displayType == 'ct'" :nowData="nowData" :cosData="cosData"></sideEdgeImgType>
 
         <blanksType  v-if="nowData.testType == 10 && nowData.displayType == 'bl'" :nowData="nowData"></blanksType>
 
-        <imgselectDisplayType v-if="nowData.testType == 11 && nowData.displayType == 'isd'" :nowData="nowData" :cosData="cosData" :listSysleList="listSysleList"></imgselectDisplayType>
+        <imgselectDisplayType v-if="nowData.testType == 11 && nowData.displayType == 'isd'" :nowData="nowData" :cosData="cosData" :listSysleList="listSysleList" :paragraphMenu="paragraphMenu"></imgselectDisplayType>
 
-        <imgDisplayType v-if="nowData.testType == 12 && nowData.displayType == 'idp'" :nowData="nowData" :cosData="cosData" :listSysleList="listSysleList"></imgDisplayType>
+        <imgDisplayType v-if="nowData.testType == 12 && nowData.displayType == 'idp'" :nowData="nowData" :cosData="cosData" :listSysleList="listSysleList" :paragraphMenu="paragraphMenu"></imgDisplayType>
 
         <pairTypeMenus v-if="nowData.testType == 13 && nowData.displayType == 'pp'" :nowData="nowData" :cosData="cosData"></pairTypeMenus>
 
         <videoType v-if="nowData.testType == 14 && nowData.displayType == 'vd'" :nowData="nowData" :cosData="cosData"></videoType>
+
+        <selectDisplayMenu v-if="nowData.testType == 15 && nowData.displayType == 'sd'" :nowData="nowData" :cosData="cosData" :listSysleList="listSysleList" :paragraphMenu="paragraphMenu"></selectDisplayMenu>
 
         </el-main>
         </el-container>
@@ -249,6 +259,7 @@
  * typeValue 图文类型段落样式
   * imgTextImg  图文类型图片
  * imgTextMenu  图文类型段落
+ * textColor 段落颜色
  *
  * 2
  * imageChange 图片轮播
@@ -373,6 +384,16 @@
  * videoTitle 视频类型标题
  * videoUrl 视频链接
  *
+ * 15
+ * selectDisplayTitle 展示类型标题
+ *selectDisplayInfo 选项展示副标题
+ * selectDisplayMImg 默認圖片
+ * typeValue 选项展示段落样式
+ * selectDisplayMenu 图片选项展示菜单
+ * selectDisplayBtn 按钮文案
+ * selectDisplayImg 图片
+ * selectDisplayTextMenu 段落菜单
+ * selectDisplayText 段落
 *
  */
 import $ from 'jquery'
@@ -391,6 +412,7 @@ import blanksType from './com/blanksType.vue'
     import imageChange from './nouse/imageChange.vue'
 import pairTypeMenus from './com/pairTypeMenus.vue'
 import videoType from './com/videoType.vue'
+import selectDisplayMenu from './com/selectDisplayMenu.vue'
 export default {
     data(){
         return {
@@ -418,7 +440,12 @@ export default {
                 {value: "1",
                     label: "true"},
             ],
-
+            paragraphMenu:[
+                {value: "0",
+                    label: "黑色"},
+                {value: "1",
+                    label: "蓝色"},
+            ],
             titleColor:[
                 {value: "0",
                     label: "黑色"},
@@ -461,6 +488,10 @@ export default {
                 {
                     value:'14',
                     label:"视频类型"
+                },
+                {
+                    value:"15",
+                    label:"展示类型"
                 }
             ],
             titleInfoTypeMenu:[
@@ -553,6 +584,12 @@ export default {
                     label:"播放"
                 }
             ],
+            selectDisplayMenu:[
+                {
+                    value:"sd",
+                    label:"点击"
+                }
+            ],
             dataMenu:[ ],
             nowData:{
                 page:0,
@@ -569,12 +606,12 @@ export default {
                 imgTextTitle:"",
 
                 imgTextImg:"",
-                imgTextMenu:[{text:"",typeValue:"0",
+                imgTextMenu:[{text:"",typeValue:"0",textColor:"0",
                     typeNum:""}],
 
 
 
-                imageChange:[{imgChangeTitle:"",isBigImg:"0",img:"",textMenu:[{text:"",typeValue:"0",typeNum:""}]}],
+                imageChange:[{imgChangeTitle:"",isBigImg:"0",img:"",textMenu:[{text:"",typeValue:"0",typeNum:"",textColor:"0"}]}],
                 imageChangeJump:"",
                 imageChangeJumpL:"",
 
@@ -651,7 +688,7 @@ export default {
                 listTypeImgBig:"",
                 listTypeBtnText:"",
                 listTypeMenu:[
-                    {listTypeText:"",typeValue:"0",typeNum:""}
+                    {listTypeText:"",typeValue:"0",typeNum:"",textColor:"0"}
                 ],
 
 
@@ -679,7 +716,8 @@ export default {
                         imgselectDisplayTextMenu:[{
                             typeValue:"0",
                             typeNum:"",
-                            imgselectDisplayText:""
+                            imgselectDisplayText:"",
+                            textColor:"0"
                         }]
                     }
                 ],
@@ -696,7 +734,8 @@ export default {
                     imgDisplayTypeTextMenu:[{
                         typeValue:"0",
                         typeNum:"",
-                        imgDisplayTypeText:""
+                        imgDisplayTypeText:"",
+                        textColor:"0"
                     }]
                 }],
 
@@ -720,7 +759,22 @@ export default {
                 ],
 
                 videoTitle:"",
-                videoUrl:""
+                videoUrl:"",
+
+                selectDisplayTitle:"",
+                selectDisplayInfo:"",
+                selectDisplayMenu:[
+                    {
+                        selectDisplayBtn:"",
+                        selectDisplayImg:"",
+                        selectDisplayTextMenu:[{
+                            typeValue:"0",
+                            typeNum:"",
+                            selectDisplayText:"",
+                            textColor:"0"
+                        }]
+                    }
+                ],
 
             },
             copyData:{
@@ -740,12 +794,13 @@ export default {
                 imgTextMenu:[{
                     text:"",
                     typeValue:"0",
-                    typeNum:""
+                    typeNum:"",
+                    textColor:"0"
                 }],
 
 
 
-                imageChange:[{imgChangeTitle:"",isBigImg:"0",img:"",textMenu:[{text:"",typeValue:"0",typeNum:""}]}],
+                imageChange:[{imgChangeTitle:"",isBigImg:"0",img:"",textMenu:[{text:"",typeValue:"0",typeNum:"",textColor:"0"}]}],
                 imageChangeJump:"",
                 imageChangeJumpL:"",
 
@@ -819,7 +874,7 @@ export default {
                 listTypeImgBig:"",
                 listTypeBtnText:"",
                 listTypeMenu:[
-                    {listTypeText:"",typeValue:"0",typeNum:""}
+                    {listTypeText:"",typeValue:"0",typeNum:"",textColor:"0"}
                 ],
 
 
@@ -847,7 +902,8 @@ export default {
                         imgselectDisplayTextMenu:[{
                             typeValue:"0",
                             typeNum:"",
-                            imgselectDisplayText:""
+                            imgselectDisplayText:"",
+                            textColor:"0"
                         }]
                     }
                 ],
@@ -864,7 +920,8 @@ export default {
                     imgDisplayTypeTextMenu:[{
                         typeValue:"0",
                         typeNum:"",
-                        imgDisplayTypeText:""
+                        imgDisplayTypeText:"",
+                        textColor:"0"
                     }]
                 }],
 
@@ -888,7 +945,24 @@ export default {
                 ],
 
                 videoTitle:"",
-                videoUrl:""
+                videoUrl:"",
+
+
+
+                selectDisplayTitle:"",
+                selectDisplayInfo:"",
+                selectDisplayMenu:[
+                    {
+                        selectDisplayBtn:"",
+                        selectDisplayImg:"",
+                        selectDisplayTextMenu:[{
+                            typeValue:"0",
+                            typeNum:"",
+                            selectDisplayText:"",
+                            textColor:"0"
+                        }]
+                    }
+                ],
             },
             SecretId:"",
             SecretKey:"",
@@ -914,7 +988,8 @@ export default {
         "sideEdgeImgType":sideEdgeImgType,
         "imageChange":imageChange,
         "pairTypeMenus":pairTypeMenus,
-        "videoType":videoType
+        "videoType":videoType,
+        "selectDisplayMenu":selectDisplayMenu
     },
     methods:{
         bigEvent(){
@@ -947,12 +1022,13 @@ export default {
                 imgTextMenu:[{
                     text:"",
                     typeValue:"0",
-                    typeNum:""
+                    typeNum:"",
+                    textColor:"0"
                 }],
 
 
 
-                imageChange:[{imgChangeTitle:"",isBigImg:"0",img:"",textMenu:[{text:"",typeValue:"0",typeNum:""}]}],
+                imageChange:[{imgChangeTitle:"",isBigImg:"0",img:"",textMenu:[{text:"",typeValue:"0",typeNum:"",textColor:"0"}]}],
                 imageChangeJump:"",
                 imageChangeJumpL:"",
 
@@ -1028,7 +1104,7 @@ export default {
                 listTypeImgBig:"",
                 listTypeBtnText:"",
                 listTypeMenu:[
-                    {listTypeText:"",typeValue:"0",typeNum:""}
+                    {listTypeText:"",typeValue:"0",typeNum:"",textColor:"0"}
                 ],
 
 
@@ -1044,7 +1120,7 @@ export default {
                 blanksMenu:[],
 
 
-
+                imgselectDisplayTitle:"",
                 imgselectDisplayInfo:"",
                 imgselectDisplayMImg:"",
                 imgselectDisplayMenu:[
@@ -1054,7 +1130,8 @@ export default {
                         imgselectDisplayTextMenu:[{
                             typeValue:"0",
                             typeNum:"",
-                            imgselectDisplayText:""
+                            imgselectDisplayText:"",
+                            textColor:"0"
                         }]
                     }
                 ],
@@ -1069,7 +1146,8 @@ export default {
                     imgDisplayTypeTextMenu:[{
                         typeValue:"0",
                         typeNum:"",
-                        imgDisplayTypeText:""
+                        imgDisplayTypeText:"",
+                        textColor:"0"
                     }]
                 }],
 
@@ -1092,7 +1170,23 @@ export default {
                 ],
 
                 videoTitle:"",
-                videoUrl:""
+                videoUrl:"",
+
+                selectDisplayTitle:"",
+                selectDisplayInfo:"",
+                selectDisplayMenu:[
+                    {
+                        selectDisplayBtn:"",
+                        selectDisplayImg:"",
+                        selectDisplayTextMenu:[{
+                            typeValue:"0",
+                            typeNum:"",
+                            selectDisplayText:"",
+                            textColor:"0"
+                        }]
+                    }
+                ],
+
             };
             if(type == "add"){
                 this.nowData.page = index;

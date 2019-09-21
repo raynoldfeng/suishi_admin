@@ -24,6 +24,7 @@
                 <v-imgDisplayType v-else-if="data.testType == '12' && data.displayType == 'idp'" :data="data"></v-imgDisplayType>
                 <v-dragMore v-else-if="data.testType == '13' && data.displayType == 'pp'" :page="index" :data="data" v-on:imgShow = "imgShowEvent" v-on:isJump = "isJumpEvent"></v-dragMore>
                 <v-videoType v-else-if="data.testType == '14' && data.displayType == 'vd'" :nowPage="nowPage" :page="index" :data="data"></v-videoType>
+                <v-selectDisplay v-else-if="data.testType == '15' && data.displayType == 'sd'" :data="data"></v-selectDisplay>
                 <v-lastPage  v-else-if="data.testType == '1111' && data.displayType == 'oooo'" :data="data"></v-lastPage>
 
             </swiper-slide>
@@ -84,6 +85,7 @@ import blanksType from '../components/blanksType.vue'
  import imgDisplayType from '../components/imgDisplayType.vue'
  import dragMore from '../components/dragmore.vue'
  import videoType from '../components/videoType.vue'
+import selectDisplay from '../components/selectDisplay.vue'
  import $ from 'jquery'
     export default{
         data(){
@@ -164,7 +166,8 @@ import blanksType from '../components/blanksType.vue'
              "v-imgSelectType":imgSelectType,
              "v-imgDisplayType":imgDisplayType,
              'v-dragMore':dragMore,
-             "v-videoType":videoType
+             "v-videoType":videoType,
+             'v-selectDisplay':selectDisplay
      },
         mounted:function(){
             window.jpage = 0;

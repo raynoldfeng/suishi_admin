@@ -7,9 +7,10 @@
                     <img :src="data.imgTextImg" />
                 </div>
             </div>
-            <ul class="it-text-menu commonListStyle" >
+            <ul class="it-text-menu commonListStyle common-ul" >
                 <li v-for="textData in data.imgTextMenu" :class = "{commonMenuN:textData.typeValue == '0',commonMenuS:textData.typeValue == '1',commonMenuC:textData.typeValue == '2'
-            ,commonMenuF:textData.typeValue == '3',commonMenuTC:textData.typeValue == '4',commonMenuX:textData.typeValue == '5',commonMenu:textData.typeValue == '6'}" >
+            ,commonMenuF:textData.typeValue == '3',commonMenuTC:textData.typeValue == '4',commonMenuX:textData.typeValue == '5',commonMenu:textData.typeValue == '6'
+            ,blue:textData.textColor == '1'}" >
                 <span v-show="textData.typeValue == '6'" v-text="numEvent(textData.typeNum)"></span>
                 <span v-html="Trim(textData.text)"></span>
                 </li>
@@ -66,7 +67,6 @@ export default
     }
     .it-text-menu li{
         margin-top: 4%;
-        color: #666666;
     }
     .it-text-menu li:before {
         margin-left: -1.3em;

@@ -116,7 +116,6 @@ ul li{
     margin:5% 0 0 0;
     word-break: break-all;
     font-size: 4.5vw;
-    color: #666;
 }
 .sideEdgeBoxMenu li:before{
     content: "▶";
@@ -134,6 +133,11 @@ ul li{
     vertical-align: middle;
     display: inline-block;
     font-size: 4vw;
+}
+.sideBoxMenu li{
+    margin:3% 0 0 0;
+    word-break: break-all;
+    font-size: 4.5vw;
 }
 
 .ishide{
@@ -256,35 +260,58 @@ ul li{
 #QuestMain li.commonMenu:before{
     content: "";
     padding-right: 0;
+    font-size: 4vw;
 }
 
 #QuestMain li.commonMenuN:before{
     content: "";
     padding-right: .5em;
+    font-size: 4vw;
+    position: relative;
+    top: -0.5vw;
 }
 #QuestMain  li.commonMenuS:before{
     content: "▶";
     padding-right: .5em;
+    font-size: 4vw;
+    position: relative;
+    top: -0.5vw;
 }
 #QuestMain li.commonMenuC:before{
     content: "•";
     padding-right: .5em;
+    font-size: 4vw;
+    position: relative;
+    top: -0.5vw;
 }
 #QuestMain li.commonMenuF:before{
     content: "■";
     padding-right: .5em;
+    font-size: 4vw;
+    position: relative;
+    top: -0.5vw;
 }
 #QuestMain li.commonMenuTC:before{
     content: "◎";
     padding-right: 0em;
+    font-size: 4vw;
 }
 #QuestMain li.commonMenuX:before{
     content: "※";
     padding-right: .5em;
+    font-size: 4vw;
+    position: relative;
+    top: -0.5vw;
 }
 .opacitycss{
     opacity: 0;
 }
 .common-666{
     color: #666666;
+}
+.common-ul li{
+    color: #666666;
+}
+.common-ul li.blue{
+    color: #007aff;
 }

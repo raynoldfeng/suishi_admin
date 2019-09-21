@@ -4,7 +4,7 @@
         <p class="common-info" v-text="data.imgselectDisplayInfo"></p>
         <div>
             <div class="isd-leftMenu">
-                <div class="isb-btn" v-for="(datas,index) in data.imgselectDisplayMenu" @click="showContentEvent(index)" v-text="datas.imgselectDisplayBtn"></div>
+                <div class="isb-btn" :class="{isbclicked:nowshow == index}" v-for="(datas,index) in data.imgselectDisplayMenu" @click="showContentEvent(index)" v-text="datas.imgselectDisplayBtn"></div>
             </div>
             <div class="isd-rightMenu">
                 <div  class="isb-sideEdgeBoxMain" v-show="nowshow == '-1'">
@@ -21,9 +21,10 @@
                                 <img v-if="datas.imgselectDisplayImg != ''" :src="datas.imgselectDisplayImg" />
                             </div>
                         </div>
-                        <ul  class="sideEdgeBoxMenu" >
+                        <ul  class="sideEdgeBoxMenu common-ul" >
                             <li v-for="(mdata,mindex) in datas.imgselectDisplayTextMenu" :class = "{commonMenuN:mdata.typeValue == '0',commonMenuS:mdata.typeValue == '1',commonMenuC:mdata.typeValue == '2'
-            ,commonMenuF:mdata.typeValue == '3',commonMenuTC:mdata.typeValue == '4',commonMenuX:mdata.typeValue == '5',commonMenu:mdata.typeValue == '6'}">
+            ,commonMenuF:mdata.typeValue == '3',commonMenuTC:mdata.typeValue == '4',commonMenuX:mdata.typeValue == '5',commonMenu:mdata.typeValue == '6'
+               ,blue:mdata.textColor == '1'}">
                                 <span v-show="mdata.typeValue == '6'" v-text="numEvent(mdata.typeNum)"></span>
                                 <span  v-html="Trim(mdata.imgselectDisplayText)"></span>
                             </li>
@@ -56,13 +57,6 @@ import $ from 'jquery'
             }
         },
         mounted:function(){
-            console.log(this.data.imgselectDisplayMenu)
-            $(".isb-btn").on("click",function(){
-
-                $(this).parents(".isd-leftMenu").find(".isb-btn").removeClass("isb-clicked");
-                $(this).addClass("isb-clicked");
-            });
-
             $(".isb-imgmain").height($(".isb-imgmain").width());
         }
     }
@@ -98,7 +92,7 @@ import $ from 'jquery'
     border-radius: 5px;
     color: #666;
 }
-.isb-clicked{
+.isbclicked{
     border: 1px solid deepskyblue;
     color: deepskyblue;
 }

@@ -57,6 +57,17 @@
                                             </el-option>
                                         </el-select>
                                 </div>
+                                <div class="view_main">
+                                    <span>段落颜色:</span>
+                                    <el-select v-model="sdata.textColor" class="select-css" placeholder="段落颜色">
+                                        <el-option
+                                        v-for="item in paragraphMenu"
+                                        :key="item.value"
+                                        :label="item.label"
+                                        :value="item.value">
+                                        </el-option>
+                                    </el-select>
+                                </div>
                                 <div class="view_main" v-show="sdata.typeValue == '6'">
                                     <span>输入段落序号</span>
                                     <el-input class="input_type"   v-model="sdata.typeNum"></el-input>
@@ -97,7 +108,8 @@
                   nowData:"",
                   cosData:"",
                   listSysleList:"",
-                  judgeAnswerMenu:""
+                  judgeAnswerMenu:"",
+                  paragraphMenu:""
             },
             mounted:function(){
             var self = this;

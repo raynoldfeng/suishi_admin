@@ -37,6 +37,18 @@
                             </el-select>
 
                         </div>
+                        <div class="view_main">
+                            <span>段落颜色:</span>
+                            <el-select v-model="nowData.imgTextMenu[index].textColor" class="select-css" placeholder="段落颜色">
+                                <el-option
+                                v-for="item in paragraphMenu"
+                                :key="item.value"
+                                :label="item.label"
+                                :value="item.value">
+                                </el-option>
+                            </el-select>
+
+                        </div>
                         <div class="view_main" v-show="nowData.imgTextMenu[index].typeValue == '6'">
                             <span>输入段落序号</span>
                             <el-input class="input_type"   v-model="nowData.imgTextMenu[index].typeNum"></el-input>
@@ -75,6 +87,7 @@ export default {
         nowData:"",
         cosData:"",
         listSysleList:"",
+        paragraphMenu:""
     },
     mounted:function(){
         var self = this;

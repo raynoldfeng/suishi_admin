@@ -10,9 +10,10 @@
                 </div>
             </div>
             <transition name="fade">
-                <ul class="sideEdgeBoxMenu idp-type-menu" v-show="isShow">
+                <ul class="sideEdgeBoxMenu idp-type-menu common-ul" v-show="isShow">
                     <li v-for="(sdata,sindex) in datas.imgDisplayTypeTextMenu" :class = "{commonMenuN:sdata.typeValue == '0',commonMenuS:sdata.typeValue == '1',commonMenuC:sdata.typeValue == '2'
-            ,commonMenuF:sdata.typeValue == '3',commonMenuTC:sdata.typeValue == '4',commonMenuX:sdata.typeValue == '5',commonMenu:sdata.typeValue == '6'}" >
+            ,commonMenuF:sdata.typeValue == '3',commonMenuTC:sdata.typeValue == '4',commonMenuX:sdata.typeValue == '5',commonMenu:sdata.typeValue == '6'
+             ,blue:sdata.textColor == '1'}" >
                         <span v-show="sdata.typeValue == '6'" v-text="numEvent(sdata.typeNum)"></span>
                         <span v-html="Trim(sdata.imgDisplayTypeText)" ></span>
                     </li>

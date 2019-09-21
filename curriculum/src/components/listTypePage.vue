@@ -7,9 +7,10 @@
                     <img id="selectImg" :src="data.listTypeImg" @click="displayEvent(data.listTypeImg,'',data.listTypeImgBig)" >
                 </div>
             </div>
-            <ul class="list-type-menu" >
+            <ul class="list-type-menu common-ul" >
                 <li v-for="(idata,index) in listMenu"  :class = "{commonMenuN:idata.typeValue == '0',commonMenuS:idata.typeValue == '1',commonMenuC:idata.typeValue == '2'
-            ,commonMenuF:idata.typeValue == '3',commonMenuTC:idata.typeValue == '4',commonMenuX:idata.typeValue == '5',commonMenu:idata.typeValue == '6'}" v-show="idata.show">
+            ,commonMenuF:idata.typeValue == '3',commonMenuTC:idata.typeValue == '4',commonMenuX:idata.typeValue == '5',commonMenu:idata.typeValue == '6'
+             ,blue:idata.textColor == '1'}" v-show="idata.show">
                     <span v-show="idata.typeValue == '6'" v-text="numEvent(idata.typeNum)"></span>
                     <span v-html="Trim(idata.text)"></span>
                 </li>
@@ -101,7 +102,6 @@ export default {
     }
     .list-type-menu li{
         font-size: 4.5vw;
-        color: #666;
         margin:3% 6% 0;
         text-align: left;
         word-break: break-all;

@@ -311,6 +311,7 @@ ul li{
 }
 .common-ul li{
     color: #666666;
+    word-break: break-all;
 }
 .common-ul li.blue{
     color: #007aff;

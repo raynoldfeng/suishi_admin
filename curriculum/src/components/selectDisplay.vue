@@ -8,9 +8,9 @@
             </div>
             <div class="sd-rightMenu">
                 <div  class="isb-sideEdgeBoxMain" v-for="(datas,index) in data.selectDisplayMenu" v-show="nowshow == index">
-                    <div class="sb-imgmain simg-main-nobor">
+                    <div class="sb-imgmain ">
                         <div class="white-r">
-                            <img v-if="datas.selectDisplayImg != ''" :src="datas.selectDisplayImg" />
+                            <img v-if="datas.selectDisplayImg != ''" :src="datas.selectDisplayImg" @click="displayEvent(datas.selectDisplayImg,'',datas.selectDisplayImg)" />
                         </div>
                     </div>
                     <ul  class="sideBoxMenu common-ul" >
@@ -46,6 +46,10 @@ export default{
         },
         numEvent(str){
             return str+".";
+        },
+        displayEvent(url,text,urlbig){
+            var data = {url:url,text:text,urlbig:urlbig};
+            this.$emit("imgShow",data);
         }
     },
     mounted:function(){
@@ -98,11 +102,11 @@ export default{
         padding-bottom: 28%;
         }
     .sb-imgmain{
-        width: 40%;
+        width: 30%;
         padding: 4%;
         border: 1px solid #d8d8d8;
         border-radius: 100%;
-        margin: 0 auto;
+        margin: 8% auto 0;
         }
     .isb-sideEdgeBoxMain img{
         width: 100%;

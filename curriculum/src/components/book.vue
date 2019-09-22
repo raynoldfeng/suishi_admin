@@ -24,7 +24,7 @@
                 <v-imgDisplayType v-else-if="data.testType == '12' && data.displayType == 'idp'" :data="data"></v-imgDisplayType>
                 <v-dragMore v-else-if="data.testType == '13' && data.displayType == 'pp'" :page="index" :data="data" v-on:imgShow = "imgShowEvent" v-on:isJump = "isJumpEvent"></v-dragMore>
                 <v-videoType v-else-if="data.testType == '14' && data.displayType == 'vd'" :nowPage="nowPage" :page="index" :data="data"></v-videoType>
-                <v-selectDisplay v-else-if="data.testType == '15' && data.displayType == 'sd'" :data="data"></v-selectDisplay>
+                <v-selectDisplay v-else-if="data.testType == '15' && data.displayType == 'sd'" :data="data" v-on:imgShow = "imgShowEvent"></v-selectDisplay>
                 <v-lastPage  v-else-if="data.testType == '1111' && data.displayType == 'oooo'" :data="data"></v-lastPage>
 
             </swiper-slide>

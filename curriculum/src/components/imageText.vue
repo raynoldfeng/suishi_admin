@@ -11,7 +11,7 @@
                 <li v-for="textData in data.imgTextMenu" :class = "{commonMenuN:textData.typeValue == '0',commonMenuS:textData.typeValue == '1',commonMenuC:textData.typeValue == '2'
             ,commonMenuF:textData.typeValue == '3',commonMenuTC:textData.typeValue == '4',commonMenuX:textData.typeValue == '5',commonMenu:textData.typeValue == '6'
             ,blue:textData.textColor == '1'}" >
-                <span v-show="textData.typeValue == '6'" v-text="numEvent(textData.typeNum)"></span>
+                <span v-if="textData.typeValue == '6'" v-text="numEvent(textData.typeNum)"></span>
                 <span v-html="Trim(textData.text)"></span>
                 </li>
             </ul>
@@ -69,11 +69,11 @@ export default
         margin-top: 4%;
     }
     .it-text-menu li:before {
-        margin-left: -1.3em;
+//        margin-left: -1.3em;
     }
     .it-text-menu li:before {
         content: "•";
-        padding-right: .5em;
+//        padding-right: .5em;
         font-family: "iconfont";
         vertical-align: middle;
         display: inline-block;

@@ -265,7 +265,7 @@ ul li{
 
 #QuestMain li.commonMenuN:before{
     content: "";
-    padding-right: .5em;
+    /*padding-right: .5em;*/
     font-size: 4vw;
     position: relative;
     top: -0.5vw;

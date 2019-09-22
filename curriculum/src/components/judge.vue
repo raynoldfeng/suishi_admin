@@ -6,7 +6,8 @@
             <p class="common-info" v-if="data.judgeInfo !='' " v-text="data.judgeInfo"></p>
             <div class="true-main">
                 <p class="common-info css-bla" v-if="data.judgeTitleTrue !='' " v-text="data.judgeTitleTrue"></p>
-                <div  class="judge-img" v-if="data.judgeTrueImg !=''"><img  :src="data.judgeTrueImg" /></div>
+                <div  class="judge-img" v-if="data.judgeTrueImg !=''"><img  :src="data.judgeTrueImg" onerror="this.src='';this.onerror=null"
+                alt="" /></div>
                 <!--<div class="true-logo" v-else></div>-->
                 <ul class="anwer-menu yesm">
 
@@ -17,7 +18,7 @@
             </div>
             <div class="false-main">
                 <p class="common-info css-bla" v-if="data.judgeTitleFalse && data.judgeTitleFalse !='' " v-text="data.judgeTitleFalse"></p>
-                <img class="judge-img" v-if="data.judgeFalseImg !=''"  :src="data.judgeFalseImg" />
+                <div  class="judge-img" v-if="data.judgeFalseImg !=''"><img  :src="data.judgeFalseImg" /></div>
                 <!--<div class="false-logo" v-else ></div>-->
                 <ul class="anwer-menu nom">
 

@@ -87,7 +87,7 @@
     </script>
     <style>
     #imageChange{
-        overflow: auto;
+        /*overflow: auto;*/
         }
     #imageChange img{
         width: 100%;

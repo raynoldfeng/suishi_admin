@@ -93,7 +93,7 @@ ul li{
     font-size: 4.5vw;
     color: #acafb2;
     z-index: 1;
-    margin: 2vw auto 0;
+    margin: 2vw auto 8%;
     width: 80%;
 }
 .image-titles{
@@ -264,11 +264,12 @@ ul li{
 }
 
 #QuestMain li.commonMenuN:before{
-    content: "";
-    /*padding-right: .5em;*/
+    content: "▶";
+    padding-right: .5em;
     font-size: 4vw;
     position: relative;
     top: -0.5vw;
+    opacity: 0;
 }
 #QuestMain  li.commonMenuS:before{
     content: "▶";

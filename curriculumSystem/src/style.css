@@ -22,7 +22,8 @@ ul li {
 #video-selector,#imgtext-selector,#select-selector,#selectL-selector,
 #selectR-selector,#selectAllJ-selector,#selectImgJ-selector,#selectLt-selector,
 #sideEdgeImg-upload,#img-selector,#img-display,#mimg-selector,#fileId,#select-selector-big,
-#selectLt-selector-big,#pair-img,#video-up,#true-img,#false-img,#selector-ty{
+#selectLt-selector-big,#pair-img,#video-up,#true-img,#false-img,#selector-ty,
+#selectAllJ-img{
     display: none;
 }
 .avatar-uploader{

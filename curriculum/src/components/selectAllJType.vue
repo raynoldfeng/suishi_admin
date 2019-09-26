@@ -4,6 +4,11 @@
             <img id="selectImgBg" :src="data.selectAllJImg">
             <p class="quest-text" :class="{colorfff:data.selectAllJSubtitleTitleColor == '1',paddcss5v:data.selectAllJTitle == ''}" v-text="data.selectAllJTitle"></p>
             <p class="quest-info common-info" :class="{colorfff:data.selectAllJSubtitleTitleColor == '1',paddcss45v:data.selectAllJSubtitleTitle == '' }"  v-text="data.selectAllJSubtitleTitle"></p>
+            <div class="select-img-main sm-img-main simgnobor" v-if="data.selectAllJSImg">
+                <div class="white-r">
+                    <img id="selectImgs" :src="data.selectAllJSImg" >
+                </div>
+            </div>
             <ul id="selectBox" class="optionall-menu">
                 <li v-for="(datas,index) in data.selectAllJMenu">
                     <div  class="answer-btn answer-css animated" :class="{yes:datas.isAnswer == '1' ,no:datas.isAnswer == '0'}" v-text="datas.answerText"></div>
@@ -27,6 +32,7 @@ export default {
         }
     },
     mounted:function(){
+        $(".select-img-main").height($(".select-img-main").width());
         $("#selectBox li").on("touchstart",function(){
             $(".explain-main").hide().removeClass("explain-show");
             $(this).find(".explain-main").show().addClass("explain-show");

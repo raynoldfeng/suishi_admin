@@ -1,6 +1,7 @@
 <template>
     <div >
         <input id="selectAllJ-selector" type="file" />
+        <input id="selectAllJ-img" type="file" />
         <div class="view_main">
             <span>题目:</span>
             <el-input class="input_type" v-model="nowData.selectAllJTitle"></el-input>
@@ -32,6 +33,19 @@
     <i @click="deleteImg('selectAllJImg')">
     <img  class="icon_btn" src="./../../image/close.png" />
 </i>
+        </div>
+        <div class="view_main">
+            <div class="type_title">图片:</div>
+
+            <div class="avatar-uploader" @click="uploadClick('selectAllJ-img')">
+                <img v-if="nowData.selectAllJSImg" :src="nowData.selectAllJSImg" class="avatar">
+                <div v-else class=" avatar-uploader-icon">
+                    <img class="addi-icon" src="./../../image/addi.png">
+                </div>
+            </div>
+            <i @click="deleteImg('selectAllJSImg')">
+                <img  class="icon_btn" src="./../../image/close.png" />
+            </i>
         </div>
 <div class="view_main">
 <span>答案选项</span>
@@ -100,6 +114,17 @@ export default{
                 if(file){
                     self.cosjsFile3(self.SecretId,self.SecretKey,file,self.XCosSecurityToken,self.expiredTime,function(img){
                         self.nowData.selectAllJImg ="https://suishi-1256985330.cos.ap-guangzhou.myqcloud.com/" + img;
+                    });
+                }
+            }
+        };
+        document.getElementById('selectAllJ-img').onchange = function () {
+            var file = this.files[0];
+            if (!file) return;
+            if(self.SecretId != "" && self.SecretKey !="" ){
+                if(file){
+                    self.cosjsFile3(self.SecretId,self.SecretKey,file,self.XCosSecurityToken,self.expiredTime,function(img){
+                        self.nowData.selectAllJSImg ="https://suishi-1256985330.cos.ap-guangzhou.myqcloud.com/" + img;
                     });
                 }
             }

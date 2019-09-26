@@ -308,6 +308,7 @@
  * selectAllJSubtitleTitle 选项带解释选择副标题
  * selectAllJSubtitleTitleColor 标题颜色
  * selectAllJImg 选项带解释选择背景图片
+ *  * selectAllJSImg 选项带解释选择背景图片
  * selectAllJMenu 选项
  * answerText 答案选项 (selectAllJMenu内)
  * isAnswer 是不是正确 (selectAllJMenu内)
@@ -670,6 +671,7 @@ export default {
                 selectAllJSubtitleTitle:"",
                 selectAllJSubtitleTitleColor:"0",
                 selectAllJImg:"",
+                selectAllJSImg:"",
                 selectAllJMenu:[
                     {answerText:"",isAnswer:"0",selectTextNote:""}
                 ],
@@ -856,6 +858,7 @@ export default {
                 selectAllJSubtitleTitle:"",
                 selectAllJSubtitleTitleColor:"0",
                 selectAllJImg:"",
+                selectAllJSImg:"",
                 selectAllJMenu:[
                     {answerText:"",isAnswer:"0",selectTextNote:""}
                 ],
@@ -1086,6 +1089,7 @@ export default {
                 selectAllJSubtitleTitle:"",
                 selectAllJSubtitleTitleColor:"0",
                 selectAllJImg:"",
+                selectAllJSImg:"",
                 selectAllJMenu:[
                     {answerText:"",isAnswer:"0",selectTextNote:""}
                 ],

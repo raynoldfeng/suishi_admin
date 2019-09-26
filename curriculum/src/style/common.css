@@ -212,6 +212,13 @@ ul li{
     padding: 2%;
     border:1px solid #999999;
 }
+.sm-img-main{
+    width:35%;
+    margin: 3% auto;
+    border-radius: 100%;
+    padding: 2%;
+    border:1px solid #999999;
+}
 .simg-main-nobor,.simgnobor{
     border:1px solid transparent;
 }

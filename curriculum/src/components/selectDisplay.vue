@@ -15,8 +15,8 @@
                     </div>
                     <ul  class="sideBoxMenu common-ul" >
                         <li v-for="(mdata,mindex) in datas.selectDisplayTextMenu" :class = "{commonMenuN:mdata.typeValue == '0',commonMenuS:mdata.typeValue == '1',commonMenuC:mdata.typeValue == '2'
-            ,commonMenuF:mdata.typeValue == '3',commonMenuTC:mdata.typeValue == '4',commonMenuX:mdata.typeValue == '5',commonMenu:mdata.typeValue == '6'
-               ,blue:mdata.textColor == '1'}">
+                        ,commonMenuF:mdata.typeValue == '3',commonMenuTC:mdata.typeValue == '4',commonMenuX:mdata.typeValue == '5',commonMenu:mdata.typeValue == '6'
+                        ,commonMenuNN:textData.typeValue == '7',blue:mdata.textColor == '1'}">
                             <span v-show="mdata.typeValue == '6'" v-text="numEvent(mdata.typeNum)"></span>
                             <span  v-html="Trim(mdata.selectDisplayText)"></span>
                         </li>

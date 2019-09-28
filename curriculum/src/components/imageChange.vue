@@ -16,7 +16,7 @@
                         <ul class="list-type-menu imageChange-menu imageChange-text common-ul" :class="{nobig:datas.isBigImg == '1'}">
                             <li  v-for="(idata,index) in datas.textMenu"  :class = "{commonMenuN:idata.typeValue == '0',commonMenuS:idata.typeValue == '1',commonMenuC:idata.typeValue == '2'
                                 ,commonMenuF:idata.typeValue == '3',commonMenuTC:idata.typeValue == '4',commonMenuX:idata.typeValue == '5',commonMenu:idata.typeValue == '6'
-                                ,blue:idata.textColor == '1'}">
+                                ,commonMenuNN:textData.typeValue == '7',blue:idata.textColor == '1'}">
                                 <span v-show="idata.typeValue == '6'" v-text="numEvent(idata.typeNum)"></span>
                                 <span v-html="Trim(idata.text)"></span>
                             </li>

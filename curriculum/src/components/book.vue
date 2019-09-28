@@ -409,18 +409,12 @@ import selectDisplay from '../components/selectDisplay.vue'
     border-top: 1px solid #ddd;
 }
 #displayBtn{
-    width: 20%;
-    background-color: #ffffff;
-    border-top:1px solid #dddddd;
-    border-left:1px solid #dddddd;
-    border-right:1px solid #dddddd;
-    margin: 0 auto;
-    border-top-left-radius: 6px;
-    border-top-right-radius: 6px;
-
+    width: 10%;
+    text-shadow: 0 1.5px 0 #fff;
 }
   .type-main{
       width: 90%;
+
       height: 50px;
       text-align: center;
       float: left;

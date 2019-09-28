@@ -311,6 +311,14 @@ ul li{
     position: relative;
     top: -0.5vw;
 }
+#QuestMain li.commonMenuNN:before{
+    content: "";
+    padding-right: 0;
+    font-size: 4vw;
+    position: relative;
+    display: inherit;
+    top: 0;
+}
 .opacitycss{
     opacity: 0;
 }

@@ -422,6 +422,8 @@ export default {
             listSysleList:[
                 {value: "0",
                     label: "无"},
+                {value: "7",
+                    label: "无缩进"},
                 {value: "1",
                     label: "三角"},
                 {value: "2",

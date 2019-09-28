@@ -198,9 +198,12 @@
 
         <titlePage v-if="nowData.testType == 0 && nowData.displayType == 't1'" :nowData="nowData" :cosData="cosData"></titlePage>
 
-        <imgText v-if="nowData.testType == 1 && nowData.displayType == 'it1'" :nowData="nowData" :cosData="cosData" :listSysleList="listSysleList" :paragraphMenu="paragraphMenu"></imgText>
+        <imgText v-if="nowData.testType == 1 && nowData.displayType == 'it1'" :nowData="nowData" :cosData="cosData" :listSysleList="listSysleList" :listSysMenu="listSysMenu"
+        :paragraphMenu="paragraphMenu"></imgText>
 
-        <imageChange  v-if="nowData.testType == 2 && nowData.displayType == 'ic1'" :nowData="nowData" :cosData="cosData" :judgeAnswerMenu="judgeAnswerMenu" :listSysleList="listSysleList" :paragraphMenu="paragraphMenu"></imageChange>
+        <imageChange  v-if="nowData.testType == 2 && nowData.displayType == 'ic1'" :nowData="nowData" :cosData="cosData" :judgeAnswerMenu="judgeAnswerMenu" :listSysleList="listSysleList"
+        :listSysMenu="listSysMenu"
+        :paragraphMenu="paragraphMenu"></imageChange>
 
         <judgeType v-if="nowData.testType == 3 && nowData.displayType == 'j1'" :nowData="nowData" :cosData="cosData" :judgeAnswerMenu="judgeAnswerMenu"></judgeType>
 
@@ -215,21 +218,26 @@
 
         <imgJumpType  v-if="nowData.testType == 7 && nowData.displayType == 'imt'" :nowData="nowData" :cosData="cosData" :titleColor="titleColor"></imgJumpType>
 
-        <listType  v-if="nowData.testType == 8 && nowData.displayType == 'lt'"  :nowData="nowData" :cosData="cosData" :judgeAnswerMenu="judgeAnswerMenu" :listSysleList="listSysleList" :paragraphMenu="paragraphMenu"></listType>
+        <listType  v-if="nowData.testType == 8 && nowData.displayType == 'lt'"  :nowData="nowData" :cosData="cosData" :judgeAnswerMenu="judgeAnswerMenu" :listSysleList="listSysleList"
+        :listSysMenu="listSysMenu"
+        :paragraphMenu="paragraphMenu"></listType>
 
         <sideEdgeImgType v-if="nowData.testType == 9 && nowData.displayType == 'ct'" :nowData="nowData" :cosData="cosData"></sideEdgeImgType>
 
         <blanksType  v-if="nowData.testType == 10 && nowData.displayType == 'bl'" :nowData="nowData"></blanksType>
 
-        <imgselectDisplayType v-if="nowData.testType == 11 && nowData.displayType == 'isd'" :nowData="nowData" :cosData="cosData" :listSysleList="listSysleList" :paragraphMenu="paragraphMenu"></imgselectDisplayType>
+        <imgselectDisplayType v-if="nowData.testType == 11 && nowData.displayType == 'isd'" :nowData="nowData" :cosData="cosData" :listSysleList="listSysleList"
+        :listSysMenu="listSysMenu" :paragraphMenu="paragraphMenu"></imgselectDisplayType>
 
-        <imgDisplayType v-if="nowData.testType == 12 && nowData.displayType == 'idp'" :nowData="nowData" :cosData="cosData" :listSysleList="listSysleList" :paragraphMenu="paragraphMenu"></imgDisplayType>
+        <imgDisplayType v-if="nowData.testType == 12 && nowData.displayType == 'idp'" :nowData="nowData" :cosData="cosData" :listSysleList="listSysleList"
+        :listSysMenu="listSysMenu" :paragraphMenu="paragraphMenu"></imgDisplayType>
 
         <pairTypeMenus v-if="nowData.testType == 13 && nowData.displayType == 'pp'" :nowData="nowData" :cosData="cosData"></pairTypeMenus>
 
         <videoType v-if="nowData.testType == 14 && nowData.displayType == 'vd'" :nowData="nowData" :cosData="cosData"></videoType>
 
-        <selectDisplayMenu v-if="nowData.testType == 15 && nowData.displayType == 'sd'" :nowData="nowData" :cosData="cosData" :listSysleList="listSysleList" :paragraphMenu="paragraphMenu"></selectDisplayMenu>
+        <selectDisplayMenu v-if="nowData.testType == 15 && nowData.displayType == 'sd'" :nowData="nowData" :cosData="cosData" :listSysleList="listSysleList"
+        :listSysMenu="listSysMenu" :paragraphMenu="paragraphMenu"></selectDisplayMenu>
 
         </el-main>
         </el-container>
@@ -422,8 +430,6 @@ export default {
             listSysleList:[
                 {value: "0",
                     label: "无"},
-                {value: "7",
-                    label: "无缩进"},
                 {value: "1",
                     label: "三角"},
                 {value: "2",
@@ -436,6 +442,12 @@ export default {
                     label: "星"},
                 {value: "6",
                     label: "数字"}
+            ],
+            listSysMenu:[
+                {value: "0",
+                    label: "无缩进"},
+                {value: "1",
+                    label: "缩进"}
             ],
             judgeAnswerMenu:[
                 {value: "0",
@@ -609,12 +621,12 @@ export default {
                 imgTextTitle:"",
 
                 imgTextImg:"",
-                imgTextMenu:[{text:"",typeValue:"0",textColor:"0",
+                imgTextMenu:[{text:"",typeValue:"0",textColor:"0",typeDLValue:"0",
                     typeNum:""}],
 
 
 
-                imageChange:[{imgChangeTitle:"",isBigImg:"0",img:"",textMenu:[{text:"",typeValue:"0",typeNum:"",textColor:"0"}]}],
+                imageChange:[{imgChangeTitle:"",isBigImg:"0",img:"",textMenu:[{text:"",typeValue:"0",typeDLValue:"0",typeNum:"",textColor:"0"}]}],
                 imageChangeJump:"",
                 imageChangeJumpL:"",
 
@@ -692,7 +704,7 @@ export default {
                 listTypeImgBig:"",
                 listTypeBtnText:"",
                 listTypeMenu:[
-                    {listTypeText:"",typeValue:"0",typeNum:"",textColor:"0"}
+                    {listTypeText:"",typeValue:"0",typeDLValue:"0",typeNum:"",textColor:"0"}
                 ],
 
 
@@ -719,6 +731,7 @@ export default {
                         imgselectDisplayImg:"",
                         imgselectDisplayTextMenu:[{
                             typeValue:"0",
+                            typeDLValue:"0",
                             typeNum:"",
                             imgselectDisplayText:"",
                             textColor:"0"
@@ -737,6 +750,7 @@ export default {
                     imgDisplayTypeImg:"",
                     imgDisplayTypeTextMenu:[{
                         typeValue:"0",
+                        typeDLValue:"0",
                         typeNum:"",
                         imgDisplayTypeText:"",
                         textColor:"0"
@@ -773,6 +787,7 @@ export default {
                         selectDisplayImg:"",
                         selectDisplayTextMenu:[{
                             typeValue:"0",
+                            typeDLValue:"0",
                             typeNum:"",
                             selectDisplayText:"",
                             textColor:"0"
@@ -798,13 +813,14 @@ export default {
                 imgTextMenu:[{
                     text:"",
                     typeValue:"0",
+                    typeDLValue:"0",
                     typeNum:"",
                     textColor:"0"
                 }],
 
 
 
-                imageChange:[{imgChangeTitle:"",isBigImg:"0",img:"",textMenu:[{text:"",typeValue:"0",typeNum:"",textColor:"0"}]}],
+                imageChange:[{imgChangeTitle:"",isBigImg:"0",img:"",textMenu:[{text:"",typeValue:"0",typeDLValue:"0",typeNum:"",textColor:"0"}]}],
                 imageChangeJump:"",
                 imageChangeJumpL:"",
 
@@ -879,7 +895,7 @@ export default {
                 listTypeImgBig:"",
                 listTypeBtnText:"",
                 listTypeMenu:[
-                    {listTypeText:"",typeValue:"0",typeNum:"",textColor:"0"}
+                    {listTypeText:"",typeValue:"0",typeDLValue:"0",typeNum:"",textColor:"0"}
                 ],
 
 
@@ -906,6 +922,7 @@ export default {
                         imgselectDisplayImg:"",
                         imgselectDisplayTextMenu:[{
                             typeValue:"0",
+                            typeDLValue:"0",
                             typeNum:"",
                             imgselectDisplayText:"",
                             textColor:"0"
@@ -924,6 +941,7 @@ export default {
                     imgDisplayTypeImg:"",
                     imgDisplayTypeTextMenu:[{
                         typeValue:"0",
+                        typeDLValue:"0",
                         typeNum:"",
                         imgDisplayTypeText:"",
                         textColor:"0"
@@ -962,6 +980,7 @@ export default {
                         selectDisplayImg:"",
                         selectDisplayTextMenu:[{
                             typeValue:"0",
+                            typeDLValue:"0",
                             typeNum:"",
                             selectDisplayText:"",
                             textColor:"0"
@@ -1027,13 +1046,14 @@ export default {
                 imgTextMenu:[{
                     text:"",
                     typeValue:"0",
+                    typeDLValue:"0",
                     typeNum:"",
                     textColor:"0"
                 }],
 
 
 
-                imageChange:[{imgChangeTitle:"",isBigImg:"0",img:"",textMenu:[{text:"",typeValue:"0",typeNum:"",textColor:"0"}]}],
+                imageChange:[{imgChangeTitle:"",isBigImg:"0",img:"",textMenu:[{text:"",typeValue:"0",typeDLValue:"0",typeNum:"",textColor:"0"}]}],
                 imageChangeJump:"",
                 imageChangeJumpL:"",
 
@@ -1110,7 +1130,7 @@ export default {
                 listTypeImgBig:"",
                 listTypeBtnText:"",
                 listTypeMenu:[
-                    {listTypeText:"",typeValue:"0",typeNum:"",textColor:"0"}
+                    {listTypeText:"",typeValue:"0",typeDLValue:"0",typeNum:"",textColor:"0"}
                 ],
 
 
@@ -1135,6 +1155,7 @@ export default {
                         imgselectDisplayImg:"",
                         imgselectDisplayTextMenu:[{
                             typeValue:"0",
+                            typeDLValue:"0",
                             typeNum:"",
                             imgselectDisplayText:"",
                             textColor:"0"
@@ -1151,6 +1172,7 @@ export default {
                     imgDisplayTypeImg:"",
                     imgDisplayTypeTextMenu:[{
                         typeValue:"0",
+                        typeDLValue:"0",
                         typeNum:"",
                         imgDisplayTypeText:"",
                         textColor:"0"
@@ -1186,6 +1208,7 @@ export default {
                         selectDisplayImg:"",
                         selectDisplayTextMenu:[{
                             typeValue:"0",
+                            typeDLValue:"0",
                             typeNum:"",
                             selectDisplayText:"",
                             textColor:"0"

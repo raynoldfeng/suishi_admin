@@ -10,7 +10,7 @@
             <ul class="it-text-menu commonListStyle common-ul" >
                 <li v-for="textData in data.imgTextMenu" :class = "{commonMenuN:textData.typeValue == '0',commonMenuS:textData.typeValue == '1',commonMenuC:textData.typeValue == '2'
             ,commonMenuF:textData.typeValue == '3',commonMenuTC:textData.typeValue == '4',commonMenuX:textData.typeValue == '5',commonMenu:textData.typeValue == '6'
-            ,commonMenuNN:textData.typeValue == '7', blue:textData.textColor == '1'}" >
+            ,commonMenuNN:textData.typeDLValue == '0',commonMenuSN:textData.typeDLValue == '1', blue:textData.textColor == '1'}" >
                 <span v-if="textData.typeValue == '6'" v-text="numEvent(textData.typeNum)"></span>
                 <span v-html="Trim(textData.text)"></span>
                 </li>

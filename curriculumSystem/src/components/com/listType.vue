@@ -57,6 +57,19 @@
 
         </div>
         <div class="view_main">
+            <span>段落缩进:</span>
+
+            <el-select v-model="data.typeDLValue" class="select-css" placeholder="段落缩进">
+                <el-option
+                        v-for="item in listSysMenu"
+                    :key="item.value"
+                    :label="item.label"
+                    :value="item.value">
+                </el-option>
+            </el-select>
+
+        </div>
+        <div class="view_main">
             <span>段落颜色:</span>
 
             <el-select v-model="data.textColor" class="select-css" placeholder="段落颜色">
@@ -106,7 +119,8 @@ export default{
                 cosData:"",
                 judgeAnswerMenu:"",
                 listSysleList:"",
-                paragraphMenu:""
+                paragraphMenu:"",
+                listSysMenu:""
     },
     mounted:function(){
         var self =this;
@@ -153,7 +167,7 @@ export default{
          * 列表类型
          */
         selectListTypeAddEvent(){
-            var newData = {listTypeText:"",typeValue:"0",typeNum:""};
+            var newData = {listTypeText:"",typeValue:"0",typeNum:"",typeDLValue:"0"};
             this.nowData.listTypeMenu.push(newData);
         },
         selectListTypeDeleteEvent(index){

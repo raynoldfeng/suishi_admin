@@ -45,6 +45,18 @@
 
                                     </div>
                                     <div class="view_main">
+                                        <span>段落缩进:</span>
+                                        <el-select v-model="sdata.typeDLValue" class="select-css" placeholder="段落缩进">
+                                            <el-option
+                                                    v-for="item in listSysMenu"
+                                                :key="item.value"
+                                                :label="item.label"
+                                                :value="item.value">
+                                            </el-option>
+                                        </el-select>
+
+                                    </div>
+                                    <div class="view_main">
                                         <span>段落颜色:</span>
                                         <el-select v-model="sdata.textColor" class="select-css" placeholder="段落颜色">
                                             <el-option
@@ -91,7 +103,8 @@
                 nowData:"",
                 cosData:"",
                 listSysleList:"",
-                paragraphMenu:""
+                paragraphMenu:"",
+                listSysMenu:""
             },
             mounted:function(){
             var self = this;
@@ -140,7 +153,8 @@
             imgDisplayTypeTextMenu:[{
                 typeValue:"0",
                 typeNum:"",
-                imgDisplayTypeText:""
+                imgDisplayTypeText:"",
+                typeDLValue:"0"
             }]
             };
             this.nowData.imgDisplayTypeMenu.push(newdata);
@@ -149,7 +163,7 @@
             this.nowData.imgDisplayTypeMenu.splice(index,1);
             },
             imgDisplayTextAddEvent(index){
-            var newdata = {typeValue:"0",typeNum:"",imgDisplayTypeText:""}
+            var newdata = {typeValue:"0",typeNum:"",imgDisplayTypeText:"",typeDLValue:"0"}
             this.nowData.imgDisplayTypeMenu[index].imgDisplayTypeTextMenu.push(newdata);
             },
             imgDisplayTextDeleteEvent(index,sindex){

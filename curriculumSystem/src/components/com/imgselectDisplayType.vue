@@ -63,6 +63,18 @@
                                                 </el-select>
 
                                             </div>
+                                        <div class="view_main">
+                                            <span>段落缩进:</span>
+                                            <el-select v-model="sdata.typeDLValue" class="select-css" placeholder="段落缩进">
+                                                <el-option
+                                                        v-for="item in listSysMenu"
+                                                :key="item.value"
+                                                :label="item.label"
+                                                :value="item.value">
+                                            </el-option>
+                                        </el-select>
+
+                                    </div>
                                             <div class="view_main">
                                                 <span>段落样式:</span>
                                                 <el-select v-model="sdata.textColor" class="select-css" placeholder="段落样式">
@@ -110,7 +122,8 @@
                         nowData:"",
                         cosData:"",
                         listSysleList:"",
-                        paragraphMenu:""
+                        paragraphMenu:"",
+                        listSysMenu:""
                     },
                     mounted:function(){
                     var self = this;
@@ -170,7 +183,8 @@
                     imgselectDisplayTextMenu:[{
                         typeValue:"0",
                         typeNum:"",
-                    imgselectDisplayText:""
+                        imgselectDisplayText:""
+                        ,typeDLValue:"0"
                     }]
                     };
                     this.nowData.imgselectDisplayMenu.push(newdata);
@@ -179,7 +193,7 @@
                     this.nowData.imgselectDisplayMenu.splice(index,1);
                     },
                     imgSelectTextAddEvent(index){
-                    var newdata = {typeValue:"0", typeNum:"",imgselectDisplayText:""};
+                    var newdata = {typeValue:"0", typeNum:"",imgselectDisplayText:"",typeDLValue:"0"};
                     this.nowData.imgselectDisplayMenu[index].imgselectDisplayTextMenu.push(newdata);
                     },
                     imgSelectTextDeleteEvent(index,sindex){

@@ -58,6 +58,17 @@
                                         </el-select>
                                 </div>
                                 <div class="view_main">
+                                    <span>段落缩进:</span>
+                                    <el-select v-model="sdata.typeDLValue" class="select-css" placeholder="段落缩进">
+                                        <el-option
+                                                v-for="item in listSysMenu"
+                                        :key="item.value"
+                                        :label="item.label"
+                                        :value="item.value">
+                                    </el-option>
+                                </el-select>
+                            </div>
+                                <div class="view_main">
                                     <span>段落颜色:</span>
                                     <el-select v-model="sdata.textColor" class="select-css" placeholder="段落颜色">
                                         <el-option
@@ -109,7 +120,8 @@
                   cosData:"",
                   listSysleList:"",
                   judgeAnswerMenu:"",
-                  paragraphMenu:""
+                  paragraphMenu:"",
+                        listSysMenu:""
             },
             mounted:function(){
             var self = this;
@@ -167,11 +179,11 @@
                 },
 
                 addEvent(){
-                    var newdata = {imgChangeTitle:"",img:"",isBigImg:"0",textMenu:[{text:"",typeValue:"0",typeNum:""}]};
+                    var newdata = {imgChangeTitle:"",img:"",isBigImg:"0",textMenu:[{text:"",typeValue:"0",typeNum:"",typeDLValue:"0"}]};
                     this.nowData.imageChange.push(newdata);
                 },
                 addTextEvent(index){
-                    var newText = {text:"",typeValue:"0",typeNum:""};
+                    var newText = {text:"",typeValue:"0",typeNum:"",typeDLValue:"0"};
                     this.nowData.imageChange[index].textMenu.push(newText);
 
                 },

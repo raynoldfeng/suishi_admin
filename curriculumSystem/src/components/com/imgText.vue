@@ -35,7 +35,17 @@
                                 :value="item.value">
                                 </el-option>
                             </el-select>
-
+                        </div>
+                        <div class="view_main">
+                            <span>段落缩进:</span>
+                            <el-select v-model="nowData.imgTextMenu[index].typeDLValue" class="select-css" placeholder="段落缩进">
+                                <el-option
+                                        v-for="item in listSysMenu"
+                                :key="item.value"
+                                :label="item.label"
+                                :value="item.value">
+                                </el-option>
+                            </el-select>
                         </div>
                         <div class="view_main">
                             <span>段落颜色:</span>
@@ -87,7 +97,8 @@ export default {
         nowData:"",
         cosData:"",
         listSysleList:"",
-        paragraphMenu:""
+        paragraphMenu:"",
+        listSysMenu:""
     },
     mounted:function(){
         var self = this;
@@ -123,7 +134,7 @@ export default {
          * 添加段落
          */
         addImgText(){
-            var newdata = { text:"",typeValue:"0",
+            var newdata = { text:"",typeValue:"0",typeDLValue:"0",
                 typeNum:""};
             this.nowData.imgTextMenu.push(newdata);
         },

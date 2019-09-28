@@ -264,6 +264,17 @@ ul li{
 #QuestMain .commonMenu li{
 
 }
+#QuestMain li.commonMenuNN:before{
+
+    padding-right: 0;
+    font-size: 4vw;
+    position: relative;
+    display: inherit;
+    top: 0;
+}
+#QuestMain li.commonMenuSN:before{
+    padding-left: 1.5em;
+}
 #QuestMain li.commonMenu:before{
     content: "";
     padding-right: 0;
@@ -271,11 +282,9 @@ ul li{
 }
 
 #QuestMain li.commonMenuN:before{
-    content: "▶";
-    padding-right: .5em;
+    content: "";
     font-size: 4vw;
     position: relative;
-    top: -0.5vw;
     opacity: 0;
 }
 #QuestMain  li.commonMenuS:before{
@@ -284,6 +293,7 @@ ul li{
     font-size: 4vw;
     position: relative;
     top: -0.5vw;
+    display: inline-block;
 }
 #QuestMain li.commonMenuC:before{
     content: "•";
@@ -291,6 +301,7 @@ ul li{
     font-size: 4vw;
     position: relative;
     top: -0.5vw;
+    display: inline-block;
 }
 #QuestMain li.commonMenuF:before{
     content: "■";
@@ -298,11 +309,13 @@ ul li{
     font-size: 4vw;
     position: relative;
     top: -0.5vw;
+    display: inline-block;
 }
 #QuestMain li.commonMenuTC:before{
     content: "◎";
     padding-right: 0em;
     font-size: 4vw;
+    display: inline-block;
 }
 #QuestMain li.commonMenuX:before{
     content: "※";
@@ -310,15 +323,9 @@ ul li{
     font-size: 4vw;
     position: relative;
     top: -0.5vw;
+    display: inline-block;
 }
-#QuestMain li.commonMenuNN:before{
-    content: "";
-    padding-right: 0;
-    font-size: 4vw;
-    position: relative;
-    display: inherit;
-    top: 0;
-}
+
 .opacitycss{
     opacity: 0;
 }

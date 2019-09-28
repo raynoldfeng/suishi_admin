@@ -28,10 +28,10 @@
             </el-select>
         </div>
         <div class="view_main">
-            <span>是否收费</span>
+            <span>是否免费</span>
             <el-select v-model="isfree" placeholder="是否禁用">
                 <el-option
-                        v-for="item in isUseMenu"
+                        v-for="item in isfreeMenu"
                 :key="item.value"
                 :label="item.label"
                 :value="item.value">
@@ -115,6 +115,12 @@
                         label: "是"},
                         {value: "0",
                         label: "否"}
+                    ],
+                    isfreeMenu:[
+                        {value: "1",
+                            label: "否"},
+                        {value: "0",
+                            label: "是"}
                     ],
                     isUse: "0",
                     isfree:"0",

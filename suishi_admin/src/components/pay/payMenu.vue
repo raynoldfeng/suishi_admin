@@ -78,6 +78,7 @@ export default{
     methods: {
 
         getPayMenu(){
+            var self = this;
             this.common.getEventToken(this.api.host+this.api.order+"?page="+this.nowPage,{},this.userinfo,function(data){
                 console.log(data);
                 self.payData = data.data;

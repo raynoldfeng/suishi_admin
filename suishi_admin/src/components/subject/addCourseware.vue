@@ -38,6 +38,18 @@
         </el-select>
         </div>
         <div class="view_main">
+            <span>是否试听</span>
+            <el-select v-model="is_audition" placeholder="是否试听">
+                <el-option
+                        v-for="item in autitionMenu"
+                :key="item.value"
+                :label="item.label"
+                :value="item.value">
+            </el-option>
+            </el-select>
+
+         </div>
+        <div class="view_main">
             <span>简介</span>
             <el-input
             class="textarea_type"
@@ -94,6 +106,14 @@
                     userinfo:"",
                     coursewarename:"",
                     order:"",
+                    is_audition:"0",
+                    autitionMenu: [{
+                        value: '1',
+                        label: '否'
+                    }, {
+                        value: '0',
+                        label: '是'
+                    }],
                     statusOptions: [{
                         value: '1',
                         label: '是'
@@ -201,7 +221,9 @@
                         return;
                     }
                     if(this.isedits()){
-                        var info = {"resource_type":this.courType,"name":this.coursewarename, "order":this.order, "status":this.isUse,"preposition":this.preposition,"url":this.pptUrl, "course_name":this.majorValueSelect,desc:this.descText};
+                        var info = {"resource_type":this.courType,"name":this.coursewarename, "order":this.order,
+                            "status":this.isUse,"preposition":this.preposition,"url":this.pptUrl, "course_name":this.majorValueSelect,
+                            desc:this.descText,is_audition:this.is_audition};
 //                        if(self.majorValue == this.major.majorName){
 //                            info.profession_id=this.major.majorNameId;
 //                        }
@@ -210,7 +232,9 @@
                             self.$router.push("/coursewareList")
                         });
                     }else{
-                        var info = {"resource_type":this.courType,"name":this.coursewarename, "order":this.order, "status":this.isUse,"preposition":this.preposition,"url":this.pptUrl, "course_name":this.majorValueSelect,desc:this.descText};
+                        var info = {"resource_type":this.courType,"name":this.coursewarename, "order":this.order,
+                            "status":this.isUse,"preposition":this.preposition,"url":this.pptUrl, "course_name":this.majorValueSelect,
+                            desc:this.descText,is_audition:this.is_audition};
                         this.common.postEventToken(this.api.host+this.api.lesson,info,this.userinfo,function(data){
                             console.log(data);
                             self.$router.push("/coursewareList")

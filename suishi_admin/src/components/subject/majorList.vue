@@ -43,6 +43,28 @@
                                 >
                         </el-table-column>
                         <el-table-column
+                                label="是否免费"
+                                >
+                            <template slot-scope="scope">
+                                <span v-if="scope.row.is_free == '1'">
+                                    付费
+                                </span>
+                                <span v-else>
+                                    免费
+                                </span>
+                            </template>
+                        </el-table-column>
+                        <el-table-column
+                                prop="price"
+                                label="价格"
+                                >
+                        </el-table-column>
+                        <el-table-column
+                                prop="discount_price"
+                                label="折后价"
+                                >
+                        </el-table-column>
+                        <el-table-column
                                 prop="status"
                                 label="是否禁用"
                                 >
@@ -83,6 +105,28 @@
                     <el-table-column
                             prop="name"
                             label="专业名称"
+                            >
+                    </el-table-column>
+                    <el-table-column
+                            label="是否免费"
+                            >
+                        <template slot-scope="scope">
+                                <span v-if="scope.row.is_free == '1'">
+                                    付费
+                                </span>
+                                <span v-else>
+                                    免费
+                                </span>
+                        </template>
+                    </el-table-column>
+                    <el-table-column
+                            prop="price"
+                            label="价格"
+                            >
+                    </el-table-column>
+                    <el-table-column
+                            prop="discount_price"
+                            label="折后价"
                             >
                     </el-table-column>
                     <el-table-column

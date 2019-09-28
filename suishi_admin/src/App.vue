@@ -91,7 +91,8 @@ export default {
                 "16":"/teamAttribute",
                // "17":"/operateAdministration",
                 "17":"/testList",
-                "18":"/userJump"
+                "18":"/userJump",
+                "20":"/payMenu"
             }
         }
     },

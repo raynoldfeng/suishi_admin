@@ -22,6 +22,7 @@ import addTeam from '@/components/team/addTeam'
 import teamAttribute from '@/components/team/teamAttribute'
 import login from '@/components/login/login'
 import home from '@/components/home/home'
+import payMenu from '@/components/pay/payMenu'
 
 import userJump from '@/components/team/userJump'
 
@@ -213,6 +214,11 @@ export default new Router({
           path: '/userJump',
           name: 'userJump',
           component:userJump
+      },
+      {
+          path:'/payMenu',
+          name:'payMenu',
+          component:payMenu
       }
   ]
 })

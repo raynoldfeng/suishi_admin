@@ -54,9 +54,22 @@ style="width: 100%">
     </template>
 </el-table-column>
 <el-table-column
+
+        label="是否试听"
+        >
+    <template slot-scope="scope">
+        <span v-if="scope.row.is_audition == 0">是</span>
+        <span v-else>否</span>
+    </template>
+</el-table-column>
+<el-table-column
         prop="status"
         label="是否禁用"
     >
+    <template slot-scope="scope">
+        <span v-if="scope.row.status == 0">否</span>
+        <span v-else>是</span>
+    </template>
 </el-table-column>
 <el-table-column
 label="操作"
@@ -134,6 +147,7 @@ export default
             var self = this;
             this.common.getEventToken(this.api.host+this.api.lesson+"?page="+this.nowPage+"&per_page=10&name="+this.searchText,{},this.userinfo,function(data){
                 self.coursewareData = data.data;
+                console.log(data.data)
 //                for(var i = 0; i<self.coursewareData.length;i++){
 //                    self.course_namekey[self.coursewareData[i].course_name] = self.majorName(self.coursewareData[i].course_name);
 //                }

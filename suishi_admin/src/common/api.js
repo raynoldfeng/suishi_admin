@@ -30,5 +30,6 @@ export const api={
     "user":"admin/user",
     "request":"admin/team/request",
     "allot":"admin/team/request/allot",
-    "reject":"admin/team/request/reject"
+    "reject":"admin/team/request/reject",
+    "order":"admin/order"
 }

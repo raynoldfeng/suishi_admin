@@ -28,6 +28,24 @@
             </el-select>
         </div>
         <div class="view_main">
+            <span>是否收费</span>
+            <el-select v-model="isfree" placeholder="是否禁用">
+                <el-option
+                        v-for="item in isUseMenu"
+                :key="item.value"
+                :label="item.label"
+                :value="item.value">
+                </el-option>
+            </el-select>
+
+        </div>
+        <div class="view_main" v-show="isfree == '1'">
+            <span>价格</span>
+            <el-input v-model="price" class="input_type"></el-input>
+            <span>折后价</span>
+            <el-input v-model="discontprice" class="input_type"></el-input>
+        </div>
+        <div class="view_main">
             <span>简介</span>
             <el-input
             class="textarea_type"
@@ -99,6 +117,7 @@
                         label: "否"}
                     ],
                     isUse: "0",
+                    isfree:"0",
                     isStudy:"0",
                     descText:"",
                     imageUrl: '',
@@ -126,7 +145,9 @@
                 tagDataList:[],
                 tagDataMenu:[],
                 tags: [],
-                tagsArr:[]
+                tagsArr:[],
+                price:"",
+                discontprice:""
                 }
             },
             methods: {
@@ -194,6 +215,12 @@
                     }else if(""+this.majorType == ""){
                         alert("请选择课程类型");
                         return ;
+                    }else if(this.isfree == "1" && this.price == ""){
+                        alert("输入价格");
+                        return ;
+                    }else if(this.coverImg == ""){
+                        alert("请上传封面图");
+                        return
                     }
 
 
@@ -204,7 +231,8 @@
 
                     console.log(this.tagsArr)
                     if(this.isedits()){
-                        var datas = {type:this.majorType,"name":this.majorName, "desc":this.descText,"cover":this.coverImg, "order":this.orderValue, "status":this.isUse,"tag_ids":this.tagsArr};
+                        var datas = {type:this.majorType,"name":this.majorName, "desc":this.descText,"cover":this.coverImg, "order":this.orderValue,
+                            "status":this.isUse,"tag_ids":this.tagsArr,is_free:this.isfree, price:this.price,discount_price:this.discontprice};
                         this.common.putEventToken(this.api.host+this.api.course+"/"+this.$route.query.id,datas,this.userinfo,function(data){
                             console.log(data);
                             self.$router.push("/majorList");

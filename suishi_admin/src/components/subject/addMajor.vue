@@ -189,7 +189,10 @@
                             self.descText = data.desc;
                             self.coverImg = data.cover;
                             self.orderValue = data.order;
-                            self.isUse = data.status;
+                            self.isUse = ""+data.status;
+                            self.isfree = ""+ data.is_free;
+                            self.price = data.price;
+                            slef.discontprice = data.discont_price;
                            // self.isStudy = data.is_study;
                             self.majorType = data.type;
                             for(var index in data.tag_ids){
@@ -244,7 +247,8 @@
                             self.$router.push("/majorList");
                         })
                     }else{
-                        var datas = {type:this.majorType, "name":this.majorName, "desc":this.descText,"cover":this.coverImg, "order":this.orderValue, "status":this.isUse,"tag_ids":this.tagsArr};
+                        var datas = {type:this.majorType, "name":this.majorName, "desc":this.descText,"cover":this.coverImg, "order":this.orderValue,
+                            "status":this.isUse,"tag_ids":this.tagsArr,is_free:this.isfree, price:this.price,discount_price:this.discontprice};
                         this.common.postEventToken(this.api.host+this.api.course,datas,this.userinfo,function(data){
                             console.log(data);
                             self.$router.push("/majorList");

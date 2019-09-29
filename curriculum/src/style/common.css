@@ -286,6 +286,7 @@ ul li{
     font-size: 4vw;
     position: relative;
     opacity: 0;
+    padding-right: 0;
 }
 #QuestMain  li.commonMenuS:before{
     content: "▶";

@@ -45,6 +45,9 @@
                                     <img v-if="nowData.testType == 10 && nowData.displayType == 'bl'" src="./../image/11.jpg" />
                                     <img v-if="nowData.testType == 11 && nowData.displayType == 'isd'" src="./../image/12.jpg" />
                                     <img v-if="nowData.testType == 12 && nowData.displayType == 'idp'" src="./../image/13.png" />
+                                    <img v-if="nowData.testType == 13 && nowData.displayType == 'pp'" src="./../image/14.png" />
+                                    <img v-if="nowData.testType == 14 && nowData.displayType == 'vd'" src="./../image/15.png" />
+                                    <img v-if="nowData.testType == 15 && nowData.displayType == 'sd'" src="./../image/16.png" />
                                 </div>
                                 <div  class="view_main">
                                 <p>章节:第<span v-text="(nowData.page+1)">1</span>节</p>

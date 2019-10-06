@@ -40,9 +40,13 @@ export default {
             this.listMenu = [];
             for(let i = 0 ; i < this.data.listTypeMenu.length; i++){
                 if(i == 0){
-                    this.listMenu.push({text:this.data.listTypeMenu[i].listTypeText,listTypeValue:this.data.listTypeMenu[i].listTypeValue,show:true})
+                    var data = {text:this.data.listTypeMenu[i].listTypeText,typeValue:this.data.listTypeMenu[i].typeValue,show:true,
+    textColor:this.data.listTypeMenu[i].textColor,typeDLValue:this.data.listTypeMenu[i].typeDLValue,typeNum:this.data.listTypeMenu[i].typeNum};
+                    this.listMenu.push(data)
                 }else{
-                    this.listMenu.push({text:this.data.listTypeMenu[i].listTypeText,listTypeValue:this.data.listTypeMenu[i].listTypeValue,show:false})
+    var data = {text:this.data.listTypeMenu[i].listTypeText,typeValue:this.data.listTypeMenu[i].typeValue,show:false,
+    textColor:this.data.listTypeMenu[i].textColor,typeDLValue:this.data.listTypeMenu[i].typeDLValue,typeNum:this.data.listTypeMenu[i].typeNum};
+                    this.listMenu.push(data)
                 }
             }
 

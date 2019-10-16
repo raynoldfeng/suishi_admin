@@ -16,7 +16,7 @@
                     </div>
                     <div class="drag-menu">
                         <div class="finish-css" v-for="(adata,aindex) in readMenu" v-if="sdata.pairTypeQindex == adata.pairTypeAindex" @click="contextShow(adata.pairTypeAcontext)" v-text="adata.pairTypeAtitle"></div>
-                        <div class="drag-box" :class="{clicked:ispair}" v-show="isfinish == false"  @click="pairEvent(sdata.pairTypeQindex)"></div>
+                        <div class="drag-box" :class="{clicked:ispair != (-1)}" v-show="isfinish == false"  @click="pairEvent(sdata.pairTypeQindex)"></div>
                     </div>
 
                 </li>
@@ -24,7 +24,9 @@
         </div>
         <!--☰-->
         <div class="answer-menu" v-if="isfinish == false">
-            <div  class="animated dragboxbtn " v-show="isfinish == false"  :class="{clicked:ispair,shake:istrue == 'false'}" @click="pairChange" v-html="nowAnswer.pairTypeAtitle"></div>
+            <!--<div  class="animated dragboxbtn " v-show="isfinish == false"  :class="{clicked:ispair,shake:istrue == 'false'}" @click="pairChange" v-html="nowAnswer.pairTypeAtitle"></div>-->
+            <div v-for="(datas,index) in allAMenu"  class="animated dragboxbtn " v-show="isfinish == false"  :class="{clicked:ispair == index,shake:istrue == 'false'}" @click="pairChange(index)" v-html="datas.pairTypeAtitle"></div>
+
         </div>
         <div class="answer-menu" v-if="isfinish == true" v-show="data.pairTypeBtnText.length > 0">
            <div class="tp-start-btn nomargin" @click="jumpEvent" v-if="data.pairTypeBtnText.length > 0"   v-text="data.pairTypeBtnText"></div>
@@ -46,7 +48,7 @@ export default
             unAMenu:[],
             readMenu:[],
             nowAnswer:"",
-            ispair:false, //是否点击
+            ispair:-1, //是否点击
             istrue:false, //是否正确
             dataIndex:0,
             allNum:0,
@@ -66,6 +68,9 @@ export default
             this.nowAnswer = this.allAMenu[this.dataIndex];
             this.allAMenu.splice(this.dataIndex,1);
         },
+        /**
+         * 点击选项
+         */
         pairEvent(index){
             var _this = this;
             if(this.ispair == true){
@@ -75,7 +80,7 @@ export default
                  //   this.drops.getNow(this.nowAnswer.pairTypeAcontext);
                     this.pairChange();
                     if(this.readMenu.length < this.allNum){
-                        this.aShowEvent();
+//                        this.aShowEvent();
                     }else{
                         this.isfinish = true;
                     }
@@ -88,8 +93,13 @@ export default
                 }
             }
         },
-        pairChange(){
-            this.ispair = !this.ispair;
+        pairChange(index){
+           if(this.ispair == index){
+                this.ispair = -1;
+            }else{
+                this.ispair = index;
+            }
+
             this.istrue = "";
         },
         displayEvent(url,text,urlbig){
@@ -114,9 +124,10 @@ export default
         for(let i = 0; i < this.data.pairTypeMenu.length;i++){
             this.allAMenu =  $.merge(this.allAMenu,this.data.pairTypeMenu[i].pairTypeAmenu);
         }
+        console.log(this.allAMenu);
         this.allNum = this.allAMenu.length;
 
-        this.aShowEvent();
+//        this.aShowEvent();
     },
     watch:{
 
@@ -171,7 +182,7 @@ export default
         text-align: center;
         color: #666;
         background: #fff;
-        margin: 0 auto;
+        margin: 4% auto;
         padding: 3% 0;
         /*position: absolute;*/
         /*left: 100px;*/
@@ -186,6 +197,7 @@ export default
     left: 0;
     width: 100%;
     height: 20%;
+    overflow: auto;
     background-color: #ebebeb;
     padding: 2% 0;
 }

@@ -25,8 +25,7 @@
         <!--☰-->
         <div class="answer-menu" v-if="isfinish == false">
             <!--<div  class="animated dragboxbtn " v-show="isfinish == false"  :class="{clicked:ispair,shake:istrue == 'false'}" @click="pairChange" v-html="nowAnswer.pairTypeAtitle"></div>-->
-            <div v-for="(datas,index) in allAMenu"  class="animated dragboxbtn " v-show="isfinish == false"  :class="{clicked:ispair == index,shake:istrue == 'false'}" @click="pairChange(index)" v-html="datas.pairTypeAtitle"></div>
-
+            <div v-for="(datas,index) in allAMenu"  class="animated dragboxbtn "   :class="{clicked:ispair == index,shake:(istrue == 'false' && ispair == index)}" @click="pairChange(index)" v-html="datas.pairTypeAtitle"></div>
         </div>
         <div class="answer-menu" v-if="isfinish == true" v-show="data.pairTypeBtnText.length > 0">
            <div class="tp-start-btn nomargin" @click="jumpEvent" v-if="data.pairTypeBtnText.length > 0"   v-text="data.pairTypeBtnText"></div>
@@ -52,54 +51,61 @@ export default
             istrue:false, //是否正确
             dataIndex:0,
             allNum:0,
-            isfinish:false
+            isfinish:false,
+            allCMenu:""   //还没改变之前所有数据
         }
     },
     methods:{
         Trim(str) {
             return str.replace(/\n|\r\n/g,"<br/>");
         },
-        aShowEvent(){
-            if(this.allAMenu.length == 1){
-                this.dataIndex = 0;
-            }else{
-                this.dataIndex =  parseInt(Math.random()*this.allAMenu.length);
-            }
-            this.nowAnswer = this.allAMenu[this.dataIndex];
-            this.allAMenu.splice(this.dataIndex,1);
-        },
+//        aShowEvent(){
+//            if(this.allAMenu.length == 1){
+//                this.dataIndex = 0;
+//            }else{
+//                this.dataIndex =  parseInt(Math.random()*this.allAMenu.length);
+//            }
+//            this.nowAnswer = this.allAMenu[this.dataIndex];
+//            this.allAMenu.splice(this.dataIndex,1);
+//        },
         /**
          * 点击选项
          */
         pairEvent(index){
             var _this = this;
-            if(this.ispair == true){
+            if(this.ispair != (-1)){
                 if(this.nowAnswer.pairTypeAindex == index){
+                    this.allAMenu.splice(this.ispair,1);
+
                     this.readMenu.push(this.nowAnswer);
                     this.contextShow(this.nowAnswer.pairTypeAcontext)
                  //   this.drops.getNow(this.nowAnswer.pairTypeAcontext);
-                    this.pairChange();
+
+    //                this.pairChange();
+
                     if(this.readMenu.length < this.allNum){
 //                        this.aShowEvent();
+                        this.ispair = -1;
                     }else{
                         this.isfinish = true;
                     }
                 }else{
                     this.istrue = "false";
-                    this.ispair = !this.ispair;
                     setTimeout(function(){
                         _this.istrue = "";
-                    },600);
+                        _this.ispair = -1;
+                    },800);
                 }
             }
         },
+    //改中
         pairChange(index){
            if(this.ispair == index){
                 this.ispair = -1;
             }else{
                 this.ispair = index;
             }
-
+            this.nowAnswer = this.allAMenu[index];
             this.istrue = "";
         },
         displayEvent(url,text,urlbig){
@@ -118,14 +124,20 @@ export default
             this.$emit("isJump",this.page+1);
         }
     },
+    //改中
     mounted:function(){
          $(".drag-img").height($(".drag-img").width());
         this.allAMenu = [];
         for(let i = 0; i < this.data.pairTypeMenu.length;i++){
-            this.allAMenu =  $.merge(this.allAMenu,this.data.pairTypeMenu[i].pairTypeAmenu);
+            this.allCMenu =  $.merge(this.allAMenu,this.data.pairTypeMenu[i].pairTypeAmenu);
         }
-        console.log(this.allAMenu);
-        this.allNum = this.allAMenu.length;
+     //   console.log(this.allAMenu);
+        this.allNum = this.allCMenu.length;
+        for(let a = 0;a < this.allNum;a++ ){
+            var r = parseInt(Math.random()*this.allCMenu.length);
+            this.allAMenu.push(this.allCMenu[r]);
+            this.allCMenu.splice(r,1);
+        }
 
 //        this.aShowEvent();
     },

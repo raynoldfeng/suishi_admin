@@ -208,14 +208,14 @@ export default
     bottom: 0;
     left: 0;
     width: 100%;
-    height: 20%;
+    height: 34%;
     overflow: auto;
     background-color: #ebebeb;
     padding: 2% 0;
 }
 .drag-main{
     width: 100%;
-    height: 80%;
+    height: 66%;
     overflow: auto;
 }
 .dragMheight{

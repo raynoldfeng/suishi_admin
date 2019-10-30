@@ -92,18 +92,26 @@ export default {
                         if(self.data.judgeBtn != ''){
                             $(".nextbtn_ab").show();
                         }
+                        if(window.edit[nowPage].judgeMenu[window.jpage].judgeAnswerText !=""){
+                            $("#noteWin").show().addClass("noteWin-play");
+                            $("#noteText").css("bottom","-"+$("#noteText").height());
+                            $("#noteText").show().addClass("noteText-play");
+                        }
                     }else{
                         window.jpage++;
                         self.indexQ =  window.jpage;
                         $("#noteText p").html(self.Trim(window.edit[nowPage].judgeMenu[window.jpage-1].judgeAnswerText));
+                        if(window.edit[nowPage].judgeMenu[window.jpage-1].judgeAnswerText !=""){
+                            $("#noteWin").show().addClass("noteWin-play");
+                            $("#noteText").css("bottom","-"+$("#noteText").height());
+                            $("#noteText").show().addClass("noteText-play");
+                        }
                     }
 
                     $(".judgebtn").html(self.Trim(window.edit[nowPage].judgeMenu[window.jpage].judgeText));
                     $(".judgebtn").attr("attr",self.Trim(window.edit[nowPage].judgeMenu[window.jpage].judgeAnswerText));
                 }
-                $("#noteWin").show().addClass("noteWin-play");
-                $("#noteText").css("bottom","-"+$("#noteText").height());
-                $("#noteText").show().addClass("noteText-play");
+
             });
         },
         touchStatus(){

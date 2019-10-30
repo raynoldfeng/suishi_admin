@@ -130,10 +130,13 @@ export const drop = {
                         var html = "<li class='li-main' attr='"+params.self.attr("attr")+"'>"+ params.self.text() +"</li>";
                         params.self.prev(".judgebox").find(id).find(".anwer-menu").append(html);
                         $(".li-main").on("click",function(){
-                            $("#noteWin").show().addClass("noteWin-play");
-                            $("#noteText").css("bottom","-"+$("#noteText").height());
-                            $("#noteText").show().addClass("noteText-play");
-                            $("#noteText p").html(Trim($(this).attr("attr")));
+                            if($(this).attr("attr")!=""){
+                                $("#noteWin").show().addClass("noteWin-play");
+                                $("#noteText").css("bottom","-"+$("#noteText").height());
+                                $("#noteText").show().addClass("noteText-play");
+                                $("#noteText p").html(Trim($(this).attr("attr")));
+                            }
+
                         });
                         // params.self.prev(".judgebox").find(id).find(".kuang").find("p").text(target.innerHTML);
                         return true;

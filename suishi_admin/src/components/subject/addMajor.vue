@@ -192,7 +192,7 @@
                             self.isUse = ""+data.status;
                             self.isfree = ""+ data.is_free;
                             self.price = data.price;
-                            slef.discontprice = data.discont_price;
+                            self.discontprice = data.discount_price;
                            // self.isStudy = data.is_study;
                             self.majorType = data.type;
                             for(var index in data.tag_ids){

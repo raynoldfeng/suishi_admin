@@ -39,7 +39,7 @@
                     label="操作"
                     >
                         <template slot-scope="scope">
-                            <el-button type="text" size="small">删除</el-button>
+                            <el-button type="text" size="small" @click="deleteType(scope.row.id)">删除</el-button>
                         </template>
                     </el-table-column>
                 </el-table>
@@ -71,7 +71,7 @@
                     label="操作"
                     >
                         <template slot-scope="scope">
-                            <el-button type="text" size="small">删除</el-button>
+                            <el-button type="text" size="small" @click="deleteTags(scope.row.id)">删除</el-button>
                         </template>
                     </el-table-column>
                 </el-table>
@@ -106,6 +106,16 @@
 
             });
         },
+        deleteType(id){
+            var self = this;
+            this.$confirm('是否删除类型？')
+                    .then(_ => {
+                this.common.deleteEventToken(this.api.host+this.api.tagsType+"/"+id,{},this.userinfo,function(data){
+                        self.tagsType();
+                    });
+            }).catch(_ => {});
+        },
+
         addType(){
             var self = this;
             this.common.postEventToken(this.api.host+this.api.tagsType,{"name":this.typeValue},this.userinfo,function(data){
@@ -132,6 +142,17 @@
                 self.tagValue = "";
                 self.tagsData(self.nowType);
             });
+        },
+        deleteTags(id){
+            var self = this;
+            this.$confirm('是否删除标签？')
+                    .then(_ => {
+                this.common.deleteEventToken(this.api.host+this.api.tagsData+"/"+id,{},this.userinfo,function(data){
+                        self.tagsData(self.nowType);
+                    });
+        }).catch(_ => {});
+
+
         }
 
 

@@ -1248,10 +1248,43 @@ export default {
         getJsons(){
             this.dataMenu[this.nowData.page] = this.nowData;
 //                this.getjsFile();
+            window.imgMenu = [];
+            for(let i=0;i<this.dataMenu.length;i++){
+                if(this.dataMenu[i].testType == 0){
+                    window.imgMenu.push(this.dataMenu[i].courseImg);
+                    window.imgMenu.push(this.dataMenu[i].authorImg);
+
+                }else if(this.dataMenu[i].testType == 1){
+                    window.imgMenu.push(this.dataMenu[i].imgTextImg);
+                }else if(this.dataMenu[i].testType == 2){
+                    for(let a = 0; a < this.dataMenu[i].imageChange.length; a++){
+                        window.imgMenu.push(this.dataMenu[i].imageChange[a].img);
+                    }
+                }else if(this.dataMenu[i].testType == 3){
+                    window.imgMenu.push(this.dataMenu[i].judgeTrueImg);
+                    window.imgMenu.push(this.dataMenu[i].judgeFalseImg);
+                }else if(this.dataMenu[i].testType == 4){
+                    for(let a = 0; a < this.dataMenu[i].selectQMenu.length; a++){
+                        window.imgMenu.push(this.dataMenu[i].selectQMenu[a].selectImg);
+                        window.imgMenu.push(this.dataMenu[i].selectQMenu[a].selectImgBig);
+                    }
+                }else if(this.dataMenu[i].testType == 6){
+                    window.imgMenu.push(this.dataMenu[i].selectAllJImg);
+                    window.imgMenu.push(this.dataMenu[i].selectAllJSImg);
+                }else if(this.dataMenu[i].testType == 7){
+                    window.imgMenu.push(this.dataMenu[i].ImgJumpTypeBg);
+                }else if(this.dataMenu[i].testType == 8){
+                    window.imgMenu.push(this.dataMenu[i].listTypeImgBig);
+                    window.imgMenu.push(this.dataMenu[i].listTypeImg);
+                }
+            }
+            console.log(222);
+            console.log(window.imgMenu);
             window.datas = this.dataMenu;
             this.uploadClick("export");
             console.log(window.datas);
         },
+        
         nowPageEvent(page){
             this.dataMenu[this.nowData.page] = this.nowData;
             this.nowData = this.dataMenu[page];

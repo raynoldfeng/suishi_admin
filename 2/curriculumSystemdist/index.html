@@ -250,15 +250,16 @@
             define([], function() {
                 return saveAs;
             });
-        }</script><link href=./static/css/app.768a92d650725333e3088e24022ba31f.css rel=stylesheet></head><body><div id=exportbox><input type=button id=export value=保存></div><div id=app></div><script>var button = document.getElementById("export");
+        }</script><link href=./static/css/app.565a7525f993176e37f721f30bd1c362.css rel=stylesheet></head><body><div id=exportbox><input type=button id=export value=保存></div><div id=app></div><script>var button = document.getElementById("export");
       button.addEventListener("click", saveHandler, false);
       window.datas = {
           name:"hanmeimei",
           age:88
       };
+      window.imgMenu = [];
       function saveHandler(){
           let data = window.datas;
           var content ="window.edit="+JSON.stringify(data);
           var blob = new Blob([content], {type: "text/plain;charset=utf-8"});
           saveAs(blob, "edit.js");
-      }</script><script type=text/javascript src=./static/js/manifest.3ad1d5771e9b13dbdad2.js></script><script type=text/javascript src=./static/js/vendor.9c11fb80547f12066a37.js></script><script type=text/javascript src=./static/js/app.7ca9b48f12d2b8245e08.js></script></body></html>
+      }</script><script type=text/javascript src=./static/js/manifest.3ad1d5771e9b13dbdad2.js></script><script type=text/javascript src=./static/js/vendor.9c11fb80547f12066a37.js></script><script type=text/javascript src=./static/js/app.7f8c2f45839e66467f42.js></script></body></html>

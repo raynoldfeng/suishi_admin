@@ -173,7 +173,12 @@ import selectDisplay from '../components/selectDisplay.vue'
             window.jpage = 0;
             window.jshow = true;
             var self = this;
-            this.bookData = window.edit;
+            if(window.edit.length == undefined){
+                this.bookData = window.edit.data;
+            }else{
+                this.bookData = window.edit;
+            }
+
             this.bookData.push(this.lastData);
             window.savePage = 0;
             window.nowPage = 0;

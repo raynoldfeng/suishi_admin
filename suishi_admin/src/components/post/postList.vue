@@ -53,7 +53,7 @@
                     label="ID"
                     >
                     </el-table-column>
-                    <el-table-column
+              <!--      <el-table-column
                     prop="accountNick"
                     label="发布用户"
                     >
@@ -61,7 +61,7 @@
                     <el-table-column
                     prop="category"
                     label="所属圈子"
-                    >
+                    >-->
                     </el-table-column>
                     <el-table-column
                     prop="content"

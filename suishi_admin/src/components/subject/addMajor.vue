@@ -134,7 +134,7 @@
                 XCosSecurityToken:"",
                 expiredTime:"",
                 majorName:"",
-                orderValue:"",
+                orderValue:0,
                 coverImg:"",
                 majorTypeMenu:[
                     {value: 1,

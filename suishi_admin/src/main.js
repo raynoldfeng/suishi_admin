@@ -10,6 +10,8 @@ import './style.css'
 const common=require("./common/common.js");
 const api = require("./common/api.js");
 require("./common/cos-js-sdk-v5.js");
+
+var date = new Date();
 var cosjs = function newCos(SecretId,SecretKey,file,XCosSecurityToken,expiredTime,callback ){
 //    console.log(2545454);
 //    console.log(SecretId);
@@ -26,10 +28,12 @@ var cosjs = function newCos(SecretId,SecretKey,file,XCosSecurityToken,expiredTim
 //        console.log(err, data);
 //    });
 
+    var newdate = ""+date.getFullYear()+date.getMonth()+date.getDate()+date.getHours()+date.getMinutes()+date.getSeconds();
+
     cos.putObject({
         Bucket: "suishi-1256985330",
         Region: "ap-guangzhou",
-        Key: file.name,
+        Key: newdate+file.name,
         Body: file
     }, function (err, data) {
         console.log(data.headers);
@@ -38,7 +42,7 @@ var cosjs = function newCos(SecretId,SecretKey,file,XCosSecurityToken,expiredTim
     cos.getObjectUrl({
         Bucket: "suishi-1256985330",
         Region: "ap-guangzhou",
-        Key: file.name,
+        Key: newdate+file.name,
         Sign: false
     }, function (err, data) {
         console.log(err || data.Url);
@@ -63,11 +67,11 @@ var cosjsFile = function newCos(SecretId,SecretKey,fileurl,file,XCosSecurityToke
 //    }, function (err, data) {
 //        console.log(err, data);
 //    });
-
+    var newdate = ""+date.getFullYear()+date.getMonth()+date.getDate()+date.getHours()+date.getMinutes()+date.getSeconds();
     cos.putObject({
         Bucket: "suishi-1256985330",
         Region: "ap-guangzhou",
-        Key: fileurl+file.name,
+        Key: fileurl+newdate+file.name,
         Body: file
     }, function (err, data) {
         console.log(data.headers);
@@ -76,7 +80,7 @@ var cosjsFile = function newCos(SecretId,SecretKey,fileurl,file,XCosSecurityToke
     cos.getObjectUrl({
         Bucket: "suishi-1256985330",
         Region: "ap-guangzhou",
-        Key: fileurl+file.name,
+        Key: fileurl+newdate+file.name,
         Sign: false
     }, function (err, data) {
         console.log(err || data.Url);
@@ -86,13 +90,13 @@ var cosjsFile = function newCos(SecretId,SecretKey,fileurl,file,XCosSecurityToke
 };
 
 
-var cosjsFile2 = function newCos(SecretId,SecretKey,fileurl,file,XCosSecurityToken,expiredTime,callback ){
+var cosjsFile2 = function newCos(SecretId,SecretKey,fileurl,file,XCosSecurityToken,expiredTime,callback,progressCallback ){
 //    console.log(2545454);
 //    console.log(SecretId);
 //    console.log(SecretKey);
 //    console.log(file);
 //    console.log(file.name);
-
+    var newdate = ""+date.getFullYear()+date.getMonth()+date.getDate()+date.getHours()+date.getMinutes()+date.getSeconds();
     var cos = new COS({ SecretId: SecretId,SecretKey: SecretKey,XCosSecurityToken:XCosSecurityToken,expiredTime:expiredTime});
 //    cos.sliceUploadFile({
 //        Bucket: "suishi-1256985330",
@@ -131,13 +135,14 @@ var cosjsFile2 = function newCos(SecretId,SecretKey,fileurl,file,XCosSecurityTok
         files: [{
             Bucket: 'suishi-1256985330', /* 必须 */
             Region: 'ap-guangzhou',    /* 必须 */
-            Key: fileurl+file.webkitRelativePath,
+            Key: fileurl+newdate+file.webkitRelativePath,
             Body: file,
         }],
         SliceSize: 1024 * 1024,
         onProgress: function (info) {
             var percent = parseInt(info.percent * 10000) / 100;
             var speed = parseInt(info.speed / 1024 / 1024 * 100) / 100;
+            progressCallback(percent,speed);
             console.log('进度：' + percent + '%; 速度：' + speed + 'Mb/s;');
         },
         onFileFinish: function (err, data, options) {

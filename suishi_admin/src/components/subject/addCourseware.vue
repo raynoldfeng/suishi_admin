@@ -85,11 +85,14 @@
                 </el-option>
             </el-select>
         </div>
-            <div v-for="(data,index) in pptUrl">
+            <div class="view_main" v-for="(data,index) in pptUrl">
                 <el-input v-model = "pptUrl[index]" class="input_type" />
                 <el-button @click="deleteEvent(index)">删除</el-button>
             </div>
-            <el-button @click="uploadFile">上传课件</el-button>
+            <div class="view_main percentage_main" >
+                <el-progress :percentage="percentage" :color="customColor"></el-progress>
+            </div>
+            <el-button  class="view_main" @click="uploadFile">上传课件</el-button>
              <input id="file-selectorH5" type="file" accept="*/*" multiple="" webkitdirectory="">
              <!--<input id="file-selectorvideo" multiple="multiple" accept="*.3gpp  audio/3gpp， video/3gpp  3GPP Audio/Video">-->
              <input id="file-selectorvideo" type="file" accept="*.3gpp  audio/3gpp， video/3gpp  3GPP Audio/Video">
@@ -103,9 +106,11 @@
         export default {
             data(){
                 return{
+                    percentage: 0,
+                    customColor: '#409eff',
                     userinfo:"",
                     coursewarename:"",
-                    order:"",
+                    order:0,
                     is_audition:"0",
                     autitionMenu: [{
                         value: '1',
@@ -366,13 +371,20 @@
                             for(let i =0 ;i<lens;i++){
                                 self.cosjsFile2(self.SecretId,self.SecretKey,fileurl,file[i],self.XCosSecurityToken,self.expiredTime,function(url,err){
                                     // self.coverImg = img;
+            setTimeout(function(){
+            self.percentage = 0;
+            },1000);
+
                                     if(err){
-                                        alert(url+"上传失败")
+                                        alert(url+"上传失败");
+
                                     }else {
                                         if (url.indexOf("index.html") != (-1)) {
                                             self.pptUrl.push("https://suishi-1256985330.cos.ap-guangzhou.myqcloud.com/" + url);
                                         }
                                     }
+                                },function(percent,speed){
+                                    self.percentage = percent;
                                 });
                             }
 
@@ -406,4 +418,7 @@
             text-overflow: ellipsis;
             white-space: nowrap;
         }
+            .percentage_main{
+            width:300px;
+            }
         </style>

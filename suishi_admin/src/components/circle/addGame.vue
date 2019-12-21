@@ -135,7 +135,7 @@
 
             userinfo:"",
                         name:"",
-                        sort:"",
+                        sort:0,
                         isUseMenu: [
                         {value: "1",
                         label: "是"},
@@ -361,7 +361,10 @@
                         if(self.SecretId != "" && self.SecretKey !="" ){
                             if(file){
                                 self.cosjs(self.SecretId,self.SecretKey,file,self.XCosSecurityToken,self.expiredTime,function(img){
-                                    self.coverImg = img;
+                                    setTimeout(function(){
+                                        self.coverImg = img;
+                                    },1000);
+
                                 });
                             }
                         }

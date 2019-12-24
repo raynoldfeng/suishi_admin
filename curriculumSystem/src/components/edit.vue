@@ -388,6 +388,7 @@
  * pairTypeQtitle 匹配类型问题(pairTypeMenu内)
  * pairTypeQindex 匹配类型问题索引(pairTypeMenu内)
  * pairTypeAmenu 匹配类型答案菜单(pairTypeMenu内)
+ * pairTypeQimg
  * pairTypeAtitle 匹配类型答案名称
  * pairTypeAcontext 匹配类型答案解释
  * pairTypeAindex 匹配类型答案索引
@@ -1276,6 +1277,23 @@ export default {
                 }else if(this.dataMenu[i].testType == 8){
                     window.imgMenu.push(this.dataMenu[i].listTypeImgBig);
                     window.imgMenu.push(this.dataMenu[i].listTypeImg);
+                }else if(this.dataMenu[i].testType == 11){
+                    window.imgMenu.push(this.dataMenu[i].imgselectDisplayMImg);
+                    for(let a = 0 ; a < this.dataMenu[i].imgselectDisplayMenu.length;a++){
+                        window.imgMenu.push(this.dataMenu[i].imgselectDisplayMenu[a].imgselectDisplayImg);
+                    }
+                }else if(this.dataMenu[i].testType == 12){
+                    for(let a = 0;a < this.dataMenu[i].imgDisplayTypeMenu.length; a++){
+                        window.imgMenu.push(this.dataMenu[i].imgDisplayTypeMenu[a].imgDisplayTypeImg);
+                    }
+                }else if(this.dataMenu[i].testType == 13){
+                    for(let a=0;a< this.dataMenu[i].pairTypeMenu.length;a++){
+                        window.imgMenu.push(this.dataMenu[i].pairTypeMenu[a].pairTypeQimg);
+                    }
+                }else if(this.dataMenu[i].testType == 15){
+                    for(let a=0;a< this.dataMenu[i].selectDisplayMenu.length;a++){
+                        window.imgMenu.push(this.dataMenu[i].selectDisplayMenu[a].selectDisplayImg);
+                    }
                 }
             }
             console.log(222);
@@ -1337,19 +1355,29 @@ export default {
                     reader.readAsText(file, "UTF-8");//读取文件
                     reader.onload = function(evt){ //读取完文件之后会回来这里
                         var fileString = evt.target.result; // 读取文件内容
+                        console.log(fileString)
                         var json = JSON.parse(fileString.slice(12,fileString.length));
                   //      self.dataMenu =json;
-                        self.nowData = json[0];
-                        for(let i = 0 ; i < json.length;i++){
+                        if(json.length == undefined){
+                            self.nowData = json.data[0];
+                            var newJson = json.data;
+                        }else{
+                       //     this.bookData = window.edit;
+                            self.nowData = json[0];
+                            var newJson = json;
+                        }
+
+
+                        for(let i = 0 ; i < newJson.length;i++){
                             var odata = self.copyData;
                             //类型4选择类型大图片key特殊兼容处理
-                            if(json[i]["selectQMenu"].length > 0 && !json[i]["selectQMenu"][0].hasOwnProperty("selectImgBig")){
+                            if(newJson[i]["selectQMenu"].length > 0 && !newJson[i]["selectQMenu"][0].hasOwnProperty("selectImgBig")){
                                     for(let a = 0 ;a <  json[i]["selectQMenu"].length ; a++){
-                                         json[i]["selectQMenu"][a]["selectImgBig"]="";
+                                        newJson[i]["selectQMenu"][a]["selectImgBig"]="";
                                     }
                             }
 
-                            var obj = $.extend({},odata,json[i])
+                            var obj = $.extend({},odata,newJson[i])
                                 self.dataMenu.push(obj);
                         }
                     }

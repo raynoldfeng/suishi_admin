@@ -277,7 +277,9 @@
       window.imgMenu = [];
       function saveHandler(){
           let data = window.datas;
-          var content ="window.edit="+JSON.stringify(data);
+          let imgMenu =  window.imgMenu;
+         // var content ="window.edit="+JSON.stringify(data);
+          var content ='window.edit={"data":'+JSON.stringify(data)+',"imgMenu":'+JSON.stringify(imgMenu)+'}';
           var blob = new Blob([content], {type: "text/plain;charset=utf-8"});
           saveAs(blob, "edit.js");
       }

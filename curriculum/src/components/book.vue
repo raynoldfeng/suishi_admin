@@ -1,5 +1,8 @@
 <template>
     <div id = "book">
+        <div id="loadMain" v-if="!loaded">
+            <p v-text="percent" ></p>
+        </div>
         <div id="saveBox" v-if="hasSave"></div>
         <div id="saveMain" v-if="hasSave">
             <p>需要继续之前的学习吗？</p>
@@ -7,6 +10,7 @@
             <div id="nobtn" @click="studyEvent(2)">重新学习</div>
         </div>
         <swiper class="swiper_type_menu" ref="pages" :options="swiperOption" >
+
 
             <swiper-slide v-for="(data,index) in bookData" :key="index">
                 <v-titlePage v-if="data.testType == '0' && data.displayType == 't1'" v-on:isStart = "isStartEvent" :data="data"></v-titlePage>
@@ -147,7 +151,12 @@ import selectDisplay from '../components/selectDisplay.vue'
                         judgeAnswer:"0",
                         judgeAnswerText:""
                     }],
-                }
+                },
+                imgs:[],
+                count: 0,
+                percent:'',
+                imglength:0,
+                loaded:false
             }
         },
      components:{
@@ -175,9 +184,32 @@ import selectDisplay from '../components/selectDisplay.vue'
             var self = this;
             if(window.edit.length == undefined){
                 this.bookData = window.edit.data;
+                this.imgs = window.edit.imgMenu;
             }else{
                 this.bookData = window.edit;
             }
+
+            this.imglength = this.imgs.length;
+            if(this.imglength > 0){
+                for (let img of this.imgs) {
+                    let image = new Image()
+                    image.src = img;
+                    image.onload = () => {
+                        this.count++;
+                        // 计算图片加载的百分数，绑定到percent变量
+                        let percentNum = Math.floor(this.count / this.imglength * 100);
+                        this.percent = percentNum+"%";
+                        if(this.count == this.imglength){
+                            this.loaded = true;
+                        }
+                        //document.getElementById('_bar').style.backgroundSize = `${percentNum}% 100%`
+                        // console.log(this.percent)
+                    }
+                }
+            }else{
+                this.loaded = true;
+            }
+
 
             this.bookData.push(this.lastData);
             window.savePage = 0;
@@ -390,6 +422,15 @@ import selectDisplay from '../components/selectDisplay.vue'
     }
  </script>
   <style>
+  #loadMain{
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 9999;
+      background: #ffffff;
+      width: 100%;
+      height: 100%;
+  }
   .swiper-slide{
 
 

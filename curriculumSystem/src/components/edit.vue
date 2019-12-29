@@ -1252,52 +1252,88 @@ export default {
             window.imgMenu = [];
             for(let i=0;i<this.dataMenu.length;i++){
                 if(this.dataMenu[i].testType == 0){
-                    window.imgMenu.push(this.dataMenu[i].courseImg);
-                    window.imgMenu.push(this.dataMenu[i].authorImg);
+                    if(this.dataMenu[i].courseImg != ""){
+                        window.imgMenu.push(this.dataMenu[i].courseImg);
+                    }
 
+                    if(this.dataMenu[i].authorImg != ""){
+                        window.imgMenu.push(this.dataMenu[i].authorImg);
+                    }
                 }else if(this.dataMenu[i].testType == 1){
-                    window.imgMenu.push(this.dataMenu[i].imgTextImg);
+                    if(this.dataMenu[i].imgTextImg != ""){
+                        window.imgMenu.push(this.dataMenu[i].imgTextImg);
+                    }
                 }else if(this.dataMenu[i].testType == 2){
                     for(let a = 0; a < this.dataMenu[i].imageChange.length; a++){
-                        window.imgMenu.push(this.dataMenu[i].imageChange[a].img);
+                        if(this.dataMenu[i].imageChange[a].img != ""){
+                            window.imgMenu.push(this.dataMenu[i].imageChange[a].img);
+                        }
                     }
                 }else if(this.dataMenu[i].testType == 3){
-                    window.imgMenu.push(this.dataMenu[i].judgeTrueImg);
-                    window.imgMenu.push(this.dataMenu[i].judgeFalseImg);
+                    if(this.dataMenu[i].judgeTrueImg != ""){
+                        window.imgMenu.push(this.dataMenu[i].judgeTrueImg);
+                    }
+                   if(this.dataMenu[i].judgeFalseImg != ""){
+                       window.imgMenu.push(this.dataMenu[i].judgeFalseImg);
+                   }
                 }else if(this.dataMenu[i].testType == 4){
                     for(let a = 0; a < this.dataMenu[i].selectQMenu.length; a++){
-                        window.imgMenu.push(this.dataMenu[i].selectQMenu[a].selectImg);
-                        window.imgMenu.push(this.dataMenu[i].selectQMenu[a].selectImgBig);
+                        if(this.dataMenu[i].selectQMenu[a].selectImg != ""){
+                            window.imgMenu.push(this.dataMenu[i].selectQMenu[a].selectImg);
+                        }
+                        if(this.dataMenu[i].selectQMenu[a].selectImgBig != ""){
+                            window.imgMenu.push(this.dataMenu[i].selectQMenu[a].selectImgBig);
+                        }
                     }
                 }else if(this.dataMenu[i].testType == 6){
-                    window.imgMenu.push(this.dataMenu[i].selectAllJImg);
-                    window.imgMenu.push(this.dataMenu[i].selectAllJSImg);
+                    if(this.dataMenu[i].selectAllJImg != ""){
+                        window.imgMenu.push(this.dataMenu[i].selectAllJImg);
+                    }
+                    if(this.dataMenu[i].selectAllJSImg != ""){
+                        window.imgMenu.push(this.dataMenu[i].selectAllJSImg);
+                    }
                 }else if(this.dataMenu[i].testType == 7){
-                    window.imgMenu.push(this.dataMenu[i].ImgJumpTypeBg);
+                    if(this.dataMenu[i].ImgJumpTypeBg != ""){
+                        window.imgMenu.push(this.dataMenu[i].ImgJumpTypeBg);
+                    }
                 }else if(this.dataMenu[i].testType == 8){
-                    window.imgMenu.push(this.dataMenu[i].listTypeImgBig);
-                    window.imgMenu.push(this.dataMenu[i].listTypeImg);
+                    if(this.dataMenu[i].listTypeImgBig != ""){
+                        window.imgMenu.push(this.dataMenu[i].listTypeImgBig);
+                    }
+                    if(this.dataMenu[i].listTypeImg != ""){
+                        window.imgMenu.push(this.dataMenu[i].listTypeImg);
+                    }
                 }else if(this.dataMenu[i].testType == 11){
-                    window.imgMenu.push(this.dataMenu[i].imgselectDisplayMImg);
+                    if(this.dataMenu[i].imgselectDisplayMImg != ""){
+                        window.imgMenu.push(this.dataMenu[i].imgselectDisplayMImg);
+                    }
                     for(let a = 0 ; a < this.dataMenu[i].imgselectDisplayMenu.length;a++){
-                        window.imgMenu.push(this.dataMenu[i].imgselectDisplayMenu[a].imgselectDisplayImg);
+                        if(this.dataMenu[i].imgselectDisplayMenu[a].imgselectDisplayImg != ""){
+                            window.imgMenu.push(this.dataMenu[i].imgselectDisplayMenu[a].imgselectDisplayImg);
+                        }
                     }
                 }else if(this.dataMenu[i].testType == 12){
                     for(let a = 0;a < this.dataMenu[i].imgDisplayTypeMenu.length; a++){
-                        window.imgMenu.push(this.dataMenu[i].imgDisplayTypeMenu[a].imgDisplayTypeImg);
+                        if(this.dataMenu[i].imgDisplayTypeMenu[a].imgDisplayTypeImg != ""){
+                            window.imgMenu.push(this.dataMenu[i].imgDisplayTypeMenu[a].imgDisplayTypeImg);
+                        }
                     }
                 }else if(this.dataMenu[i].testType == 13){
                     for(let a=0;a< this.dataMenu[i].pairTypeMenu.length;a++){
-                        window.imgMenu.push(this.dataMenu[i].pairTypeMenu[a].pairTypeQimg);
+                        if(this.dataMenu[i].pairTypeMenu[a].pairTypeQimg != ""){
+                            window.imgMenu.push(this.dataMenu[i].pairTypeMenu[a].pairTypeQimg);
+                        }
                     }
                 }else if(this.dataMenu[i].testType == 15){
                     for(let a=0;a< this.dataMenu[i].selectDisplayMenu.length;a++){
-                        window.imgMenu.push(this.dataMenu[i].selectDisplayMenu[a].selectDisplayImg);
+                        if(this.dataMenu[i].selectDisplayMenu[a].selectDisplayImg != ""){
+                            window.imgMenu.push(this.dataMenu[i].selectDisplayMenu[a].selectDisplayImg);
+                        }
                     }
                 }
             }
-            console.log(222);
-            console.log(window.imgMenu);
+      //      console.log(222);
+      //      console.log(window.imgMenu);
             window.datas = this.dataMenu;
             this.uploadClick("export");
             console.log(window.datas);

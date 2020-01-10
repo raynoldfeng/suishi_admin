@@ -144,12 +144,20 @@
                     self.note = data.note;
                     self.vedioUrl = data.video_url;
                     self.imgUrl = data.img_url;
-                    self.answerMenu = data.options;
-                    self.answerOptions = [];
-                    for(let i = 0; i < self.answerMenu.length;i++){
+                    if(data.options == null){
+                        self.answerMenu = [""];
+                        self.answer = "";
+                    }else{
+                        self.answerMenu = data.options;
+                        self.answerOptions = [];
+                        for(let i = 0; i < self.answerMenu.length;i++){
                         self.answerOptions.push({value:i});
+                        self.answer = data.answer;
+                        }
                     }
-                    self.answer = data.answer;
+
+
+
                     self.coursewareName = data.course_id;
                     self.getCourseId(data.course_id);
 //                        for(var i = 0 ;i < self.coursewareData.length; i++){

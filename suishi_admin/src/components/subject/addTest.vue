@@ -192,6 +192,19 @@
             },
             addTestEvent(){
                 var self = this;
+                if(this.coursewareName == ""){
+                    alert("请选择所属课件！")
+                    return false;
+                }
+                if(this.testName == ""){
+                    alert("请输入测试问题！");
+                    return false
+                }
+
+                if(this.answerMenu.length > 0 && this.answer == ""){
+                    alert("请选择正确选项！")
+                    return false;
+                }
                 if(this.isedits()){
                     var info = {"name":this.testName,"img_url":this.imgUrl,"video_url":this.videoUrl,"status":this.isUse,"note":this.note,"options":this.answerMenu,"answer":this.answer,"course_id":this.coursewareName,id:this.$route.query.id};
 //                    if(self.coursewareName == this.coursewares.coursewareName){

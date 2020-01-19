@@ -4,7 +4,7 @@
  *  "host":"http://admin.sui10.com/",
  */
 export const api={
-    "host":"http://admin.sui10.com/",
+    "host":(window.location.host).indexOf("test.sui10.com") !=(-1) ?  "http://admin.sui10.com/":"",
     "login":"login",
     "roles":"admin/admin_user/roles",
     "adminUser":"admin/admin_user",

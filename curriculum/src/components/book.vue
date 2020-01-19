@@ -1,6 +1,7 @@
 <template>
     <div id = "book">
         <div id="loadMain" v-if="!loaded">
+            <img id="loadingImg" src="./../img/loading.gif" />
             <p v-text="percent" ></p>
         </div>
         <div id="saveBox" v-if="hasSave"></div>
@@ -191,6 +192,7 @@ import selectDisplay from '../components/selectDisplay.vue'
 
             this.imglength = this.imgs.length;
             if(this.imglength > 0){
+
                 for (let img of this.imgs) {
                     let image = new Image()
                     image.src = img;
@@ -200,7 +202,10 @@ import selectDisplay from '../components/selectDisplay.vue'
                         let percentNum = Math.floor(this.count / this.imglength * 100);
                         this.percent = percentNum+"%";
                         if(this.count == this.imglength){
+                            $("#loadMain").animate({opacity:0},800);
+                            setTimeout(()=>{
                             this.loaded = true;
+                            },900)
                         }
                         //document.getElementById('_bar').style.backgroundSize = `${percentNum}% 100%`
                         // console.log(this.percent)
@@ -431,6 +436,13 @@ import selectDisplay from '../components/selectDisplay.vue'
       width: 100%;
       height: 100%;
   }
+      #loadingImg{
+        width:100%;
+        margin-top:38%;
+      }
+      #loadMain p{
+        margin-top:-9%;
+      }
   .swiper-slide{
 
 

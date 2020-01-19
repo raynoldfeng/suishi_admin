@@ -144,12 +144,20 @@
                     self.note = data.note;
                     self.vedioUrl = data.video_url;
                     self.imgUrl = data.img_url;
-                    self.answerMenu = data.options;
-                    self.answerOptions = [];
-                    for(let i = 0; i < self.answerMenu.length;i++){
+                    if(data.options == null){
+                        self.answerMenu = [""];
+                        self.answer = "";
+                    }else{
+                        self.answerMenu = data.options;
+                        self.answerOptions = [];
+                        for(let i = 0; i < self.answerMenu.length;i++){
                         self.answerOptions.push({value:i});
+                        self.answer = data.answer;
+                        }
                     }
-                    self.answer = data.answer;
+
+
+
                     self.coursewareName = data.course_id;
                     self.getCourseId(data.course_id);
 //                        for(var i = 0 ;i < self.coursewareData.length; i++){
@@ -184,6 +192,19 @@
             },
             addTestEvent(){
                 var self = this;
+                if(this.coursewareName == ""){
+                    alert("请选择所属课件！")
+                    return false;
+                }
+                if(this.testName == ""){
+                    alert("请输入测试问题！");
+                    return false
+                }
+
+                if(this.answerMenu.length > 0 && this.answer == ""){
+                    alert("请选择正确选项！")
+                    return false;
+                }
                 if(this.isedits()){
                     var info = {"name":this.testName,"img_url":this.imgUrl,"video_url":this.videoUrl,"status":this.isUse,"note":this.note,"options":this.answerMenu,"answer":this.answer,"course_id":this.coursewareName,id:this.$route.query.id};
 //                    if(self.coursewareName == this.coursewares.coursewareName){

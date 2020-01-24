@@ -337,7 +337,14 @@
                 if(self.SecretId != "" && self.SecretKey !="" ){
                     if(file){
                         self.cosjs(self.SecretId,self.SecretKey,file,self.XCosSecurityToken,self.expiredTime,function(img){
-                            self.coverImg = img;
+                            var flength = "http://suishi-1256985330.cos.ap-guangzhou.myqcloud.com/".length;
+                            var llength = img.length;
+                            if(img.indexOf("http://suishi-1256985330.cos.ap-guangzhou.myqcloud.com") != (-1)){
+                            var nimg ="http://res.sui10.com/"+ img.slice(flength,llength);
+                                self.coverImg = nimg;
+                            }else{
+                                self.coverImg = img;
+                            }
                         });
                     }
                 }

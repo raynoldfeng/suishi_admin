@@ -342,7 +342,16 @@
                             if (!file) return;
                             if(file){
                                 self.cosjs(self.SecretId,self.SecretKey,file,self.XCosSecurityToken,self.expiredTime,function(url){
-                                    self.pptUrl.push(url);
+                                    var flength = "http://suishi-1256985330.cos.ap-guangzhou.myqcloud.com/".length;
+                                    var llength = url.length;
+                                    if(url.indexOf("http://suishi-1256985330.cos.ap-guangzhou.myqcloud.com") != (-1)){
+
+                                        var nurl ="http://res.sui10.com/"+ url.slice(flength,llength);
+                                        self.pptUrl.push(nurl);
+                                    }else{
+                                        self.pptUrl.push(url);
+                                    }
+
                                 });
                             }
                         }
@@ -371,16 +380,17 @@
                             for(let i =0 ;i<lens;i++){
                                 self.cosjsFile2(self.SecretId,self.SecretKey,fileurl,file[i],self.XCosSecurityToken,self.expiredTime,function(url,err){
                                     // self.coverImg = img;
-            setTimeout(function(){
-            self.percentage = 0;
-            },1000);
+                                    setTimeout(function(){
+                                    self.percentage = 0;
+                                    },1000);
 
                                     if(err){
                                         alert(url+"上传失败");
 
                                     }else {
                                         if (url.indexOf("index.html") != (-1)) {
-                                            self.pptUrl.push("https://suishi-1256985330.cos.ap-guangzhou.myqcloud.com/" + url);
+                                            //self.pptUrl.push("https://suishi-1256985330.cos.ap-guangzhou.myqcloud.com/" + url);
+                                            self.pptUrl.push("http://res.sui10.com/" + url);
                                         }
                                     }
                                 },function(percent,speed){

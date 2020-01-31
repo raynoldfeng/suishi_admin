@@ -382,7 +382,11 @@
                                         alert(url+"上传失败");
 
                                     }else {
-                                        self.pptUrl.push(url);
+                                        if (url.indexOf("index.html") != (-1)) {
+                                            //self.pptUrl.push("https://suishi-1256985330.cos.ap-guangzhou.myqcloud.com/" + url);
+                                            self.pptUrl.push(url);
+                                        }
+
                                     }
                                 },function(percent,speed){
                                     self.percentage = percent;

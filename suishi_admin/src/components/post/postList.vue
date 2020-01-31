@@ -1,7 +1,8 @@
 <template>
     <div id="postList">
+        <p class="title_main">帖子列表</p>
         <div class="view_main">
-            <el-select v-model="typeValue1" placeholder="是否推荐">
+         <!--   <el-select v-model="typeValue1" placeholder="是否推荐">
                 <el-option
                 v-for="item in optionsType"
                 :key="item.value"
@@ -31,15 +32,15 @@
             >
             </el-input>
             <el-button>搜索</el-button>
-            <el-button>还原</el-button>
+            <el-button>还原</el-button>-->
         </div>
         <div class="view_main">
             <!--<el-button @click="addEvent">发布</el-button>-->
-            <ul class="sort_type">
+            <!--<ul class="sort_type">
                 <li>按发布时间排序</li>
                 <li>按评论数排序</li>
                 <li>按点赞数排序</li>
-            </ul>
+            </ul>-->
         </div>
         <div class="view_main">
             <template>

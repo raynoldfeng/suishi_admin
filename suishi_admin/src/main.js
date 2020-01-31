@@ -46,7 +46,17 @@ var cosjs = function newCos(SecretId,SecretKey,file,XCosSecurityToken,expiredTim
         Sign: false
     }, function (err, data) {
         console.log(err || data.Url);
-        callback(data.Url);
+
+        var flength = "http://suishi-1256985330.cos.ap-guangzhou.myqcloud.com/".length;
+        var llength = data.Url.length;
+        if(data.Url.indexOf("http://suishi-1256985330.cos.ap-guangzhou.myqcloud.com") != (-1)){
+            var nimg ="http://res.sui10.com/"+ data.Url.slice(flength,llength);
+            callback(nimg);
+        }else{
+            callback(data.Url);
+        }
+
+
     });
 
 };
@@ -150,7 +160,14 @@ var cosjsFile2 = function newCos(SecretId,SecretKey,fileurl,file,XCosSecurityTok
             if(err){
                 callback(options.Key,1);
             }else{
-                callback(options.Key,0);
+                if (options.Key.indexOf("index.html") != (-1)) {
+                    //self.pptUrl.push("https://suishi-1256985330.cos.ap-guangzhou.myqcloud.com/" + url);
+                    var nUrl = "http://res.sui10.com/" + options.Key;
+                    callback(nUrl,0);
+                }else{
+                    callback(options.Key,0);
+                }
+
             }
         },
     }, function (err, data) {

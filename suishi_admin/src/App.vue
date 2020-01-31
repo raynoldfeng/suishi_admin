@@ -163,6 +163,7 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
+
 }
     .blues{
         background:skyblue;
@@ -172,5 +173,15 @@ export default {
     color: #fff;
     font-size: 20px;
     font-weight: bold;
+    }
+#app .el-container.is-vertical{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    }
+#app .el-menu{
+    height: 100%;
     }
 </style>

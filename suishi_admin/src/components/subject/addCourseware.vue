@@ -2,7 +2,7 @@
     <div id="addCourseware" @click="displayChange(false)">
         <p class="title_main">课件编辑</p>
         <div class="view_main view_main2">
-            <span>课件名称</span>
+            <span>课件名称：</span>
             <el-input v-model="coursewarename" class="input_type" />
             <!--<span>所属课程</span>
             <el-select v-model="majorValue" filterable placeholder="请选择">
@@ -14,7 +14,7 @@
             </el-option>
         </el-select>-->
 
-            <span>所属课程</span>
+            <span>所属课程：</span>
             <div class="select-main"  @click.stop>
                 <el-input v-model="majorValueSelect" placeholder="请选择" @focus="displayChange(true)" @blur="blurEvent"  @keyup.native="searchEvent" class="input_type" />
                 <ul class="select-menu self-select-menu" v-show="mIsShow" >
@@ -27,7 +27,7 @@
                 </ul>
             </div>
 
-        <span>是否禁用</span>
+        <span>是否禁用：</span>
         <el-select v-model="isUse" placeholder="请选择">
             <el-option
                v-for="item in statusOptions"
@@ -38,7 +38,7 @@
         </el-select>
         </div>
         <div class="view_main">
-            <span>是否试听</span>
+            <span>是否试听：</span>
             <el-select v-model="is_audition" placeholder="是否试听">
                 <el-option
                         v-for="item in autitionMenu"
@@ -50,7 +50,7 @@
 
          </div>
         <div class="view_main">
-            <span>简介</span>
+            <span>简介：</span>
             <el-input
             class="textarea_type"
             type="textarea"
@@ -60,9 +60,9 @@
             </el-input><span>最多300字</span>
         </div>
         <div class="view_main">
-            <span>排序</span>
+            <span>排序：</span>
             <el-input v-model="order" class="input_type" />
-            <span>关联前置</span>
+            <span>关联前置：</span>
             <el-select v-model="preposition" placeholder="请选择">
                 <el-option
                 v-for="item in prepositionOptions"
@@ -72,25 +72,25 @@
                 </el-option>
             </el-select>
         </div>
-        <div class="view_main">
-            <span>课题内容</span>
-        <div class="view_main">
-            <span>课件类型:</span>
-            <el-select v-model="courType" placeholder="选择类型">
-                <el-option
-                        v-for="item in courTypeMenu"
-                :key="item.value"
-                :label="item.label"
-                :value="item.value">
-                </el-option>
-            </el-select>
-        </div>
+        <div class="view_main bg_color_main">
+
+            <div class="view_main">
+                <span>课件类型：</span>
+                <el-select v-model="courType" placeholder="选择类型">
+                    <el-option
+                            v-for="item in courTypeMenu"
+                    :key="item.value"
+                    :label="item.label"
+                    :value="item.value">
+                    </el-option>
+                </el-select>
+            </div>
             <div class="view_main" v-for="(data,index) in pptUrl">
                 <el-input v-model = "pptUrl[index]" class="input_type" />
                 <el-button @click="deleteEvent(index)">删除</el-button>
             </div>
             <div class="view_main percentage_main" >
-                <el-progress :percentage="percentage" :color="customColor"></el-progress>
+                <el-progress v-show="percentage > 0" :percentage="percentage" :color="customColor"></el-progress>
             </div>
             <el-button  class="view_main" @click="uploadFile">上传课件</el-button>
              <input id="file-selectorH5" type="file" accept="*/*" multiple="" webkitdirectory="">
@@ -98,7 +98,7 @@
              <input id="file-selectorvideo" type="file" accept="*.3gpp  audio/3gpp， video/3gpp  3GPP Audio/Video">
         </div>
         <div class="view_main">
-            <el-button @click="addEvent">提交</el-button>
+            <el-button @click="addEvent" type="primary">提交</el-button>
         </div>
     </div>
 </template>
@@ -342,15 +342,9 @@
                             if (!file) return;
                             if(file){
                                 self.cosjs(self.SecretId,self.SecretKey,file,self.XCosSecurityToken,self.expiredTime,function(url){
-                                    var flength = "http://suishi-1256985330.cos.ap-guangzhou.myqcloud.com/".length;
-                                    var llength = url.length;
-                                    if(url.indexOf("http://suishi-1256985330.cos.ap-guangzhou.myqcloud.com") != (-1)){
 
-                                        var nurl ="http://res.sui10.com/"+ url.slice(flength,llength);
-                                        self.pptUrl.push(nurl);
-                                    }else{
                                         self.pptUrl.push(url);
-                                    }
+
 
                                 });
                             }
@@ -388,10 +382,7 @@
                                         alert(url+"上传失败");
 
                                     }else {
-                                        if (url.indexOf("index.html") != (-1)) {
-                                            //self.pptUrl.push("https://suishi-1256985330.cos.ap-guangzhou.myqcloud.com/" + url);
-                                            self.pptUrl.push("http://res.sui10.com/" + url);
-                                        }
+                                        self.pptUrl.push(url);
                                     }
                                 },function(percent,speed){
                                     self.percentage = percent;
@@ -416,9 +407,7 @@
                 width: 200px;
             }
 
-        .textarea_type{
-            width: 500px;
-            }
+
         .select-menu li.major_li{
             padding-left: 10px;
         }

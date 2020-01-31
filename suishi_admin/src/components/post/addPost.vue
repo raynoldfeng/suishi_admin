@@ -1,6 +1,6 @@
 <template>
     <div id="addPost">
-        <p class="title_main">查看帖子</p>
+        <p class="title_main">帖子详情</p>
         <div class="view_main">
             <span>圈子名称</span>
             <el-input v-model="category" readonly class="input_type"/>

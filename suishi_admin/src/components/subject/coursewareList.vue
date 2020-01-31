@@ -1,6 +1,7 @@
 <template>
     <div id="courseware">
-            <div class="type_menu">
+        <p class="title_main">课件列表</p>
+            <div class="view_main">
             <!--<el-select v-model="typeValue1" placeholder="专业">
                 <el-option
                         v-for="item in optionsType"
@@ -25,7 +26,8 @@
     <el-button @click="courseList('1')">搜索</el-button>
     <el-button @click="courseList('2')">还原</el-button>
             </div>
-        <el-button class="add_btn" @click="addEvent">新增</el-button>
+        <el-button class="add_btn" type="primary" @click="addEvent">新增课件</el-button>
+        <div class="view_main">
 <template>
 <el-table
 :data="coursewareData"
@@ -81,6 +83,7 @@ label="操作"
         </el-table-column>
         </el-table>
         </template>
+            </div>
         <div class="view_main page_main">
             <el-pagination
             background
@@ -98,7 +101,7 @@ label="操作"
 .search_input{
     width: 300px;
 }
-.add_btn{
+.el-button.add_btn{
     margin-top: 10px;
 }
 </style>

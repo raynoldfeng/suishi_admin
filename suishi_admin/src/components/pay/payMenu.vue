@@ -1,5 +1,6 @@
 <template>
     <div id="payMenu">
+        <p class="title_main">消费明细</p>
         <div class="view_main">
             <template>
                 <el-table

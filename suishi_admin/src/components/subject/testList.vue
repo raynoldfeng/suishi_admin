@@ -1,6 +1,7 @@
 <template>
     <div id="testList">
-        <div class="type_menu">
+        <p class="title_main">测试列表</p>
+        <div class="view_main">
             <el-select v-model="typeValue" placeholder="类型">
                 <el-option
                         v-for="item in optionsType"
@@ -34,7 +35,8 @@
             <el-button @click="testData('1')">搜索</el-button>
             <el-button @click="testData('2')">还原</el-button>
         </div>
-<div class="view_main"><el-button class="add_btn" @click="addEvent">新增</el-button></div>
+<div class="view_main"><el-button class="add_btn"  type="primary" @click="addEvent">新增测试</el-button></div>
+        <div class="view_main">
 <template>
 <el-table
 :data="testListData"
@@ -76,6 +78,7 @@ style="width: 100%">
         </el-table-column>
         </el-table>
         </template>
+            </div>
         <div class="view_main page_main">
             <el-pagination
             background

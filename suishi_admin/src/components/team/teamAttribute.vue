@@ -39,11 +39,11 @@
                 </el-table>
                 </template>
         </div>
-    <el-dialog title="编辑类型" :visible.sync="dialogTableVisible">
+    <el-dialog title="编辑类型：" :visible.sync="dialogTableVisible">
         <div class="dialog_menu">
            <el-input v-model="eTypeNames" />
         </div>
-        <el-button @click="saveType">保存并关闭</el-button>
+        <div class="view_main"><el-button @click="saveType"  type="primary">保存并关闭</el-button></div>
     </el-dialog>
     <div class="view_main page_main">
         <el-pagination

@@ -1,6 +1,6 @@
 <template>
     <div id="majorList">
-        <p class="title_main">专业列表</p>
+        <p class="title_main">课程列表</p>
         <div class="view_main">
             <span>是否禁用</span>
             <el-select v-model="isUse" placeholder="是否禁用">
@@ -20,7 +20,7 @@
             <el-button>还原</el-button>
         </div>
         <div  class="view_main">
-            <el-button @click="addEvent" type="primary">新增</el-button>
+            <el-button @click="addEvent" type="primary">新增课件</el-button>
         </div>
         <div class="view_main">
         <el-tabs v-model="majorType" type="card" >
@@ -287,7 +287,7 @@
                 height: 178px;
                 display: block;
             }
-        .search_input{
+        .el-input.search_input{
             width: 300px;
             }
         </style>

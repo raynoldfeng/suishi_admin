@@ -2,7 +2,7 @@
     <div id="addMajor">
         <p class="title_main">课程编辑</p>
         <div class="view_main">
-            <span>课程类型</span>
+            <span>课程类型：</span>
             <el-select v-model="majorType" placeholder="课程类型">
                 <el-option
                 v-for="item in majorTypeMenu"
@@ -13,11 +13,11 @@
             </el-select>
         </div>
         <div class="view_main">
-            <span>课程名称</span>
+            <span>课程名称：</span>
             <el-input v-model="majorName" class="input_type"></el-input>
-            <span>排序</span>
+            <span>排序：</span>
             <el-input v-model="orderValue" class="input_type"></el-input>
-            <span>是否禁用</span>
+            <span>是否禁用：</span>
             <el-select v-model="isUse" placeholder="是否禁用">
                 <el-option
                 v-for="item in isUseMenu"
@@ -28,7 +28,7 @@
             </el-select>
         </div>
         <div class="view_main">
-            <span>是否免费</span>
+            <span>是否免费：</span>
             <el-select v-model="isfree" placeholder="是否禁用">
                 <el-option
                         v-for="item in isfreeMenu"
@@ -40,13 +40,13 @@
 
         </div>
         <div class="view_main" v-show="isfree == '1'">
-            <span>价格</span>
+            <span>价格：</span>
             <el-input v-model="price" class="input_type"></el-input>
-            <span>折后价</span>
+            <span>折后价：</span>
             <el-input v-model="discontprice" class="input_type"></el-input>
         </div>
         <div class="view_main">
-            <span>简介</span>
+            <span>简介：</span>
             <el-input
             class="textarea_type"
             type="textarea"
@@ -65,7 +65,7 @@
             </el-select>-->
         </div>
         <div class="view_main">
-            <span>标签</span>
+            <span>标签：</span>
                 <el-tag  v-if="tags.length > 0"
                 v-for="tag in tags"
                 :key="tag.name"
@@ -76,7 +76,7 @@
             <el-button @click="LabelDialog(true)">添加</el-button>
         </div>
         <div class="view_main">
-            <span class="type_title">封绘图</span>
+            <span class="type_title">封绘图：</span>
             <input id="file-selector" type="file" >
                 <div class="avatar-uploader" @click="uploadImg">
                     <img v-if="coverImg" :src="coverImg" class="avatar">
@@ -84,7 +84,7 @@
                 </div>
             </div>
             <div class="view_main">
-                <el-button @click="addMajor">提交</el-button>
+                <el-button @click="addMajor"  type="primary">提交</el-button>
             </div>
             <el-dialog title="选择标签" :visible.sync="dialogTableVisible">
                <div class="dialog_menu">
@@ -337,14 +337,7 @@
                 if(self.SecretId != "" && self.SecretKey !="" ){
                     if(file){
                         self.cosjs(self.SecretId,self.SecretKey,file,self.XCosSecurityToken,self.expiredTime,function(img){
-                            var flength = "http://suishi-1256985330.cos.ap-guangzhou.myqcloud.com/".length;
-                            var llength = img.length;
-                            if(img.indexOf("http://suishi-1256985330.cos.ap-guangzhou.myqcloud.com") != (-1)){
-                            var nimg ="http://res.sui10.com/"+ img.slice(flength,llength);
-                                self.coverImg = nimg;
-                            }else{
-                                self.coverImg = img;
-                            }
+                            self.coverImg = img;
                         });
                     }
                 }
@@ -365,7 +358,7 @@
         overflow:hidden;
         margin-top:10px
         }
-    .textarea_type{
+    .el-textarea.textarea_type{
         width: 500px;
         }
     .type_title{

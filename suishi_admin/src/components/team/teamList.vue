@@ -1,6 +1,7 @@
 <template>
     <div id="teamList">
-        <div class="type_menu">
+        <p class="title_main">队伍列表</p>
+        <div class="view_main">
             <el-select v-model="typeValue" placeholder="所属圈子">
                 <el-option
                 v-for="item in isUseMenu"
@@ -33,67 +34,69 @@
             <el-button>搜索</el-button>
             <el-button>还原</el-button>
         </div>
-        <div class="view_main"><el-button class="add_btn" @click="LabelDialog(true)">新增</el-button></div>
-        <template>
-            <el-table
-            :data="teamList"
-            border
-            style="width: 100%">
-                <el-table-column
-                prop="id"
-                label="ID"
-                >
-                </el-table-column>
-                <el-table-column
-                prop="name"
-                label="队伍名称"
-                >
-                </el-table-column>
-                <el-table-column
-                prop="team_type_id"
-                label="类型"
-                >
-                    <template slot-scope="scope">
-                        <p v-html="teamTypeObj[scope.row.team_type_id]"></p>
-                    </template>
-                </el-table-column>
-                <el-table-column
-                prop="number"
-                label="人数"
-                >
-                </el-table-column>
-              <!--  <el-table-column
-                prop="name"
-                label="创建时间"
-                >
-                </el-table-column>-->
-                <el-table-column
-                prop="total_score"
-                label="得分"
-                >
-                </el-table-column>
-                <el-table-column
-                prop="status"
-                label="是否禁用"
-                >
-                </el-table-column>
-                <el-table-column
-                label="操作"
-                >
-                    <template slot-scope="scope">
-                        <el-button @click="editEvent(scope.row.id)" type="text" size="small">查看</el-button>
+        <div class="view_main"><el-button class="add_btn" type="primary" @click="LabelDialog(true)">新增队伍</el-button></div>
+        <div class="view_main">
+            <template>
+                <el-table
+                :data="teamList"
+                border
+                style="width: 100%">
+                    <el-table-column
+                    prop="id"
+                    label="ID"
+                    >
+                    </el-table-column>
+                    <el-table-column
+                    prop="name"
+                    label="队伍名称"
+                    >
+                    </el-table-column>
+                    <el-table-column
+                    prop="team_type_id"
+                    label="类型"
+                    >
+                        <template slot-scope="scope">
+                            <p v-html="teamTypeObj[scope.row.team_type_id]"></p>
+                        </template>
+                    </el-table-column>
+                    <el-table-column
+                    prop="number"
+                    label="人数"
+                    >
+                    </el-table-column>
+                  <!--  <el-table-column
+                    prop="name"
+                    label="创建时间"
+                    >
+                    </el-table-column>-->
+                    <el-table-column
+                    prop="total_score"
+                    label="得分"
+                    >
+                    </el-table-column>
+                    <el-table-column
+                    prop="status"
+                    label="是否禁用"
+                    >
+                    </el-table-column>
+                    <el-table-column
+                    label="操作"
+                    >
+                        <template slot-scope="scope">
+                            <el-button @click="editEvent(scope.row.id)" type="text" size="small">查看</el-button>
 
-                    </template>
-                </el-table-column>
-            </el-table>
-        </template>
+                        </template>
+                    </el-table-column>
+                </el-table>
+            </template>
+         </div>
         <el-dialog title="新增队伍" :visible.sync="dialogTableVisible" width="30%">
             <div class="view_main">
-                <span>队伍名称</span>
+                <span>队伍名称：</span>
                 <el-input v-model="teamName" class="input_type"></el-input>
             </div>
             <div class="view_main">
-                <span>队伍类型</span>
+                <span>队伍类型：</span>
                 <el-select v-model="teamTypeValue" placeholder="队伍类型">
                     <el-option
                     v-for="item in teamTypeData"
@@ -104,7 +107,7 @@
                 </el-select>
             </div>
             <div class="view_main">
-                <span>是否禁用</span>
+                <span>是否禁用：</span>
                 <el-select v-model="isStatus" placeholder="是否禁用">
                     <el-option
                     v-for="item in isUseMenu"
@@ -114,7 +117,7 @@
                     </el-option>
                 </el-select>
             </div>
-            <el-button @click="addTeamEvent">添加</el-button>
+            <div class="view_main"><el-button @click="addTeamEvent" type="primary">添加</el-button>  </div>
         </el-dialog>
         <div class="view_main page_main">
             <el-pagination

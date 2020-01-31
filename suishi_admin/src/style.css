@@ -95,3 +95,18 @@ ul li {
 .marginleft_20{
     margin-left:20px;
 }
+
+.bg_color_main{
+    width: 80%;
+    padding: 10px 0 10px 20px;
+    border-radius: 8px;
+    background: #dcdcdc;
+}
+
+
+.el-textarea.textarea_type{
+    width: 500px;
+}
+#addCourseware .el-progress-bar__outer{
+    background: #ffffff;
+}

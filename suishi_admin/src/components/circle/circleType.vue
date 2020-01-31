@@ -2,7 +2,7 @@
     <div id="circleType">
         <p class="title_main">圈子类型管理</p>
         <div class="view_main">
-            <el-button @click="LabelDialog(true)">新增</el-button>
+            <el-button @click="LabelDialog(true)"  type="primary">新增圈子类型</el-button>
         </div>
         <div class="view_main" v-if="circleData.length>0">
             <template>
@@ -35,22 +35,22 @@
         </div>
     <el-dialog title="新增圈子类型" :visible.sync="dialogTableVisible" width="30%">
         <div class="view_main">
-            <span>类型</span>
+            <span>类型：</span>
             <el-input v-model="circleName" class="input_type"></el-input>
         </div>
         <div class="view_main">
-            <span>简介</span>
+            <span>简介：</span>
             <el-input v-model="description" class="input_type"></el-input>
         </div>
-        <el-button @click="addCircle">添加</el-button>
+        <div class="view_main"><el-button @click="addCircle"  type="primary">添加</el-button></div>
     </el-dialog>
     <el-dialog title="编辑圈子类型" :visible.sync="editDialogTableVisible" width="30%">
         <div class="view_main">
-            <span>类型</span>
+            <span>类型：</span>
             <el-input v-model="eCircleName" class="input_type"></el-input>
         </div>
         <div class="view_main">
-            <span>简介</span>
+            <span>简介：</span>
             <!--<el-input v-model="eDescription" class="input_type"></el-input>-->
             <el-input
                     class="textarea_type2"
@@ -60,7 +60,7 @@
             v-model="eDescription">
         </el-input><span>最多300字</span>
         </div>
-        <el-button @click="editCircle">修改</el-button>
+        <div class="view_main"> <el-button @click="editCircle"  type="primary">修改</el-button></div>
     </el-dialog>
     <div class="view_main page_main">
         <el-pagination

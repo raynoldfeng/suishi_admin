@@ -20,14 +20,14 @@
                 :value="item.id">
                 </el-option>
             </el-select>-->
-            <span>所属课件</span>
+            <span>所属课件：</span>
             <div class="select-main"  @click.stop>
                 <el-input v-model="coursewaresSelect" placeholder="所属课件" @focus="displayChange(true)" @blur="blurEvent"  @keyup.native="searchEvent" class="input_type" />
                 <ul class="select-menu" v-show="mIsShow" >
                     <li v-for="item in coursewareData" v-text="item.name" @click="changeEvent(item.id,item.name)"></li>
                 </ul>
             </div>
-            <span>是否禁用</span>
+            <span>是否禁用：</span>
             <el-select v-model="isUse" placeholder="是否禁用">
                 <el-option
                 v-for="item in isUseMenu"
@@ -38,7 +38,7 @@
             </el-select>
         </div>
         <div class="view_main">
-            <span>测试问题</span>
+            <span>测试问题：</span>
             <el-input
             class="textarea_type"
             type="textarea"
@@ -49,7 +49,7 @@
         </div>
         <div class="view_main">
                <div>
-                   <span>图片</span>
+                   <span>图片：</span>
                    <input id="img-selector" type="file" accept = "image/*">
                        <el-button size="small" type="primary" @click="uploadEvent('img')">点击上传</el-button>
                        <p v-text="imgUrl"></p>
@@ -57,7 +57,7 @@
            </div>
             <div class="view_main">
             <div>
-                <span>视频</span>
+                <span>视频：</span>
                 <input id="video-selector" type="file" accept = "video/*">
                     <el-button size="small" type="primary" @click="uploadEvent('video')">点击上传</el-button>
                     <p v-text="videoUrl"></p>
@@ -65,7 +65,7 @@
 
         </div>
         <div  class="view_main">
-            <el-button @click="addAnswer">新增选项</el-button>
+            <el-button @click="addAnswer">新增选项：</el-button>
             <ul class="answerMenus">
                 <li v-for="(data,index) in answerMenu" >
                     <span>选项{{index+1}}</span>
@@ -76,7 +76,7 @@
 
         </div>
         <div  class="view_main">
-            <span>正确选项</span>
+            <span>正确选项：</span>
             <el-select v-model="answer" placeholder="正确选项">
                 <el-option
                 v-for="item in answerOptions"
@@ -87,7 +87,7 @@
             </el-select>
         </div>
         <div  class="view_main">
-            <span>答案注释</span>
+            <span>答案注释：</span>
             <el-input class="input_type" v-model="note"></el-input>
             <span>选填</span>
         </div>
@@ -317,6 +317,7 @@
                 if(self.SecretId != "" && self.SecretKey !="" ){
                     if(file){
                         self.cosjs(self.SecretId,self.SecretKey,file,self.XCosSecurityToken,self.expiredTime,function(video){
+
                             self.videoUrl = video;
                         });
                     }
@@ -330,9 +331,10 @@
                     //                console.log(file)
                     if(self.SecretId != "" && self.SecretKey !="" ){
                     if(file){
-                    self.cosjs(self.SecretId,self.SecretKey,file,self.XCosSecurityToken,self.expiredTime,function(img){
-                    self.imgUrl = img;
-                    });
+                        self.cosjs(self.SecretId,self.SecretKey,file,self.XCosSecurityToken,self.expiredTime,function(img){
+
+                            self.imgUrl = img;
+                        });
                     }
                     }
 

@@ -2,11 +2,11 @@
     <div id="addGame"  @click="displayChange(false)">
         <p class="title_main">新增圈子</p>
         <div class="view_main">
-            <span>圈子名称</span>
+            <span>圈子名称：</span>
             <el-input v-model="name" class="input_type"></el-input>
-            <span>排序</span>
+            <span>排序：</span>
             <el-input v-model="sort" class="input_type"></el-input>
-            <span>是否推荐</span>
+            <span>是否推荐：</span>
             <el-select v-model="is_recommend" placeholder="是否推荐">
                 <el-option
                         v-for="item in isUseMenu"
@@ -15,7 +15,7 @@
                 :value="item.value">
             </el-option>
         </el-select>
-            <span>是否禁用</span>
+            <span>是否禁用：</span>
             <el-select v-model="isUse" placeholder="是否禁用">
                 <el-option
                         v-for="item in isUseMenu"
@@ -26,7 +26,7 @@
            </el-select>
         </div>
         <div  class="view_main">
-            <span>简介</span>
+            <span>简介：</span>
             <el-input
                     class="textarea_type"
                     type="textarea"
@@ -45,7 +45,7 @@
                 :value="item.id">
                 </el-option>
             </el-select>-->
-            <span>圈子类型</span>
+            <span>圈子类型：</span>
             <div class="select-main"  @click.stop>
                 <el-input v-model="circleTypeIdSelect" placeholder="圈子类型" @focus="displayChange(true)" @blur="blurEvent"  @keyup.native="searchEvent" class="input_type" />
                 <ul class="select-menu" v-show="mIsShow" >
@@ -54,7 +54,7 @@
             </div>
         </div>
         <div class="view_main">
-            <span>标签</span>
+            <span>标签：</span>
             <el-tag  v-if="tags.length > 0"
             v-for="tag in tags"
             :key="tag.name"
@@ -62,10 +62,10 @@
             :id="tag.id" @close="handleClose(tag)">
                 {{tag.name}}
             </el-tag>
-            <el-button @click="LabelDialog(true)">添加</el-button>
+            <el-button @click="LabelDialog(true)"  type="primary">添加</el-button>
         </div>
         <div class="view_main">
-            <p>封面图</p>
+            <p>封面图：</p>
             <input id="file-selector" type="file">
                 <div class="avatar-uploader" @click="uploadImg">
                     <img v-if="coverImg" :src="coverImg" class="avatar">
@@ -74,7 +74,7 @@
         </div>
 
             <div class="view_main">
-                <el-button @click="addCircle">提交</el-button>
+                <el-button @click="addCircle"  type="primary">提交</el-button>
             </div>
             <el-dialog title="选择标签" :visible.sync="dialogTableVisible">
                 <div class="dialog_menu">
@@ -362,15 +362,7 @@
                             if(file){
                                 self.cosjs(self.SecretId,self.SecretKey,file,self.XCosSecurityToken,self.expiredTime,function(img){
                                     setTimeout(function(){
-                                        var flength = "http://suishi-1256985330.cos.ap-guangzhou.myqcloud.com/".length;
-                                        var llength = img.length;
-                                        if(img.indexOf("http://suishi-1256985330.cos.ap-guangzhou.myqcloud.com") != (-1)){
-                                            var nimg ="http://res.sui10.com/"+ img.slice(flength,llength);
-                                            self.coverImg = nimg;
-                                        }else{
                                             self.coverImg = img;
-                                        }
-
                                     },1000);
 
                                 });

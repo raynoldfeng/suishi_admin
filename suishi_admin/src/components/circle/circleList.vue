@@ -1,6 +1,7 @@
 <template>
     <div id="circleList">
-        <div class="type_menu">
+        <p class="title_main">圈子列表</p>
+        <div class="view_main">
             <el-select v-model="typeValue" placeholder="所属圈子">
                 <el-option
                 v-for="item in optionsType"
@@ -33,7 +34,8 @@
             <el-button>搜索</el-button>
             <el-button>还原</el-button>
         </div>
-        <div class="view_main"><el-button class="add_btn" @click="addEvent">新增</el-button></div>
+        <div class="view_main"><el-button class="add_btn" @click="addEvent" type="primary">新增圈子</el-button></div>
+        <div class="view_main">
         <template v-if="circleListData.length>0">
             <el-table
             :data="circleListData"
@@ -89,6 +91,7 @@
                 </el-table-column>
             </el-table>
         </template>
+        </div>
         <div class="view_main page_main">
             <el-pagination
             background

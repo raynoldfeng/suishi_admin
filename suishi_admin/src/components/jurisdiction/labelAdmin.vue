@@ -185,7 +185,7 @@
     .sub_main{
         margin-left:60px;
     }
-    .name_input{
+    .el-input.name_input{
         width:200px;
     }
     .table_main{

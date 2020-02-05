@@ -1,6 +1,6 @@
 <template>
     <div id="QuestMain" >
-        <div id="QuestBox" class="judgebox" >
+        <div id="QuestBox" class="judgebox">
             <p class="quest-text" id="lodingtext"   v-show="data.judgeTitle==''">loding</p>
             <p class="quest-text" id="judgeTitle" v-text="data.judgeTitle" v-show="data.judgeTitle!=''"></p>
             <p class="common-info" v-if="data.judgeInfo !='' " v-text="data.judgeInfo"></p>
@@ -56,11 +56,13 @@ export default {
             $(".nextbtn_ab").hide();
             $(".anwer-menu").html("");
             this.indexQ = 0;
-            this.data =  window.edit[nowPage];
+            this.data =  window.edit.data[nowPage];
            // this.$emit("isReset",false);
         }
     },
     mounted:function(){
+    console.log(111111);
+    console.log(this.data);
         this.initData();
         $(".nextbtn_ab").css({"margin-left": "-"+ (parseInt($(".nextbtn_ab").css("padding-left")) + $(".nextbtn_ab").width()/2)+"px"})
     },
@@ -85,14 +87,14 @@ export default {
 //                    console.log("aaaaaaaaa",self.indexQ);
 //                    console.log("ffffffffffffffffffffffffffffffffff"+self.data.judgeMenu[self.indexQ].judgeAnswerText)
                     if(now >= all-1){
-                        $("#noteText p").html(self.Trim(window.edit[nowPage].judgeMenu[window.jpage].judgeAnswerText));
+                        $("#noteText p").html(self.Trim(window.edit.data[nowPage].judgeMenu[window.jpage].judgeAnswerText));
                       $(".judgebtn").hide();
                         $(".true-k").hide();
                         $(".false-k").hide();
                         if(self.data.judgeBtn != ''){
                             $(".nextbtn_ab").show();
                         }
-                        if(window.edit[nowPage].judgeMenu[window.jpage].judgeAnswerText !=""){
+                        if(window.edit.data[nowPage].judgeMenu[window.jpage].judgeAnswerText !=""){
                             $("#noteWin").show().addClass("noteWin-play");
                             $("#noteText").css("bottom","-"+$("#noteText").height());
                             $("#noteText").show().addClass("noteText-play");
@@ -100,23 +102,23 @@ export default {
                     }else{
                         window.jpage++;
                         self.indexQ =  window.jpage;
-                        $("#noteText p").html(self.Trim(window.edit[nowPage].judgeMenu[window.jpage-1].judgeAnswerText));
-                        if(window.edit[nowPage].judgeMenu[window.jpage-1].judgeAnswerText !=""){
+                        $("#noteText p").html(self.Trim(window.edit.data[nowPage].judgeMenu[window.jpage-1].judgeAnswerText));
+                        if(window.edit.data[nowPage].judgeMenu[window.jpage-1].judgeAnswerText !=""){
                             $("#noteWin").show().addClass("noteWin-play");
                             $("#noteText").css("bottom","-"+$("#noteText").height());
                             $("#noteText").show().addClass("noteText-play");
                         }
                     }
 
-                    $(".judgebtn").html(self.Trim(window.edit[nowPage].judgeMenu[window.jpage].judgeText));
-                    $(".judgebtn").attr("attr",self.Trim(window.edit[nowPage].judgeMenu[window.jpage].judgeAnswerText));
+                    $(".judgebtn").html(self.Trim(window.edit.data[nowPage].judgeMenu[window.jpage].judgeText));
+                    $(".judgebtn").attr("attr",self.Trim(window.edit.data[nowPage].judgeMenu[window.jpage].judgeAnswerText));
                 }
 
             });
         },
         touchStatus(){
 
-            var a = window.edit[nowPage].judgeMenu[window.jpage].judgeAnswer;
+            var a = window.edit.data[nowPage].judgeMenu[window.jpage].judgeAnswer;
             if(a == '0'){
                 $(".kuang").removeClass("yes");
                 $(".false-k").addClass("yes");

@@ -15,7 +15,7 @@ ul li {
 .input_type{
     width:200px;
 }
-#file-selector,#img-selector,#video-selector,#file-selectorH5,#file-selectorvideo{
+#file-selector,#img-selector,#video-selector,#file-selectorH5,#file-selectorvideo,#taskfile-selector,#editfile-selector{
     display: none;
 }
 .avatar-uploader{
@@ -109,4 +109,8 @@ ul li {
 }
 #addCourseware .el-progress-bar__outer{
     background: #ffffff;
+}
+
+.type_title{
+    float: left;
 }

@@ -91,15 +91,22 @@
                 label="任务名称"
                 >
                 </el-table-column>
-              <!--  <el-table-column
-                prop="finish_date"
-                label="发布日期"
+                <el-table-column
+                prop="desc"
+                label="任务描述"
                 >
-                </el-table-column>-->
+                </el-table-column>
+                <el-table-column
+                        label="任务图片">
+                    <template slot-scope="scope">
+                        <img class="task_imgs" :src="scope.row.image" />
+                    </template>
+                </el-table-column>
                 <el-table-column
                 prop="finish_date"
                 label="完成日期"
                 >
+
                 </el-table-column>
               <!--  <el-table-column
                 prop="name"
@@ -120,6 +127,14 @@
                     prop="assignment_url"
                     label="作业地址"
                     >
+            </el-table-column>
+            <el-table-column
+                    label="是否提交作业"
+                    >
+                <template slot-scope="scope">
+                    <p v-if="scope.row.status == 2">是</p>
+                    <p v-else>否</p>
+                </template>
             </el-table-column>
                 <el-table-column
                 label="操作"
@@ -165,10 +180,10 @@
                 <span>任务名称</span>
                 <el-input v-model="taskName" class="input_type"></el-input>
             </div>
-            <div class="view_main">
-                <span>分数</span>
-                <el-input  class="input_type" v-model="taskScore" />
-            </div>
+            <!--<div class="view_main">-->
+                <!--<span>分数</span>-->
+                <!--<el-input  class="input_type" v-model="taskScore" />-->
+            <!--</div>-->
             <div class="view_main">
                 <span>是否禁用</span>
                 <el-select v-model="taskStatus" placeholder="是否禁用">
@@ -180,6 +195,14 @@
                     </el-option>
                 </el-select>
             </div>
+            <div class="view_main" style="overflow: hidden">
+                <span class="type_title">任务封面</span>
+                <input id="taskfile-selector"  type="file" >
+                <div class="avatar-uploader" @click="uploadImg">
+                <img v-if="taskcoverImg" :src="taskcoverImg" class="avatar">
+                <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+            </div>
+        </div>
             <div class="view_main">
                 <span>任务地址</span>
                 <el-input  class="input_type" v-model="task_url" />
@@ -208,9 +231,29 @@
                 <span>任务名称</span>
                 <el-input v-model="taskDataSingle.taskName" class="input_type"></el-input>
             </div>
-            <div class="view_main">
-                <span>分数</span>
+            <div class="view_main" v-if="taskDataSingle.status == 2">
+                <span>打分</span>
                 <el-input  class="input_type" v-model="taskDataSingle.taskScore" />
+            </div>
+            <div class="view_main" v-if="taskDataSingle.status == 2">
+                <span>评价</span>
+                <el-input  class="input_type" v-model="taskDataSingle.desc" />
+            </div>
+            <div class="view_main" v-if="taskDataSingle.status == 2">
+                <span>完成时间</span>
+                <el-date-picker
+                        v-model="taskDataSingle.finish_date"
+                        type="datetime"
+                        placeholder="选择日期时间">
+                </el-date-picker>
+            </div>
+            <div class="view_main" style="overflow: hidden">
+                    <span class="type_title">任务封面</span>
+                    <input id="editfile-selector"  type="file" >
+                 <div class="avatar-uploader" @click="editUploadImg">
+                    <img v-if="taskDataSingle.image" :src="taskDataSingle.image" class="avatar" />
+                    <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+                </div>
             </div>
             <div class="view_main">
                 <span>任务地址</span>
@@ -286,7 +329,7 @@
                     name:"队长"
                 }],
                 roleValue:"",
-                taskScore:"",
+                taskScore:"0",
                 assignment_url:"",
                 task_url:"",
                 taskStatus:"0",
@@ -308,7 +351,11 @@
                     taskStatus:"0",
                     team_id:"",
                     assignment_url:"",
-                    task_url:""
+                    status:"",
+                    finish_date:"",
+                    desc:"",
+                    task_url:"",
+                    image:""
                 },
                 userDataSingle:{
                     team_id:"",
@@ -320,7 +367,10 @@
                 },
                 nickSelect:"",
                 saveNickSelect:"",
-                mIsShow:false
+                mIsShow:false,
+                taskcoverImg:"",
+                istaskImgUploadInit:false,
+                iseditImgUploadInit:false
             }
         },
         methods:{
@@ -336,6 +386,20 @@
                     this.editTeamInfoVisible = boolean
                 }
 
+            },
+            uploadImg(){
+                document.getElementById('taskfile-selector').click();
+                if(this.istaskImgUploadInit == false){
+                    this.istaskImgUploadInit == true;
+                    this.taskImgUploadInit();
+                }
+            },
+            editUploadImg(){
+                document.getElementById('editfile-selector').click();
+                if(this.iseditImgUploadInit == false){
+                    this.iseditImgUploadInit == true;
+                    this.editImgUploadInit();
+                }
             },
 //            addTeams(){
 //                var self = this;
@@ -405,6 +469,7 @@
                 var self = this;
                 if(this.isedits()){
                     this.common.getEventToken(this.api.host+this.api.taskList+this.$route.query.id,{},this.userinfo,function(data){
+                        console.log(3)
                         console.log(data);
                         self.taskData = data.data;
                     })
@@ -470,6 +535,9 @@
                     self.taskDataSingle.team_id = data.team_id;
                     self.taskDataSingle.assignment_url = data.assignment_url;
                     self.taskDataSingle.task_url = data.task_url;
+                    self.taskDataSingle.desc = data.desc;
+                    self.taskDataSingle.finish_date = data.finish_date;
+                    self.taskDataSingle.image = data.image;
                 })
             },
             editTaskEvent(){
@@ -482,9 +550,16 @@
                     alert("输入分数");
                     return;
                 }
-                this.common.putEventToken(this.api.host+this.api.addTask+"/"+ self.taskDataSingle.taskId,{"team_id":this.taskDataSingle.team_id, "name":this.taskDataSingle.taskName,
-                    "score":this.taskDataSingle.taskScore,  "status":this.taskDataSingle.taskStatus,"assignment_url":this.taskDataSingle.assignment_url
-                    ,"task_url":this.taskDataSingle.task_url},this.userinfo,function(data){
+                this.common.putEventToken(this.api.host+this.api.addTask+"/"+ self.taskDataSingle.taskId,
+                        {"team_id":this.taskDataSingle.team_id,
+                            "name":this.taskDataSingle.taskName,
+                                "score":this.taskDataSingle.taskScore,
+                            "finish_date":this.taskDataSingle.finish_date,
+                            "desc":this.taskDataSingle.desc,
+                            "status":this.taskDataSingle.taskStatus,
+                            "image":this.taskDataSingle.image,
+                            "assignment_url":this.taskDataSingle.assignment_url,
+                            "task_url":this.taskDataSingle.task_url},this.userinfo,function(data){
                     console.log(data);
                     self.taskList();
                 })
@@ -537,6 +612,51 @@
             displayChange(boolean){
                 this.mIsShow = boolean;
             },
+            taskImgUploadInit(){
+                var self= this;
+                document.getElementById('taskfile-selector').onchange = function () {
+                    var file = this.files[0];
+                    if (!file) return;
+        //                console.log(file.name);
+        //                console.log(file)
+                    if(self.SecretId != "" && self.SecretKey !="" ){
+                        if(file){
+                            self.cosjs(self.SecretId,self.SecretKey,file,self.XCosSecurityToken,self.expiredTime,function(img){
+                                self.taskcoverImg = img;
+                            });
+                        }
+                    }
+
+                };
+            },
+            editImgUploadInit(){
+                var self= this;
+                document.getElementById('editfile-selector').onchange = function () {
+                    var file = this.files[0];
+                    if (!file) return;
+                    //                console.log(file.name);
+                    //                console.log(file)
+                    if(self.SecretId != "" && self.SecretKey !="" ){
+                        if(file){
+                            self.cosjs(self.SecretId,self.SecretKey,file,self.XCosSecurityToken,self.expiredTime,function(img){
+                                self.taskDataSingle.image = img;
+                            });
+                        }
+                    }
+
+                };
+            },
+            getUpLoadKey(){
+                var self =this;
+                this.common.getEventToken(this.api.host+this.api.cosToken,{},this.userinfo,function(data){
+                    console.log(data);
+                    self.SecretId = data.credentials.tmpSecretId;
+                    self.SecretKey = data.credentials.tmpSecretKey;
+                    self.XCosSecurityToken = data.credentials.sessionToken;
+                    self.expiredTime = data.expiredTime;
+                })
+
+            }
         },
         watch:{
             teamTypeId(){
@@ -552,12 +672,15 @@
             }
         },
         mounted:function(){
+            var self = this;
             this.userinfo = {"token":this.common.cookie.get("token"),"user_id":this.common.cookie.get("user_id")};
             this.userList("");
             this.teamTypeList();
             this.getTeamList();
             this.accountList();
             this.taskList();
+            this.getUpLoadKey();
+
 
         }
     }
@@ -583,5 +706,12 @@
     }
 .page_main{
     text-align:center;
+    }
+.task_imgs{
+    width: 100%;;
+}
+    .avatar-uploader img{
+        width: 178px;
+        height: 178px;
     }
 </style>

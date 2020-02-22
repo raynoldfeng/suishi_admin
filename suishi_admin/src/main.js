@@ -33,10 +33,10 @@ var cosjs = function newCos(SecretId,SecretKey,file,XCosSecurityToken,expiredTim
     cos.putObject({
         Bucket: "suishi-1256985330",
         Region: "ap-guangzhou",
-        Key: newdate+file.name,
+        Key: "admin/"+date.getFullYear()+(date.getMonth()+1)+date.getDate()+"/"+newdate+file.name,
         Body: file
     }, function (err, data) {
-        console.log(data.headers);
+
 
     });
     cos.getObjectUrl({
@@ -46,11 +46,11 @@ var cosjs = function newCos(SecretId,SecretKey,file,XCosSecurityToken,expiredTim
         Sign: false
     }, function (err, data) {
         console.log(err || data.Url);
-
         var flength = "http://suishi-1256985330.cos.ap-guangzhou.myqcloud.com/".length;
         var llength = data.Url.length;
         if(data.Url.indexOf("http://suishi-1256985330.cos.ap-guangzhou.myqcloud.com") != (-1)){
-            var nimg ="http://res.sui10.com/"+ data.Url.slice(flength,llength);
+            console.log("http://suishi-1256985330.cos.ap-guangzhou.myqcloud.com"+"/admin/"+date.getFullYear()+(date.getMonth()+1)+date.getDate()+"/"+ data.Url.slice(flength,llength))
+            var nimg ="http://res.sui10.com/"+"admin/"+date.getFullYear()+(date.getMonth()+1)+date.getDate()+"/"+ data.Url.slice(flength,llength);
             callback(nimg);
         }else{
             callback(data.Url);
@@ -81,7 +81,7 @@ var cosjsFile = function newCos(SecretId,SecretKey,fileurl,file,XCosSecurityToke
     cos.putObject({
         Bucket: "suishi-1256985330",
         Region: "ap-guangzhou",
-        Key: fileurl+newdate+file.name,
+        Key: "admin/"+fileurl+newdate+file.name,
         Body: file
     }, function (err, data) {
         console.log(data.headers);
@@ -145,7 +145,7 @@ var cosjsFile2 = function newCos(SecretId,SecretKey,fileurl,file,XCosSecurityTok
         files: [{
             Bucket: 'suishi-1256985330', /* 必须 */
             Region: 'ap-guangzhou',    /* 必须 */
-            Key: fileurl+newdate+file.webkitRelativePath,
+            Key: "admin/"+fileurl+newdate+file.webkitRelativePath,
             Body: file,
         }],
         SliceSize: 1024 * 1024,

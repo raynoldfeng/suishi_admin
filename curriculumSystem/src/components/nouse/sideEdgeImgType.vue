@@ -83,7 +83,7 @@ export default {
             if(self.SecretId != "" && self.SecretKey !="" ){
                 if(file){
                     self.cosjsFile3(self.SecretId,self.SecretKey,file,self.XCosSecurityToken,self.expiredTime,function(img){
-                        self.nowData.sideEdgeImg ="https://suishi-1256985330.cos.ap-guangzhou.myqcloud.com/" + img;
+                        self.nowData.sideEdgeImg =img;
                     });
                 }
             }

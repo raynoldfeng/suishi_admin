@@ -113,7 +113,7 @@ v-model="data.judgeAnswerText">
                     if(self.SecretId != "" && self.SecretKey !="" ){
                         if(file){
                             self.cosjsFile3(self.SecretId,self.SecretKey,file,self.XCosSecurityToken,self.expiredTime,function(img){
-                                self.nowData.judgeTrueImg ="https://suishi-1256985330.cos.ap-guangzhou.myqcloud.com/" + img;
+                                self.nowData.judgeTrueImg = img;
                             });
                         }
                     }
@@ -124,7 +124,7 @@ v-model="data.judgeAnswerText">
                     if(self.SecretId != "" && self.SecretKey !="" ){
                         if(file){
                             self.cosjsFile3(self.SecretId,self.SecretKey,file,self.XCosSecurityToken,self.expiredTime,function(img){
-                                self.nowData.judgeFalseImg ="https://suishi-1256985330.cos.ap-guangzhou.myqcloud.com/" + img;
+                                self.nowData.judgeFalseImg = img;
                             });
                         }
                     }

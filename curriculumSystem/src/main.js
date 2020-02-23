@@ -195,7 +195,8 @@ console.log(file)
                 alert("上传失败")
             }
             console.log(err);
-            callback(options.Key);
+            var files =  "http://res.sui10.com/" + options.Key
+            callback(files);
         },
     }, function (err, data) {
         console.log(err || data);

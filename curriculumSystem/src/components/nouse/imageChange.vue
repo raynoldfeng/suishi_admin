@@ -154,7 +154,7 @@
                 if(self.SecretId != "" && self.SecretKey !="" ){
                     if(file){
                         self.cosjsFile3(self.SecretId,self.SecretKey,file,self.XCosSecurityToken,self.expiredTime,function(img){
-                            self.nowData.imageChange[self.selectImgIndex].img ="https://suishi-1256985330.cos.ap-guangzhou.myqcloud.com/" + img;
+                            self.nowData.imageChange[self.selectImgIndex].img =img;
                         });
                     }
                 }

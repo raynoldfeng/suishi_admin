@@ -127,7 +127,7 @@ export default{
             if(self.SecretId != "" && self.SecretKey !="" ){
                 if(file){
                     self.cosjsFile3(self.SecretId,self.SecretKey,file,self.XCosSecurityToken,self.expiredTime,function(img){
-                        self.nowData.selectQMenu[self.selectImgIndex].selectImg ="https://suishi-1256985330.cos.ap-guangzhou.myqcloud.com/" + img;
+                        self.nowData.selectQMenu[self.selectImgIndex].selectImg = img;
                     });
                 }
             }
@@ -138,7 +138,7 @@ export default{
             if(self.SecretId != "" && self.SecretKey !="" ){
                 if(file){
                     self.cosjsFile3(self.SecretId,self.SecretKey,file,self.XCosSecurityToken,self.expiredTime,function(img){
-                        self.nowData.selectQMenu[self.selectImgIndex].selectImgBig ="https://suishi-1256985330.cos.ap-guangzhou.myqcloud.com/" + img;
+                        self.nowData.selectQMenu[self.selectImgIndex].selectImgBig = img;
                     });
                 }
             }

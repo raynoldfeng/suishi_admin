@@ -80,7 +80,7 @@ v-model="nowData.courseInfo">
                     if(self.SecretId != "" && self.SecretKey !="" ){
                         if(file){
                             self.cosjsFile3(self.SecretId,self.SecretKey,file,self.XCosSecurityToken,self.expiredTime,function(img){
-                                self.nowData.courseImg ="https://suishi-1256985330.cos.ap-guangzhou.myqcloud.com/" + img;
+                                self.nowData.courseImg = img;
                             });
                         }
                     }
@@ -91,7 +91,7 @@ v-model="nowData.courseInfo">
                     if(self.SecretId != "" && self.SecretKey !="" ){
                         if(file){
                             self.cosjsFile3(self.SecretId,self.SecretKey,file,self.XCosSecurityToken,self.expiredTime,function(img){
-                                self.nowData.authorImg ="https://suishi-1256985330.cos.ap-guangzhou.myqcloud.com/" + img;
+                                self.nowData.authorImg = img;
                             });
                         }
                     }

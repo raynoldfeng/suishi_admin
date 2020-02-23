@@ -13,6 +13,13 @@ const fileSaver = require("./common/FileSaver.js");
 //require("./common/FileSaver.js");
 
 Vue.config.productionTip = false
+var date = new Date();
+var key;
+if(document.location.host=="admin.sui10.com"){
+    key = "admin/prod/"
+}else{
+    key = "admin/test/"
+}
 
 var cosjs = function newCos(SecretId,SecretKey,file,XCosSecurityToken,expiredTime,callback ){
 //    console.log(2545454);
@@ -29,11 +36,11 @@ var cosjs = function newCos(SecretId,SecretKey,file,XCosSecurityToken,expiredTim
 //    }, function (err, data) {
 //        console.log(err, data);
 //    });
-
+    var newdate = ""+date.getFullYear()+date.getMonth()+date.getDate()+date.getHours()+date.getMinutes()+date.getSeconds();
     cos.putObject({
         Bucket: "suishi-1256985330",
         Region: "ap-guangzhou",
-        Key: file.name,
+        Key: key+date.getFullYear()+(date.getMonth()+1)+date.getDate()+"/"+newdate+file.name,
         Body: file
     }, function (err, data) {
         console.log(data.headers);
@@ -42,11 +49,19 @@ var cosjs = function newCos(SecretId,SecretKey,file,XCosSecurityToken,expiredTim
     cos.getObjectUrl({
         Bucket: "suishi-1256985330",
         Region: "ap-guangzhou",
-        Key: file.name,
+        Key: key+date.getFullYear()+(date.getMonth()+1)+date.getDate()+"/"+newdate+file.name,
         Sign: false
     }, function (err, data) {
         console.log(err || data.Url);
-        callback(data.Url);
+        var flength = "http://suishi-1256985330.cos.ap-guangzhou.myqcloud.com/".length;
+        var llength = data.Url.length;
+        if(data.Url.indexOf("http://suishi-1256985330.cos.ap-guangzhou.myqcloud.com") != (-1)){
+//            var nimg ="http://res.sui10.com/"+key+date.getFullYear()+(date.getMonth()+1)+date.getDate()+"/"+ data.Url.slice(flength,llength);
+            var nimg ="http://res.sui10.com/"+ data.Url.slice(flength,llength);
+            callback(nimg);
+        }else{
+            callback(data.Url);
+        }
     });
 
 };
@@ -67,11 +82,11 @@ var cosjsFile = function newCos(SecretId,SecretKey,fileurl,file,XCosSecurityToke
 //    }, function (err, data) {
 //        console.log(err, data);
 //    });
-
+    var newdate = ""+date.getFullYear()+date.getMonth()+date.getDate()+date.getHours()+date.getMinutes()+date.getSeconds();
     cos.putObject({
         Bucket: "suishi-1256985330",
         Region: "ap-guangzhou",
-        Key: fileurl+file.name,
+        Key: key+fileurl+newdate+file.name,
         Body: file
     }, function (err, data) {
         console.log(data.headers);
@@ -80,7 +95,7 @@ var cosjsFile = function newCos(SecretId,SecretKey,fileurl,file,XCosSecurityToke
     cos.getObjectUrl({
         Bucket: "suishi-1256985330",
         Region: "ap-guangzhou",
-        Key: fileurl+file.name,
+        Key: key+fileurl+newdate+file.name,
         Sign: false
     }, function (err, data) {
         console.log(err || data.Url);
@@ -98,6 +113,7 @@ var cosjsFile2 = function newCos(SecretId,SecretKey,fileurl,file,XCosSecurityTok
 //    console.log(file);
 //    console.log(file.name);
     var cos = new COS({ SecretId: SecretId,SecretKey: SecretKey,XCosSecurityToken:XCosSecurityToken,expiredTime:expiredTime});
+    var newdate = ""+date.getFullYear()+date.getMonth()+date.getDate()+date.getHours()+date.getMinutes()+date.getSeconds();
 //    cos.sliceUploadFile({
 //        Bucket: "suishi-1256985330",
 //        Region: "ap-guangzhou",
@@ -135,7 +151,7 @@ var cosjsFile2 = function newCos(SecretId,SecretKey,fileurl,file,XCosSecurityTok
         files: [{
             Bucket: 'suishi-1256985330', /* 必须 */
             Region: 'ap-guangzhou',    /* 必须 */
-            Key: fileurl+file.webkitRelativePath,
+            Key: key+fileurl+newdate+file.webkitRelativePath,
             Body: file,
         }],
         SliceSize: 1024 * 1024,
@@ -164,7 +180,7 @@ console.log(file)
         files: [{
             Bucket: 'suishi-1256985330', /* 必须 */
             Region: 'ap-guangzhou',    /* 必须 */
-            Key: fileurl+file.webkitRelativePath,
+            Key: key+fileurl+file.webkitRelativePath,
             Body: file,
         }],
         SliceSize: 1024 * 1024,

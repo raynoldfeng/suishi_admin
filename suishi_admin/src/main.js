@@ -12,6 +12,12 @@ const api = require("./common/api.js");
 require("./common/cos-js-sdk-v5.js");
 
 var date = new Date();
+var key;
+if(document.location.host=="admin.sui10.com"){
+    key = "admin/prod/"
+}else{
+    key = "admin/test/"
+}
 var cosjs = function newCos(SecretId,SecretKey,file,XCosSecurityToken,expiredTime,callback ){
 //    console.log(2545454);
 //    console.log(SecretId);
@@ -33,7 +39,7 @@ var cosjs = function newCos(SecretId,SecretKey,file,XCosSecurityToken,expiredTim
     cos.putObject({
         Bucket: "suishi-1256985330",
         Region: "ap-guangzhou",
-        Key: "admin/"+date.getFullYear()+(date.getMonth()+1)+date.getDate()+"/"+newdate+file.name,
+        Key: key+date.getFullYear()+(date.getMonth()+1)+date.getDate()+"/"+newdate+file.name,
         Body: file
     }, function (err, data) {
 
@@ -42,15 +48,15 @@ var cosjs = function newCos(SecretId,SecretKey,file,XCosSecurityToken,expiredTim
     cos.getObjectUrl({
         Bucket: "suishi-1256985330",
         Region: "ap-guangzhou",
-        Key: newdate+file.name,
+        Key: key+date.getFullYear()+(date.getMonth()+1)+date.getDate()+"/"+newdate+file.name,
         Sign: false
     }, function (err, data) {
         console.log(err || data.Url);
         var flength = "http://suishi-1256985330.cos.ap-guangzhou.myqcloud.com/".length;
         var llength = data.Url.length;
         if(data.Url.indexOf("http://suishi-1256985330.cos.ap-guangzhou.myqcloud.com") != (-1)){
-            console.log("http://suishi-1256985330.cos.ap-guangzhou.myqcloud.com"+"/admin/"+date.getFullYear()+(date.getMonth()+1)+date.getDate()+"/"+ data.Url.slice(flength,llength))
-            var nimg ="http://res.sui10.com/"+"admin/"+date.getFullYear()+(date.getMonth()+1)+date.getDate()+"/"+ data.Url.slice(flength,llength);
+//            var nimg ="http://res.sui10.com/"+key+date.getFullYear()+(date.getMonth()+1)+date.getDate()+"/"+ data.Url.slice(flength,llength);
+            var nimg ="http://res.sui10.com/"+ data.Url.slice(flength,llength);
             callback(nimg);
         }else{
             callback(data.Url);
@@ -81,7 +87,7 @@ var cosjsFile = function newCos(SecretId,SecretKey,fileurl,file,XCosSecurityToke
     cos.putObject({
         Bucket: "suishi-1256985330",
         Region: "ap-guangzhou",
-        Key: "admin/"+fileurl+newdate+file.name,
+        Key: key+fileurl+newdate+file.name,
         Body: file
     }, function (err, data) {
         console.log(data.headers);
@@ -145,7 +151,7 @@ var cosjsFile2 = function newCos(SecretId,SecretKey,fileurl,file,XCosSecurityTok
         files: [{
             Bucket: 'suishi-1256985330', /* 必须 */
             Region: 'ap-guangzhou',    /* 必须 */
-            Key: "admin/"+fileurl+newdate+file.webkitRelativePath,
+            Key: key+fileurl+newdate+file.webkitRelativePath,
             Body: file,
         }],
         SliceSize: 1024 * 1024,

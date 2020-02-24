@@ -592,6 +592,7 @@
                 var self = this;
                 this.$confirm('确认删除队友？')
                         .then(_ => {
+                    console.log(this.api.host+this.api.account+"/"+account)
                         this.common.deleteEventToken(this.api.host+this.api.account+"/"+account,{},this.userinfo,function(data){
                             self.accountList();
                         })

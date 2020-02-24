@@ -5,6 +5,7 @@ import axios from 'axios'
 import VueAxios from 'vue-axios'
 import router from '../router'
 export const common={
+
     cookie: {
         get: function (name) { // 获取
             var arr = document.cookie.match(new RegExp('(^| )' + name + '=([^;]*)(;|$)'));
@@ -197,6 +198,9 @@ deleteEventToken(url,data,userinfo,callback){
 }).catch((err)=>{
     console.log(err);
 })
+},
+ellipsisEvent(text){
+    return text.length>15 ? text.slice(0,15)+"..." :text;
 }
 
 }

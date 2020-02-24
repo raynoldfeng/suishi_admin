@@ -64,14 +64,14 @@
                     label="所属圈子"
                     >-->
                     </el-table-column>
-                    <el-table-column
-                    prop="content"
-                    label="内容"
-                    >
-                        <template slot-scope="scope">
-                            <p v-text="ellipsisEvent(scope.row.content)"></p>
-                        </template>
-                    </el-table-column>
+                    <!--<el-table-column-->
+                    <!--prop="content"-->
+                    <!--label="内容"-->
+                    <!-->-->
+                        <!--<template slot-scope="scope">-->
+                            <!--<p v-text="ellipsisEvent(scope.row.content)"></p>-->
+                        <!--</template>-->
+                    <!--</el-table-column>-->
                     <el-table-column
                     label="是否有图"
                     >
@@ -82,16 +82,16 @@
                             <el-button type="text" size="small">删除</el-button>-->
                         </template>
                     </el-table-column>
-                    <el-table-column
-                    prop="like"
-                    label="点赞数"
-                    >
-                    </el-table-column>
-                    <el-table-column
-                    prop="reply"
-                    label="评论数"
-                    >
-                    </el-table-column>
+                    <!--<el-table-column-->
+                    <!--prop="like"-->
+                    <!--label="点赞数"-->
+                    <!-->-->
+                    <!--</el-table-column>-->
+                    <!--<el-table-column-->
+                    <!--prop="reply"-->
+                    <!--label="评论数"-->
+                    <!-->-->
+                    <!--</el-table-column>-->
                     <el-table-column
                     label="操作"
                     >

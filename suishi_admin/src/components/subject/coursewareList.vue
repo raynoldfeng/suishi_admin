@@ -161,13 +161,17 @@ export default
         },
         deleteEvent(id){
             var self = this;
-            this.common.deleteEventToken(this.api.host+this.api.lesson+"/"+id,{},this.userinfo,(data)=>{
-                self.$message({
-                    type: 'success',
-                    message: '删除成功!'
-                });
-                     self.courseList();
+            this.$confirm('确认删除课件？')
+                    .then(_ => {
+                this.common.deleteEventToken(this.api.host+this.api.lesson+"/"+id,{},this.userinfo,(data)=>{
+                    self.$message({
+                            type: 'success',
+                            message: '删除成功!'
+                        });
+                    self.courseList();
                 })
+            }).catch(_ => {});
+
         },
         searchEvent(){
             var self = this;

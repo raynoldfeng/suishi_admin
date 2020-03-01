@@ -103,7 +103,8 @@ title="提示"
                     this.common.deleteEventToken(this.api.host+this.api.user+"/"+this.nowId,{},this.userinfo,function(data){
                         alert("注销成功");
                         self.nowId = "";
-                        self.userList();
+                        self.dialogVisible = false;
+                         self.userList();
                     })
                 }
 

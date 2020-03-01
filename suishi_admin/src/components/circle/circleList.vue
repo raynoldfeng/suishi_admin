@@ -163,13 +163,17 @@ export default
         },
         deleteEvent(id){
             var self = this;
-            this.common.deleteEventToken(this.api.host+this.api.category+"/"+id,{},this.userinfo,(data)=>{
-                self.$message({
-                    type: 'success',
-                    message: '删除成功!'
-                });
-                self.getCircleList();
-            })
+            this.$confirm('确认删除圈子？')
+                    .then(_ => {
+                    this.common.deleteEventToken(this.api.host+this.api.category+"/"+id,{},this.userinfo,(data)=>{
+                    self.$message({
+                            type: 'success',
+                            message: '删除成功!'
+                        });
+                        self.getCircleList();
+                    })
+            }).catch(_ => {});
+
         }
     },
     watch:{

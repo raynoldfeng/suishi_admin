@@ -163,7 +163,7 @@ export default
         },
         deleteEvent(id){
             var self = this;
-            this.common.commonDeleteEvent(this,this.userinfo,this.api.category,id,function(){
+            this.common.deleteEventToken(this.api.host+this.api.category+"/"+id,{},this.userinfo,(data)=>{
                 self.$message({
                     type: 'success',
                     message: '删除成功!'

@@ -553,10 +553,10 @@
                 this.common.putEventToken(this.api.host+this.api.addTask+"/"+ self.taskDataSingle.taskId,
                         {"team_id":this.taskDataSingle.team_id,
                             "name":this.taskDataSingle.taskName,
-                                "score":this.taskDataSingle.taskScore,
+                            "score":this.taskDataSingle.taskScore,
                             "finish_date":this.taskDataSingle.finish_date,
                             "desc":this.taskDataSingle.desc,
-                            "status":this.taskDataSingle.taskStatus,
+                            "status":this.taskDataSingle.taskScore > 0 ? 3 : this.taskDataSingle.taskStatus,
                             "image":this.taskDataSingle.image,
                             "assignment_url":this.taskDataSingle.assignment_url,
                             "task_url":this.taskDataSingle.task_url},this.userinfo,function(data){

@@ -160,14 +160,28 @@ export default
             }
         },
         deleteEvent(id){
-            var self = this;
-                this.common.commonDeleteEvent(this,this.userinfo,this.api.test,id,function(){
-                    self.$message({
-                    type: 'success',
-                    message: '删除成功!'
-                });
-                self.testData();
-            })
+
+            this.$confirm('确认删除测试？')
+                    .then(_ => {
+                this.common.deleteEventToken(this.api.host+this.api.test+"/"+id,{},this.userinfo,(data)=>{
+                    this.$message({
+                            type: 'success',
+                            message: '删除成功!'
+                        });
+                    this.testData();
+                })
+            }).catch(_ => {});
+
+
+//            var self = this;
+//
+//                this.common.deleteEventToken(this.userinfo,this.api.test,id,function(){
+//                    self.$message({
+//                    type: 'success',
+//                    message: '删除成功!'
+//                });
+//                self.testData();
+//            })
         },
     },
     watch:{

@@ -213,7 +213,7 @@
 //                    message: '已取消删除'
 //                });
 //        });
-            this.common.commonDeleteEvent(this,this.userinfo,this.api.postList,id,function(){
+            this.common.deleteEventToken(this.api.host+this.api.postList+"/"+id,{},this.userinfo,(data)=>{
                 self.$message({
                     type: 'success',
                     message: '删除成功!'

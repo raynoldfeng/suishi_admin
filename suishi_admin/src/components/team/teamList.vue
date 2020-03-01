@@ -84,7 +84,7 @@
                     >
                         <template slot-scope="scope">
                             <el-button @click="editEvent(scope.row.id)" type="text" size="small">查看</el-button>
-
+                            <el-button @click="deleteEvent(scope.row.id)" type="text" size="small">解散</el-button>
                         </template>
                     </el-table-column>
                 </el-table>
@@ -191,6 +191,19 @@ export default
                 self.teamList = data.data;
                 self.allPage = data.last_page * 10;
             })
+        },
+        deleteEvent(id){
+            this.$confirm('确认解散队伍？')
+                    .then(_ => {
+                this.common.deleteEventToken(this.api.host+this.api.addTeams+"/"+id,{},this.userinfo,(data)=>{
+                    this.$message({
+                        type: 'success',
+                        message: '删除成功!'
+                    });
+                    this.getTeamList();
+                })
+            }).catch(_ => {});
+
         },
         addTeamEvent(){
             var self = this;

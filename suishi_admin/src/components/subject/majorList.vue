@@ -204,7 +204,8 @@
                     deleteEvent(id,type){
                         var self = this;
                         if(type == '0'){
-                            this.common.commonDeleteEvent(this,this.userinfo,this.api.course,id,function(){
+                            this.common.deleteEventToken(this.api.host+this.api.course+"/"+id,{},this.userinfo,(data)=>{
+
                                 self.$message({
                                     type: 'success',
                                     message: '删除成功!'
@@ -212,7 +213,8 @@
                                 self.openprofessionList();
                             })
                         }else if(type == '1'){
-                            this.common.commonDeleteEvent(this,this.userinfo,this.api.course,id,function(){
+                            this.common.deleteEventToken(this.api.host+this.api.course+"/"+id,{},this.userinfo,(data)=>{
+
                                 self.$message({
                                     type: 'success',
                                     message: '删除成功!'

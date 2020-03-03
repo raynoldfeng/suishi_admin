@@ -1,15 +1,15 @@
 <template>
     <div id="login">
         <div  class="view_main">
-            <span>账户</span>
-            <el-input v-model="username" placeholder="输入账户"  class="input_type"></el-input>
+            <span>账户：</span>
+            <el-input v-model="username" placeholder="输入账户" @keyup.enter.native="loginEvent" class="input_type"></el-input>
         </div>
         <div  class="view_main">
-            <span>密码</span>
-            <el-input type="password" v-model="password" placeholder="输入密码" class="input_type"></el-input>
+            <span>密码：</span>
+            <el-input type="password" v-model="password" placeholder="输入密码" @keyup.enter.native="loginEvent" class="input_type"></el-input>
           </div>
         <div  class="view_main">
-            <el-button @click="loginEvent">登录</el-button>
+            <el-button id="loginBtn" @click="loginEvent" type="primary">登录</el-button>
         </div>
     </div>
 </template>
@@ -32,10 +32,19 @@
                self.$router.push({path:"/home"});
            });
 
+        },
+        keyupEvent(e){
+            console.log(e)
         }
     }
         }
     </script>
 <style>
+    #login{
 
+    }
+#loginBtn{
+    width: 120px;
+    margin-left: 86px;;
+}
 </style>

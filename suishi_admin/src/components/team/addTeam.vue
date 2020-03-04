@@ -129,17 +129,21 @@
                     >
             </el-table-column>
             <el-table-column
-                    label="是否提交作业"
+                    label="任务状态"
                     >
                 <template slot-scope="scope">
-                    <p v-if="scope.row.status == 2">是</p>
-                    <p v-else>否</p>
+                    <p v-if="scope.row.status == 0">未开始</p>
+                    <p v-if="scope.row.status == 1">进行中</p>
+                    <p v-if="scope.row.status == 2">已提交</p>
+                    <p v-if="scope.row.status == 3">已评分</p>
+
                 </template>
             </el-table-column>
                 <el-table-column
                 label="操作"
                 >
                     <template slot-scope="scope">
+                        <el-button type="text" size="small" v-if="scope.row.status == 0" @click="editTaskEvent(1,scope.row)">开始任务</el-button>
                         <el-button type="text" size="small" @click="seeTaskEvemt(scope.row.id)">编辑</el-button>
                         <el-button @click="deleteTaskEvemt(scope.row.id)" type="text" size="small">删除</el-button>
                     </template>
@@ -184,17 +188,17 @@
                 <!--<span>分数</span>-->
                 <!--<el-input  class="input_type" v-model="taskScore" />-->
             <!--</div>-->
-            <div class="view_main">
-                <span>是否禁用</span>
-                <el-select v-model="taskStatus" placeholder="是否禁用">
-                    <el-option
-                    v-for="item in isUseMenu"
-                    :key="item.value"
-                    :label="item.label"
-                    :value="item.value">
-                    </el-option>
-                </el-select>
-            </div>
+            <!--<div class="view_main">-->
+                <!--<span>是否禁用</span>-->
+                <!--<el-select v-model="taskStatus" placeholder="是否禁用">-->
+                    <!--<el-option-->
+                    <!--v-for="item in isUseMenu"-->
+                    <!--:key="item.value"-->
+                    <!--:label="item.label"-->
+                    <!--:value="item.value">-->
+                    <!--</el-option>-->
+                <!--</el-select>-->
+            <!--</div>-->
             <div class="view_main" style="overflow: hidden">
                 <span class="type_title">任务封面</span>
                 <input id="taskfile-selector"  type="file" >
@@ -231,15 +235,15 @@
                 <span>任务名称</span>
                 <el-input v-model="taskDataSingle.taskName" class="input_type"></el-input>
             </div>
-            <div class="view_main" v-if="taskDataSingle.status == 2">
+            <div class="view_main" v-if="taskDataSingle.taskStatus == 2  || taskDataSingle.taskStatus == 3">
                 <span>打分</span>
                 <el-input  class="input_type" v-model="taskDataSingle.taskScore" />
             </div>
-            <div class="view_main" v-if="taskDataSingle.status == 2">
+            <div class="view_main" v-if="taskDataSingle.taskStatus == 2 || taskDataSingle.taskStatus == 3">
                 <span>评价</span>
                 <el-input  class="input_type" v-model="taskDataSingle.desc" />
             </div>
-            <div class="view_main" v-if="taskDataSingle.status == 2">
+            <div class="view_main" v-if="taskDataSingle.taskStatus == 2 || taskDataSingle.taskStatus == 3">
                 <span>完成时间</span>
                 <el-date-picker
                         v-model="taskDataSingle.finish_date"
@@ -264,10 +268,10 @@
                 <el-input  class="input_type" v-model="taskDataSingle.assignment_url" />
             </div>
             <div class="view_main">
-                <span>是否禁用</span>
-                <el-select v-model="taskDataSingle.taskStatus" placeholder="是否禁用">
+                <span>任务状态</span>
+                <el-select v-model="taskDataSingle.taskStatus" placeholder="任务状态">
                     <el-option
-                    v-for="item in isUseMenu"
+                    v-for="item in taskMenu"
                     :key="item.value"
                     :label="item.label"
                     :value="item.value">
@@ -305,6 +309,16 @@
                         label: "是"},
                     {value: "0",
                         label: "否"}
+                ],
+                taskMenu:[
+                    {value: "0",
+                        label: "未开始"},
+                    {value: "1",
+                        label: "进行中"},
+                    {value: "2",
+                        label: "已提交"},
+                    {value: "3",
+                        label: "已评分"}
                 ],
                 isUse: "0",
                 isStatus:"0",
@@ -540,8 +554,21 @@
                     self.taskDataSingle.image = data.image;
                 })
             },
-            editTaskEvent(){
+            editTaskEvent(type,data){
                 var self = this;
+            if(type == 1){
+              console.log(data)
+                var datas =  {"team_id":data.team_id,
+                    "name":data.name,
+                    "score":data.score,
+                    "finish_date":data.finish_date,
+                    "desc":data.desc,
+                    "status":"1",
+                    "image":data.image,
+                    "assignment_url":data.assignment_url,
+                    "task_url":data.task_url};
+                var taskId = data.id;
+            }else{
                 this.editTeamInfoVisible = false;
                 if(this.taskDataSingle.taskName == ""){
                     alert("输入任务名称");
@@ -550,17 +577,25 @@
                     alert("输入分数");
                     return;
                 }
-                this.common.putEventToken(this.api.host+this.api.addTask+"/"+ self.taskDataSingle.taskId,
-                        {"team_id":this.taskDataSingle.team_id,
-                            "name":this.taskDataSingle.taskName,
-                            "score":this.taskDataSingle.taskScore,
-                            "finish_date":this.taskDataSingle.finish_date,
-                            "desc":this.taskDataSingle.desc,
-                            "status":this.taskDataSingle.taskScore > 0 ? 3 : this.taskDataSingle.taskStatus,
-                            "image":this.taskDataSingle.image,
-                            "assignment_url":this.taskDataSingle.assignment_url,
-                            "task_url":this.taskDataSingle.task_url},this.userinfo,function(data){
+                var datas =  {"team_id":this.taskDataSingle.team_id,
+                    "name":this.taskDataSingle.taskName,
+                    "score":this.taskDataSingle.taskScore,
+                    "finish_date":this.taskDataSingle.finish_date,
+                    "desc":this.taskDataSingle.desc,
+                    "status":this.taskDataSingle.taskStatus,
+                    "image":this.taskDataSingle.image,
+                    "assignment_url":this.taskDataSingle.assignment_url,
+                    "task_url":this.taskDataSingle.task_url}
+                var taskId =  self.taskDataSingle.taskId
+            }
+
+                this.common.putEventToken(this.api.host+this.api.addTask+"/"+ taskId,datas
+                       ,this.userinfo,function(data){
                     console.log(data);
+                            self.$message({
+                                message: '修改成功',
+                                type: 'success'
+                            });
                     self.taskList();
                 })
             },

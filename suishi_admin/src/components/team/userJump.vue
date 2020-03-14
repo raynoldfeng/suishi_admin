@@ -186,7 +186,7 @@
             },
             seachTeamList(){
 //                accountsearch
-                this.common.getEventToken(this.api.host+this.api.request+"?name="+this.accountsearch+"&per_page=100",{},this.userinfo,(data)=>{
+                this.common.getEventToken(this.api.host+this.api.request+"?account="+this.accountsearch+"&per_page=100",{},this.userinfo,(data)=>{
                     console.log(data);
                     this.userJumpData = data.data;
                     this.allPage = data.last_page * 10;

@@ -207,6 +207,10 @@
                 <i v-else class="el-icon-plus avatar-uploader-icon"></i>
             </div>
         </div>
+            <div class="view_main" >
+                <span>任务描述</span>
+                <el-input  class="input_type" type="textarea" v-model="task_desc" />
+            </div>
             <div class="view_main">
                 <span>任务地址</span>
                 <el-input  class="input_type" v-model="task_url" />
@@ -239,8 +243,8 @@
                 <span>打分</span>
                 <el-input  class="input_type" v-model="taskDataSingle.taskScore" />
             </div>
-            <div class="view_main" v-if="taskDataSingle.taskStatus == 2 || taskDataSingle.taskStatus == 3">
-                <span>评价</span>
+            <div class="view_main" >
+                <span>任务描述</span>
                 <el-input  class="input_type" v-model="taskDataSingle.desc" />
             </div>
             <div class="view_main" v-if="taskDataSingle.taskStatus == 2 || taskDataSingle.taskStatus == 3">
@@ -348,6 +352,7 @@
                 task_url:"",
                 taskStatus:"0",
                 taskName:"",
+                task_desc:"",
                 editTaskVisible:false,
                 editUserVisible:false,
                 userLabel:"",
@@ -500,8 +505,9 @@
                 }
                 if(this.isedits()) {
                     this.common.postEventToken(this.api.host + this.api.addTask, {"team_id": this.$route.query.id, "name": this.taskName, "score": this.taskScore, "status": this.taskStatus,"assignment_url":this.assignment_url
-                        ,"task_url":this.task_url}, this.userinfo, function (data) {
+                        ,"task_url":this.task_url,"desc":this.task_desc}, this.userinfo, function (data) {
                         console.log(data);
+                        self.taskName = "";
                         self.editTaskVisible = false;
                         self.taskList();
                     })

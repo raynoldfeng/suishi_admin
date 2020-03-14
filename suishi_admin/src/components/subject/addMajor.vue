@@ -218,7 +218,7 @@
                     if(this.majorName == ""){
                         alert("输入专业名称");
                         return ;
-                    }else if(this.orderValue == ""){
+                    }else if(this.orderValue === ""){
                         alert("输入顺序");
                         return ;
                     }else if(""+this.majorType == ""){

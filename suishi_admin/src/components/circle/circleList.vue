@@ -2,37 +2,37 @@
     <div id="circleList">
         <p class="title_main">圈子列表</p>
         <div class="view_main">
-            <el-select v-model="typeValue" placeholder="所属圈子">
-                <el-option
-                v-for="item in optionsType"
-                :key="item.value"
-                :label="item.label"
-                :value="item.value">
-                </el-option>
-            </el-select>
-            <el-select v-model="typeValue1" placeholder="是否推荐">
-                <el-option
-                v-for="item in optionsType"
-                :key="item.value"
-                :label="item.label"
-                :value="item.value">
-                </el-option>
-            </el-select>
-            <el-select v-model="isUse" placeholder="是否禁用">
-                <el-option
-                v-for="item in isUseMenu"
-                :key="item.value"
-                :label="item.label"
-                :value="item.value">
-                </el-option>
-            </el-select>
+            <!--<el-select v-model="typeValue" placeholder="所属圈子">-->
+                <!--<el-option-->
+                <!--v-for="item in optionsType"-->
+                <!--:key="item.value"-->
+                <!--:label="item.label"-->
+                <!--:value="item.value">-->
+                <!--</el-option>-->
+            <!--</el-select>-->
+            <!--<el-select v-model="typeValue1" placeholder="是否推荐">-->
+                <!--<el-option-->
+                <!--v-for="item in optionsType"-->
+                <!--:key="item.value"-->
+                <!--:label="item.label"-->
+                <!--:value="item.value">-->
+                <!--</el-option>-->
+            <!--</el-select>-->
+            <!--<el-select v-model="isUse" placeholder="是否禁用">-->
+                <!--<el-option-->
+                <!--v-for="item in isUseMenu"-->
+                <!--:key="item.value"-->
+                <!--:label="item.label"-->
+                <!--:value="item.value">-->
+                <!--</el-option>-->
+            <!--</el-select>-->
             <el-input
             placeholder="输入关键字"
             class="search_input"
+            v-model="circleText"
             >
             </el-input>
-            <el-button>搜索</el-button>
-            <el-button>还原</el-button>
+            <el-button @click="searchEvent">搜索</el-button>
         </div>
         <div class="view_main"><el-button class="add_btn" @click="addEvent" type="primary">新增圈子</el-button></div>
         <div class="view_main">
@@ -143,12 +143,20 @@ export default
             userinfo:"",
             circleListData:[],
             nowPage:1,
-            allPage:0
+            allPage:0,
+            circleText:""
         }
     },
     methods:{
         addEvent(){
             this.$router.push("/addGame")
+        },
+        searchEvent(){
+            this.common.getEventToken(this.api.host+this.api.category+"?name="+this.circleText+"&per_page=100",{},this.userinfo,(data)=>{
+                console.log(data);
+                this.circleListData = data.data;
+                this.allPage = data.last_page * 10;
+            })
         },
         getCircleList(){
             var self =this;

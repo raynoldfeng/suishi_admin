@@ -202,7 +202,9 @@ export default
                     });
                     this.getTeamList();
                 })
-            }).catch(_ => {});
+            }).catch(_ => {
+
+            });
 
         },
         addTeamEvent(){

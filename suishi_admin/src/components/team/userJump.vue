@@ -12,11 +12,12 @@
                 </el-option>
             </el-select>
             <el-input
-            placeholder="输入关键字"
+            placeholder="用户搜索"
             class="search_input"
+            v-model="accountsearch"
             >
             </el-input>
-            <el-button>搜索</el-button>
+            <el-button @click="seachTeamList">搜索</el-button>
             <el-button>还原</el-button>
         </div>
         <div class="view_main">
@@ -152,7 +153,8 @@
                 nowTeam:"-1",
                 nowTeamData:"",
                 nowUser:"",
-                dialogVisible:false
+                dialogVisible:false,
+                accountsearch:""
             }
         },
         mounted:function(){
@@ -180,7 +182,14 @@
                     console.log(data);
                     self.teamList = data.data;
                     self.teamAllPage = data.last_page * 10;
-
+                })
+            },
+            seachTeamList(){
+//                accountsearch
+                this.common.getEventToken(this.api.host+this.api.request+"?name="+this.accountsearch+"&per_page=100",{},this.userinfo,(data)=>{
+                    console.log(data);
+                    this.userJumpData = data.data;
+                    this.allPage = data.last_page * 10;
                 })
             },
             teamTypeList(){
@@ -259,4 +268,7 @@
     background: deepskyblue;
     border: 1px solid deepskyblue;
 }
+    .search_input{
+        width: 20%;
+    }
 </style>

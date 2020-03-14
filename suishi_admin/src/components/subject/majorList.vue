@@ -2,28 +2,28 @@
     <div id="majorList">
         <p class="title_main">课程列表</p>
         <div class="view_main">
-            <span>是否禁用</span>
-            <el-select v-model="isUse" placeholder="是否禁用">
-                <el-option
-                        v-for="item in isUseMenu"
-                :key="item.value"
-                :label="item.label"
-                :value="item.value">
-            </el-option>
-            </el-select>
+            <!--<span>是否禁用</span>-->
+            <!--<el-select v-model="isUse" placeholder="是否禁用">-->
+                <!--<el-option-->
+                        <!--v-for="item in isUseMenu"-->
+                <!--:key="item.value"-->
+                <!--:label="item.label"-->
+                <!--:value="item.value">-->
+            <!--</el-option>-->
+            <!--</el-select>-->
             <el-input
-            placeholder="输入关键字"
+            placeholder="输入专业名称"
             class="search_input"
+            v-model="majorName"
             >
             </el-input>
-            <el-button>搜索</el-button>
-            <el-button>还原</el-button>
+            <el-button @click="seachEvemt()">搜索</el-button>
         </div>
         <div  class="view_main">
             <el-button @click="addEvent" type="primary">新增课件</el-button>
         </div>
         <div class="view_main">
-        <el-tabs v-model="majorType" type="card" >
+        <el-tabs v-model="majorType" type="card" @tab-click="handleClick">
             <el-tab-pane label="公开课" name="first">
                 <div class="view_main">
                     <template>
@@ -42,6 +42,14 @@
                                 label="专业名称"
                                 >
                         </el-table-column>
+                         <el-table-column
+                                    prop="name"
+                                    label="封面图"
+                                    >
+                             <template slot-scope="scope">
+                                 <img class="major_img" :src="scope.row.cover">
+                             </template>
+                         </el-table-column>
                         <el-table-column
                                 label="是否免费"
                                 >
@@ -178,10 +186,15 @@
                         allPage:0,
                         openNowPage:1,
                         openAllPage:0,
-                        majorType: 'first'
+                        majorType: 'first',
+                        majorName:"",
+                        majorTypeNum:0
                     }
                 },
                 methods: {
+                    handleClick(tab, event) {
+                       this.majorTypeNum = tab.index;
+                    },
                     addEvent(){
                         this.$router.push("/addMajor");
                     },
@@ -198,7 +211,6 @@
                             console.log(data);
                                 self.openMajorData = data.data;
                                 self.openAllPage = data.last_page * 10;
-
                         })
                     },
                     deleteEvent(id,type){
@@ -228,6 +240,19 @@
                         console.log(id)
                         this.$router.push({path: "/editMajor", query: {id: id}});
                       //  this.$router.push("/editMajor",{params:id});
+                    },
+                    seachEvemt(){
+
+                            this.common.getEventToken(this.api.host+this.api.course+"?name="+this.majorName+"&per_page=100&type="+this.majorTypeNum,{},this.userinfo,(data)=>{
+                                if(this.majorTypeNum == 0){
+                                    this.openMajorData = data.data;
+                                    this.openAllPage = data.last_page * 10;
+                                }else{
+                                    this.majorData = data.data;
+                                    this.allPage = data.last_page * 10;
+                                }
+
+                            })
                     }
                 },
                 watch:{
@@ -237,6 +262,7 @@
                     opennowPage(){
                         this.openprofessionList();
                     }
+
                 },
                 mounted:function(){
                     this.userinfo = {"token":this.common.cookie.get("token"),"user_id":this.common.cookie.get("user_id")};
@@ -291,5 +317,8 @@
             }
         .el-input.search_input{
             width: 300px;
+            }
+            .major_img{
+                width: 50%;;
             }
         </style>

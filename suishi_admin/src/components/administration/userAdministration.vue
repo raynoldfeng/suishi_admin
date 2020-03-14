@@ -6,8 +6,7 @@
             class="search_input"
             v-model="searchText">
             </el-input>
-            <el-button>搜索</el-button>
-            <el-button>还原</el-button>
+            <el-button @click="seachEvent">搜索</el-button>
         </div>
         <div class="view_main">
             <template>
@@ -81,6 +80,14 @@ title="提示"
                     console.log(data)
                 });
             },
+            seachEvent(){
+                var self = this;
+                this.common.getEventToken(this.api.host+this.api.user+"?nick="+this.searchText+"&per_page=10",{},this.userinfo,function(data){
+                    self.userData = data.data;
+                    self.allPage = data.last_page * 10;
+                    console.log(data)
+                });
+            },
             statusChange(index,id,status){
                 var self = this;
                 var cStatus = status;
@@ -122,7 +129,7 @@ title="提示"
     }
 </script>
 <style>
-.search_input{
+.search_input ,.search_input input{
     width: 300px;
 }
 .view_main{

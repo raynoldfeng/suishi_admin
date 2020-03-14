@@ -209,7 +209,7 @@
                     }else if(this.majorValueSelect == ""){
                         alert("请选择专业");
                         return;
-                    }else if(this.order == ""){
+                    }else if(this.order === ""){
                         alert("输入顺序");
                         return ;
                     }else if(this.resource_type == ""){

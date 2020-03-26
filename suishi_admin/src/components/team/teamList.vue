@@ -2,23 +2,23 @@
     <div id="teamList">
         <p class="title_main">队伍列表</p>
         <div class="view_main">
-            <el-select v-model="typeValue" placeholder="所属圈子">
-                <el-option
-                v-for="item in isUseMenu"
-                :key="item.value"
-                :label="item.label"
-                :value="item.value">
-                </el-option>
-            </el-select>
-            <el-select v-model="typeValue1" placeholder="是否推荐">
-                <el-option
-                v-for="item in isUseMenu"
-                :key="item.value"
-                :label="item.label"
-                :value="item.value">
-                </el-option>
-            </el-select>
-            <el-select v-model="isUse" placeholder="是否禁用">
+            <!--<el-select v-model="typeValue" placeholder="所属圈子">-->
+                <!--<el-option-->
+                <!--v-for="item in isUseMenu"-->
+                <!--:key="item.value"-->
+                <!--:label="item.label"-->
+                <!--:value="item.value">-->
+                <!--</el-option>-->
+            <!--</el-select>-->
+            <!--<el-select v-model="typeValue1" placeholder="是否推荐">-->
+                <!--<el-option-->
+                <!--v-for="item in isUseMenu"-->
+                <!--:key="item.value"-->
+                <!--:label="item.label"-->
+                <!--:value="item.value">-->
+                <!--</el-option>-->
+            <!--</el-select>-->
+            <el-select v-model="isUse" placeholder="是否禁用" @change="getTeamList(1)">
                 <el-option
                 v-for="item in isUseMenu"
                 :key="item.value"
@@ -27,12 +27,12 @@
                 </el-option>
             </el-select>
             <el-input
+                    v-model="teamName"
             placeholder="输入关键字"
             class="search_input"
             >
             </el-input>
-            <el-button>搜索</el-button>
-            <el-button>还原</el-button>
+            <el-button @click="getTeamList">搜索</el-button>
         </div>
         <div class="view_main"><el-button class="add_btn" type="primary" @click="LabelDialog(true)">新增队伍</el-button></div>
         <div class="view_main">
@@ -78,6 +78,10 @@
                     prop="status"
                     label="是否禁用"
                     >
+                        <template slot-scope="scope">
+                            <span v-if="scope.row.status == 0">否</span>
+                            <span v-else>是</span>
+                        </template>
                     </el-table-column>
                     <el-table-column
                     label="操作"
@@ -141,9 +145,11 @@ export default
                 {value: "1",
                     label: "是"},
                 {value: "0",
-                    label: "否"}
+                    label: "否"},
+                {value:"-1",
+                    label:"全部"}
             ],
-            isUse: "0",
+            isUse: "-1",
             isStatus:"0",
             searchText:"",
             tableData: [{
@@ -162,7 +168,8 @@ export default
             dialogTableVisible:false,
             teamList:[],
             nowPage:1,
-            allPage:0
+            allPage:0,
+            teamName:""
 
         }
     },
@@ -184,9 +191,16 @@ export default
                 }
             })
         },
-        getTeamList(){
+        getTeamList(type){
             var self = this;
-            this.common.getEventToken(this.api.host+this.api.addTeams+"?page="+this.nowPage+"&per_page=10",{},this.userinfo,function(data){
+            if(type == 1){
+                this.nowPage = 1;
+            }
+            var url = this.api.host+this.api.addTeams+"?page="+this.nowPage+"&per_page=10&name="+this.teamName;
+            if(this.isUse != "-1"){
+                url+=("&status="+this.isUse);
+            }
+            this.common.getEventToken(url,{},this.userinfo,function(data){
                 console.log(data);
                 self.teamList = data.data;
                 self.allPage = data.last_page * 10;

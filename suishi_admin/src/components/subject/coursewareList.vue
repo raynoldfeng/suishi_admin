@@ -10,14 +10,14 @@
                 :value="item.value">
             </el-option>
         </el-select>-->
-        <!--<el-select v-model="isUse" placeholder="是否禁用">-->
-            <!--<el-option-->
-                    <!--v-for="item in isUseMenu"-->
-            <!--:key="item.value"-->
-            <!--:label="item.label"-->
-            <!--:value="item.value">-->
-        <!--</el-option>-->
-    <!--</el-select>-->
+        <el-select v-model="isUse" placeholder="是否禁用" @change="courseList('',1)">
+            <el-option
+                    v-for="item in isUseMenu"
+            :key="item.value"
+            :label="item.label"
+            :value="item.value">
+        </el-option>
+        </el-select>
     <el-input
     placeholder="请输入内容"
     class="search_input"
@@ -120,7 +120,9 @@ export default
                 {value: "1",
                     label: "是"},
                 {value: "0",
-                    label: "否"}
+                    label: "否"},
+                {value:"-1",
+                    label:"全部"}
             ],
             isUse: "0",
             searchText:"",
@@ -140,22 +142,29 @@ export default
          * 1点击搜索
          * 2 还原搜索
          */
-        courseList(type){
+        courseList(type,stype){
             if(type == 1){
                 this.nowPage = 1;
             }else if(type == 2){
                 this.nowPage = 1;
                 this.searchText ="";
             }
-            var self = this;
-            this.common.getEventToken(this.api.host+this.api.lesson+"?page="+this.nowPage+"&per_page=10&name="+this.searchText,{},this.userinfo,function(data){
-                self.coursewareData = data.data;
+            var url = this.api.host+this.api.lesson+"?page="+this.nowPage+"&per_page=10&name="+this.searchText;
+            if(this.isUse != "-1"){
+                if(stype == 1){
+                    this.nowPage = 1;
+                }
+                url+= "&status="+this.isUse;
+            }
+
+            this.common.getEventToken(url,{},this.userinfo,(data)=>{
+                this.coursewareData = data.data;
                 console.log(data.data)
 //                for(var i = 0; i<self.coursewareData.length;i++){
 //                    self.course_namekey[self.coursewareData[i].course_name] = self.majorName(self.coursewareData[i].course_name);
 //                }
 //                console.log( self.course_namekey)
-                self.allPage = data.last_page * 10;
+                    this.allPage = data.last_page * 10;
 
             });
         },
@@ -172,13 +181,6 @@ export default
                 })
             }).catch(_ => {});
 
-        },
-        searchEvent(){
-            var self = this;
-            this.common.getEventToken(this.api.host+this.api.lesson+"?page="+this.nowPage+"&per_page=10",{},this.userinfo,function(data){
-            self.coursewareData = data.data;
-            self.allPage = data.last_page * 10;
-            });
         },
         majorName(name){
             var self = this;

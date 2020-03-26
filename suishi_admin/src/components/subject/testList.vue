@@ -2,23 +2,23 @@
     <div id="testList">
         <p class="title_main">测试列表</p>
         <div class="view_main">
-            <el-select v-model="typeValue" placeholder="类型">
-                <el-option
-                        v-for="item in optionsType"
-                :key="item.value"
-                :label="item.label"
-                :value="item.value">
-            </el-option>
-        </el-select>
-        <el-select v-model="typeValue1" placeholder="专业">
-            <el-option
-                    v-for="item in optionsType"
-            :key="item.value"
-            :label="item.label"
-            :value="item.value">
-        </el-option>
-    </el-select>
-    <el-select v-model="isUse" placeholder="是否禁用">
+            <!--<el-select v-model="typeValue" placeholder="类型">-->
+                <!--<el-option-->
+                        <!--v-for="item in optionsType"-->
+                <!--:key="item.value"-->
+                <!--:label="item.label"-->
+                <!--:value="item.value">-->
+            <!--</el-option>-->
+        <!--</el-select>-->
+        <!--<el-select v-model="typeValue1" placeholder="专业">-->
+            <!--<el-option-->
+                    <!--v-for="item in optionsType"-->
+            <!--:key="item.value"-->
+            <!--:label="item.label"-->
+            <!--:value="item.value">-->
+        <!--</el-option>-->
+    <!--</el-select>-->
+    <el-select v-model="isUse" placeholder="是否禁用" @change="searchEvent('',1)">
         <el-option
                 v-for="item in isUseMenu"
         :key="item.value"
@@ -32,8 +32,8 @@
             v-model="searchText"
             >
             </el-input>
-            <el-button @click="testData('1')">搜索</el-button>
-            <el-button @click="testData('2')">还原</el-button>
+            <el-button @click="searchEvent('1')">搜索</el-button>
+            <el-button @click="searchEvent('2')">还原</el-button>
         </div>
 <div class="view_main"><el-button class="add_btn"  type="primary" @click="addEvent">新增测试</el-button></div>
         <div class="view_main">
@@ -62,11 +62,15 @@ style="width: 100%">
         >
 </el-table-column>
 
-<el-table-column
-        prop="status"
-        label="是否禁用"
-        >
-</el-table-column>
+    <el-table-column
+            prop="status"
+            label="是否禁用"
+            >
+        <template slot-scope="scope">
+            <span v-if="scope.row.status == 0">否</span>
+            <span v-else>是</span>
+        </template>
+    </el-table-column>
 <el-table-column
         label="操作"
         >
@@ -110,12 +114,14 @@ export default
             typeValue: '',
             typeValue1: '',
             isUseMenu: [
-                {value: "true",
+                {value: "1",
                     label: "是"},
-                {value: "false",
-                    label: "否"}
+                {value: "0",
+                    label: "否"},
+                {value:"-1",
+                    label:"全部"}
             ],
-            isUse: "false",
+            isUse: "-1",
             searchText:"",
             testListData: [],
             nowPage:1,
@@ -138,7 +144,8 @@ export default
  * 1点击搜索
  * 2 还原搜索
  */
-        testData(type){
+        searchEvent(type,stype){
+            console.log(type)
             if(type == 1){
                this.nowPage = 1;
             }else if(type == 2){
@@ -146,7 +153,15 @@ export default
                 this.searchText ="";
             }
             var self = this;
-            this.common.getEventToken(this.api.host+this.api.test+"?page="+this.nowPage+"&per_page=10&name="+this.searchText,{},this.userinfo,function(data){
+            if(stype ==1){
+                this.nowPage=1;
+            }
+            var url = this.api.host+this.api.test+"?page="+this.nowPage+"&per_page=10&name="+this.searchText;
+            if(this.isUse != "-1"){
+
+                url += "&status="+this.isUse;
+            }
+            this.common.getEventToken(url,{},this.userinfo,function(data){
                 console.log(data);
                 self.testListData = data.data;
                 self.allPage = data.last_page * 10;
@@ -168,7 +183,7 @@ export default
                             type: 'success',
                             message: '删除成功!'
                         });
-                    this.testData();
+                    this.searchEvent();
                 })
             }).catch(_ => {});
 
@@ -186,13 +201,13 @@ export default
     },
     watch:{
         nowPage(){
-            this.testData();
+            this.searchEvent();
         }
     },
     mounted:function(){
     var self = this;
     this.userinfo = {"token":this.common.cookie.get("token"),"user_id":this.common.cookie.get("user_id")};
-    this.testData();
+    this.searchEvent();
     }
 
 }

@@ -3,7 +3,7 @@
         <p class="title_main">报名用户管理</p>
         <div class="view_main">
             <span>是否禁用</span>
-            <el-select v-model="isUse" placeholder="是否禁用">
+            <el-select v-model="isUse" placeholder="是否禁用" @change="requestUserJump(1)">
                 <el-option
                 v-for="item in isUseMenu"
                 :key="item.value"
@@ -17,7 +17,7 @@
             v-model="accountsearch"
             >
             </el-input>
-            <el-button @click="seachTeamList">搜索</el-button>
+            <el-button @click="requestUserJump(1)">搜索</el-button>
             <el-button>还原</el-button>
         </div>
         <div class="view_main">
@@ -132,12 +132,14 @@
         data(){
             return{
                 isUseMenu: [
-                    {value: "true",
+                    {value: "1",
                         label: "是"},
-                    {value: "false",
-                        label: "否"}
+                    {value: "0",
+                        label: "否"},
+                    {value:"-1",
+                        label:"全部"}
                 ],
-                isUse: "false",
+                isUse: "-1",
                 userJumpData:[],
                 userinfo:"",
                 dialogTableVisible:false,
@@ -164,9 +166,16 @@
 
         },
         methods:{
-            requestUserJump(){
+            requestUserJump(type){
                 var self =this;
-                this.common.getEventToken(this.api.host+this.api.request+"?page="+this.nowPage+"&per_page=10",{},this.userinfo,function(data){
+                if(type == 1){
+                    this.nowPage = 1;
+                }
+                var url = this.api.host+this.api.request+"?page="+this.nowPage+"&per_page=10account="+this.accountsearch;
+                if(this.isUse != "-1"){
+                    url+=("&status="+this.isUse);
+                }
+                this.common.getEventToken(url,{},this.userinfo,function(data){
                     self.userJumpData = data.data;
                     self.allPage = data.last_page * 10;
                 })

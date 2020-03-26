@@ -18,21 +18,21 @@
                 <!--:value="item.value">-->
                 <!--</el-option>-->
             <!--</el-select>-->
-            <!--<el-select v-model="isUse" placeholder="是否禁用">-->
-                <!--<el-option-->
-                <!--v-for="item in isUseMenu"-->
-                <!--:key="item.value"-->
-                <!--:label="item.label"-->
-                <!--:value="item.value">-->
-                <!--</el-option>-->
-            <!--</el-select>-->
+            <el-select v-model="isUse" placeholder="是否禁用" @change="getCircleList(1)">
+                <el-option
+                v-for="item in isUseMenu"
+                :key="item.value"
+                :label="item.label"
+                :value="item.value">
+                </el-option>
+            </el-select>
             <el-input
             placeholder="输入关键字"
             class="search_input"
             v-model="circleText"
             >
             </el-input>
-            <el-button @click="searchEvent">搜索</el-button>
+            <el-button @click="getCircleList(1)">搜索</el-button>
         </div>
         <div class="view_main"><el-button class="add_btn" @click="addEvent" type="primary">新增圈子</el-button></div>
         <div class="view_main">
@@ -75,12 +75,20 @@
                 prop="is_recommend"
                 label="是否推荐"
                 >
+                    <template slot-scope="scope">
+                        <span v-if="scope.row.is_recommend == 0">否</span>
+                        <span v-else>是</span>
+                    </template>
                 </el-table-column>
-                <el-table-column
-                prop="status"
-                label="是否禁用"
-                >
-                </el-table-column>
+            <el-table-column
+                    prop="status"
+                    label="是否禁用"
+                    >
+                <template slot-scope="scope">
+                    <span v-if="scope.row.status == 0">否</span>
+                    <span v-else>是</span>
+                </template>
+            </el-table-column>
                 <el-table-column
                 label="操作"
                 >
@@ -133,12 +141,14 @@ export default
             typeValue: '',
             typeValue1: '',
             isUseMenu: [
-                {value: "true",
+                {value: "1",
                     label: "是"},
-                {value: "false",
-                    label: "否"}
+                {value: "0",
+                    label: "否"},
+                {value:"-1",
+                    label:"全部"}
             ],
-            isUse: "false",
+            isUse: "-1",
             searchText:"",
             userinfo:"",
             circleListData:[],
@@ -151,16 +161,20 @@ export default
         addEvent(){
             this.$router.push("/addGame")
         },
-        searchEvent(){
-            this.common.getEventToken(this.api.host+this.api.category+"?name="+this.circleText+"&per_page=100",{},this.userinfo,(data)=>{
-                console.log(data);
-                this.circleListData = data.data;
-                this.allPage = data.last_page * 10;
-            })
-        },
-        getCircleList(){
+        getCircleList(type){
             var self =this;
-            this.common.getEventToken(this.api.host+this.api.category+"?page="+this.nowPage+"&per_page=10",{},this.userinfo,function(data){
+            if(type == 1){
+                this.nowPage = 1;
+            }
+            var url=this.api.host+this.api.category+"?page="+this.nowPage+"&per_page=10";
+            if(this.isUse != "-1"){
+                 url+=("&status="+this.isUse);
+            }
+            if(this.circleText){
+                 url+=("&name="+this.circleText);
+            }
+
+            this.common.getEventToken(url,{},this.userinfo,function(data){
                 console.log(data);
                 self.circleListData = data.data;
                 self.allPage = data.last_page * 10;

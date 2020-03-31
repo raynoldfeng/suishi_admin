@@ -42,10 +42,10 @@
                     label="登录类型"
                     >
                         <template slot-scope="scope">
-                            <p v-if="scope.row.course_name == 0" >已报名</p>
-                            <p v-else-if="scope.row.course_name == 1">已分配</p>
-                            <p v-else-if="scope.row.course_name == 2">已拒绝</p>
-                            <p v-else-if="scope.row.course_name == 3">未报名</p>
+                            <p v-if="scope.row.status == 0" >组队中</p>
+                            <p v-else-if="scope.row.status == 1">已组队</p>
+                            <p v-else-if="scope.row.status == 2">已拒绝</p>
+                            <p v-else-if="scope.row.status == 3">待组队</p>
                             <p v-else>未报名</p>
                         </template>
                     </el-table-column>
@@ -133,9 +133,13 @@
             return{
                 isUseMenu: [
                     {value: "1",
-                        label: "是"},
+                        label: "已组队"},
                     {value: "0",
-                        label: "否"},
+                        label: "组队中"},
+                    {value: "2",
+                        label: "已拒绝"},
+                    {value: "3",
+                        label: "待组队"},
                     {value:"-1",
                         label:"全部"}
                 ],
@@ -176,8 +180,9 @@
                     url+=("&status="+this.isUse);
                 }
                 this.common.getEventToken(url,{},this.userinfo,function(data){
+
                     self.userJumpData = data.data;
-                    self.allPage = data.last_page * 10;
+                    self.allPage = data.last_page * 10;                 console.log(self.userJumpData)
                 })
             },
             teamListShow(data){

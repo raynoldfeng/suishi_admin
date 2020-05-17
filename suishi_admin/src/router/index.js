@@ -25,6 +25,7 @@ import home from '@/components/home/home'
 import payMenu from '@/components/pay/payMenu'
 
 import userJump from '@/components/team/userJump'
+import link from '@/components/link/link'
 
 import test from '@/components/curriculumSystem/test'
 Vue.use(Router)
@@ -219,6 +220,11 @@ export default new Router({
           path:'/payMenu',
           name:'payMenu',
           component:payMenu
+      },
+      {
+          path:'/link',
+          name:'link',
+          component:link
       }
   ]
 })

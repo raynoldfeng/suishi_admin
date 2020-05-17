@@ -15,7 +15,7 @@ ul li {
 .input_type{
     width:200px;
 }
-#file-selector,#img-selector,#video-selector,#file-selectorH5,#file-selectorvideo,#taskfile-selector,#editfile-selector{
+#file-selector,#img-selector,#video-selector,#file-selectorH5,#file-selectorvideo,#taskfile-selector,#editfile-selector,#linkFile{
     display: none;
 }
 .avatar-uploader{

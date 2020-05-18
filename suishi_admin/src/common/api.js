@@ -31,5 +31,6 @@ export const api={
     "request":"admin/team/request",
     "allot":"admin/team/request/allot",
     "reject":"admin/team/request/reject",
-    "order":"admin/order"
+    "order":"admin/order",
+    "bucketApiToken":"api/account/v1/qcloudBucketApiToken"
 }

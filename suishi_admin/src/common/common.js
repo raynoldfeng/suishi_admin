@@ -63,6 +63,7 @@ export const common={
         callback(data);
     }
 }).catch((err)=>{
+    console.log(33)
     console.log(err);
 })
 },

@@ -68,6 +68,57 @@ var cosjs = function newCos(SecretId,SecretKey,file,XCosSecurityToken,expiredTim
 };
 
 
+
+var cosjsLink = function newCos(SecretId,SecretKey,file,XCosSecurityToken,expiredTime,callback ){
+//    console.log(2545454);
+//    console.log(SecretId);
+//    console.log(SecretKey);
+//    console.log(file);
+//    console.log(file.name);
+    var cos = new COS({ SecretId: SecretId,SecretKey: SecretKey,XCosSecurityToken:XCosSecurityToken,expiredTime:expiredTime});
+//    cos.sliceUploadFile({
+//        Bucket: "suishi-1256985330",
+//        Region: "ap-guangzhou",
+//        Key: file.name,
+//        Body: file
+//    }, function (err, data) {
+//        console.log(err, data);
+//    });
+
+    var newdate = ""+date.getFullYear()+date.getMonth()+date.getDate()+date.getHours()+date.getMinutes()+date.getSeconds();
+
+    cos.putObject({
+        Bucket: "suishi-public-1256985330",
+        Region: "ap-nanjing",
+        Key: "share"+"/"+newdate+file.name,
+        Body: file
+    }, function (err, data) {
+
+
+    });
+    cos.getObjectUrl({
+        Bucket: "suishi-public-1256985330",
+        Region: "ap-nanjing",
+        Key: "share"+"/"+newdate+file.name,
+        Sign: false
+    }, function (err, data) {
+        console.log(err || data.Url);
+        var flength = "http://suishi-public-1256985330.cos.ap-guangzhou.myqcloud.com/".length;
+        var llength = data.Url.length;
+//        if(data.Url.indexOf("http://suishi-public-1256985330.cos.ap-guangzhou.myqcloud.com") != (-1)){
+////            var nimg ="http://res.sui10.com/"+key+date.getFullYear()+(date.getMonth()+1)+date.getDate()+"/"+ data.Url.slice(flength,llength);
+//            var nimg ="http://res.sui10.com/"+ data.Url.slice(flength,llength);
+//            callback(nimg);
+//        }else{
+            callback(data.Url);
+//        }
+
+
+    });
+
+};
+
+
 var cosjsFile = function newCos(SecretId,SecretKey,fileurl,file,XCosSecurityToken,expiredTime,callback ){
 //    console.log(2545454);
 //    console.log(SecretId);
@@ -205,6 +256,7 @@ var cosjsFile2 = function newCos(SecretId,SecretKey,fileurl,file,XCosSecurityTok
 Vue.prototype.common = common.common;
 Vue.prototype.api = api.api;
 Vue.prototype.cosjs = cosjs;
+Vue.prototype.cosjsLink = cosjsLink;
 Vue.prototype.cosjsFile = cosjsFile;
 Vue.prototype.cosjsFile2 = cosjsFile2;
 Vue.config.productionTip = false;

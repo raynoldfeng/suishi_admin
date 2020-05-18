@@ -46,7 +46,7 @@
                        if (!file) return;
                        if(self.SecretId != "" && self.SecretKey !="" ){
                            if(file){
-                               self.cosjsLink("AKIDf3Tx6n4qJbw0NiT80UppYIHooQ3EIjTj","5TRcRI2MvI43G9LTIgs79ODYiyQbO848",file,"4ae0569dd0d0131fa963563bcfdd43b84621b4cd30001",1589814598,function(img){
+                               self.cosjsLink(self.SecretId,self.SecretKey,file,self.XCosSecurityToken,self.expiredTime,function(img){
                                    self.linkUrl = img;
                                });
                            }

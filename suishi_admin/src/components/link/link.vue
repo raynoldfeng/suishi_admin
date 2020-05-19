@@ -24,11 +24,7 @@
                    },
                    getUpLoadKey(){
                        var self =this;
-                       //http://test.sui10.com:9001/api/account/v1/qcloudBucketApiToken?bucket=suishi-public-1256985330
-                       //this.api.host+this.api.bucketApiToken+"?bucket=suishi-public-1256985330"
-                       this.common.getEventToken(this.api.host+this.api.bucketApiToken+"?bucket=suishi-public-1256985330",{bucket:"suishi-public-1256985330"},this.userinfo,function(data){
-                           console.log(111)
-                           console.log(data);
+                       this.common.getEventToken(this.api.host+this.api.cosToken+"?bucket=suishi-public-1256985330&region=ap-nanjing",{},this.userinfo,function(data){
                            self.SecretId = data.credentials.tmpSecretId;
                            self.SecretKey = data.credentials.tmpSecretKey;
                            self.XCosSecurityToken = data.credentials.sessionToken;

@@ -93,7 +93,7 @@ var cosjsLink = function newCos(SecretId,SecretKey,file,XCosSecurityToken,expire
         Key: "share"+"/"+newdate+file.name,
         Body: file
     }, function (err, data) {
-
+        console.log(err)
 
     });
     cos.getObjectUrl({

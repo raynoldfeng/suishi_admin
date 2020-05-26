@@ -98,6 +98,7 @@
                         <template slot-scope="scope">
                             <el-button @click="seeEvent(scope.row.id)" type="text" size="small">查看</el-button>
                             <el-button type="text" size="small" @click="deleteEvent(scope.row.id)">删除</el-button>
+                            <el-button  type="text" size="small" @click="postUp(scope.row.id,scope.row.top)" v-text="(scope.row.top == 1) ? '置顶取消' : '置顶'"></el-button>
                         </template>
                     </el-table-column>
                 </el-table>
@@ -187,6 +188,16 @@
                 console.log(data);
                 self.postList = data.data;
                 self.allPage = data.last_page * 10;
+            })
+        },
+        postUp(id,top){
+            var  newtop = 0;
+            if(!top){
+                newtop = 1;
+            }
+            this.common.putEventToken(this.api.host+this.api.postUp+id,{top:newtop},this.userinfo,(data)=>{
+                console.log(data)
+                this.postDatas();
             })
         },
         seeEvent(id){

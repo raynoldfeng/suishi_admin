@@ -84,6 +84,15 @@
                 </div>
             </div>
             <div class="view_main">
+            <input id="file-selector-img" multiple="true" type="file" >
+             <ul>
+                 <li v-for="(data,index) in coverImgArr">
+                     {{data}} <span @click="delectImg(index)">删除</span>
+                 </li>
+             </ul>
+            <el-button  class="view_main" @click="uploadImage">上传图片</el-button>
+            </div>
+            <div class="view_main">
                 <el-button @click="addMajor"  type="primary">提交</el-button>
             </div>
             <el-dialog title="选择标签" :visible.sync="dialogTableVisible">
@@ -153,7 +162,9 @@
                 tags: [],
                 tagsArr:[],
                 price:"",
-                discontprice:""
+                discontprice:"",
+                img_intro:"",
+                coverImgArr:[]
                 }
             },
             methods: {
@@ -215,6 +226,16 @@
                 },
                 addMajor(){
                     var self =this;
+                    var img_intro = "";
+                    if(this.coverImgArr.length > 0){
+                        for(let i = 0 ; i < this.coverImgArr.length ; i++){
+                            img_intro+=this.coverImgArr[i];
+                            if(i <  this.coverImgArr.length-1){
+                                img_intro+=",";
+                            }
+                        }
+//                        console.log(img_intro);
+                    }
                     if(this.majorName == ""){
                         alert("输入专业名称");
                         return ;
@@ -233,6 +254,7 @@
                     }
 
 
+
                         this.tagsArr = [];
                         for(let i = 0 ;i <this.tags.length; i++){
                             this.tagsArr.push(this.tags[i].id);
@@ -240,14 +262,14 @@
 
                     console.log(this.tagsArr)
                     if(this.isedits()){
-                        var datas = {type:this.majorType,"name":this.majorName, "desc":this.descText,"cover":this.coverImg, "order":this.orderValue,
+                        var datas = {type:this.majorType,"name":this.majorName, "desc":this.descText,"cover":this.coverImg, "order":this.orderValue,"img_intro":img_intro,
                             "status":this.isUse,"tag_ids":this.tagsArr,is_free:this.isfree, price:this.price,discount_price:this.discontprice};
                         this.common.putEventToken(this.api.host+this.api.course+"/"+this.$route.query.id,datas,this.userinfo,function(data){
                             console.log(data);
                             self.$router.push("/majorList");
                         })
                     }else{
-                        var datas = {type:this.majorType, "name":this.majorName, "desc":this.descText,"cover":this.coverImg, "order":this.orderValue,
+                        var datas = {type:this.majorType, "name":this.majorName, "desc":this.descText,"cover":this.coverImg, "order":this.orderValue,"img_intro":img_intro,
                             "status":this.isUse,"tag_ids":this.tagsArr,is_free:this.isfree, price:this.price,discount_price:this.discontprice};
                         this.common.postEventToken(this.api.host+this.api.course,datas,this.userinfo,function(data){
                             console.log(data);
@@ -311,8 +333,14 @@
                         })
                      }
                 },
+                delectImg(index){
+                   this.coverImgArr.splice(index,1);
+                },
                 uploadImg(){
                     document.getElementById('file-selector').click();
+                },
+                uploadImage(){
+                    document.getElementById('file-selector-img').click();
                 }
             },
             watch:{
@@ -325,6 +353,7 @@
             mounted:function(){
                 var self =this;
                 this.userinfo = {"token":this.common.cookie.get("token"),"user_id":this.common.cookie.get("user_id")};
+                this.coverImgArr =[];
                 this.urlEvent();
                 this.getUpLoadKey();
                 this.tagsType();
@@ -341,6 +370,23 @@
                         });
                     }
                 }
+
+                };
+
+                document.getElementById('file-selector-img').onchange = function () {
+                    if(this.files.length > 0){
+                        for(let i = 0; i<this.files.length;i++){
+                            var file = this.files[i];
+                            if (!file) return;
+                            if(self.SecretId != "" && self.SecretKey !="" ){
+                                if(file){
+                                    self.cosjs(self.SecretId,self.SecretKey,file,self.XCosSecurityToken,self.expiredTime,function(img){
+                                        self.coverImgArr.push(img);
+                                    });
+                                }
+                            }
+                        }
+                    }
 
                 };
             }

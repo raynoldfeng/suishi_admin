@@ -161,7 +161,7 @@
                 tagDataMenu:[],
                 tags: [],
                 tagsArr:[],
-                price:"",
+                price:0,
                 discontprice:"",
                 img_intro:"",
                 coverImgArr:[]
@@ -251,6 +251,11 @@
                     }else if(this.coverImg == ""){
                         alert("请上传封面图");
                         return
+                    }
+
+                    if(this.isfree == "0"){
+                        this.price = 0;
+                        this.discontprice = 0;
                     }
 
 

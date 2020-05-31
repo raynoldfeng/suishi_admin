@@ -164,7 +164,8 @@
                 price:0,
                 discontprice:"",
                 img_intro:"",
-                coverImgArr:[]
+                coverImgArr:[],
+                    img_intro:""
                 }
             },
             methods: {
@@ -204,6 +205,10 @@
                             self.isfree = ""+ data.is_free;
                             self.price = data.price;
                             self.discontprice = data.discount_price;
+                            self.img_intro = data.img_intro;
+                            if(self.img_intro.length > 0){
+                                self.coverImgArr = self.img_intro.split(",")
+                            }
                            // self.isStudy = data.is_study;
                             self.majorType = data.type;
                             for(var index in data.tag_ids){

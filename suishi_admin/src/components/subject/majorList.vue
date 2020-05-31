@@ -243,14 +243,14 @@
                     })
 
                     },
-//                    openprofessionList(){
-//                        var self = this;
-//                        this.common.getEventToken(this.api.host+this.api.course+"?page="+this.opennowPage+"&per_page=10&type="+0,{},this.userinfo,function(data){
-//                            console.log(data);
-//                                self.openMajorData = data.data;
-//                                self.openAllPage = data.last_page * 10;
-//                        })
-//                    },
+                    openprofessionList(){
+                        var self = this;
+                        this.common.getEventToken(this.api.host+this.api.course+"?page="+this.opennowPage+"&per_page=10&type="+0,{},this.userinfo,function(data){
+                            console.log(data);
+                                self.openMajorData = data.data;
+                                self.openAllPage = data.last_page * 10;
+                        })
+                    },
                     deleteEvent(id,type){
                         var self = this;
                         if(type == '0'){

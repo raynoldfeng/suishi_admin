@@ -175,7 +175,7 @@ export default{
             count: 0,
             percent:'',
             imglength:0,
-            loaded:false
+            loaded:true
         }
     },
     components:{
@@ -208,28 +208,28 @@ export default{
             this.bookData = window.edit;
         }
         this.imglength = this.imgs.length;
-        if(this.imglength > 0){
-            for (let img of this.imgs) {
-                let image = new Image()
-                image.src = img;
-                image.onload = () => {
-                    this.count++;
-                    // 计算图片加载的百分数，绑定到percent变量
-                    let percentNum = Math.floor(this.count / this.imglength * 100);
-                    this.percent = percentNum+"%";
-                    if(this.count == this.imglength){
-                        $("#loadMain").animate({opacity:0},800);
-                        setTimeout(()=>{
-                            this.loaded = true;
-                    },900)
-                }
-                //document.getElementById('_bar').style.backgroundSize = `${percentNum}% 100%`
-                // console.log(this.percent)
-            }
-        }
-    }else{
-        this.loaded = true;
-    }
+//        if(this.imglength > 0){
+//            for (let img of this.imgs) {
+//                let image = new Image()
+//                image.src = img;
+//                image.onload = () => {
+//                    this.count++;
+//                    // 计算图片加载的百分数，绑定到percent变量
+//                    let percentNum = Math.floor(this.count / this.imglength * 100);
+//                    this.percent = percentNum+"%";
+//                    if(this.count == this.imglength){
+//                        $("#loadMain").animate({opacity:0},800);
+//                        setTimeout(()=>{
+//                            this.loaded = true;
+//                    },900)
+//                }
+//                //document.getElementById('_bar').style.backgroundSize = `${percentNum}% 100%`
+//                // console.log(this.percent)
+//            }
+//        }
+//    }else{
+//        this.loaded = true;
+//    }
     this.bookData.push(this.lastData);
     window.savePage = 0;
     window.nowPage = 0;

@@ -12,7 +12,7 @@
     "build": "node build/build.js"
   },
   "dependencies": {
-    "axios": "^0.18.0",
+    "axios": "^0.21.1",
     "cos-js-sdk-v5": "^0.5.13",
     "element-ui": "^2.7.2",
     "jquery": "^3.4.1",
